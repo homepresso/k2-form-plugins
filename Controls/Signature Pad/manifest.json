@@ -1,0 +1,142 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ],
+  "description": "A signature capture control that allows users to sign using mouse or touch input.",
+  "displayName": "Signature Pad",
+  "tagName": "signature-pad",
+  "valuePropertyID": "Value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled",
+    "IsReadOnly"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the signature changes"
+    },
+    {
+      "id": "Cleared",
+      "description": "Fires when the signature is cleared"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "The signature data as JSON (contains strokes with coordinates)",
+      "type": "text",
+      "inputlength": "65000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Control Width",
+      "description": "Width of the signature pad in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "400",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Control Height",
+      "description": "Height of the signature pad in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "200",
+      "changesdisplay": true
+    },
+    {
+      "id": "penColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Pen Color",
+      "description": "Color of the signature pen (hex format)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "#000000",
+      "changesdisplay": true
+    },
+    {
+      "id": "penWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Pen Width",
+      "description": "Width of the signature stroke in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "2",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Background color of the signature pad (hex format)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "#ffffff",
+      "changesdisplay": true
+    },
+    {
+      "id": "showClearButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Clear Button",
+      "description": "Whether to show the clear button",
+      "type": "bool",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeholderText",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder Text",
+      "description": "Placeholder text shown when empty",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Sign here",
+      "changesdisplay": true
+    },
+    {
+      "id": "IsReadOnly",
+      "refreshdisplay": "true",
+      "friendlyname": "Read Only",
+      "description": "Whether the signature pad is read-only",
+      "type": "bool",
+      "initialvalue": "false",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clear",
+      "displayname": "Clear Signature",
+      "returntype": "None",
+      "description": "Clears the signature pad",
+      "parameters": []
+    },
+    {
+      "id": "refreshData",
+      "displayname": "Refresh Data",
+      "returntype": "None",
+      "description": "Refreshes and redraws the signature from the Value",
+      "parameters": []
+    }
+  ]
+}

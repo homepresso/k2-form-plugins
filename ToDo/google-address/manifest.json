@@ -1,0 +1,139 @@
+{
+  "icon": "icon.svg",
+  "displayName": "Google Address Lookup",
+  "tagName": "google-address",
+  "ValuePropertyID": "Value",
+  "supports": [
+    "Property",
+    "IsVisible",
+    "IsEnabled",
+    "DataBinding",
+    "Value"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "friendlyname": "Address Selected"
+    },
+    {
+      "id": "Cleared",
+      "friendlyname": "Address Cleared"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "friendlyname": "Value",
+      "type": "text",
+      "inputlength": "65000",
+      "initialvalue": "",
+      "changesdisplay": true,
+      "refreshdisplay": "true"
+    },
+    {
+      "id": "apiKey",
+      "friendlyname": "Google API Key",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "placeholderText",
+      "friendlyname": "Placeholder Text",
+      "type": "string",
+      "initialvalue": "Start typing an address..."
+    },
+    {
+      "id": "controlWidth",
+      "friendlyname": "Control Width",
+      "type": "string",
+      "initialvalue": "400"
+    },
+    {
+      "id": "countryRestriction",
+      "friendlyname": "Country Restriction",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "formattedAddress",
+      "friendlyname": "Formatted Address",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "streetNumber",
+      "friendlyname": "Street Number",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "streetName",
+      "friendlyname": "Street Name",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "city",
+      "friendlyname": "City",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "state",
+      "friendlyname": "State/Province",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "postalCode",
+      "friendlyname": "Postal Code",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "country",
+      "friendlyname": "Country",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "latitude",
+      "friendlyname": "Latitude",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "longitude",
+      "friendlyname": "Longitude",
+      "type": "string",
+      "initialvalue": ""
+    },
+    {
+      "id": "placeId",
+      "friendlyname": "Place ID",
+      "type": "string",
+      "initialvalue": ""
+    }
+  ],
+  "methods": [
+    {
+      "id": "clear",
+      "displayname": "Clear Address",
+      "returntype": "None",
+      "description": "Clears the address input",
+      "parameters": []
+    }
+  ],
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ]
+}

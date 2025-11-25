@@ -1,0 +1,206 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ],
+  "description": "A Google Places Autocomplete control that provides address lookup with parsed address components.",
+  "displayName": "Google Address Lookup",
+  "tagName": "google-address",
+  "valuePropertyID": "Value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when an address is selected"
+    },
+    {
+      "id": "Cleared",
+      "description": "Fires when the address is cleared"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "The full address data as JSON",
+      "type": "text",
+      "inputlength": "65000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "apiKey",
+      "refreshdisplay": "true",
+      "friendlyname": "Google API Key",
+      "description": "Your Google Maps API key with Places API enabled",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeholderText",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder Text",
+      "description": "Placeholder text shown in the input",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Start typing an address...",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Control Width",
+      "description": "Width of the control in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "400",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Control Height",
+      "description": "Height of the control in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "40",
+      "changesdisplay": true
+    },
+    {
+      "id": "countryRestriction",
+      "refreshdisplay": "true",
+      "friendlyname": "Country Restriction",
+      "description": "Comma-separated country codes to restrict results (e.g., 'us,ca')",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "formattedAddress",
+      "refreshdisplay": "true",
+      "friendlyname": "Formatted Address",
+      "description": "The full formatted address string (read-only output)",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "streetNumber",
+      "refreshdisplay": "true",
+      "friendlyname": "Street Number",
+      "description": "The street number (read-only output)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "streetName",
+      "refreshdisplay": "true",
+      "friendlyname": "Street Name",
+      "description": "The street/route name (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "city",
+      "refreshdisplay": "true",
+      "friendlyname": "City",
+      "description": "The city/locality (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "state",
+      "refreshdisplay": "true",
+      "friendlyname": "State/Province",
+      "description": "The state or province (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "postalCode",
+      "refreshdisplay": "true",
+      "friendlyname": "Postal Code",
+      "description": "The postal/ZIP code (read-only output)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "country",
+      "refreshdisplay": "true",
+      "friendlyname": "Country",
+      "description": "The country name (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "latitude",
+      "refreshdisplay": "true",
+      "friendlyname": "Latitude",
+      "description": "The latitude coordinate (read-only output)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "longitude",
+      "refreshdisplay": "true",
+      "friendlyname": "Longitude",
+      "description": "The longitude coordinate (read-only output)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeId",
+      "refreshdisplay": "true",
+      "friendlyname": "Place ID",
+      "description": "The Google Place ID (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clear",
+      "displayname": "Clear Address",
+      "returntype": "None",
+      "description": "Clears the address input and all parsed fields",
+      "parameters": []
+    }
+  ]
+}

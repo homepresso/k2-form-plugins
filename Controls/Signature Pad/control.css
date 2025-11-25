@@ -1,0 +1,5 @@
+/* Signature Pad Control */
+signature-pad {
+  display: inline-block;
+  box-sizing: border-box;
+}

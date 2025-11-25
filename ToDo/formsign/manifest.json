@@ -1,0 +1,110 @@
+{
+  "icon": "icon.svg",
+  "displayName": "Signature Pad",
+  "tagName": "signature-pad",
+  "ValuePropertyID": "Value",
+  "supports": [
+    "Property",
+    "IsVisible",
+    "IsEnabled",
+    "DataBinding",
+    "Value"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "friendlyname": "Value Changed"
+    },
+    {
+      "id": "Cleared",
+      "friendlyname": "Signature Cleared"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "friendlyname": "Value",
+      "type": "text",
+      "inputlength": "65000",
+      "initialvalue": "",
+      "changesdisplay": true,
+      "refreshdisplay": "true"
+    },
+    {
+      "id": "controlWidth",
+      "friendlyname": "Control Width",
+      "type": "string",
+      "initialvalue": "400"
+    },
+    {
+      "id": "controlHeight",
+      "friendlyname": "Control Height",
+      "type": "string",
+      "initialvalue": "200"
+    },
+    {
+      "id": "penColor",
+      "friendlyname": "Pen Color",
+      "type": "string",
+      "initialvalue": "#000000"
+    },
+    {
+      "id": "penWidth",
+      "friendlyname": "Pen Width",
+      "type": "string",
+      "initialvalue": "2"
+    },
+    {
+      "id": "backgroundColor",
+      "friendlyname": "Background Color",
+      "type": "string",
+      "initialvalue": "#ffffff"
+    },
+    {
+      "id": "showClearButton",
+      "friendlyname": "Show Clear Button",
+      "type": "string",
+      "initialvalue": "true"
+    },
+    {
+      "id": "placeholderText",
+      "friendlyname": "Placeholder Text",
+      "type": "string",
+      "initialvalue": "Sign here"
+    },
+    {
+      "id": "IsReadOnly",
+      "friendlyname": "Read Only",
+      "type": "string",
+      "initialvalue": "false"
+    }
+  ],
+  "methods": [
+    {
+      "id": "clear",
+      "displayname": "Clear Signature",
+      "returntype": "None",
+      "description": "Clears the signature pad",
+      "parameters": []
+    },
+    {
+      "id": "refreshData",
+      "displayname": "Refresh Data",
+      "returntype": "None",
+      "description": "Refreshes the control data",
+      "parameters": []
+    }
+  ],
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ]
+}
