@@ -1,0 +1,102 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ],
+  "description": "Generates and displays QR codes from text, URLs, or any data value.",
+  "displayName": "QR Code",
+  "tagName": "qr-code",
+  "valuePropertyID": "Value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Generated",
+      "description": "Fires when QR code is successfully generated"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "The text, URL, or data to encode in the QR code",
+      "type": "text",
+      "inputlength": "2000",
+      "initialvalue": "https://example.com",
+      "changesdisplay": true
+    },
+    {
+      "id": "size",
+      "refreshdisplay": "true",
+      "friendlyname": "Size",
+      "description": "Size of the QR code in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "150",
+      "changesdisplay": true
+    },
+    {
+      "id": "foregroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Foreground Color",
+      "description": "Color of the QR code modules (dark squares)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#000000",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Background color of the QR code",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#ffffff",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorCorrectionLevel",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Correction Level",
+      "description": "Error correction level: L (7%), M (15%), Q (25%), H (30%)",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "M",
+      "changesdisplay": true
+    },
+    {
+      "id": "quietZone",
+      "refreshdisplay": "true",
+      "friendlyname": "Quiet Zone",
+      "description": "Size of the white border around the QR code in modules",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "4",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "refresh",
+      "displayname": "Refresh QR Code",
+      "returntype": "None",
+      "description": "Regenerates the QR code with current settings",
+      "parameters": []
+    }
+  ]
+}

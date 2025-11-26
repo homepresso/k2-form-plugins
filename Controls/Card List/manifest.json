@@ -1,0 +1,368 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ],
+  "description": "A comprehensive card list control with Material 3 design for displaying list data in customizable card layouts.",
+  "displayName": "Card List",
+  "tagName": "card-list",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "Height",
+    "IsVisible",
+    "IsEnabled",
+    "DataBinding"
+  ],
+  "events": [
+    {
+      "id": "CardClicked",
+      "description": "Fires when a card is clicked"
+    },
+    {
+      "id": "ActionClicked",
+      "description": "Fires when a card action button is clicked"
+    },
+    {
+      "id": "SelectionChanged",
+      "description": "Fires when card selection changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "cardData",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Data",
+      "description": "The data for the cards (JSON array or bound list data)",
+      "type": "listdata",
+      "category": "Detail",
+      "initialvalue": "[{\"title\": \"Project Alpha\", \"subtitle\": \"Marketing Campaign\", \"description\": \"A comprehensive marketing initiative targeting new demographics.\", \"image\": \"\", \"badge\": \"Active\", \"meta\": \"Updated 2 hours ago\"}, {\"title\": \"Project Beta\", \"subtitle\": \"Product Launch\", \"description\": \"New product release scheduled for Q4 with full market coverage.\", \"image\": \"\", \"badge\": \"Pending\", \"meta\": \"Updated yesterday\"}, {\"title\": \"Project Gamma\", \"subtitle\": \"Infrastructure\", \"description\": \"System upgrade and modernization of legacy infrastructure.\", \"image\": \"\", \"badge\": \"Completed\", \"meta\": \"Updated 3 days ago\"}]"
+    },
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "false",
+      "friendlyname": "Selected Value",
+      "description": "The value of the selected card (read-only)",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "selectedIndex",
+      "refreshdisplay": "false",
+      "friendlyname": "Selected Index",
+      "description": "The index of the selected card (read-only)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "-1",
+      "changesdisplay": false
+    },
+    {
+      "id": "layout",
+      "refreshdisplay": "true",
+      "friendlyname": "Layout",
+      "description": "Card layout: grid, list, masonry",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "grid",
+      "changesdisplay": true
+    },
+    {
+      "id": "columns",
+      "refreshdisplay": "true",
+      "friendlyname": "Columns",
+      "description": "Number of columns in grid layout (1-6)",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "3",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Style",
+      "description": "Card style: elevated, filled, outlined",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "elevated",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Width",
+      "description": "Fixed card width in pixels (0 for auto)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "0",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Height",
+      "description": "Fixed card height in pixels (0 for auto)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "0",
+      "changesdisplay": true
+    },
+    {
+      "id": "imagePosition",
+      "refreshdisplay": "true",
+      "friendlyname": "Image Position",
+      "description": "Image position: top, left, right, background, none",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "top",
+      "changesdisplay": true
+    },
+    {
+      "id": "imageHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Image Height",
+      "description": "Image height in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "160",
+      "changesdisplay": true
+    },
+    {
+      "id": "imageAspectRatio",
+      "refreshdisplay": "true",
+      "friendlyname": "Image Aspect Ratio",
+      "description": "Image aspect ratio: 16:9, 4:3, 1:1, auto",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16:9",
+      "changesdisplay": true
+    },
+    {
+      "id": "showTitle",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Title",
+      "description": "Show card title (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showSubtitle",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Subtitle",
+      "description": "Show card subtitle (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showDescription",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Description",
+      "description": "Show card description (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showBadge",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Badge",
+      "description": "Show status badge (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showMeta",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Meta",
+      "description": "Show meta information (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showActions",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Actions",
+      "description": "Show action buttons (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "actionLabels",
+      "refreshdisplay": "true",
+      "friendlyname": "Action Labels",
+      "description": "Comma-separated action button labels",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "View,Edit",
+      "changesdisplay": true
+    },
+    {
+      "id": "descriptionLines",
+      "refreshdisplay": "true",
+      "friendlyname": "Description Lines",
+      "description": "Max lines for description (0 for unlimited)",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "3",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectable",
+      "refreshdisplay": "true",
+      "friendlyname": "Selectable",
+      "description": "Allow card selection (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "multiSelect",
+      "refreshdisplay": "true",
+      "friendlyname": "Multi-Select",
+      "description": "Allow multiple card selection (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "hoverEffect",
+      "refreshdisplay": "true",
+      "friendlyname": "Hover Effect",
+      "description": "Hover effect: lift, glow, border, none",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "lift",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderRadius",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Radius",
+      "description": "Card corner radius in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "gap",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Gap",
+      "description": "Gap between cards in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary accent color (Material 3)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Card background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Card text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "showAvatar",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Avatar",
+      "description": "Show avatar/icon in card header (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "avatarStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Avatar Style",
+      "description": "Avatar style: circle, square, rounded",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "circle",
+      "changesdisplay": true
+    },
+    {
+      "id": "emptyMessage",
+      "refreshdisplay": "true",
+      "friendlyname": "Empty Message",
+      "description": "Message shown when no data",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "No items to display",
+      "changesdisplay": true
+    },
+    {
+      "id": "maxItems",
+      "refreshdisplay": "true",
+      "friendlyname": "Max Items",
+      "description": "Maximum number of cards to display (0 for unlimited)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "0",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "refresh",
+      "displayname": "Refresh Cards",
+      "returntype": "None",
+      "description": "Re-renders the cards with current data",
+      "parameters": []
+    },
+    {
+      "id": "clearSelection",
+      "displayname": "Clear Selection",
+      "returntype": "None",
+      "description": "Clears all selected cards",
+      "parameters": []
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ],
+  "description": "A comprehensive rich text editor with Material 3 design, supporting HTML content, formatting, lists, tables, and more.",
+  "displayName": "Rich Text Editor",
+  "tagName": "rich-text-editor",
+  "valuePropertyID": "Value",
+  "supports": [
+    "Value",
+    "Width",
+    "Height",
+    "IsVisible",
+    "IsEnabled",
+    "IsReadOnly"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the content changes"
+    },
+    {
+      "id": "Focus",
+      "description": "Fires when the editor gains focus"
+    },
+    {
+      "id": "Blur",
+      "description": "Fires when the editor loses focus"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "The HTML content of the editor",
+      "type": "text",
+      "inputlength": "1000000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "plainText",
+      "refreshdisplay": "false",
+      "friendlyname": "Plain Text",
+      "description": "The plain text content without HTML formatting (read-only)",
+      "type": "text",
+      "inputlength": "1000000",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "placeholder",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder",
+      "description": "Placeholder text when editor is empty",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Start typing...",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Width",
+      "description": "Width of the editor in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "350",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Height",
+      "description": "Height of the editor in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "500",
+      "changesdisplay": true
+    },
+    {
+      "id": "showToolbar",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Toolbar",
+      "description": "Show or hide the formatting toolbar (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary accent color for Material 3 theme",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clear",
+      "displayname": "Clear Content",
+      "returntype": "None",
+      "description": "Clears all content from the editor",
+      "parameters": []
+    },
+    {
+      "id": "focus",
+      "displayname": "Focus Editor",
+      "returntype": "None",
+      "description": "Sets focus to the editor",
+      "parameters": []
+    }
+  ]
+}

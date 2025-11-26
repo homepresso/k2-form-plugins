@@ -1,0 +1,378 @@
+/* Rich Text Editor - Material 3 Design */
+
+/* CSS Custom Properties for Material 3 */
+rich-text-editor {
+  --md-primary: var(--rte-primary, #6750A4);
+  --md-on-primary: #FFFFFF;
+  --md-primary-container: #EADDFF;
+  --md-on-primary-container: #21005D;
+  --md-surface: #FFFBFE;
+  --md-surface-variant: #E7E0EC;
+  --md-on-surface: #1C1B1F;
+  --md-on-surface-variant: #49454F;
+  --md-outline: #79747E;
+  --md-outline-variant: #CAC4D0;
+
+  display: block;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Container */
+.rte-container {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.rte-container.rte-focused {
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 1px var(--md-primary), 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* Toolbar */
+.rte-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--md-surface-variant);
+  border-bottom: 1px solid var(--md-outline-variant);
+  flex-shrink: 0;
+}
+
+.rte-toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.rte-toolbar-group {
+  display: flex;
+  gap: 2px;
+  padding: 0 4px;
+  border-right: 1px solid var(--md-outline-variant);
+}
+
+.rte-toolbar-group:last-child {
+  border-right: none;
+}
+
+/* Toolbar Buttons */
+.rte-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+.rte-btn:hover {
+  background: rgba(103, 80, 164, 0.08);
+  color: var(--md-primary);
+}
+
+.rte-btn:active {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+.rte-btn .material-icons {
+  font-size: 20px;
+}
+
+.rte-btn-text {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Color button indicator */
+.rte-color-btn {
+  position: relative;
+}
+
+.rte-color-indicator {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 3px;
+  border-radius: 1px;
+}
+
+/* Select dropdowns */
+.rte-select-wrapper {
+  padding: 0 4px;
+}
+
+.rte-select {
+  height: 32px;
+  padding: 0 28px 0 12px;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 8px;
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%2349454F' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 20px;
+  transition: border-color 0.15s ease;
+}
+
+.rte-select:hover {
+  border-color: var(--md-primary);
+}
+
+.rte-select:focus {
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 1px var(--md-primary);
+}
+
+.rte-font-select {
+  width: 140px;
+}
+
+.rte-size-select {
+  width: 70px;
+}
+
+.rte-heading-select {
+  width: 120px;
+}
+
+/* Color Picker Popup */
+.rte-color-picker {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 2px;
+  padding: 8px;
+  background: var(--md-surface);
+  border: 1px solid var(--md-outline-variant);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  width: 220px;
+}
+
+.rte-color-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.1);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.rte-color-swatch:hover {
+  transform: scale(1.2);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 1;
+  position: relative;
+}
+
+/* Editor Area */
+.rte-editor-wrapper {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.rte-editor {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.rte-editor:empty:before {
+  content: attr(data-placeholder);
+  color: var(--md-on-surface-variant);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Editor content styles */
+.rte-editor h1 {
+  font-size: 2em;
+  font-weight: 500;
+  margin: 0.67em 0;
+  color: var(--md-on-surface);
+}
+
+.rte-editor h2 {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin: 0.75em 0;
+  color: var(--md-on-surface);
+}
+
+.rte-editor h3 {
+  font-size: 1.25em;
+  font-weight: 500;
+  margin: 0.83em 0;
+  color: var(--md-on-surface);
+}
+
+.rte-editor h4 {
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 1em 0;
+  color: var(--md-on-surface);
+}
+
+.rte-editor h5, .rte-editor h6 {
+  font-size: 1em;
+  font-weight: 500;
+  margin: 1.2em 0;
+  color: var(--md-on-surface);
+}
+
+.rte-editor p {
+  margin: 0.5em 0;
+}
+
+.rte-editor blockquote {
+  margin: 1em 0;
+  padding: 12px 20px;
+  border-left: 4px solid var(--md-primary);
+  background: var(--md-surface-variant);
+  border-radius: 0 8px 8px 0;
+  color: var(--md-on-surface-variant);
+  font-style: italic;
+}
+
+.rte-editor pre {
+  margin: 1em 0;
+  padding: 16px;
+  background: #1E1E1E;
+  color: #D4D4D4;
+  border-radius: 8px;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  font-size: 13px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.rte-editor code {
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  background: var(--md-surface-variant);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.rte-editor pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.rte-editor ul, .rte-editor ol {
+  margin: 0.5em 0;
+  padding-left: 2em;
+}
+
+.rte-editor li {
+  margin: 0.25em 0;
+}
+
+.rte-editor a {
+  color: var(--md-primary);
+  text-decoration: none;
+}
+
+.rte-editor a:hover {
+  text-decoration: underline;
+}
+
+.rte-editor img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 0.5em 0;
+}
+
+.rte-editor hr {
+  border: none;
+  border-top: 1px solid var(--md-outline-variant);
+  margin: 1.5em 0;
+}
+
+.rte-editor table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.rte-editor th, .rte-editor td {
+  border: 1px solid var(--md-outline-variant);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.rte-editor th {
+  background: var(--md-surface-variant);
+  font-weight: 500;
+}
+
+/* Scrollbar styling */
+.rte-editor::-webkit-scrollbar {
+  width: 8px;
+}
+
+.rte-editor::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rte-editor::-webkit-scrollbar-thumb {
+  background: var(--md-outline-variant);
+  border-radius: 4px;
+}
+
+.rte-editor::-webkit-scrollbar-thumb:hover {
+  background: var(--md-outline);
+}
+
+/* Selection styling */
+.rte-editor ::selection {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+}
+
+/* Focus visible for accessibility */
+.rte-btn:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+.rte-select:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .rte-toolbar {
+    display: none !important;
+  }
+
+  .rte-container {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .rte-editor {
+    padding: 0 !important;
+  }
+}

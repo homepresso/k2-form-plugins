@@ -1,0 +1,61 @@
+/* Chart Control - Material 3 Design */
+
+k2-chart {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.chart-container {
+  position: relative;
+  transition: box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.chart-container:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.chart-container canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Loading state */
+k2-chart[data-loading="true"] .chart-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid rgba(103, 80, 164, 0.2);
+  border-top-color: #6750A4;
+  border-radius: 50%;
+  animation: chart-spin 1s linear infinite;
+}
+
+@keyframes chart-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Disabled state */
+k2-chart[data-disabled="true"] .chart-container {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Print styles */
+@media print {
+  .chart-container {
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .chart-container {
+    background: #1C1B1F !important;
+    color: #E6E1E5;
+  }
+}

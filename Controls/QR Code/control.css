@@ -1,0 +1,15 @@
+/* QR Code Control Styles */
+qr-code {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.qr-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-container svg {
+  display: block;
+}

@@ -1,0 +1,257 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ],
+  "description": "A comprehensive charting control with Material 3 design supporting pie, bar, line, scatter, waterfall, doughnut, radar, and more.",
+  "displayName": "Chart",
+  "tagName": "k2-chart",
+  "valuePropertyID": "chartData",
+  "supports": [
+    "Value",
+    "Width",
+    "Height",
+    "IsVisible",
+    "IsEnabled",
+    "DataBinding"
+  ],
+  "events": [
+    {
+      "id": "SegmentClicked",
+      "description": "Fires when a chart segment is clicked"
+    },
+    {
+      "id": "DataLoaded",
+      "description": "Fires when chart data is loaded"
+    }
+  ],
+  "properties": [
+    {
+      "id": "chartData",
+      "refreshdisplay": "true",
+      "friendlyname": "Chart Data",
+      "description": "The data for the chart (JSON array or bound list data)",
+      "type": "listdata",
+      "category": "Detail",
+      "initialvalue": "[{\"label\": \"Sales\", \"value\": 45}, {\"label\": \"Marketing\", \"value\": 25}, {\"label\": \"Development\", \"value\": 30}, {\"label\": \"Support\", \"value\": 15}, {\"label\": \"Operations\", \"value\": 20}]"
+    },
+    {
+      "id": "chartType",
+      "refreshdisplay": "true",
+      "friendlyname": "Chart Type",
+      "description": "Type of chart: pie, doughnut, bar, horizontalBar, line, area, scatter, radar, polarArea, waterfall, bubble",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "bar",
+      "changesdisplay": true
+    },
+    {
+      "id": "chartTitle",
+      "refreshdisplay": "true",
+      "friendlyname": "Chart Title",
+      "description": "Title displayed above the chart",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Width",
+      "description": "Width of the chart in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "500",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Height",
+      "description": "Height of the chart in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "400",
+      "changesdisplay": true
+    },
+    {
+      "id": "showLegend",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Legend",
+      "description": "Show or hide the legend (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "legendPosition",
+      "refreshdisplay": "true",
+      "friendlyname": "Legend Position",
+      "description": "Position of the legend: top, bottom, left, right",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "top",
+      "changesdisplay": true
+    },
+    {
+      "id": "showDataLabels",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Data Labels",
+      "description": "Show values on chart segments (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "colorScheme",
+      "refreshdisplay": "true",
+      "friendlyname": "Color Scheme",
+      "description": "Color palette: material, pastel, vibrant, monochrome, gradient, ocean, forest, sunset, custom",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "material",
+      "changesdisplay": true
+    },
+    {
+      "id": "customColors",
+      "refreshdisplay": "true",
+      "friendlyname": "Custom Colors",
+      "description": "Comma-separated hex colors for custom color scheme",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary accent color (Material 3)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "showGrid",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Grid Lines",
+      "description": "Show grid lines on axes (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "enableAnimation",
+      "refreshdisplay": "true",
+      "friendlyname": "Enable Animation",
+      "description": "Enable chart animations (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "stacked",
+      "refreshdisplay": "true",
+      "friendlyname": "Stacked",
+      "description": "Stack bars/areas for multi-series data (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "tension",
+      "refreshdisplay": "true",
+      "friendlyname": "Line Tension",
+      "description": "Smoothness of line charts (0 = straight, 0.4 = curved)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "0.3",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderRadius",
+      "refreshdisplay": "true",
+      "friendlyname": "Bar Border Radius",
+      "description": "Rounded corners on bars (pixels)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "8",
+      "changesdisplay": true
+    },
+    {
+      "id": "aspectRatio",
+      "refreshdisplay": "true",
+      "friendlyname": "Maintain Aspect Ratio",
+      "description": "Maintain aspect ratio on resize (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "xAxisLabel",
+      "refreshdisplay": "true",
+      "friendlyname": "X-Axis Label",
+      "description": "Label for the X-axis",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "yAxisLabel",
+      "refreshdisplay": "true",
+      "friendlyname": "Y-Axis Label",
+      "description": "Label for the Y-axis",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "Selected Label",
+      "description": "The label of the clicked segment (read-only)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "false",
+      "friendlyname": "Selected Value",
+      "description": "The value of the clicked segment (read-only)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": false
+    }
+  ],
+  "methods": [
+    {
+      "id": "refresh",
+      "displayname": "Refresh Chart",
+      "returntype": "None",
+      "description": "Re-renders the chart with current data",
+      "parameters": []
+    }
+  ]
+}
