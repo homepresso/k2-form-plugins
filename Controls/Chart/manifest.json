@@ -145,6 +145,16 @@
       "changesdisplay": true
     },
     {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Chart container background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
       "id": "showGrid",
       "refreshdisplay": "true",
       "friendlyname": "Show Grid Lines",

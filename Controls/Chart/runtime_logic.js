@@ -119,6 +119,7 @@
         this._colorScheme = 'material';
         this._customColors = '';
         this._primaryColor = '#6750A4';
+        this._backgroundColor = '';
         this._showGrid = true;
         this._enableAnimation = true;
         this._stacked = false;
@@ -264,12 +265,16 @@
           height: ${this._controlHeight}px;
         `;
 
+        const bgColor = this._backgroundColor && this._backgroundColor.trim() !== ''
+          ? this._backgroundColor
+          : '#FFFBFE';
+
         this._container.style.cssText = `
           width: 100%;
           height: 100%;
           padding: 16px;
           box-sizing: border-box;
-          background: var(--md-surface, #FFFBFE);
+          background: ${bgColor};
           border-radius: 16px;
           box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
           font-family: 'Roboto', sans-serif;
@@ -742,6 +747,20 @@
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
+
+      get backgroundColor() { return this._backgroundColor; }
+      set backgroundColor(v) {
+        this._backgroundColor = v !== null && v !== undefined ? String(v) : '';
+        if (this._container) {
+          const bgColor = this._backgroundColor && this._backgroundColor.trim() !== ''
+            ? this._backgroundColor
+            : '#FFFBFE';
+          this._container.style.background = bgColor;
+        }
+        safeRaisePropertyChanged(this, 'backgroundColor');
+      }
+      get BackgroundColor() { return this.backgroundColor; }
+      set BackgroundColor(v) { this.backgroundColor = v; }
 
       get showGrid() { return this._showGrid; }
       set showGrid(v) {

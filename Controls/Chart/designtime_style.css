@@ -52,10 +52,9 @@ k2-chart[data-disabled="true"] .chart-container {
   }
 }
 
-/* Dark mode support */
+/* Dark mode support - only applies if no inline background is set */
 @media (prefers-color-scheme: dark) {
   .chart-container {
-    background: #1C1B1F !important;
     color: #E6E1E5;
   }
 }
