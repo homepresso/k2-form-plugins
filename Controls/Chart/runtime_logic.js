@@ -17,18 +17,41 @@
     }
   }
 
-  // Load Chart.js from CDN
+  // Load Chart.js from CDN with robust loading
   let chartJsLoaded = false;
   let chartJsLoadPromise = null;
+  const pendingChartInstances = [];
 
   function loadChartJs() {
-    if (chartJsLoaded) return Promise.resolve();
+    if (chartJsLoaded && window.Chart) return Promise.resolve();
     if (chartJsLoadPromise) return chartJsLoadPromise;
 
     chartJsLoadPromise = new Promise((resolve, reject) => {
+      // Check if already loaded
       if (window.Chart) {
         chartJsLoaded = true;
         resolve();
+        return;
+      }
+
+      // Check if script is already being loaded by another instance
+      const existingScript = document.querySelector('script[src*="chart.js"]');
+      if (existingScript) {
+        // Wait for existing script to load
+        const checkLoaded = setInterval(() => {
+          if (window.Chart) {
+            clearInterval(checkLoaded);
+            chartJsLoaded = true;
+            resolve();
+          }
+        }, 50);
+        // Timeout after 10 seconds
+        setTimeout(() => {
+          clearInterval(checkLoaded);
+          if (!window.Chart) {
+            reject(new Error('Chart.js load timeout'));
+          }
+        }, 10000);
         return;
       }
 
@@ -36,25 +59,46 @@
       script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
       script.async = true;
       script.onload = () => {
-        // Load datalabels plugin
-        const pluginScript = document.createElement('script');
-        pluginScript.src = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js';
-        pluginScript.async = true;
-        pluginScript.onload = () => {
-          chartJsLoaded = true;
-          resolve();
-        };
-        pluginScript.onerror = () => {
-          chartJsLoaded = true;
-          resolve(); // Continue without plugin
-        };
-        document.head.appendChild(pluginScript);
+        // Verify Chart is actually available
+        const verifyChart = setInterval(() => {
+          if (window.Chart) {
+            clearInterval(verifyChart);
+            // Load datalabels plugin
+            const pluginScript = document.createElement('script');
+            pluginScript.src = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js';
+            pluginScript.async = true;
+            pluginScript.onload = () => {
+              chartJsLoaded = true;
+              resolve();
+              // Notify pending instances
+              pendingChartInstances.forEach(fn => fn());
+              pendingChartInstances.length = 0;
+            };
+            pluginScript.onerror = () => {
+              chartJsLoaded = true;
+              resolve(); // Continue without plugin
+              pendingChartInstances.forEach(fn => fn());
+              pendingChartInstances.length = 0;
+            };
+            document.head.appendChild(pluginScript);
+          }
+        }, 10);
+        // Timeout for verification
+        setTimeout(() => clearInterval(verifyChart), 5000);
       };
       script.onerror = () => reject(new Error('Failed to load Chart.js'));
       document.head.appendChild(script);
     });
 
     return chartJsLoadPromise;
+  }
+
+  function onChartJsReady(callback) {
+    if (chartJsLoaded && window.Chart) {
+      callback();
+    } else {
+      pendingChartInstances.push(callback);
+    }
   }
 
   // Color schemes
@@ -103,6 +147,8 @@
         super();
 
         this._hasRendered = false;
+        this._chartJsReady = false;
+        this._pendingRender = false;
         this._chart = null;
         this._listConfig = { partmappings: {} };
         this._dataItems = [];
@@ -147,11 +193,29 @@
         if (super.connectedCallback) super.connectedCallback();
         if (this._hasRendered) return;
 
+        // Render container immediately (without chart)
+        this._renderContainer();
+        this._hasRendered = true;
+
+        // Load Chart.js and render chart when ready
         loadChartJs().then(() => {
-          this._render();
-          this._hasRendered = true;
+          this._chartJsReady = true;
+          // Process any data that arrived before Chart.js was ready
+          if (this._chartData.length > 0 || this._pendingRender) {
+            this._renderChart();
+          } else {
+            // Process initial data
+            this._processDataItems();
+          }
         }).catch(err => {
           console.error('Failed to load Chart.js:', err);
+          // Retry once after a delay
+          setTimeout(() => {
+            loadChartJs().then(() => {
+              this._chartJsReady = true;
+              this._processDataItems();
+            }).catch(e => console.error('Chart.js retry failed:', e));
+          }, 1000);
         });
       }
 
@@ -232,8 +296,11 @@
           });
         }
 
-        if (this._hasRendered) {
+        if (this._hasRendered && this._chartJsReady && window.Chart) {
           this._renderChart();
+        } else if (this._hasRendered) {
+          // Chart.js not ready yet, mark for pending render
+          this._pendingRender = true;
         }
 
         this.dispatchEvent(new CustomEvent('DataLoaded', {
@@ -242,7 +309,7 @@
         }));
       }
 
-      _render() {
+      _renderContainer() {
         this.innerHTML = '';
 
         this._container = document.createElement('div');
@@ -251,9 +318,27 @@
         this._canvas = document.createElement('canvas');
         this._container.appendChild(this._canvas);
 
+        // Add loading indicator
+        this._loadingIndicator = document.createElement('div');
+        this._loadingIndicator.className = 'chart-loading';
+        this._loadingIndicator.innerHTML = '<div class="chart-spinner"></div>';
+        this._loadingIndicator.style.cssText = `
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `;
+        this._container.appendChild(this._loadingIndicator);
+
         this.appendChild(this._container);
         this._applyStyles();
+      }
 
+      _render() {
+        this._renderContainer();
         // Process initial data
         this._processDataItems();
       }
@@ -289,57 +374,84 @@
       }
 
       _renderChart() {
-        if (!this._canvas || !window.Chart) return;
-
-        // Destroy existing chart
-        if (this._chart) {
-          this._chart.destroy();
-          this._chart = null;
+        // Double-check Chart.js is available
+        if (!window.Chart) {
+          console.warn('[Chart] Chart.js not available, queuing render');
+          this._pendingRender = true;
+          return;
         }
 
-        const ctx = this._canvas.getContext('2d');
-        const colors = this._getColors();
-        const labels = this._chartData.map(d => d.label);
-        const values = this._chartData.map(d => d.value);
-
-        // Determine chart type and config
-        let chartType = this._chartType;
-        let data, options;
-
-        // Handle special chart types
-        if (chartType === 'horizontalBar') {
-          chartType = 'bar';
+        if (!this._canvas) {
+          console.warn('[Chart] Canvas not available');
+          return;
         }
 
-        if (chartType === 'area') {
-          chartType = 'line';
+        try {
+          // Hide loading indicator
+          if (this._loadingIndicator) {
+            this._loadingIndicator.style.display = 'none';
+          }
+
+          // Clear pending render flag
+          this._pendingRender = false;
+
+          // Destroy existing chart
+          if (this._chart) {
+            this._chart.destroy();
+            this._chart = null;
+          }
+
+          const ctx = this._canvas.getContext('2d');
+          const colors = this._getColors();
+          const labels = this._chartData.map(d => d.label);
+          const values = this._chartData.map(d => d.value);
+
+          // Determine chart type and config
+          let chartType = this._chartType;
+          let data, options;
+
+          // Handle special chart types
+          if (chartType === 'horizontalBar') {
+            chartType = 'bar';
+          }
+
+          if (chartType === 'area') {
+            chartType = 'line';
+          }
+
+          if (chartType === 'waterfall') {
+            // Waterfall is a special bar chart
+            chartType = 'bar';
+            data = this._getWaterfallData(labels, values, colors);
+          } else if (chartType === 'bubble') {
+            data = this._getBubbleData(colors);
+          } else if (chartType === 'scatter') {
+            data = this._getScatterData(colors);
+          } else {
+            data = this._getStandardData(labels, values, colors);
+          }
+
+          options = this._getChartOptions();
+
+          // Register datalabels plugin if available
+          if (window.ChartDataLabels && this._showDataLabels) {
+            Chart.register(ChartDataLabels);
+          }
+
+          this._chart = new Chart(ctx, {
+            type: chartType,
+            data: data,
+            options: options
+          });
+
+        } catch (err) {
+          console.error('[Chart] Error rendering chart:', err);
+          // Show loading indicator again on error
+          if (this._loadingIndicator) {
+            this._loadingIndicator.innerHTML = '<span style="color:#666;font-size:12px;">Chart error</span>';
+            this._loadingIndicator.style.display = 'flex';
+          }
         }
-
-        if (chartType === 'waterfall') {
-          // Waterfall is a special bar chart
-          chartType = 'bar';
-          data = this._getWaterfallData(labels, values, colors);
-        } else if (chartType === 'bubble') {
-          data = this._getBubbleData(colors);
-        } else if (chartType === 'scatter') {
-          data = this._getScatterData(colors);
-        } else {
-          data = this._getStandardData(labels, values, colors);
-        }
-
-        options = this._getChartOptions();
-
-        // Register datalabels plugin if available
-        const plugins = [];
-        if (window.ChartDataLabels && this._showDataLabels) {
-          Chart.register(ChartDataLabels);
-        }
-
-        this._chart = new Chart(ctx, {
-          type: chartType,
-          data: data,
-          options: options
-        });
       }
 
       _getStandardData(labels, values, colors) {

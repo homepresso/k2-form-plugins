@@ -20,6 +20,23 @@ k2-chart {
 }
 
 /* Loading state */
+.chart-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.chart-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(103, 80, 164, 0.2);
+  border-top-color: #6750A4;
+  border-radius: 50%;
+  animation: chart-spin 1s linear infinite;
+}
+
 k2-chart[data-loading="true"] .chart-container::after {
   content: '';
   position: absolute;
