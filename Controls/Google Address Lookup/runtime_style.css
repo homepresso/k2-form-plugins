@@ -1,0 +1,109 @@
+/* Google Address Lookup Control - Custom Input with fetchAutocompleteSuggestions */
+google-address {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+google-address .ga-wrapper {
+  position: relative;
+}
+
+/* Input styling - matches K2 input style */
+google-address .ga-input {
+  width: 100%;
+  padding: 8px 32px 8px 12px;
+  border: none;
+  border-bottom: 1px solid var(--input-border-color, #b2b2b2);
+  border-radius: 0;
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+  background-color: var(--input-background-color, #ffffff);
+  color: var(--input-text-color, #666666);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+google-address .ga-input:focus {
+  border-bottom-color: var(--input-focus-border-color, #00abf0);
+  border-bottom-width: 2px;
+}
+
+google-address .ga-input::placeholder {
+  color: var(--input-watermark-text-color, rgba(102, 102, 102, 0.5));
+}
+
+google-address .ga-input:disabled {
+  background-color: var(--input-disabled-background-color, #f5f5f5);
+  color: var(--input-disabled-text-color, #b2b2b2);
+  cursor: not-allowed;
+}
+
+/* Clear button */
+google-address .ga-clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+  padding: 0 4px;
+  z-index: 10;
+}
+
+google-address .ga-clear-btn:hover {
+  color: #333;
+}
+
+/* Dropdown styling - portaled to body */
+.ga-dropdown {
+  position: fixed;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 2147483647;
+}
+
+/* Suggestion items */
+.ga-suggestion-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  background-color: #ffffff;
+  transition: background-color 0.15s ease;
+}
+
+.ga-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.ga-suggestion-item:hover,
+.ga-suggestion-item:focus {
+  background-color: var(--menu-item-hover-background-color, #f5f5f5);
+  outline: none;
+}
+
+.ga-suggestion-main {
+  font-size: 14px;
+  color: var(--normal-text-color, #333);
+  font-weight: 500;
+}
+
+.ga-suggestion-secondary {
+  font-size: 12px;
+  color: var(--description-text-color, #666);
+  margin-top: 2px;
+}
+
+/* Error message */
+google-address .ga-error {
+  color: var(--error-text-color, #b71c1c);
+  font-size: 12px;
+  margin-top: 4px;
+}

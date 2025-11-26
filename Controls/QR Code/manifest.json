@@ -1,16 +1,16 @@
 {
   "icon": "icon.svg",
   "runtimeScriptFileNames": [
-    "control.js"
+    "runtime_logic.js"
   ],
   "runtimeStyleFileNames": [
-    "control.css"
+    "runtime_style.css"
   ],
   "designtimeScriptFileNames": [
-    "control.js"
+    "designtime_logic.js"
   ],
   "designtimeStyleFileNames": [
-    "control.css"
+    "designtime_style.css"
   ],
   "description": "Generates and displays QR codes from text, URLs, or any data value.",
   "displayName": "QR Code",

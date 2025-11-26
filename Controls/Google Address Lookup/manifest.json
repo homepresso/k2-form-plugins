@@ -1,16 +1,16 @@
 {
   "icon": "icon.svg",
   "runtimeScriptFileNames": [
-    "control.js"
+    "runtime_logic.js"
   ],
   "runtimeStyleFileNames": [
-    "control.css"
+    "runtime_style.css"
   ],
   "designtimeScriptFileNames": [
-    "control.js"
+    "designtime_logic.js"
   ],
   "designtimeStyleFileNames": [
-    "control.css"
+    "designtime_style.css"
   ],
   "description": "A Google Places Autocomplete control that provides address lookup with parsed address components.",
   "displayName": "Google Address Lookup",

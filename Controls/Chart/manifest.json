@@ -1,16 +1,16 @@
 {
   "icon": "icon.svg",
   "runtimeScriptFileNames": [
-    "control.js"
+    "runtime_logic.js"
   ],
   "runtimeStyleFileNames": [
-    "control.css"
+    "runtime_style.css"
   ],
   "designtimeScriptFileNames": [
-    "control.js"
+    "designtime_logic.js"
   ],
   "designtimeStyleFileNames": [
-    "control.css"
+    "designtime_style.css"
   ],
   "description": "A comprehensive charting control with Material 3 design supporting pie, bar, line, scatter, waterfall, doughnut, radar, and more.",
   "displayName": "Chart",
