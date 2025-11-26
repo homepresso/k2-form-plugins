@@ -1,0 +1,103 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "control.js"
+  ],
+  "runtimeStyleFileNames": [
+    "control.css"
+  ],
+  "designtimeScriptFileNames": [
+    "control.js"
+  ],
+  "designtimeStyleFileNames": [
+    "control.css"
+  ],
+  "description": "Displays a Material Design icon with customizable icon name, size, and color.",
+  "displayName": "Material Icon",
+  "tagName": "material-icon",
+  "valuePropertyID": "iconName",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Clicked",
+      "description": "Fires when the icon is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "iconName",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Name",
+      "description": "The Material Icon name (e.g., 'home', 'settings', 'search', 'check_circle')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "home",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Size",
+      "description": "Size of the icon in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "24",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of the icon (CSS color value)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6b7280",
+      "changesdisplay": true
+    },
+    {
+      "id": "hoverColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Hover Color",
+      "description": "Color of the icon on hover (leave empty to disable hover effect)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Style",
+      "description": "Material Icon style variant: outlined, rounded, sharp, or filled (default)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "filled",
+      "changesdisplay": true
+    },
+    {
+      "id": "clickable",
+      "refreshdisplay": "true",
+      "friendlyname": "Clickable",
+      "description": "Whether the icon is clickable (true/false)",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "tooltip",
+      "refreshdisplay": "true",
+      "friendlyname": "Tooltip",
+      "description": "Tooltip text shown on hover",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    }
+  ],
+  "methods": []
+}
