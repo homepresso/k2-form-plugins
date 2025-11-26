@@ -84,7 +84,8 @@
       "refreshdisplay": "true",
       "friendlyname": "Clickable",
       "description": "Whether the icon is clickable (true/false)",
-      "type": "boolean",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },
