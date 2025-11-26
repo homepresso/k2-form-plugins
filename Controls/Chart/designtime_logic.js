@@ -150,9 +150,12 @@
         this._chartJsReady = false;
         this._pendingRender = false;
         this._chart = null;
-        this._listConfig = { partmappings: {} };
-        this._dataItems = [];
         this._chartData = [];
+
+        // Data input properties
+        this._labels = 'Sales,Marketing,Development,Support,Operations';
+        this._values = '45,25,30,15,20';
+        this._delimiter = ',';
 
         // Properties
         this._chartType = 'bar';
@@ -180,9 +183,6 @@
         // Selected segment
         this._selectedLabel = '';
         this._selectedValue = '';
-
-        // Initial sample data
-        this._initialListValue = '[{"label": "Sales", "value": 45}, {"label": "Marketing", "value": 25}, {"label": "Development", "value": 30}, {"label": "Support", "value": 15}, {"label": "Operations", "value": 20}]';
 
         // DOM refs
         this._container = null;
@@ -227,72 +227,27 @@
         }
       }
 
-      // K2 List API Methods
-      listConfigChangedCallback(config, listname) {
-        this._listConfig = config;
-        this._processDataItems();
-      }
-
-      listItemsChangedCallback(itemsChangedEventArgs) {
-        const isDesignTime = window.K2?.IsDesigner === true;
-        let itemsToProcess = itemsChangedEventArgs.NewItems;
-
-        // Fallback for design time
-        if (isDesignTime && (!Array.isArray(itemsToProcess) || itemsToProcess.length === 0)) {
-          try {
-            itemsToProcess = JSON.parse(this._initialListValue);
-          } catch (e) {
-            console.error('[Chart] Error parsing fallback:', e);
-          }
-        }
-
-        if (Array.isArray(itemsToProcess)) {
-          this._dataItems = itemsToProcess;
-          this._processDataItems();
-        }
-      }
-
       _processDataItems() {
         this._chartData = [];
 
-        if (!Array.isArray(this._dataItems) || this._dataItems.length === 0) {
-          // Use initial value if no data
-          try {
-            this._dataItems = JSON.parse(this._initialListValue);
-          } catch (e) {
-            this._dataItems = [];
-          }
-        }
+        // Parse labels and values using the delimiter
+        const delimiter = this._delimiter || ',';
+        const labelsArray = this._labels ? this._labels.split(delimiter).map(s => s.trim()) : [];
+        const valuesArray = this._values ? this._values.split(delimiter).map(s => s.trim()) : [];
 
-        // Get field mappings
-        let labelProp = 'label';
-        let valueProp = 'value';
-        let valueProp2 = 'value2'; // For bubble/scatter
-        let valueProp3 = 'value3'; // For bubble radius
+        // Create chart data from labels and values
+        const maxLength = Math.max(labelsArray.length, valuesArray.length);
 
-        if (this._listConfig?.partmappings) {
-          labelProp = this._listConfig.partmappings['Display'] || this._listConfig.partmappings['Label'] || 'label';
-          valueProp = this._listConfig.partmappings['Value'] || 'value';
-        }
-
-        // Process items
-        for (const item of this._dataItems) {
-          let label = item[labelProp] || item.label || item.name || item.category || '';
-          let value = parseFloat(item[valueProp] || item.value || 0);
-          let value2 = parseFloat(item[valueProp2] || item.value2 || item.x || 0);
-          let value3 = parseFloat(item[valueProp3] || item.value3 || item.r || 10);
-
-          // Handle template strings
-          if (labelProp.startsWith('<Template>') && this.parseDisplayTemplate) {
-            label = this.parseDisplayTemplate(labelProp, item);
-          }
+        for (let i = 0; i < maxLength; i++) {
+          const label = labelsArray[i] || `Item ${i + 1}`;
+          const value = parseFloat(valuesArray[i]) || 0;
 
           this._chartData.push({
             label: String(label),
             value: isNaN(value) ? 0 : value,
-            value2: isNaN(value2) ? 0 : value2,
-            value3: isNaN(value3) ? 10 : value3,
-            rawData: item
+            value2: 0,
+            value3: 10,
+            rawData: { label, value }
           });
         }
 
@@ -743,24 +698,32 @@
       }
 
       // Properties
-      get chartData() {
-        return JSON.stringify(this._chartData);
+      get labels() { return this._labels; }
+      set labels(v) {
+        this._labels = v !== null && v !== undefined ? String(v) : '';
+        if (this._hasRendered) this._processDataItems();
+        safeRaisePropertyChanged(this, 'labels');
       }
-      set chartData(v) {
-        if (typeof v === 'string') {
-          try {
-            this._dataItems = JSON.parse(v);
-            this._processDataItems();
-          } catch (e) {
-            console.error('[Chart] Invalid JSON:', e);
-          }
-        } else if (Array.isArray(v)) {
-          this._dataItems = v;
-          this._processDataItems();
-        }
+      get Labels() { return this.labels; }
+      set Labels(v) { this.labels = v; }
+
+      get values() { return this._values; }
+      set values(v) {
+        this._values = v !== null && v !== undefined ? String(v) : '';
+        if (this._hasRendered) this._processDataItems();
+        safeRaisePropertyChanged(this, 'values');
       }
-      get ChartData() { return this.chartData; }
-      set ChartData(v) { this.chartData = v; }
+      get Values() { return this.values; }
+      set Values(v) { this.values = v; }
+
+      get delimiter() { return this._delimiter; }
+      set delimiter(v) {
+        this._delimiter = v !== null && v !== undefined && v !== '' ? String(v) : ',';
+        if (this._hasRendered) this._processDataItems();
+        safeRaisePropertyChanged(this, 'delimiter');
+      }
+      get Delimiter() { return this.delimiter; }
+      set Delimiter(v) { this.delimiter = v; }
 
       get chartType() { return this._chartType; }
       set chartType(v) {

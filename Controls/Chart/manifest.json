@@ -15,14 +15,13 @@
   "description": "A comprehensive charting control with Material 3 design supporting pie, bar, line, scatter, waterfall, doughnut, radar, and more.",
   "displayName": "Chart",
   "tagName": "k2-chart",
-  "valuePropertyID": "chartData",
+  "valuePropertyID": "values",
   "supports": [
     "Value",
     "Width",
     "Height",
     "IsVisible",
-    "IsEnabled",
-    "DataBinding"
+    "IsEnabled"
   ],
   "events": [
     {
@@ -36,13 +35,34 @@
   ],
   "properties": [
     {
-      "id": "chartData",
+      "id": "labels",
       "refreshdisplay": "true",
-      "friendlyname": "Chart Data",
-      "description": "The data for the chart (JSON array or bound list data)",
-      "type": "listdata",
-      "category": "Detail",
-      "initialvalue": "[{\"label\": \"Sales\", \"value\": 45}, {\"label\": \"Marketing\", \"value\": 25}, {\"label\": \"Development\", \"value\": 30}, {\"label\": \"Support\", \"value\": 15}, {\"label\": \"Operations\", \"value\": 20}]"
+      "friendlyname": "Labels",
+      "description": "Labels/names for chart data points (separated by delimiter)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "Sales,Marketing,Development,Support,Operations",
+      "changesdisplay": true
+    },
+    {
+      "id": "values",
+      "refreshdisplay": "true",
+      "friendlyname": "Values",
+      "description": "Values for chart data points (separated by delimiter)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "45,25,30,15,20",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character used to separate labels and values (default: comma)",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": ",",
+      "changesdisplay": true
     },
     {
       "id": "chartType",
