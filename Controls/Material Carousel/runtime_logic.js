@@ -125,6 +125,10 @@
         // Touch handling
         this._touchStartX = 0;
         this._touchEndX = 0;
+
+        // K2 List binding
+        this._listConfig = null;
+        this._dataItems = [];
       }
 
       connectedCallback() {
@@ -493,6 +497,40 @@
       goTo(index) {
         if (!this._isEnabled) return;
         this._goToSlide(parseInt(index) || 0);
+      }
+
+      // K2 List Binding Callbacks
+      listConfigChangedCallback(config, listname) {
+        this._listConfig = config;
+        this._processDataItems();
+      }
+
+      listItemsChangedCallback(itemsChangedEventArgs) {
+        if (Array.isArray(itemsChangedEventArgs?.NewItems)) {
+          this._dataItems = itemsChangedEventArgs.NewItems;
+          this._processDataItems();
+        }
+      }
+
+      _processDataItems() {
+        if (!this._dataItems || this._dataItems.length === 0) return;
+
+        // Get field mappings from K2 config
+        const mappings = this._listConfig?.partmappings || {};
+        const imageProp = mappings['Image'] || mappings['Display'] || 'image';
+        const titleProp = mappings['Title'] || 'title';
+        const subtitleProp = mappings['Subtitle'] || mappings['Description'] || 'subtitle';
+
+        // Convert K2 data items to carousel items
+        this._parsedItems = this._dataItems.map(item => ({
+          image: item[imageProp] || item.image || item.Image || item.url || item.Url || item.src || item.Src || '',
+          title: item[titleProp] || item.title || item.Title || item.name || item.Name || '',
+          subtitle: item[subtitleProp] || item.subtitle || item.Subtitle || item.description || item.Description || ''
+        }));
+
+        if (this._hasRendered && this._fontsReady) {
+          this._renderCarousel();
+        }
       }
 
       // Properties

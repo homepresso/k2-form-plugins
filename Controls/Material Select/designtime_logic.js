@@ -75,6 +75,10 @@
 
         // Bound handlers for cleanup
         this._handleClickOutside = this._handleClickOutside.bind(this);
+
+        // K2 List binding
+        this._listConfig = null;
+        this._dataItems = [];
       }
 
       connectedCallback() {
@@ -438,6 +442,40 @@
         this._buildMenuItems();
         this._updateState();
         safeRaisePropertyChanged(this, 'value');
+      }
+
+      // K2 List Binding Callbacks
+      listConfigChangedCallback(config, listname) {
+        this._listConfig = config;
+        this._processDataItems();
+      }
+
+      listItemsChangedCallback(itemsChangedEventArgs) {
+        if (Array.isArray(itemsChangedEventArgs?.NewItems)) {
+          this._dataItems = itemsChangedEventArgs.NewItems;
+          this._processDataItems();
+        }
+      }
+
+      _processDataItems() {
+        if (!this._dataItems || this._dataItems.length === 0) return;
+
+        // Get field mappings from K2 config
+        const mappings = this._listConfig?.partmappings || {};
+        const valueProp = mappings['Value'] || 'value';
+        const displayProp = mappings['Display'] || mappings['Label'] || 'display';
+
+        // Convert K2 data items to select options
+        this._parsedOptions = this._dataItems.map(item => {
+          const value = item[valueProp] || item.value || item.Value || item.id || item.Id || item.ID || '';
+          const label = item[displayProp] || item.label || item.Label || item.text || item.Text || item.name || item.Name || item.title || item.Title || value;
+          return { value: value || label, label: label || value };
+        });
+
+        this._updateDisplayValue();
+        if (this._hasRendered) {
+          this._render();
+        }
       }
 
       // Properties

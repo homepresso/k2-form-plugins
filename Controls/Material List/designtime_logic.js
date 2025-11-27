@@ -131,6 +131,10 @@
 
         // DOM refs
         this._container = null;
+
+        // K2 List binding
+        this._listConfig = null;
+        this._dataItems = [];
       }
 
       connectedCallback() {
@@ -484,6 +488,42 @@
       _updateState() {
         if (!this._container) return;
         this._container.classList.toggle('mls-disabled', !this._isEnabled);
+      }
+
+      // K2 List Binding Callbacks
+      listConfigChangedCallback(config, listname) {
+        this._listConfig = config;
+        this._processDataItems();
+      }
+
+      listItemsChangedCallback(itemsChangedEventArgs) {
+        if (Array.isArray(itemsChangedEventArgs?.NewItems)) {
+          this._dataItems = itemsChangedEventArgs.NewItems;
+          this._processDataItems();
+        }
+      }
+
+      _processDataItems() {
+        if (!this._dataItems || this._dataItems.length === 0) return;
+
+        // Get field mappings from K2 config
+        const mappings = this._listConfig?.partmappings || {};
+        const iconProp = mappings['Icon'] || mappings['Image'] || 'icon';
+        const titleProp = mappings['Title'] || mappings['Display'] || 'title';
+        const subtitleProp = mappings['Subtitle'] || mappings['Description'] || 'subtitle';
+        const valueProp = mappings['Value'] || 'value';
+
+        // Convert K2 data items to list items
+        this._parsedItems = this._dataItems.map(item => ({
+          icon: item[iconProp] || item.icon || item.Icon || item.image || item.Image || '',
+          title: item[titleProp] || item.title || item.Title || item.name || item.Name || item.text || item.Text || '',
+          subtitle: item[subtitleProp] || item.subtitle || item.Subtitle || item.description || item.Description || '',
+          value: item[valueProp] || item.value || item.Value || item.id || item.Id || item.ID || item[titleProp] || ''
+        }));
+
+        if (this._hasRendered && this._fontsReady) {
+          this._renderList();
+        }
       }
 
       // Properties

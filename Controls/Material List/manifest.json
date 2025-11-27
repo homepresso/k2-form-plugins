@@ -20,7 +20,8 @@
     "Value",
     "Width",
     "IsVisible",
-    "IsEnabled"
+    "IsEnabled",
+    "DataBinding"
   ],
   "events": [
     {
