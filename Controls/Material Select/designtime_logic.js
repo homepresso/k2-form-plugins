@@ -44,6 +44,7 @@
         this._value = '';
         this._displayValue = '';
         this._label = 'Select';
+        this._listBinding = '';
         this._options = 'Option 1,Option 2,Option 3';
         this._delimiter = ',';
         this._variant = 'outlined';
@@ -93,6 +94,33 @@
 
       _parseOptions() {
         this._parsedOptions = [];
+
+        // Try listBinding first (JSON array)
+        if (this._listBinding && this._listBinding.trim()) {
+          try {
+            const parsed = JSON.parse(this._listBinding);
+            if (Array.isArray(parsed)) {
+              parsed.forEach(item => {
+                if (item && typeof item === 'object') {
+                  const value = item.value || item.Value || item.id || item.Id || item.ID || '';
+                  const label = item.label || item.Label || item.text || item.Text || item.name || item.Name || item.title || item.Title || value;
+                  if (value || label) {
+                    this._parsedOptions.push({ value: value || label, label: label || value });
+                  }
+                } else if (typeof item === 'string') {
+                  this._parsedOptions.push({ value: item, label: item });
+                }
+              });
+              this._updateDisplayValue();
+              return; // Successfully parsed listBinding, skip options parsing
+            }
+          } catch (e) {
+            // Invalid JSON, fall through to options parsing
+            console.warn('Material Select: Invalid listBinding JSON, falling back to options');
+          }
+        }
+
+        // Fall back to options (delimited string)
         const delimiter = this._delimiter || ',';
         const items = this._options ? this._options.split(delimiter) : [];
 
@@ -439,6 +467,16 @@
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
+
+      get listBinding() { return this._listBinding; }
+      set listBinding(v) {
+        this._listBinding = v || '';
+        this._parseOptions();
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'listBinding');
+      }
+      get ListBinding() { return this.listBinding; }
+      set ListBinding(v) { this.listBinding = v; }
 
       get options() { return this._options; }
       set options(v) {

@@ -34,10 +34,20 @@
   ],
   "properties": [
     {
+      "id": "listBinding",
+      "refreshdisplay": "true",
+      "friendlyname": "List Binding",
+      "description": "JSON array of items [{icon, title, subtitle, value}] - takes priority over Items if provided",
+      "type": "string",
+      "inputlength": "10000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
       "id": "items",
       "refreshdisplay": "true",
       "friendlyname": "Items",
-      "description": "List items (pipe-separated, format: icon:title:subtitle:value)",
+      "description": "List items (pipe-separated, format: icon:title:subtitle:value) - used if List Binding is empty",
       "type": "string",
       "inputlength": "2000",
       "initialvalue": "inbox:Inbox:3 new messages:inbox|star:Starred:12 items:starred|send:Sent:24 messages:sent",

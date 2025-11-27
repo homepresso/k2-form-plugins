@@ -83,6 +83,7 @@
         this._pendingRender = false;
 
         // Properties
+        this._listBinding = '';
         this._items = '';
         this._delimiter = '|';
         this._subDelimiter = ':';
@@ -153,6 +154,30 @@
 
       _parseItems() {
         this._parsedItems = [];
+
+        // Try listBinding first (JSON array)
+        if (this._listBinding && this._listBinding.trim()) {
+          try {
+            const parsed = JSON.parse(this._listBinding);
+            if (Array.isArray(parsed)) {
+              parsed.forEach(item => {
+                if (item && typeof item === 'object') {
+                  this._parsedItems.push({
+                    image: item.image || item.Image || item.url || item.Url || item.src || item.Src || '',
+                    title: item.title || item.Title || item.name || item.Name || '',
+                    subtitle: item.subtitle || item.Subtitle || item.description || item.Description || ''
+                  });
+                }
+              });
+              return; // Successfully parsed listBinding, skip items parsing
+            }
+          } catch (e) {
+            // Invalid JSON, fall through to items parsing
+            console.warn('Material Carousel: Invalid listBinding JSON, falling back to items');
+          }
+        }
+
+        // Fall back to items (delimited string)
         const items = this._items ? this._items.split(this._delimiter) : [];
 
         items.forEach(item => {
@@ -471,6 +496,20 @@
       }
 
       // Properties
+      get listBinding() { return this._listBinding; }
+      set listBinding(v) {
+        this._listBinding = v || '';
+        this._parseItems();
+        if (this._hasRendered && this._fontsReady) {
+          this._renderCarousel();
+        } else if (this._hasRendered) {
+          this._pendingRender = true;
+        }
+        safeRaisePropertyChanged(this, 'listBinding');
+      }
+      get ListBinding() { return this.listBinding; }
+      set ListBinding(v) { this.listBinding = v; }
+
       get items() { return this._items; }
       set items(v) {
         this._items = v || '';

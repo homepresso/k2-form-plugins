@@ -50,10 +50,20 @@
       "changesdisplay": true
     },
     {
+      "id": "listBinding",
+      "refreshdisplay": "true",
+      "friendlyname": "List Binding",
+      "description": "JSON array of options [{value, label}] - takes priority over Options if provided",
+      "type": "string",
+      "inputlength": "10000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
       "id": "options",
       "refreshdisplay": "true",
       "friendlyname": "Options",
-      "description": "Dropdown options (comma-separated, or value:label pairs)",
+      "description": "Dropdown options (comma-separated, or value:label pairs) - used if List Binding is empty",
       "type": "string",
       "inputlength": "2000",
       "initialvalue": "Option 1,Option 2,Option 3",

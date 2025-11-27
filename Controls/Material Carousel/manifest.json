@@ -30,10 +30,20 @@
   ],
   "properties": [
     {
+      "id": "listBinding",
+      "refreshdisplay": "true",
+      "friendlyname": "List Binding",
+      "description": "JSON array of items [{image, title, subtitle}] - takes priority over Items if provided",
+      "type": "string",
+      "inputlength": "10000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
       "id": "items",
       "refreshdisplay": "true",
       "friendlyname": "Items",
-      "description": "Carousel items (pipe-separated, format: image:title:subtitle)",
+      "description": "Carousel items (pipe-separated, format: image:title:subtitle) - used if List Binding is empty",
       "type": "string",
       "inputlength": "2000",
       "initialvalue": "https://picsum.photos/800/400?random=1:Welcome:Discover amazing features|https://picsum.photos/800/400?random=2:Explore:Find what you need",
