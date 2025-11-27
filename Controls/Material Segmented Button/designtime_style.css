@@ -1,0 +1,201 @@
+/* Material Segmented Button - Material 3 Design */
+
+material-segmented-button {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mseg-container {
+  display: inline-flex;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--mseg-outline);
+
+  --mseg-primary: #6750A4;
+  --mseg-outline: #79747E;
+  --mseg-on-surface: #1C1B1F;
+  --mseg-on-secondary-container: #1D192B;
+  --mseg-secondary-container: #E8DEF8;
+  --mseg-selected-container: #E8DEF8;
+  --mseg-surface: #FFFBFE;
+}
+
+/* Segment button */
+.mseg-segment {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-right: 1px solid var(--mseg-outline);
+  background: transparent;
+  color: var(--mseg-on-surface);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mseg-segment:last-child {
+  border-right: none;
+}
+
+.mseg-first {
+  border-radius: 19px 0 0 19px;
+}
+
+.mseg-last {
+  border-radius: 0 19px 19px 0;
+}
+
+/* Single segment */
+.mseg-segment.mseg-first.mseg-last {
+  border-radius: 19px;
+}
+
+/* Content */
+.mseg-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+}
+
+/* Icon */
+.mseg-icon {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--mseg-icon-color, inherit);
+}
+
+/* Checkmark */
+.mseg-checkmark {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--mseg-checkmark-color, inherit);
+  animation: mseg-checkmark-in 0.2s ease;
+}
+
+@keyframes mseg-checkmark-in {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Label */
+.mseg-label {
+  white-space: nowrap;
+}
+
+/* State layer */
+.mseg-state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+/* Selected state */
+.mseg-selected {
+  background: var(--mseg-selected-container);
+  color: var(--mseg-on-secondary-container);
+}
+
+.mseg-selected .mseg-icon,
+.mseg-selected .mseg-checkmark {
+  color: var(--mseg-on-secondary-container);
+}
+
+/* Hover state */
+.mseg-segment:not(.mseg-selected):hover .mseg-state-layer {
+  background: rgba(28, 27, 31, 0.08);
+}
+
+.mseg-selected:hover .mseg-state-layer {
+  background: rgba(29, 25, 43, 0.08);
+}
+
+/* Focus state */
+.mseg-segment:focus-visible {
+  outline: none;
+}
+
+.mseg-segment:focus-visible .mseg-state-layer {
+  background: rgba(28, 27, 31, 0.12);
+}
+
+.mseg-selected:focus-visible .mseg-state-layer {
+  background: rgba(29, 25, 43, 0.12);
+}
+
+/* Active/pressed state */
+.mseg-segment:active .mseg-state-layer {
+  background: rgba(28, 27, 31, 0.12);
+}
+
+.mseg-selected:active .mseg-state-layer {
+  background: rgba(29, 25, 43, 0.12);
+}
+
+/* Density variants */
+.mseg-comfortable .mseg-segment {
+  height: 36px;
+  padding: 0 14px;
+}
+
+.mseg-compact .mseg-segment {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.mseg-compact .mseg-icon,
+.mseg-compact .mseg-checkmark {
+  font-size: 16px;
+}
+
+/* Disabled state */
+.mseg-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.mseg-disabled .mseg-segment {
+  cursor: not-allowed;
+}
+
+/* Focus visible outline on container */
+.mseg-segment:focus-visible {
+  z-index: 1;
+  outline: 2px solid var(--mseg-primary);
+  outline-offset: -2px;
+}
+
+/* Icon only (no label) - make more square */
+.mseg-segment:has(.mseg-icon):not(:has(.mseg-label)),
+.mseg-segment:has(.mseg-checkmark):not(:has(.mseg-label)) {
+  padding: 0 12px;
+  min-width: 40px;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mseg-segment:active {
+    transform: scale(0.98);
+  }
+}

@@ -1,0 +1,308 @@
+/* Material FAB Menu - Material 3 Design */
+
+material-fab-menu {
+  display: block;
+  position: relative;
+}
+
+.mfab-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  --mfab-primary: #6750A4;
+  --mfab-secondary: #625B71;
+  --mfab-tertiary: #7D5260;
+  --mfab-surface: #FFFBFE;
+  --mfab-on-primary: #FFFFFF;
+  --mfab-on-secondary: #FFFFFF;
+  --mfab-on-tertiary: #FFFFFF;
+  --mfab-on-surface: #1C1B1F;
+  --mfab-shadow: 0 3px 5px rgba(0, 0, 0, 0.2), 0 6px 10px rgba(0, 0, 0, 0.14);
+  --mfab-shadow-hover: 0 5px 8px rgba(0, 0, 0, 0.2), 0 9px 12px rgba(0, 0, 0, 0.14);
+}
+
+/* Position variants */
+.mfab-bottom-right {
+  align-items: flex-end;
+}
+
+.mfab-bottom-left {
+  align-items: flex-start;
+}
+
+.mfab-bottom-center {
+  align-items: center;
+}
+
+/* Main FAB Button */
+.mfab-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--mfab-shadow);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mfab-button:hover {
+  box-shadow: var(--mfab-shadow-hover);
+}
+
+/* Size variants */
+.mfab-small {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.mfab-small .mfab-icon {
+  font-size: 24px;
+}
+
+.mfab-regular {
+  width: 56px;
+  height: 56px;
+}
+
+.mfab-regular .mfab-icon {
+  font-size: 24px;
+}
+
+.mfab-large {
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+}
+
+.mfab-large .mfab-icon {
+  font-size: 36px;
+}
+
+/* Extended FAB */
+.mfab-extended {
+  width: auto;
+  padding: 0 20px;
+  gap: 12px;
+}
+
+.mfab-extended.mfab-small {
+  height: 40px;
+  padding: 0 16px;
+}
+
+.mfab-extended.mfab-regular {
+  height: 56px;
+}
+
+.mfab-extended.mfab-large {
+  height: 96px;
+  padding: 0 28px;
+}
+
+.mfab-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+}
+
+/* Color variants */
+.mfab-primary {
+  background: var(--mfab-container, var(--mfab-primary));
+  color: var(--mfab-on-primary);
+}
+
+.mfab-primary .mfab-icon,
+.mfab-primary .mfab-label {
+  color: var(--mfab-icon-color, var(--mfab-on-primary));
+}
+
+.mfab-secondary {
+  background: var(--mfab-container, var(--mfab-secondary));
+  color: var(--mfab-on-secondary);
+}
+
+.mfab-secondary .mfab-icon,
+.mfab-secondary .mfab-label {
+  color: var(--mfab-icon-color, var(--mfab-on-secondary));
+}
+
+.mfab-tertiary {
+  background: var(--mfab-container, var(--mfab-tertiary));
+  color: var(--mfab-on-tertiary);
+}
+
+.mfab-tertiary .mfab-icon,
+.mfab-tertiary .mfab-label {
+  color: var(--mfab-icon-color, var(--mfab-on-tertiary));
+}
+
+.mfab-surface {
+  background: var(--mfab-container, var(--mfab-surface));
+  color: var(--mfab-on-surface);
+}
+
+.mfab-surface .mfab-icon,
+.mfab-surface .mfab-label {
+  color: var(--mfab-icon-color, var(--mfab-primary));
+}
+
+/* Icon */
+.mfab-icon {
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.mfab-open .mfab-icon {
+  transform: rotate(45deg);
+}
+
+/* State layer */
+.mfab-state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+.mfab-button:hover .mfab-state-layer {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mfab-button:focus-visible .mfab-state-layer {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mfab-surface:hover .mfab-state-layer {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.mfab-surface:focus-visible .mfab-state-layer {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+/* Menu */
+.mfab-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mfab-open .mfab-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Menu items */
+.mfab-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: scale(0.8) translateY(10px);
+  transition: all 0.2s ease;
+}
+
+.mfab-bottom-right .mfab-menu-item {
+  flex-direction: row-reverse;
+}
+
+.mfab-bottom-left .mfab-menu-item {
+  flex-direction: row;
+}
+
+.mfab-bottom-center .mfab-menu-item {
+  flex-direction: row-reverse;
+}
+
+.mfab-open .mfab-menu-item {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Mini FAB */
+.mfab-mini {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: none;
+  background: var(--mfab-menu-item-bg, var(--mfab-surface));
+  box-shadow: var(--mfab-shadow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mfab-mini:hover {
+  box-shadow: var(--mfab-shadow-hover);
+  background: color-mix(in srgb, var(--mfab-menu-item-bg, var(--mfab-surface)) 90%, var(--mfab-primary) 10%);
+}
+
+.mfab-mini-icon {
+  font-size: 24px;
+  color: var(--mfab-menu-item-icon, var(--mfab-primary));
+}
+
+/* Menu label */
+.mfab-menu-label {
+  background: var(--mfab-menu-label-bg, var(--mfab-surface));
+  color: var(--mfab-on-surface);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+}
+
+/* Disabled state */
+.mfab-disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* Focus visible */
+.mfab-button:focus-visible {
+  outline: 2px solid var(--mfab-primary);
+  outline-offset: 2px;
+}
+
+.mfab-mini:focus-visible {
+  outline: 2px solid var(--mfab-primary);
+  outline-offset: 2px;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mfab-button:active {
+    transform: scale(0.95);
+  }
+
+  .mfab-mini:active {
+    transform: scale(0.95);
+  }
+}

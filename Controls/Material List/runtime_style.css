@@ -1,0 +1,206 @@
+/* Material List - Material 3 Design */
+
+material-list {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mls-container {
+  --mls-primary: #6750A4;
+  --mls-background: #FFFBFE;
+  --mls-text: #1C1B1F;
+  --mls-secondary-text: #49454F;
+  --mls-divider: #CAC4D0;
+  --mls-hover: rgba(28, 27, 31, 0.08);
+  --mls-selected: #E8DEF8;
+  --mls-icon: #49454F;
+  --mls-trailing-icon: var(--mls-icon);
+  --mls-avatar-bg: #E8DEF8;
+
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  background: var(--mls-background);
+  border-radius: 12px;
+}
+
+/* List item */
+.mls-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  min-height: 56px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  outline: none;
+}
+
+.mls-item:hover {
+  background: var(--mls-hover);
+}
+
+.mls-item:focus-visible {
+  background: var(--mls-hover);
+}
+
+.mls-item.mls-selected {
+  background: var(--mls-selected);
+}
+
+.mls-item.mls-selected:hover {
+  background: color-mix(in srgb, var(--mls-selected) 90%, var(--mls-text) 10%);
+}
+
+/* State layer */
+.mls-state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+/* Leading content */
+.mls-leading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.mls-icon {
+  font-size: 24px;
+  color: var(--mls-icon);
+}
+
+/* Avatar */
+.mls-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--mls-avatar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--mls-primary);
+  overflow: hidden;
+}
+
+.mls-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content */
+.mls-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  gap: 2px;
+}
+
+.mls-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--mls-text);
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mls-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mls-secondary-text);
+  line-height: 1.43;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Variants */
+.mls-one-line .mls-item {
+  min-height: 56px;
+}
+
+.mls-one-line .mls-subtitle {
+  display: none;
+}
+
+.mls-two-line .mls-item {
+  min-height: 72px;
+}
+
+.mls-two-line .mls-subtitle {
+  white-space: nowrap;
+}
+
+.mls-three-line .mls-item {
+  min-height: 88px;
+  align-items: flex-start;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.mls-three-line .mls-subtitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.mls-three-line .mls-leading {
+  margin-top: 4px;
+}
+
+/* Trailing content */
+.mls-trailing {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  flex-shrink: 0;
+}
+
+.mls-trailing-icon {
+  font-size: 24px;
+  color: var(--mls-trailing-icon);
+}
+
+/* Divider */
+.mls-divider {
+  height: 1px;
+  background: var(--mls-divider);
+  margin: 0 16px;
+}
+
+/* Disabled state */
+.mls-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.mls-disabled .mls-item {
+  cursor: not-allowed;
+}
+
+/* Focus styles */
+.mls-item:focus-visible {
+  outline: 2px solid var(--mls-primary);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mls-item:active {
+    background: var(--mls-hover);
+  }
+}

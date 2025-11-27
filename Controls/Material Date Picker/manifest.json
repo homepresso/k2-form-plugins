@@ -1,0 +1,236 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design date picker with calendar dialog",
+  "displayName": "Material Date Picker",
+  "tagName": "material-date-picker",
+  "valuePropertyID": "value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the selected date changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "Selected date value",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Field label text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Select date",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeholder",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder",
+      "description": "Placeholder text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "MM/DD/YYYY",
+      "changesdisplay": true
+    },
+    {
+      "id": "helperText",
+      "refreshdisplay": "true",
+      "friendlyname": "Helper Text",
+      "description": "Helper text below field",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Field style: outlined, filled",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "outlined",
+      "changesdisplay": true
+    },
+    {
+      "id": "dateFormat",
+      "refreshdisplay": "true",
+      "friendlyname": "Date Format",
+      "description": "Date format: MM/DD/YYYY, DD/MM/YYYY, YYYY-MM-DD",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "MM/DD/YYYY",
+      "changesdisplay": true
+    },
+    {
+      "id": "minDate",
+      "refreshdisplay": "true",
+      "friendlyname": "Min Date",
+      "description": "Minimum selectable date (YYYY-MM-DD)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "maxDate",
+      "refreshdisplay": "true",
+      "friendlyname": "Max Date",
+      "description": "Maximum selectable date (YYYY-MM-DD)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "firstDayOfWeek",
+      "refreshdisplay": "true",
+      "friendlyname": "First Day of Week",
+      "description": "First day (0=Sunday, 1=Monday)",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "0",
+      "changesdisplay": true
+    },
+    {
+      "id": "required",
+      "refreshdisplay": "true",
+      "friendlyname": "Required",
+      "description": "Field is required (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Field background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Main text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Label text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Border/outline color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Color",
+      "description": "Error state color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#B3261E",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Color",
+      "description": "Dialog surface color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "open",
+      "displayname": "Open",
+      "returntype": "None",
+      "description": "Opens the date picker",
+      "parameters": []
+    },
+    {
+      "id": "close",
+      "displayname": "Close",
+      "returntype": "None",
+      "description": "Closes the date picker",
+      "parameters": []
+    },
+    {
+      "id": "clear",
+      "displayname": "Clear",
+      "returntype": "None",
+      "description": "Clears the selected date",
+      "parameters": []
+    }
+  ]
+}

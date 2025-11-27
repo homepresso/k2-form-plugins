@@ -1,0 +1,191 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design checkbox with label, indeterminate state, and ripple effect",
+  "displayName": "Material Checkbox",
+  "tagName": "material-checkbox",
+  "valuePropertyID": "checked",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the checkbox state changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "checked",
+      "refreshdisplay": "true",
+      "friendlyname": "Checked",
+      "description": "Whether the checkbox is checked",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Label text displayed next to the checkbox",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Checkbox",
+      "changesdisplay": true
+    },
+    {
+      "id": "indeterminate",
+      "refreshdisplay": "true",
+      "friendlyname": "Indeterminate",
+      "description": "Show indeterminate (mixed) state",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelPosition",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Position",
+      "description": "Position of the label (start or end)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "end",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary color for the checkbox when checked",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "checkColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Check Color",
+      "description": "Color of the checkmark icon",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Border color when unchecked",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Color of the label text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Color",
+      "description": "Color used for error state",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#B3261E",
+      "changesdisplay": true
+    },
+    {
+      "id": "disableRipple",
+      "refreshdisplay": "true",
+      "friendlyname": "Disable Ripple",
+      "description": "Disable the ripple effect on click",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "required",
+      "refreshdisplay": "true",
+      "friendlyname": "Required",
+      "description": "Mark the checkbox as required",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorText",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Text",
+      "description": "Error message to display",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "hasError",
+      "refreshdisplay": "true",
+      "friendlyname": "Has Error",
+      "description": "Show error state",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family (Roboto, Open Sans, Poppins, Montserrat, Inter, Lato, etc.)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "toggle",
+      "displayname": "Toggle",
+      "returntype": "None",
+      "description": "Toggle the checkbox state",
+      "parameters": []
+    },
+    {
+      "id": "check",
+      "displayname": "Check",
+      "returntype": "None",
+      "description": "Set the checkbox to checked",
+      "parameters": []
+    },
+    {
+      "id": "uncheck",
+      "displayname": "Uncheck",
+      "returntype": "None",
+      "description": "Set the checkbox to unchecked",
+      "parameters": []
+    }
+  ]
+}

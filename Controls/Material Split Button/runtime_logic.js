@@ -1,0 +1,497 @@
+/**
+ * Material Split Button Control for K2 SmartForms
+ * Material 3 Design split button with primary action and dropdown menu
+ */
+(function() {
+  'use strict';
+
+  if (typeof window.K2 === "undefined") {
+    window.K2 = {};
+  }
+
+  function safeRaisePropertyChanged(ctrl, prop) {
+    if (window.K2?.RaisePropertyChanged) {
+      K2.RaisePropertyChanged(ctrl, prop);
+    }
+  }
+
+  // Load Material Icons
+  function loadMaterialIcons() {
+    if (document.querySelector('link[href*="Material+Icons"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+    document.head.appendChild(link);
+  }
+
+  // Load Google Fonts
+  function loadGoogleFonts() {
+    if (document.querySelector('link[href*="fonts.googleapis.com/css2"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
+    document.head.appendChild(link);
+  }
+
+  if (!window.customElements.get('material-split-button')) {
+    window.customElements.define('material-split-button', class MaterialSplitButton extends HTMLElement {
+
+      constructor() {
+        super();
+        this._hasRendered = false;
+
+        // Properties
+        this._text = 'Save';
+        this._icon = '';
+        this._variant = 'filled'; // filled, outlined, tonal
+        this._menuItems = 'Save as Draft|Save and Close|Save and New';
+        this._delimiter = '|';
+        this._primaryColor = '#6750A4';
+        this._textColor = '';
+        this._outlineColor = '#79747E';
+        this._surfaceColor = '#FFFBFE';
+        this._surfaceVariantColor = '#E7E0EC';
+        this._menuBackgroundColor = '';
+        this._menuTextColor = '#1C1B1F';
+        this._dividerColor = '';
+        this._disableRipple = false;
+        this._fontFamily = 'Roboto, sans-serif';
+        this._isVisible = true;
+        this._isEnabled = true;
+        this._isOpen = false;
+
+        // Parsed menu items
+        this._parsedItems = [];
+
+        // DOM refs
+        this._container = null;
+        this._primaryBtn = null;
+        this._dropdownBtn = null;
+        this._menu = null;
+
+        // Bound handlers
+        this._handleClickOutside = this._handleClickOutside.bind(this);
+      }
+
+      connectedCallback() {
+        if (this._hasRendered) return;
+        loadMaterialIcons();
+        loadGoogleFonts();
+        setTimeout(() => {
+          this._parseMenuItems();
+          this._render();
+          this._hasRendered = true;
+        }, 0);
+      }
+
+      disconnectedCallback() {
+        document.removeEventListener('click', this._handleClickOutside);
+      }
+
+      _parseMenuItems() {
+        this._parsedItems = [];
+        const delimiter = this._delimiter || '|';
+        const items = this._menuItems ? this._menuItems.split(delimiter) : [];
+
+        items.forEach(item => {
+          const trimmed = item.trim();
+          if (!trimmed) return;
+
+          // Check for icon:label format
+          const colonIndex = trimmed.indexOf(':');
+          if (colonIndex > 0) {
+            this._parsedItems.push({
+              icon: trimmed.substring(0, colonIndex).trim(),
+              label: trimmed.substring(colonIndex + 1).trim()
+            });
+          } else {
+            this._parsedItems.push({
+              icon: '',
+              label: trimmed
+            });
+          }
+        });
+      }
+
+      _render() {
+        this.innerHTML = '';
+        this._buildButton();
+        this._applyStyles();
+        this._bindEvents();
+      }
+
+      _buildButton() {
+        this._container = document.createElement('div');
+        this._container.className = `msb-container msb-${this._variant}`;
+
+        // Primary button
+        this._primaryBtn = document.createElement('button');
+        this._primaryBtn.className = 'msb-primary';
+        this._primaryBtn.type = 'button';
+
+        if (this._icon) {
+          const iconEl = document.createElement('span');
+          iconEl.className = 'msb-icon material-icons';
+          iconEl.textContent = this._icon;
+          this._primaryBtn.appendChild(iconEl);
+        }
+
+        const textEl = document.createElement('span');
+        textEl.className = 'msb-text';
+        textEl.textContent = this._text;
+        this._primaryBtn.appendChild(textEl);
+
+        if (!this._disableRipple) {
+          const ripple = document.createElement('span');
+          ripple.className = 'msb-ripple';
+          this._primaryBtn.appendChild(ripple);
+        }
+
+        this._container.appendChild(this._primaryBtn);
+
+        // Divider
+        const divider = document.createElement('div');
+        divider.className = 'msb-divider';
+        this._container.appendChild(divider);
+
+        // Dropdown button
+        this._dropdownBtn = document.createElement('button');
+        this._dropdownBtn.className = 'msb-dropdown';
+        this._dropdownBtn.type = 'button';
+
+        const arrowEl = document.createElement('span');
+        arrowEl.className = 'msb-arrow material-icons';
+        arrowEl.textContent = 'arrow_drop_down';
+        this._dropdownBtn.appendChild(arrowEl);
+
+        if (!this._disableRipple) {
+          const ripple = document.createElement('span');
+          ripple.className = 'msb-ripple';
+          this._dropdownBtn.appendChild(ripple);
+        }
+
+        this._container.appendChild(this._dropdownBtn);
+
+        // Menu
+        this._menu = document.createElement('div');
+        this._menu.className = 'msb-menu';
+        this._buildMenuItems();
+        this._container.appendChild(this._menu);
+
+        this.appendChild(this._container);
+        this._updateState();
+      }
+
+      _buildMenuItems() {
+        if (!this._menu) return;
+        this._menu.innerHTML = '';
+
+        this._parsedItems.forEach((item, index) => {
+          const menuItem = document.createElement('div');
+          menuItem.className = 'msb-menu-item';
+
+          if (item.icon) {
+            const iconEl = document.createElement('span');
+            iconEl.className = 'msb-menu-icon material-icons';
+            iconEl.textContent = item.icon;
+            menuItem.appendChild(iconEl);
+          }
+
+          const labelEl = document.createElement('span');
+          labelEl.className = 'msb-menu-text';
+          labelEl.textContent = item.label;
+          menuItem.appendChild(labelEl);
+
+          menuItem.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this._selectItem(item, index);
+          });
+
+          this._menu.appendChild(menuItem);
+        });
+      }
+
+      _selectItem(item, index) {
+        this.close();
+
+        this.dispatchEvent(new CustomEvent('MenuItemClicked', {
+          bubbles: true,
+          detail: { icon: item.icon, label: item.label, index: index }
+        }));
+      }
+
+      _applyStyles() {
+        this.style.display = this._isVisible ? 'inline-block' : 'none';
+        this.style.fontFamily = this._fontFamily;
+
+        if (this._container) {
+          this._container.style.setProperty('--msb-primary', this._primaryColor);
+          this._container.style.setProperty('--msb-outline', this._outlineColor);
+          this._container.style.setProperty('--msb-surface', this._surfaceColor);
+          this._container.style.setProperty('--msb-surface-variant', this._surfaceVariantColor);
+          this._container.style.setProperty('--msb-on-surface', this._menuTextColor);
+          if (this._textColor) {
+            this._container.style.setProperty('--msb-on-primary', this._textColor);
+          }
+          if (this._menuBackgroundColor) {
+            this._container.style.setProperty('--msb-menu-bg', this._menuBackgroundColor);
+          }
+          if (this._dividerColor) {
+            this._container.style.setProperty('--msb-divider-color', this._dividerColor);
+          }
+        }
+      }
+
+      _bindEvents() {
+        // Primary button click
+        this._primaryBtn.addEventListener('click', (e) => {
+          if (!this._isEnabled) return;
+
+          if (!this._disableRipple) {
+            this._createRipple(e, this._primaryBtn);
+          }
+
+          this.dispatchEvent(new CustomEvent('PrimaryClicked', {
+            bubbles: true,
+            detail: { text: this._text }
+          }));
+        });
+
+        // Dropdown button click
+        this._dropdownBtn.addEventListener('click', (e) => {
+          if (!this._isEnabled) return;
+          e.stopPropagation();
+
+          if (!this._disableRipple) {
+            this._createRipple(e, this._dropdownBtn);
+          }
+
+          if (this._isOpen) {
+            this.close();
+          } else {
+            this.open();
+          }
+        });
+
+        // Click outside to close
+        document.addEventListener('click', this._handleClickOutside);
+      }
+
+      _handleClickOutside(e) {
+        if (this._isOpen && !this.contains(e.target)) {
+          this.close();
+        }
+      }
+
+      _createRipple(event, button) {
+        const rippleContainer = button.querySelector('.msb-ripple');
+        if (!rippleContainer) return;
+
+        const ripple = document.createElement('span');
+        ripple.className = 'msb-ripple-effect';
+
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+
+        ripple.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${event.clientX - rect.left - size / 2}px;
+          top: ${event.clientY - rect.top - size / 2}px;
+        `;
+
+        rippleContainer.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      }
+
+      _updateState() {
+        if (!this._container) return;
+
+        if (!this._isEnabled) {
+          this._primaryBtn.disabled = true;
+          this._dropdownBtn.disabled = true;
+          this._container.classList.add('msb-disabled');
+        } else {
+          this._primaryBtn.disabled = false;
+          this._dropdownBtn.disabled = false;
+          this._container.classList.remove('msb-disabled');
+        }
+
+        this._container.classList.toggle('msb-open', this._isOpen);
+
+        // Rotate arrow
+        const arrow = this._dropdownBtn.querySelector('.msb-arrow');
+        if (arrow) {
+          arrow.style.transform = this._isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+      }
+
+      // Public methods
+      open() {
+        if (!this._isEnabled || this._isOpen) return;
+        this._isOpen = true;
+        this._updateState();
+      }
+
+      close() {
+        if (!this._isOpen) return;
+        this._isOpen = false;
+        this._updateState();
+      }
+
+      // Properties
+      get text() { return this._text; }
+      set text(v) {
+        this._text = v || 'Save';
+        if (this._hasRendered) {
+          const textEl = this._primaryBtn?.querySelector('.msb-text');
+          if (textEl) textEl.textContent = this._text;
+        }
+        safeRaisePropertyChanged(this, 'text');
+      }
+      get Text() { return this.text; }
+      set Text(v) { this.text = v; }
+
+      get icon() { return this._icon; }
+      set icon(v) {
+        this._icon = v || '';
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'icon');
+      }
+      get Icon() { return this.icon; }
+      set Icon(v) { this.icon = v; }
+
+      get variant() { return this._variant; }
+      set variant(v) {
+        const valid = ['filled', 'outlined', 'tonal'];
+        this._variant = valid.includes(v) ? v : 'filled';
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'variant');
+      }
+      get Variant() { return this.variant; }
+      set Variant(v) { this.variant = v; }
+
+      get menuItems() { return this._menuItems; }
+      set menuItems(v) {
+        this._menuItems = v || '';
+        this._parseMenuItems();
+        if (this._hasRendered) this._buildMenuItems();
+        safeRaisePropertyChanged(this, 'menuItems');
+      }
+      get MenuItems() { return this.menuItems; }
+      set MenuItems(v) { this.menuItems = v; }
+
+      get delimiter() { return this._delimiter; }
+      set delimiter(v) {
+        this._delimiter = v || '|';
+        this._parseMenuItems();
+        if (this._hasRendered) this._buildMenuItems();
+        safeRaisePropertyChanged(this, 'delimiter');
+      }
+      get Delimiter() { return this.delimiter; }
+      set Delimiter(v) { this.delimiter = v; }
+
+      get primaryColor() { return this._primaryColor; }
+      set primaryColor(v) {
+        this._primaryColor = v || '#6750A4';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'primaryColor');
+      }
+      get PrimaryColor() { return this.primaryColor; }
+      set PrimaryColor(v) { this.primaryColor = v; }
+
+      get textColor() { return this._textColor; }
+      set textColor(v) {
+        this._textColor = v || '';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'textColor');
+      }
+      get TextColor() { return this.textColor; }
+      set TextColor(v) { this.textColor = v; }
+
+      get outlineColor() { return this._outlineColor; }
+      set outlineColor(v) {
+        this._outlineColor = v || '#79747E';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'outlineColor');
+      }
+      get OutlineColor() { return this.outlineColor; }
+      set OutlineColor(v) { this.outlineColor = v; }
+
+      get surfaceColor() { return this._surfaceColor; }
+      set surfaceColor(v) {
+        this._surfaceColor = v || '#FFFBFE';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'surfaceColor');
+      }
+      get SurfaceColor() { return this.surfaceColor; }
+      set SurfaceColor(v) { this.surfaceColor = v; }
+
+      get surfaceVariantColor() { return this._surfaceVariantColor; }
+      set surfaceVariantColor(v) {
+        this._surfaceVariantColor = v || '#E7E0EC';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'surfaceVariantColor');
+      }
+      get SurfaceVariantColor() { return this.surfaceVariantColor; }
+      set SurfaceVariantColor(v) { this.surfaceVariantColor = v; }
+
+      get menuBackgroundColor() { return this._menuBackgroundColor; }
+      set menuBackgroundColor(v) {
+        this._menuBackgroundColor = v || '';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'menuBackgroundColor');
+      }
+      get MenuBackgroundColor() { return this.menuBackgroundColor; }
+      set MenuBackgroundColor(v) { this.menuBackgroundColor = v; }
+
+      get menuTextColor() { return this._menuTextColor; }
+      set menuTextColor(v) {
+        this._menuTextColor = v || '#1C1B1F';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'menuTextColor');
+      }
+      get MenuTextColor() { return this.menuTextColor; }
+      set MenuTextColor(v) { this.menuTextColor = v; }
+
+      get dividerColor() { return this._dividerColor; }
+      set dividerColor(v) {
+        this._dividerColor = v || '';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'dividerColor');
+      }
+      get DividerColor() { return this.dividerColor; }
+      set DividerColor(v) { this.dividerColor = v; }
+
+      get disableRipple() { return this._disableRipple; }
+      set disableRipple(v) {
+        this._disableRipple = (v === true || v === 'true');
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'disableRipple');
+      }
+      get DisableRipple() { return this.disableRipple; }
+      set DisableRipple(v) { this.disableRipple = v; }
+
+      get fontFamily() { return this._fontFamily; }
+      set fontFamily(v) {
+        this._fontFamily = v || 'Roboto, sans-serif';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontFamily');
+      }
+      get FontFamily() { return this.fontFamily; }
+      set FontFamily(v) { this.fontFamily = v; }
+
+      get IsVisible() { return this._isVisible; }
+      set IsVisible(val) {
+        this._isVisible = (val === true || val === 'true');
+        this.style.display = this._isVisible ? 'inline-block' : 'none';
+      }
+
+      get IsEnabled() { return this._isEnabled; }
+      set IsEnabled(val) {
+        this._isEnabled = (val === true || val === 'true');
+        this._updateState();
+      }
+    });
+  }
+})();

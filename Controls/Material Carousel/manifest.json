@@ -1,0 +1,246 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design carousel for displaying scrollable image content",
+  "displayName": "Material Carousel",
+  "tagName": "material-carousel",
+  "valuePropertyID": "currentIndex",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "SlideChanged",
+      "description": "Fires when the current slide changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "items",
+      "refreshdisplay": "true",
+      "friendlyname": "Items",
+      "description": "Carousel items (pipe-separated, format: image:title:subtitle)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "https://picsum.photos/800/400?random=1:Welcome:Discover amazing features|https://picsum.photos/800/400?random=2:Explore:Find what you need",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character to separate items",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "|",
+      "changesdisplay": true
+    },
+    {
+      "id": "subDelimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Sub Delimiter",
+      "description": "Character to separate item parts",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": ":",
+      "changesdisplay": true
+    },
+    {
+      "id": "currentIndex",
+      "refreshdisplay": "true",
+      "friendlyname": "Current Index",
+      "description": "Current slide index (0-based)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "0",
+      "changesdisplay": true
+    },
+    {
+      "id": "autoPlay",
+      "refreshdisplay": "true",
+      "friendlyname": "Auto Play",
+      "description": "Enable automatic slide advancement (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "autoPlayInterval",
+      "refreshdisplay": "true",
+      "friendlyname": "Auto Play Interval",
+      "description": "Time between slides in milliseconds",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "5000",
+      "changesdisplay": true
+    },
+    {
+      "id": "showArrows",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Arrows",
+      "description": "Show navigation arrows (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showIndicators",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Indicators",
+      "description": "Show slide indicators (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "loop",
+      "refreshdisplay": "true",
+      "friendlyname": "Loop",
+      "description": "Enable infinite loop (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Carousel style: contained, hero, full-screen",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "contained",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Container background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "arrowColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Arrow Color",
+      "description": "Navigation arrow icon color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "arrowBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Arrow Background",
+      "description": "Navigation arrow background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "rgba(0, 0, 0, 0.3)",
+      "changesdisplay": true
+    },
+    {
+      "id": "indicatorColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Indicator Color",
+      "description": "Inactive indicator color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "rgba(255, 255, 255, 0.5)",
+      "changesdisplay": true
+    },
+    {
+      "id": "indicatorActiveColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Indicator Active",
+      "description": "Active indicator color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Caption text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "captionBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Caption Background",
+      "description": "Caption background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "rgba(0, 0, 0, 0.5)",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "next",
+      "displayname": "Next",
+      "returntype": "None",
+      "description": "Go to next slide",
+      "parameters": []
+    },
+    {
+      "id": "prev",
+      "displayname": "Previous",
+      "returntype": "None",
+      "description": "Go to previous slide",
+      "parameters": []
+    },
+    {
+      "id": "goTo",
+      "displayname": "Go To",
+      "returntype": "None",
+      "description": "Go to specific slide",
+      "parameters": []
+    }
+  ]
+}

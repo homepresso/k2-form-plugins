@@ -1,0 +1,181 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design icon button with standard, filled, tonal, and outlined variants",
+  "displayName": "Material Icon Button",
+  "tagName": "material-icon-button",
+  "valuePropertyID": "icon",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Clicked",
+      "description": "Fires when the icon button is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "icon",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon",
+      "description": "Material icon name (e.g., 'favorite', 'bookmark', 'share')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "favorite",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Button style: standard, filled, tonal, outlined",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "standard",
+      "changesdisplay": true
+    },
+    {
+      "id": "size",
+      "refreshdisplay": "true",
+      "friendlyname": "Size",
+      "description": "Button size: small, medium, large",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "medium",
+      "changesdisplay": true
+    },
+    {
+      "id": "toggle",
+      "refreshdisplay": "true",
+      "friendlyname": "Toggle",
+      "description": "Enable toggle behavior",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "selected",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected",
+      "description": "Whether the button is selected (for toggle mode)",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Icon",
+      "description": "Icon to show when selected (optional)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "tooltip",
+      "refreshdisplay": "true",
+      "friendlyname": "Tooltip",
+      "description": "Tooltip text on hover",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of the icon",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "containerColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Container Color",
+      "description": "Background color (for filled/tonal variants)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "outlineColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Outline Color",
+      "description": "Border color (for outlined variant)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedContainerColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Container Color",
+      "description": "Background color when selected",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedIconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Icon Color",
+      "description": "Icon color when selected",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceVariantColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Variant Color",
+      "description": "Surface variant color for tonal backgrounds",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "disableRipple",
+      "refreshdisplay": "true",
+      "friendlyname": "Disable Ripple",
+      "description": "Disable the ripple effect",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    }
+  ],
+  "methods": []
+}

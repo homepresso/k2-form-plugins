@@ -1,0 +1,234 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design dropdown/select with outlined and filled variants",
+  "displayName": "Material Select",
+  "tagName": "material-select",
+  "valuePropertyID": "value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the selection changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "Currently selected value",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Floating label text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Select",
+      "changesdisplay": true
+    },
+    {
+      "id": "options",
+      "refreshdisplay": "true",
+      "friendlyname": "Options",
+      "description": "Dropdown options (comma-separated, or value:label pairs)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "Option 1,Option 2,Option 3",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character used to separate options (default: comma)",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": ",",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Visual style (outlined or filled)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "outlined",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeholder",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder",
+      "description": "Placeholder text when no selection",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "leadingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Leading Icon",
+      "description": "Material icon name for leading icon",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "helperText",
+      "refreshdisplay": "true",
+      "friendlyname": "Helper Text",
+      "description": "Helper text displayed below the select",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorText",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Text",
+      "description": "Error message to display",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "hasError",
+      "refreshdisplay": "true",
+      "friendlyname": "Has Error",
+      "description": "Show error state",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "required",
+      "refreshdisplay": "true",
+      "friendlyname": "Required",
+      "description": "Mark the field as required",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Color of the selected text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Color of the floating label",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Color of the border/outline",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Background color (for filled variant)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Color",
+      "description": "Color used for error state",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#B3261E",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family (Roboto, Open Sans, Poppins, Montserrat, Inter, Lato, etc.)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clear",
+      "displayname": "Clear",
+      "returntype": "None",
+      "description": "Clear the current selection",
+      "parameters": []
+    },
+    {
+      "id": "open",
+      "displayname": "Open",
+      "returntype": "None",
+      "description": "Open the dropdown menu",
+      "parameters": []
+    },
+    {
+      "id": "close",
+      "displayname": "Close",
+      "returntype": "None",
+      "description": "Close the dropdown menu",
+      "parameters": []
+    }
+  ]
+}

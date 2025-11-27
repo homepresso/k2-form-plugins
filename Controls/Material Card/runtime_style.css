@@ -1,0 +1,318 @@
+/* Material Card - Material 3 Design */
+
+material-card {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mcd-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--mcd-background);
+
+  --mcd-primary: #6750A4;
+  --mcd-background: #FFFBFE;
+  --mcd-surface: #F7F2FA;
+  --mcd-border: #CAC4D0;
+  --mcd-headline: #1C1B1F;
+  --mcd-subhead: #49454F;
+  --mcd-supporting: #49454F;
+  --mcd-overline: #79747E;
+  --mcd-action: #6750A4;
+  --mcd-divider: #CAC4D0;
+  --mcd-avatar-bg: #E8DEF8;
+  --mcd-avatar-text: #1D192B;
+}
+
+/* Elevated variant */
+.mcd-elevated {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.mcd-elevated:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Filled variant */
+.mcd-filled {
+  background: var(--mcd-surface);
+}
+
+/* Outlined variant */
+.mcd-outlined {
+  border: 1px solid var(--mcd-border);
+  background: var(--mcd-background);
+}
+
+/* Clickable */
+.mcd-clickable {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.mcd-clickable:hover {
+  transform: translateY(-2px);
+}
+
+.mcd-clickable:active {
+  transform: translateY(0);
+}
+
+.mcd-clickable:focus-visible {
+  outline: 2px solid var(--mcd-primary);
+  outline-offset: 2px;
+}
+
+/* State layer */
+.mcd-state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+
+.mcd-clickable:hover .mcd-state-layer {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.mcd-clickable:active .mcd-state-layer {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+/* Media */
+.mcd-media {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Header */
+.mcd-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+}
+
+/* Avatar */
+.mcd-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--mcd-avatar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--mcd-avatar-text);
+}
+
+.mcd-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mcd-avatar .material-icons {
+  font-size: 24px;
+  color: var(--mcd-avatar-text);
+}
+
+/* Header text */
+.mcd-header-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mcd-overline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--mcd-overline);
+  line-height: 1.45;
+}
+
+.mcd-headline {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--mcd-headline);
+  line-height: 1.5;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mcd-subhead {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mcd-subhead);
+  line-height: 1.43;
+}
+
+/* Content */
+.mcd-content {
+  padding: 0 16px 16px;
+}
+
+.mcd-supporting-text {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mcd-supporting);
+  line-height: 1.43;
+  margin: 0;
+}
+
+/* Divider */
+.mcd-divider {
+  height: 1px;
+  background: var(--mcd-divider);
+  margin: 0 16px;
+}
+
+/* Actions */
+.mcd-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px;
+}
+
+.mcd-action {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mcd-action-secondary {
+  background: transparent;
+  color: var(--mcd-action);
+}
+
+.mcd-action-secondary:hover {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.mcd-action-primary {
+  background: var(--mcd-primary);
+  color: #FFFFFF;
+}
+
+.mcd-action-primary:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.mcd-action:focus-visible {
+  outline: 2px solid var(--mcd-primary);
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.mcd-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.mcd-disabled .mcd-action {
+  cursor: not-allowed;
+}
+
+/* Header without avatar */
+.mcd-header:not(:has(.mcd-avatar)) {
+  gap: 0;
+}
+
+/* Media with header on top */
+.mcd-container:has(.mcd-media:first-child) .mcd-header {
+  padding-top: 16px;
+}
+
+/* Horizontal card layout */
+.mcd-horizontal {
+  display: flex;
+}
+
+.mcd-horizontal .mcd-media {
+  width: 120px;
+  height: auto;
+  min-height: 120px;
+  flex-shrink: 0;
+}
+
+.mcd-horizontal .mcd-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mcd-clickable:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Large card */
+.mcd-large .mcd-media {
+  height: 280px;
+}
+
+.mcd-large .mcd-headline {
+  font-size: 24px;
+}
+
+.mcd-large .mcd-supporting-text {
+  font-size: 16px;
+}
+
+/* Small card */
+.mcd-small .mcd-media {
+  height: 140px;
+}
+
+.mcd-small .mcd-avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+}
+
+.mcd-small .mcd-headline {
+  font-size: 14px;
+}
+
+.mcd-small .mcd-content {
+  padding: 0 12px 12px;
+}
+
+.mcd-small .mcd-header {
+  padding: 12px;
+  gap: 12px;
+}
+
+.mcd-small .mcd-actions {
+  padding: 12px;
+}
+
+.mcd-small .mcd-action {
+  padding: 8px 16px;
+  font-size: 13px;
+}

@@ -1,0 +1,323 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "A Material 3 Design textbox with floating labels, icons, helper text, and validation support.",
+  "displayName": "Material Textbox",
+  "tagName": "material-textbox",
+  "valuePropertyID": "Value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled",
+    "IsReadOnly"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the textbox value changes"
+    },
+    {
+      "id": "Focus",
+      "description": "Fires when the textbox receives focus"
+    },
+    {
+      "id": "Blur",
+      "description": "Fires when the textbox loses focus"
+    },
+    {
+      "id": "OnEnter",
+      "description": "Fires when Enter key is pressed"
+    },
+    {
+      "id": "IconClicked",
+      "description": "Fires when the icon is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "The text value of the textbox",
+      "type": "string",
+      "inputlength": "65000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Floating label text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Label",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeholder",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder",
+      "description": "Placeholder text when empty",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "helperText",
+      "refreshdisplay": "true",
+      "friendlyname": "Helper Text",
+      "description": "Helper text displayed below the textbox",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorText",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Text",
+      "description": "Error message displayed when hasError is true",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "hasError",
+      "refreshdisplay": "true",
+      "friendlyname": "Has Error",
+      "description": "Show error state (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Style variant: filled, outlined",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "outlined",
+      "changesdisplay": true
+    },
+    {
+      "id": "leadingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Leading Icon",
+      "description": "Material icon name for leading icon (e.g., 'search', 'person')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "trailingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Trailing Icon",
+      "description": "Material icon name for trailing icon (e.g., 'clear', 'visibility')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "trailingIconClickable",
+      "refreshdisplay": "true",
+      "friendlyname": "Trailing Icon Clickable",
+      "description": "Make trailing icon clickable (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "inputType",
+      "refreshdisplay": "true",
+      "friendlyname": "Input Type",
+      "description": "Input type: text, password, email, number, tel, url, search",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "text",
+      "changesdisplay": true
+    },
+    {
+      "id": "maxLength",
+      "refreshdisplay": "true",
+      "friendlyname": "Max Length",
+      "description": "Maximum character length (0 for unlimited)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "0",
+      "changesdisplay": true
+    },
+    {
+      "id": "showCharCount",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Character Count",
+      "description": "Show character count (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Width",
+      "description": "Width of the textbox in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "280",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color for focus state",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Color of the input text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Color of the floating label",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Color of the border/outline",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Background color (for filled variant)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Color",
+      "description": "Color used for error state",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#B3261E",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of the leading/trailing icons",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "required",
+      "refreshdisplay": "true",
+      "friendlyname": "Required",
+      "description": "Mark field as required (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "pattern",
+      "refreshdisplay": "true",
+      "friendlyname": "Pattern",
+      "description": "Regex pattern for validation",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "autocomplete",
+      "refreshdisplay": "true",
+      "friendlyname": "Autocomplete",
+      "description": "Browser autocomplete attribute (on, off, email, username, etc.)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "off",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family (Roboto, Open Sans, Poppins, Montserrat, Inter, Lato, etc.)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "focus",
+      "displayname": "Focus",
+      "returntype": "None",
+      "description": "Sets focus to the textbox",
+      "parameters": []
+    },
+    {
+      "id": "clear",
+      "displayname": "Clear",
+      "returntype": "None",
+      "description": "Clears the textbox value",
+      "parameters": []
+    },
+    {
+      "id": "validate",
+      "displayname": "Validate",
+      "returntype": "None",
+      "description": "Triggers validation and updates error state",
+      "parameters": []
+    }
+  ]
+}

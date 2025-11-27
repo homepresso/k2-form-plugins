@@ -1,0 +1,242 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design list for displaying items with icons and avatars",
+  "displayName": "Material List",
+  "tagName": "material-list",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "ItemSelected",
+      "description": "Fires when a list item is selected"
+    }
+  ],
+  "properties": [
+    {
+      "id": "items",
+      "refreshdisplay": "true",
+      "friendlyname": "Items",
+      "description": "List items (pipe-separated, format: icon:title:subtitle:value)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "inbox:Inbox:3 new messages:inbox|star:Starred:12 items:starred|send:Sent:24 messages:sent",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character to separate items",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "|",
+      "changesdisplay": true
+    },
+    {
+      "id": "subDelimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Sub Delimiter",
+      "description": "Character to separate item parts",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": ":",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "List variant: one-line, two-line, three-line",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "one-line",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Currently selected item value",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectable",
+      "refreshdisplay": "true",
+      "friendlyname": "Selectable",
+      "description": "Allow item selection (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showDividers",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Dividers",
+      "description": "Show dividers (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "showLeadingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Leading Icon",
+      "description": "Show leading icon (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showTrailingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Trailing Icon",
+      "description": "Show trailing icon (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "trailingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Trailing Icon",
+      "description": "Trailing icon name",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "chevron_right",
+      "changesdisplay": true
+    },
+    {
+      "id": "avatarMode",
+      "refreshdisplay": "true",
+      "friendlyname": "Avatar Mode",
+      "description": "Display as avatar (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "List background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Primary text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "secondaryTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Secondary Text Color",
+      "description": "Subtitle text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "dividerColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Divider Color",
+      "description": "Divider line color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#CAC4D0",
+      "changesdisplay": true
+    },
+    {
+      "id": "hoverColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Hover Color",
+      "description": "Item hover background",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Color",
+      "description": "Selected item background",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E8DEF8",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Leading icon color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clearSelection",
+      "displayname": "Clear Selection",
+      "returntype": "None",
+      "description": "Clears the current selection",
+      "parameters": []
+    }
+  ]
+}

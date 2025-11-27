@@ -1,0 +1,173 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design toggle switch with label, icons, and smooth animations",
+  "displayName": "Material Switch",
+  "tagName": "material-switch",
+  "valuePropertyID": "checked",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the switch state changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "checked",
+      "refreshdisplay": "true",
+      "friendlyname": "Checked",
+      "description": "Whether the switch is on",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Label text displayed next to the switch",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Switch",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelPosition",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Position",
+      "description": "Position of the label (start or end)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "end",
+      "changesdisplay": true
+    },
+    {
+      "id": "showIcons",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Icons",
+      "description": "Show check and X icons inside the switch thumb",
+      "type": "boolean",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary color for the switch when on",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "thumbColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Thumb Color",
+      "description": "Color of the switch thumb when on",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "trackColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Track Color",
+      "description": "Background color of the switch track when off",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Border color of the switch track when off",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Color of the label text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "required",
+      "refreshdisplay": "true",
+      "friendlyname": "Required",
+      "description": "Mark the switch as required",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "helperText",
+      "refreshdisplay": "true",
+      "friendlyname": "Helper Text",
+      "description": "Helper text displayed below the switch",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family (Roboto, Open Sans, Poppins, Montserrat, Inter, Lato, etc.)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "toggle",
+      "displayname": "Toggle",
+      "returntype": "None",
+      "description": "Toggle the switch state",
+      "parameters": []
+    },
+    {
+      "id": "turnOn",
+      "displayname": "Turn On",
+      "returntype": "None",
+      "description": "Set the switch to on",
+      "parameters": []
+    },
+    {
+      "id": "turnOff",
+      "displayname": "Turn Off",
+      "returntype": "None",
+      "description": "Set the switch to off",
+      "parameters": []
+    }
+  ]
+}

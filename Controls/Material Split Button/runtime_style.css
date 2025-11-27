@@ -1,0 +1,251 @@
+/* Material Split Button - Material 3 Design */
+
+material-split-button {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.msb-container {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: 20px;
+  overflow: visible;
+
+  --msb-primary: #6750A4;
+  --msb-on-primary: #FFFFFF;
+  --msb-outline: #79747E;
+  --msb-surface: #FFFBFE;
+  --msb-on-surface: #1C1B1F;
+  --msb-surface-variant: #E7E0EC;
+}
+
+/* Buttons base */
+.msb-primary,
+.msb-dropdown {
+  position: relative;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.msb-primary {
+  padding: 0 16px 0 24px;
+  height: 40px;
+  gap: 8px;
+  border-radius: 20px 0 0 20px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+.msb-dropdown {
+  width: 40px;
+  height: 40px;
+  border-radius: 0 20px 20px 0;
+}
+
+/* Divider */
+.msb-divider {
+  width: 1px;
+  background: var(--msb-divider-color, rgba(255, 255, 255, 0.2));
+}
+
+/* Icon */
+.msb-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Arrow */
+.msb-arrow {
+  font-size: 24px;
+  transition: transform 0.2s ease;
+}
+
+/* Text */
+.msb-text {
+  white-space: nowrap;
+}
+
+/* FILLED VARIANT */
+.msb-filled .msb-primary,
+.msb-filled .msb-dropdown {
+  background: var(--msb-primary);
+  color: var(--msb-on-primary);
+}
+
+.msb-filled .msb-primary:hover,
+.msb-filled .msb-dropdown:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.msb-filled .msb-divider {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* OUTLINED VARIANT */
+.msb-outlined .msb-primary,
+.msb-outlined .msb-dropdown {
+  background: transparent;
+  color: var(--msb-primary);
+}
+
+.msb-outlined .msb-primary {
+  border: 1px solid var(--msb-outline);
+  border-right: none;
+}
+
+.msb-outlined .msb-dropdown {
+  border: 1px solid var(--msb-outline);
+  border-left: none;
+}
+
+.msb-outlined .msb-primary:hover,
+.msb-outlined .msb-dropdown:hover {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.msb-outlined .msb-divider {
+  background: var(--msb-outline);
+}
+
+/* TONAL VARIANT */
+.msb-tonal .msb-primary,
+.msb-tonal .msb-dropdown {
+  background: var(--msb-surface-variant);
+  color: var(--msb-primary);
+}
+
+.msb-tonal .msb-primary:hover,
+.msb-tonal .msb-dropdown:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.msb-tonal .msb-divider {
+  background: var(--msb-outline);
+}
+
+/* Ripple */
+.msb-ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.msb-ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: msb-ripple-animation 0.5s ease-out;
+  pointer-events: none;
+}
+
+.msb-outlined .msb-ripple-effect,
+.msb-tonal .msb-ripple-effect {
+  background: rgba(103, 80, 164, 0.2);
+}
+
+@keyframes msb-ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Menu */
+.msb-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: var(--msb-menu-bg, var(--msb-surface));
+  border-radius: 4px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.12), 0 8px 10px rgba(0, 0, 0, 0.08);
+  min-width: 180px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0.8);
+  transform-origin: top right;
+  transition: all 0.15s ease;
+}
+
+.msb-open .msb-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+}
+
+/* Menu items */
+.msb-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--msb-on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.msb-menu-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.msb-menu-item:first-child {
+  border-radius: 4px 4px 0 0;
+}
+
+.msb-menu-item:last-child {
+  border-radius: 0 0 4px 4px;
+}
+
+.msb-menu-icon {
+  font-size: 20px;
+  color: var(--msb-on-surface);
+}
+
+.msb-menu-text {
+  flex: 1;
+}
+
+/* Disabled state */
+.msb-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.msb-disabled .msb-primary,
+.msb-disabled .msb-dropdown {
+  cursor: not-allowed;
+}
+
+/* Focus visible */
+.msb-primary:focus-visible,
+.msb-dropdown:focus-visible {
+  outline: 2px solid var(--msb-primary);
+  outline-offset: 2px;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .msb-primary:active,
+  .msb-dropdown:active {
+    transform: scale(0.98);
+  }
+}

@@ -1,0 +1,243 @@
+/* Material Slider - Material 3 Design */
+
+material-slider {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+}
+
+.msl-container {
+  --msl-primary: #6750A4;
+  --msl-track: #E7E0EC;
+  --msl-track-active: var(--msl-primary);
+  --msl-thumb: var(--msl-primary);
+  --msl-label: #49454F;
+  --msl-value: #1C1B1F;
+  --msl-tick: #79747E;
+
+  padding: 8px 0;
+}
+
+/* Label */
+.msl-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--msl-label);
+  margin-bottom: 8px;
+}
+
+/* Wrapper */
+.msl-wrapper {
+  position: relative;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+/* Track */
+.msl-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.msl-track-inactive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--msl-track);
+  border-radius: 2px;
+}
+
+.msl-track-active {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: var(--msl-track-active);
+  border-radius: 2px;
+  transition: width 0.1s ease, left 0.1s ease;
+}
+
+.msl-dragging .msl-track-active {
+  transition: none;
+}
+
+/* Ticks */
+.msl-ticks {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.msl-tick {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--msl-tick);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* Thumb */
+.msl-thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: translateX(-50%);
+  cursor: grab;
+  z-index: 1;
+  transition: left 0.1s ease;
+  outline: none;
+}
+
+.msl-dragging .msl-thumb {
+  transition: none;
+}
+
+.msl-thumb:active,
+.msl-thumb.msl-active {
+  cursor: grabbing;
+}
+
+.msl-thumb-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: var(--msl-thumb);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.msl-thumb:hover .msl-thumb-handle {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.msl-thumb:active .msl-thumb-handle,
+.msl-thumb.msl-active .msl-thumb-handle {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+/* State layer */
+.msl-state-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+.msl-thumb:hover .msl-state-layer {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.msl-thumb:focus-visible .msl-state-layer {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+.msl-thumb:active .msl-state-layer,
+.msl-thumb.msl-active .msl-state-layer {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+/* Value indicator (discrete) */
+.msl-value-indicator {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px) scale(0);
+  background: var(--msl-thumb);
+  color: #FFFFFF;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.msl-value-indicator::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--msl-thumb);
+}
+
+.msl-discrete .msl-thumb:hover .msl-value-indicator,
+.msl-discrete .msl-thumb:focus-visible .msl-value-indicator,
+.msl-discrete .msl-thumb.msl-active .msl-value-indicator {
+  transform: translateX(-50%) translateY(-8px) scale(1);
+  opacity: 1;
+}
+
+/* Value display */
+.msl-value-display {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--msl-value);
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Disabled state */
+.msl-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.msl-disabled .msl-thumb {
+  cursor: not-allowed;
+}
+
+.msl-disabled .msl-track {
+  cursor: not-allowed;
+}
+
+/* Range mode specific */
+.msl-range .msl-track-active {
+  left: 0;
+}
+
+/* Focus visible */
+.msl-thumb:focus-visible {
+  outline: none;
+}
+
+.msl-thumb:focus-visible .msl-thumb-handle {
+  outline: 2px solid var(--msl-primary);
+  outline-offset: 2px;
+}
+
+/* Touch improvements */
+@media (hover: none) {
+  .msl-thumb-handle {
+    width: 24px;
+    height: 24px;
+  }
+
+  .msl-state-layer {
+    width: 48px;
+    height: 48px;
+  }
+}

@@ -1,0 +1,355 @@
+/* Material Select - Material 3 Design */
+
+material-select {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+}
+
+.msl-container {
+  position: relative;
+  width: 100%;
+
+  --msl-primary: #6750A4;
+  --msl-error: #B3261E;
+  --msl-on-surface: #1C1B1F;
+  --msl-outline: #79747E;
+  --msl-surface-variant: #E7E0EC;
+  --msl-surface: #FFFBFE;
+}
+
+/* Input wrapper */
+.msl-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  cursor: pointer;
+}
+
+/* Select field */
+.msl-field {
+  flex: 1;
+  height: 56px;
+  padding: 16px;
+  padding-right: 48px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--msl-on-surface);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.msl-display-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msl-placeholder {
+  color: var(--msl-outline);
+}
+
+/* Arrow */
+.msl-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--msl-outline);
+  font-size: 24px;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.msl-open .msl-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Floating label */
+.msl-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--msl-outline);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  padding: 0 4px;
+}
+
+.msl-required {
+  color: var(--msl-error);
+  margin-left: 2px;
+}
+
+/* OUTLINED VARIANT */
+.msl-outlined .msl-input-wrapper {
+  border: none;
+}
+
+.msl-outlined .msl-outline {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--msl-outline);
+  border-radius: 4px;
+  pointer-events: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+.msl-outlined .msl-outline-legend {
+  padding: 0;
+  height: 0;
+  width: auto;
+  max-width: 0.01px;
+  transition: max-width 0.1s ease;
+  font-size: 12px;
+  visibility: hidden;
+}
+
+.msl-outlined .msl-outline-legend span {
+  padding: 0 4px;
+  display: inline-block;
+}
+
+/* Outlined focus/has-value state */
+.msl-outlined.msl-focused .msl-outline,
+.msl-outlined.msl-has-value .msl-outline {
+  border-width: 2px;
+}
+
+.msl-outlined.msl-focused .msl-outline {
+  border-color: var(--msl-primary);
+}
+
+.msl-outlined.msl-focused .msl-label,
+.msl-outlined.msl-has-value .msl-label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--msl-primary);
+  background: white;
+}
+
+.msl-outlined.msl-has-value:not(.msl-focused) .msl-label {
+  color: var(--msl-outline);
+}
+
+.msl-outlined.msl-focused .msl-outline-legend,
+.msl-outlined.msl-has-value .msl-outline-legend {
+  max-width: 100%;
+  visibility: visible;
+}
+
+/* FILLED VARIANT */
+.msl-filled .msl-input-wrapper {
+  background: var(--msl-surface-variant);
+  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid var(--msl-outline);
+}
+
+.msl-filled .msl-field {
+  padding-top: 24px;
+  padding-bottom: 8px;
+}
+
+.msl-filled .msl-label {
+  top: 28px;
+}
+
+/* Filled focus state */
+.msl-filled.msl-focused .msl-input-wrapper {
+  border-bottom: 2px solid var(--msl-primary);
+}
+
+.msl-filled.msl-focused .msl-label,
+.msl-filled.msl-has-value .msl-label {
+  top: 8px;
+  transform: none;
+  font-size: 12px;
+  color: var(--msl-primary);
+}
+
+.msl-filled.msl-has-value:not(.msl-focused) .msl-label {
+  color: var(--msl-outline);
+}
+
+.msl-filled.msl-has-value:not(.msl-focused) .msl-input-wrapper {
+  border-bottom-width: 1px;
+}
+
+/* Icons */
+.msl-icon {
+  font-size: 24px;
+  color: var(--msl-outline);
+  flex-shrink: 0;
+}
+
+.msl-icon-leading {
+  margin-left: 12px;
+  margin-right: -4px;
+}
+
+/* Adjust label position with leading icon */
+.msl-input-wrapper:has(.msl-icon-leading) .msl-label {
+  left: 48px;
+}
+
+.msl-input-wrapper:has(.msl-icon-leading) .msl-field {
+  padding-left: 8px;
+}
+
+/* Dropdown menu */
+.msl-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: var(--msl-surface);
+  border-radius: 4px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.12), 0 8px 10px rgba(0, 0, 0, 0.08);
+  max-height: 256px;
+  overflow-y: auto;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleY(0.8);
+  transform-origin: top;
+  transition: all 0.15s ease;
+}
+
+.msl-open .msl-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+}
+
+/* Menu items */
+.msl-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-size: 16px;
+  color: var(--msl-on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.msl-menu-item:hover,
+.msl-menu-item:focus {
+  background: rgba(0, 0, 0, 0.04);
+  outline: none;
+}
+
+.msl-menu-item.msl-selected {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.msl-item-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msl-item-check {
+  color: var(--msl-primary);
+  font-size: 18px;
+  margin-left: 8px;
+}
+
+/* Supporting text */
+.msl-supporting {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 16px 0;
+  font-size: 12px;
+  min-height: 20px;
+}
+
+.msl-helper-text {
+  color: var(--msl-outline);
+}
+
+/* Error state */
+.msl-error .msl-outline {
+  border-color: var(--msl-error) !important;
+}
+
+.msl-error .msl-label {
+  color: var(--msl-error) !important;
+}
+
+.msl-error .msl-helper-text {
+  color: var(--msl-error);
+}
+
+.msl-error .msl-icon,
+.msl-error .msl-arrow {
+  color: var(--msl-error);
+}
+
+.msl-error.msl-filled .msl-input-wrapper {
+  border-bottom-color: var(--msl-error) !important;
+}
+
+/* Disabled state */
+.msl-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.msl-disabled .msl-field {
+  cursor: not-allowed;
+}
+
+/* Hover states */
+.msl-outlined:not(.msl-focused):not(.msl-disabled):not(.msl-error):hover .msl-outline {
+  border-color: var(--msl-on-surface);
+}
+
+.msl-filled:not(.msl-focused):not(.msl-disabled):not(.msl-error):hover .msl-input-wrapper {
+  background: color-mix(in srgb, var(--msl-surface-variant) 90%, var(--msl-on-surface) 10%);
+}
+
+/* Focus visible */
+.msl-field:focus-visible {
+  outline: none;
+}
+
+.msl-outlined .msl-field:focus-visible ~ .msl-outline {
+  border-color: var(--msl-primary);
+  border-width: 2px;
+}
+
+/* Scrollbar styling */
+.msl-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.msl-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.msl-menu::-webkit-scrollbar-thumb {
+  background: var(--msl-outline);
+  border-radius: 4px;
+}
+
+.msl-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--msl-on-surface);
+}

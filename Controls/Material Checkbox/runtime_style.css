@@ -1,0 +1,201 @@
+/* Material Checkbox - Material 3 Design */
+
+material-checkbox {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mcb-container {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+  padding: 8px 0;
+
+  --mcb-primary: #6750A4;
+  --mcb-on-primary: #FFFFFF;
+  --mcb-outline: #79747E;
+  --mcb-on-surface: #1C1B1F;
+  --mcb-error: #B3261E;
+}
+
+.mcb-container.mcb-label-start {
+  flex-direction: row-reverse;
+}
+
+/* Hidden native input */
+.mcb-native-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Checkbox visual */
+.mcb-checkbox {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--mcb-outline);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mcb-checkbox:focus-visible {
+  outline: 2px solid var(--mcb-primary);
+  outline-offset: 2px;
+}
+
+/* Checked state */
+.mcb-checkbox.mcb-checked {
+  background: var(--mcb-primary);
+  border-color: var(--mcb-primary);
+}
+
+/* Icon */
+.mcb-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.mcb-svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--mcb-on-primary);
+  transform: scale(0);
+  transition: transform 0.15s ease;
+}
+
+.mcb-checked .mcb-svg {
+  transform: scale(1);
+}
+
+/* Ripple */
+.mcb-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: 50%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mcb-ripple-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(103, 80, 164, 0.2);
+  transform: scale(0);
+  animation: mcb-ripple-animation 0.4s ease-out forwards;
+}
+
+@keyframes mcb-ripple-animation {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Hover state */
+.mcb-container:not(.mcb-disabled) .mcb-checkbox:hover {
+  border-color: var(--mcb-on-surface);
+}
+
+.mcb-container:not(.mcb-disabled) .mcb-checkbox.mcb-checked:hover {
+  background: color-mix(in srgb, var(--mcb-primary) 90%, black 10%);
+  border-color: color-mix(in srgb, var(--mcb-primary) 90%, black 10%);
+}
+
+/* Focus state - show ripple background */
+.mcb-checkbox:focus-visible .mcb-ripple::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(103, 80, 164, 0.12);
+}
+
+/* Label */
+.mcb-label {
+  font-size: 16px;
+  color: var(--mcb-on-surface);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.4;
+  padding-top: 1px;
+}
+
+.mcb-required {
+  color: var(--mcb-error);
+}
+
+/* Error state */
+.mcb-container.mcb-error .mcb-checkbox {
+  border-color: var(--mcb-error);
+}
+
+.mcb-container.mcb-error .mcb-checkbox.mcb-checked {
+  background: var(--mcb-error);
+  border-color: var(--mcb-error);
+}
+
+.mcb-container.mcb-error .mcb-label {
+  color: var(--mcb-error);
+}
+
+.mcb-error-text {
+  position: absolute;
+  bottom: -16px;
+  left: 30px;
+  font-size: 12px;
+  color: var(--mcb-error);
+}
+
+/* Disabled state */
+.mcb-container.mcb-disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.mcb-container.mcb-disabled .mcb-checkbox,
+.mcb-container.mcb-disabled .mcb-label {
+  cursor: not-allowed;
+}
+
+/* Indeterminate state specific styling */
+.mcb-checkbox.mcb-indeterminate {
+  background: var(--mcb-primary);
+  border-color: var(--mcb-primary);
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mcb-container:active .mcb-checkbox {
+    transform: scale(0.95);
+  }
+}

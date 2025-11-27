@@ -1,0 +1,214 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design slider for selecting values from a range",
+  "displayName": "Material Slider",
+  "tagName": "material-slider",
+  "valuePropertyID": "value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the slider value changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "Current slider value",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "50",
+      "changesdisplay": true
+    },
+    {
+      "id": "min",
+      "refreshdisplay": "true",
+      "friendlyname": "Min",
+      "description": "Minimum value",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "0",
+      "changesdisplay": true
+    },
+    {
+      "id": "max",
+      "refreshdisplay": "true",
+      "friendlyname": "Max",
+      "description": "Maximum value",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "100",
+      "changesdisplay": true
+    },
+    {
+      "id": "step",
+      "refreshdisplay": "true",
+      "friendlyname": "Step",
+      "description": "Step increment",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "1",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Label text above slider",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "showValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Value",
+      "description": "Show value display (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showTicks",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Ticks",
+      "description": "Show tick marks (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "discrete",
+      "refreshdisplay": "true",
+      "friendlyname": "Discrete",
+      "description": "Enable discrete mode (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "rangeMode",
+      "refreshdisplay": "true",
+      "friendlyname": "Range Mode",
+      "description": "Enable range selection (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "valueStart",
+      "refreshdisplay": "true",
+      "friendlyname": "Value Start",
+      "description": "Start value (range mode)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "25",
+      "changesdisplay": true
+    },
+    {
+      "id": "valueEnd",
+      "refreshdisplay": "true",
+      "friendlyname": "Value End",
+      "description": "End value (range mode)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "75",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "trackColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Track Color",
+      "description": "Inactive track color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "trackActiveColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Track Active Color",
+      "description": "Active track color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "thumbColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Thumb Color",
+      "description": "Thumb handle color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Label text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "valueColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Value Color",
+      "description": "Value display text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": []
+}

@@ -1,0 +1,247 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design chips for filtering, input, or actions",
+  "displayName": "Material Chips",
+  "tagName": "material-chips",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when selection changes"
+    },
+    {
+      "id": "ChipRemoved",
+      "description": "Fires when a chip is removed"
+    },
+    {
+      "id": "ChipAdded",
+      "description": "Fires when a chip is added"
+    }
+  ],
+  "properties": [
+    {
+      "id": "chips",
+      "refreshdisplay": "true",
+      "friendlyname": "Chips",
+      "description": "Chip items (pipe-separated, format: icon:label:value)",
+      "type": "string",
+      "inputlength": "1000",
+      "initialvalue": "star:Featured:featured|schedule:Recent:recent|trending_up:Popular:popular",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character to separate chips",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "|",
+      "changesdisplay": true
+    },
+    {
+      "id": "subDelimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Sub Delimiter",
+      "description": "Character to separate chip parts",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": ":",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Chip style: assist, filter, input, suggestion",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "assist",
+      "changesdisplay": true
+    },
+    {
+      "id": "multiSelect",
+      "refreshdisplay": "true",
+      "friendlyname": "Multi Select",
+      "description": "Allow multiple chip selection (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Selected chip value(s)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "removable",
+      "refreshdisplay": "true",
+      "friendlyname": "Removable",
+      "description": "Allow chips to be removed (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "showCheckmark",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Checkmark",
+      "description": "Show checkmark on selected filter chips (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Chip background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Chip border color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Chip text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Background Color",
+      "description": "Selected chip background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E8DEF8",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedBorderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Border Color",
+      "description": "Selected chip border color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Text Color",
+      "description": "Selected chip text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1D192B",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Chip icon color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "removeIconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Remove Icon Color",
+      "description": "Remove button icon color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "elevatedBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Elevated Background Color",
+      "description": "Background color for suggestion/elevated chips",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#F3EDF7",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "addChip",
+      "displayname": "Add Chip",
+      "returntype": "None",
+      "description": "Adds a new chip programmatically",
+      "parameters": []
+    },
+    {
+      "id": "clearSelection",
+      "displayname": "Clear Selection",
+      "returntype": "None",
+      "description": "Clears all selected chips",
+      "parameters": []
+    }
+  ]
+}

@@ -1,0 +1,286 @@
+/* Material Carousel - Material 3 Design */
+
+material-carousel {
+  display: block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mcr-container {
+  position: relative;
+  width: 100%;
+  background: var(--mcr-background);
+  border-radius: 28px;
+  overflow: hidden;
+
+  --mcr-primary: #6750A4;
+  --mcr-background: #FFFBFE;
+  --mcr-arrow: #FFFFFF;
+  --mcr-arrow-bg: rgba(0, 0, 0, 0.3);
+  --mcr-indicator: rgba(255, 255, 255, 0.5);
+  --mcr-indicator-active: #FFFFFF;
+  --mcr-overlay: transparent;
+  --mcr-text: #FFFFFF;
+  --mcr-caption-bg: rgba(0, 0, 0, 0.5);
+}
+
+/* Viewport */
+.mcr-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Track */
+.mcr-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+/* Slide */
+.mcr-slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  min-height: 200px;
+}
+
+/* Image */
+.mcr-image {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.mcr-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--mcr-overlay);
+  pointer-events: none;
+}
+
+/* Caption */
+.mcr-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 24px;
+  background: var(--mcr-caption-bg);
+  color: var(--mcr-text);
+}
+
+.mcr-title {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.27;
+  margin-bottom: 4px;
+}
+
+.mcr-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  opacity: 0.8;
+}
+
+/* Navigation arrows */
+.mcr-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: var(--mcr-arrow-bg);
+  color: var(--mcr-arrow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.mcr-arrow:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.mcr-arrow:focus-visible {
+  outline: 2px solid var(--mcr-primary);
+  outline-offset: 2px;
+}
+
+.mcr-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.mcr-arrow .material-icons {
+  font-size: 28px;
+}
+
+.mcr-prev {
+  left: 16px;
+}
+
+.mcr-next {
+  right: 16px;
+}
+
+/* Indicators */
+.mcr-indicators {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.mcr-indicator {
+  width: 8px;
+  height: 8px;
+  border: none;
+  border-radius: 50%;
+  background: var(--mcr-indicator);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.mcr-indicator:hover {
+  background: var(--mcr-indicator-active);
+  transform: scale(1.2);
+}
+
+.mcr-indicator.mcr-active {
+  background: var(--mcr-indicator-active);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.mcr-indicator:focus-visible {
+  outline: 2px solid var(--mcr-primary);
+  outline-offset: 2px;
+}
+
+/* Variant: Contained (default) */
+.mcr-contained {
+  border-radius: 28px;
+}
+
+.mcr-contained .mcr-slide {
+  min-height: 200px;
+}
+
+/* Variant: Hero */
+.mcr-hero {
+  border-radius: 0;
+}
+
+.mcr-hero .mcr-slide {
+  min-height: 400px;
+}
+
+.mcr-hero .mcr-caption {
+  padding: 24px 32px;
+}
+
+.mcr-hero .mcr-title {
+  font-size: 32px;
+}
+
+.mcr-hero .mcr-subtitle {
+  font-size: 16px;
+}
+
+/* Variant: Full-screen */
+.mcr-full-screen {
+  border-radius: 0;
+  height: 100vh;
+}
+
+.mcr-full-screen .mcr-viewport,
+.mcr-full-screen .mcr-slide,
+.mcr-full-screen .mcr-image {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.mcr-full-screen .mcr-caption {
+  padding: 32px 48px;
+}
+
+.mcr-full-screen .mcr-title {
+  font-size: 48px;
+}
+
+.mcr-full-screen .mcr-subtitle {
+  font-size: 18px;
+}
+
+/* Disabled state */
+.mcr-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mcr-arrow {
+    width: 56px;
+    height: 56px;
+  }
+
+  .mcr-indicator {
+    width: 12px;
+    height: 12px;
+  }
+
+  .mcr-indicator.mcr-active {
+    width: 32px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .mcr-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mcr-arrow .material-icons {
+    font-size: 24px;
+  }
+
+  .mcr-prev {
+    left: 8px;
+  }
+
+  .mcr-next {
+    right: 8px;
+  }
+
+  .mcr-caption {
+    padding: 12px 16px;
+  }
+
+  .mcr-title {
+    font-size: 18px;
+  }
+
+  .mcr-subtitle {
+    font-size: 12px;
+  }
+}

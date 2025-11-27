@@ -1,0 +1,211 @@
+/* Material Chips - Material 3 Design */
+
+material-chips {
+  display: inline-flex;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mcp-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  --mcp-primary: #6750A4;
+  --mcp-background: #FFFBFE;
+  --mcp-border: #79747E;
+  --mcp-text: #1C1B1F;
+  --mcp-selected-bg: #E8DEF8;
+  --mcp-selected-border: #79747E;
+  --mcp-selected-text: #1D192B;
+  --mcp-icon: #49454F;
+  --mcp-remove-icon: #49454F;
+  --mcp-elevated-bg: #F3EDF7;
+}
+
+/* Chip base */
+.mcp-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid var(--mcp-border);
+  border-radius: 8px;
+  background: var(--mcp-background);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mcp-text);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mcp-chip:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--mcp-background) 92%, var(--mcp-text) 8%);
+}
+
+.mcp-chip:focus-visible {
+  outline: 2px solid var(--mcp-primary);
+  outline-offset: 2px;
+}
+
+/* Content wrapper */
+.mcp-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+}
+
+/* State layer */
+.mcp-state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 7px;
+  pointer-events: none;
+}
+
+/* Icon */
+.mcp-icon {
+  font-size: 18px;
+  color: var(--mcp-icon);
+  margin-left: -4px;
+}
+
+/* Checkmark */
+.mcp-checkmark {
+  font-size: 18px;
+  color: var(--mcp-selected-text);
+  margin-left: -4px;
+  animation: mcp-checkmark-in 0.2s ease;
+}
+
+@keyframes mcp-checkmark-in {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Label */
+.mcp-label {
+  white-space: nowrap;
+}
+
+/* Remove button */
+.mcp-remove {
+  font-size: 18px;
+  color: var(--mcp-remove-icon);
+  margin-right: -4px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.mcp-remove:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Selected state */
+.mcp-chip.mcp-selected {
+  background: var(--mcp-selected-bg);
+  border-color: var(--mcp-selected-border);
+  color: var(--mcp-selected-text);
+}
+
+.mcp-chip.mcp-selected .mcp-icon {
+  color: var(--mcp-selected-text);
+}
+
+.mcp-chip.mcp-selected:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--mcp-selected-bg) 90%, var(--mcp-text) 10%);
+}
+
+/* Assist chip variant (default) */
+.mcp-assist .mcp-chip {
+  /* Default styling */
+}
+
+/* Filter chip variant */
+.mcp-filter .mcp-chip {
+  /* Same as default but with checkmark behavior */
+}
+
+/* Input chip variant */
+.mcp-input .mcp-chip {
+  padding-right: 8px;
+}
+
+.mcp-input .mcp-chip .mcp-remove {
+  margin-left: 4px;
+}
+
+/* Suggestion chip variant */
+.mcp-suggestion .mcp-chip {
+  background: var(--mcp-elevated-bg);
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.mcp-suggestion .mcp-chip:hover:not(:disabled) {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.mcp-suggestion .mcp-chip.mcp-selected {
+  background: var(--mcp-selected-bg);
+}
+
+/* Elevated style (optional class) */
+.mcp-chip.mcp-elevated {
+  background: var(--mcp-elevated-bg);
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.mcp-chip.mcp-elevated:hover:not(:disabled) {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Disabled state */
+.mcp-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.mcp-disabled .mcp-chip {
+  cursor: not-allowed;
+}
+
+/* Has icon */
+.mcp-chip:has(.mcp-icon),
+.mcp-chip:has(.mcp-checkmark) {
+  padding-left: 8px;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mcp-chip:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Dense mode (optional) */
+.mcp-dense .mcp-chip {
+  height: 28px;
+  font-size: 13px;
+}
+
+.mcp-dense .mcp-icon,
+.mcp-dense .mcp-checkmark,
+.mcp-dense .mcp-remove {
+  font-size: 16px;
+}

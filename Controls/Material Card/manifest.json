@@ -1,0 +1,252 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design card for displaying content with media, header, and actions",
+  "displayName": "Material Card",
+  "tagName": "material-card",
+  "valuePropertyID": "headline",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "CardClicked",
+      "description": "Fires when clickable card is clicked"
+    },
+    {
+      "id": "PrimaryAction",
+      "description": "Fires when primary action button is clicked"
+    },
+    {
+      "id": "SecondaryAction",
+      "description": "Fires when secondary action button is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Card style: elevated, filled, outlined",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "elevated",
+      "changesdisplay": true
+    },
+    {
+      "id": "headline",
+      "refreshdisplay": "true",
+      "friendlyname": "Headline",
+      "description": "Card headline/title text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Card Title",
+      "changesdisplay": true
+    },
+    {
+      "id": "subhead",
+      "refreshdisplay": "true",
+      "friendlyname": "Subhead",
+      "description": "Card subhead text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "supportingText",
+      "refreshdisplay": "true",
+      "friendlyname": "Supporting Text",
+      "description": "Card body/description text",
+      "type": "string",
+      "inputlength": "1000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "image",
+      "refreshdisplay": "true",
+      "friendlyname": "Image",
+      "description": "Card media image URL",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "imagePosition",
+      "refreshdisplay": "true",
+      "friendlyname": "Image Position",
+      "description": "Image position: top, bottom",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "top",
+      "changesdisplay": true
+    },
+    {
+      "id": "avatar",
+      "refreshdisplay": "true",
+      "friendlyname": "Avatar",
+      "description": "Avatar image URL or Material icon name",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "avatarText",
+      "refreshdisplay": "true",
+      "friendlyname": "Avatar Text",
+      "description": "Avatar text (first letter shown)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "overline",
+      "refreshdisplay": "true",
+      "friendlyname": "Overline",
+      "description": "Overline text above headline",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryAction",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Action",
+      "description": "Primary action button text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "secondaryAction",
+      "refreshdisplay": "true",
+      "friendlyname": "Secondary Action",
+      "description": "Secondary action button text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "showDivider",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Divider",
+      "description": "Show divider above actions (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "clickable",
+      "refreshdisplay": "true",
+      "friendlyname": "Clickable",
+      "description": "Make entire card clickable (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Card background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Color",
+      "description": "Filled variant surface color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#F7F2FA",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Outlined variant border color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#CAC4D0",
+      "changesdisplay": true
+    },
+    {
+      "id": "headlineColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Headline Color",
+      "description": "Headline text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "subheadColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Subhead Color",
+      "description": "Subhead text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "supportingTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Supporting Text Color",
+      "description": "Body text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": []
+}

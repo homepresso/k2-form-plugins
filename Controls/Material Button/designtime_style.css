@@ -1,0 +1,268 @@
+/* Material Button - Material 3 Design */
+
+material-button {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mbtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  --mbtn-primary: #6750A4;
+  --mbtn-on-primary: #FFFFFF;
+  --mbtn-primary-container: #EADDFF;
+  --mbtn-on-primary-container: #21005D;
+  --mbtn-outline: #79747E;
+  --mbtn-surface: #FFFBFE;
+  --mbtn-on-surface: #1C1B1F;
+  --mbtn-on-surface-variant: #49454F;
+}
+
+/* Size variants */
+.mbtn-small {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+  border-radius: 16px;
+}
+
+.mbtn-medium {
+  height: 40px;
+  padding: 0 24px;
+}
+
+.mbtn-large {
+  height: 48px;
+  padding: 0 32px;
+  font-size: 15px;
+}
+
+/* Icon styles */
+.mbtn-icon {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--mbtn-icon-color, inherit);
+}
+
+.mbtn-small .mbtn-icon {
+  font-size: 16px;
+}
+
+.mbtn-large .mbtn-icon {
+  font-size: 20px;
+}
+
+/* Button text label */
+.mbtn-label {
+  white-space: nowrap;
+}
+
+/* Icon-only button */
+.mbtn-icon-only {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.mbtn-icon-only.mbtn-small {
+  width: 32px;
+  height: 32px;
+}
+
+.mbtn-icon-only.mbtn-medium {
+  width: 40px;
+  height: 40px;
+}
+
+.mbtn-icon-only.mbtn-large {
+  width: 48px;
+  height: 48px;
+}
+
+/* Full width */
+.mbtn-full-width {
+  width: 100%;
+}
+
+/* FILLED VARIANT */
+.mbtn-filled {
+  background: var(--mbtn-primary);
+  color: var(--mbtn-on-primary);
+}
+
+.mbtn-filled:hover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.mbtn-filled:active {
+  box-shadow: none;
+}
+
+/* OUTLINED VARIANT */
+.mbtn-outlined {
+  background: transparent;
+  color: var(--mbtn-primary);
+  border: 1px solid var(--mbtn-outline);
+}
+
+.mbtn-outlined:hover {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.mbtn-outlined:active {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+/* TEXT VARIANT */
+.mbtn-text {
+  background: transparent;
+  color: var(--mbtn-primary);
+  padding: 0 12px;
+}
+
+.mbtn-text:hover {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.mbtn-text:active {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+/* ELEVATED VARIANT */
+.mbtn-elevated {
+  background: var(--mbtn-surface);
+  color: var(--mbtn-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.mbtn-elevated:hover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+}
+
+.mbtn-elevated:active {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* TONAL VARIANT */
+.mbtn-tonal {
+  background: var(--mbtn-primary-container);
+  color: var(--mbtn-on-primary-container);
+}
+
+.mbtn-tonal:hover {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.mbtn-tonal:active {
+  box-shadow: none;
+}
+
+/* Ripple effect */
+.mbtn-ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.mbtn-ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: mbtn-ripple-animation 0.6s ease-out;
+  pointer-events: none;
+}
+
+.mbtn-outlined .mbtn-ripple-effect,
+.mbtn-text .mbtn-ripple-effect,
+.mbtn-elevated .mbtn-ripple-effect,
+.mbtn-tonal .mbtn-ripple-effect {
+  background: rgba(103, 80, 164, 0.2);
+}
+
+@keyframes mbtn-ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Loading state */
+.mbtn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: mbtn-spin 0.8s linear infinite;
+}
+
+@keyframes mbtn-spin {
+  to { transform: rotate(360deg); }
+}
+
+.mbtn-loading {
+  pointer-events: none;
+}
+
+/* Disabled state */
+.mbtn-disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.mbtn-disabled.mbtn-filled {
+  background: rgba(28, 27, 31, 0.12);
+  color: rgba(28, 27, 31, 0.38);
+  box-shadow: none;
+}
+
+.mbtn-disabled.mbtn-outlined {
+  border-color: rgba(28, 27, 31, 0.12);
+  color: rgba(28, 27, 31, 0.38);
+}
+
+.mbtn-disabled.mbtn-elevated {
+  background: rgba(28, 27, 31, 0.12);
+  color: rgba(28, 27, 31, 0.38);
+  box-shadow: none;
+}
+
+.mbtn-disabled.mbtn-tonal {
+  background: rgba(28, 27, 31, 0.12);
+  color: rgba(28, 27, 31, 0.38);
+}
+
+/* Focus visible */
+.mbtn:focus-visible {
+  outline: 2px solid var(--mbtn-primary);
+  outline-offset: 2px;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mbtn:active {
+    transform: scale(0.98);
+  }
+}

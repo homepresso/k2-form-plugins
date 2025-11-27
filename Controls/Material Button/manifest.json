@@ -1,0 +1,202 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "A Material 3 Design button with multiple variants, icons, and ripple effect.",
+  "displayName": "Material Button",
+  "tagName": "material-button",
+  "valuePropertyID": "text",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Clicked",
+      "description": "Fires when the button is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "text",
+      "refreshdisplay": "true",
+      "friendlyname": "Text",
+      "description": "Button text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Button",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Button variant: filled, outlined, text, elevated, tonal",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "filled",
+      "changesdisplay": true
+    },
+    {
+      "id": "leadingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Leading Icon",
+      "description": "Material icon name for leading icon (e.g., 'add', 'send')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "trailingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Trailing Icon",
+      "description": "Material icon name for trailing icon",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconOnly",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Only",
+      "description": "Show only icon without text (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "fullWidth",
+      "refreshdisplay": "true",
+      "friendlyname": "Full Width",
+      "description": "Make button full width of container (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "size",
+      "refreshdisplay": "true",
+      "friendlyname": "Size",
+      "description": "Button size: small, medium, large",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "medium",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary button color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Button text color (leave empty for default)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "outlineColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Outline Color",
+      "description": "Border color for outlined variant",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Color",
+      "description": "Background color for elevated variant",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of leading/trailing icons (leave empty for default)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "disableRipple",
+      "refreshdisplay": "true",
+      "friendlyname": "Disable Ripple",
+      "description": "Disable ripple effect (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "loading",
+      "refreshdisplay": "true",
+      "friendlyname": "Loading",
+      "description": "Show loading spinner (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "tooltip",
+      "refreshdisplay": "true",
+      "friendlyname": "Tooltip",
+      "description": "Tooltip text shown on hover",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family (Roboto, Open Sans, Poppins, Montserrat, Inter, Lato, etc.)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "click",
+      "displayname": "Click",
+      "returntype": "None",
+      "description": "Programmatically triggers a click",
+      "parameters": []
+    }
+  ]
+}

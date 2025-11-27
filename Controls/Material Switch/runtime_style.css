@@ -1,0 +1,217 @@
+/* Material Switch - Material 3 Design */
+
+material-switch {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.msw-container {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+
+  --msw-primary: #6750A4;
+  --msw-on-primary: #FFFFFF;
+  --msw-outline: #79747E;
+  --msw-on-surface: #1C1B1F;
+  --msw-surface-variant: #E7E0EC;
+  --msw-on-surface-variant: #49454F;
+  --msw-error: #B3261E;
+}
+
+.msw-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.msw-container.msw-label-start .msw-wrapper {
+  flex-direction: row-reverse;
+}
+
+/* Hidden native input */
+.msw-native-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Switch */
+.msw-switch {
+  position: relative;
+  width: 52px;
+  height: 32px;
+  cursor: pointer;
+  outline: none;
+}
+
+.msw-switch:focus-visible {
+  outline: 2px solid var(--msw-primary);
+  outline-offset: 2px;
+  border-radius: 16px;
+}
+
+/* Track */
+.msw-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--msw-surface-variant);
+  border: 2px solid var(--msw-outline);
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.msw-checked .msw-track {
+  background: var(--msw-primary);
+  border-color: var(--msw-primary);
+}
+
+/* Thumb */
+.msw-thumb {
+  position: absolute;
+  top: 50%;
+  left: 6px;
+  width: 16px;
+  height: 16px;
+  background: var(--msw-outline);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msw-checked .msw-thumb {
+  left: calc(100% - 28px);
+  width: 24px;
+  height: 24px;
+  background: var(--msw-on-primary);
+}
+
+/* Pressed state - larger thumb */
+.msw-switch:active .msw-thumb {
+  width: 28px;
+  height: 28px;
+}
+
+.msw-switch:active:not(.msw-checked) .msw-thumb {
+  left: 4px;
+}
+
+.msw-switch:active.msw-checked .msw-thumb {
+  left: calc(100% - 32px);
+}
+
+/* State layer */
+.msw-state-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+
+.msw-switch:hover .msw-state-layer {
+  background: rgba(28, 27, 31, 0.08);
+}
+
+.msw-checked:hover .msw-state-layer {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.msw-switch:focus-visible .msw-state-layer {
+  background: rgba(28, 27, 31, 0.12);
+}
+
+.msw-checked:focus-visible .msw-state-layer {
+  background: rgba(103, 80, 164, 0.12);
+}
+
+/* Icons */
+.msw-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s ease;
+}
+
+.msw-icon-on {
+  color: var(--msw-primary);
+}
+
+.msw-icon-off {
+  color: var(--msw-surface-variant);
+}
+
+.msw-checked .msw-icon-on {
+  opacity: 1;
+  transform: scale(1);
+}
+
+:not(.msw-checked) .msw-icon-off {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Label */
+.msw-label {
+  font-size: 16px;
+  color: var(--msw-on-surface);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.4;
+}
+
+.msw-required {
+  color: var(--msw-error);
+}
+
+/* Helper text */
+.msw-helper-text {
+  font-size: 12px;
+  color: var(--msw-on-surface-variant);
+  margin-left: 64px;
+}
+
+.msw-container.msw-label-start .msw-helper-text {
+  margin-left: 0;
+  text-align: right;
+}
+
+/* Disabled state */
+.msw-container.msw-disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.msw-container.msw-disabled .msw-switch,
+.msw-container.msw-disabled .msw-label {
+  cursor: not-allowed;
+}
+
+.msw-container.msw-disabled .msw-state-layer {
+  display: none;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .msw-switch:active .msw-thumb {
+    transform: translateY(-50%) scale(0.95);
+  }
+}

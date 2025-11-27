@@ -1,0 +1,248 @@
+/* Material Icon Button - Material 3 Design */
+
+material-icon-button {
+  display: inline-block;
+}
+
+.mib-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+
+  --mib-primary: #6750A4;
+  --mib-icon-color: #49454F;
+  --mib-container: transparent;
+  --mib-on-surface: #1C1B1F;
+  --mib-outline: #79747E;
+  --mib-surface-variant: #E7E0EC;
+}
+
+/* Size variants */
+.mib-small {
+  width: 36px;
+  height: 36px;
+}
+
+.mib-small .mib-icon {
+  font-size: 20px;
+}
+
+.mib-medium {
+  width: 48px;
+  height: 48px;
+}
+
+.mib-medium .mib-icon {
+  font-size: 24px;
+}
+
+.mib-large {
+  width: 56px;
+  height: 56px;
+}
+
+.mib-large .mib-icon {
+  font-size: 28px;
+}
+
+/* Icon */
+.mib-icon {
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+/* State layer */
+.mib-state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+/* STANDARD VARIANT */
+.mib-standard .mib-icon {
+  color: var(--mib-icon-color);
+}
+
+.mib-standard:hover .mib-state-layer {
+  background: rgba(73, 69, 79, 0.08);
+}
+
+.mib-standard:focus-visible .mib-state-layer {
+  background: rgba(73, 69, 79, 0.12);
+}
+
+.mib-standard:active .mib-state-layer {
+  background: rgba(73, 69, 79, 0.12);
+}
+
+.mib-standard.mib-selected .mib-icon {
+  color: var(--mib-selected-icon-color, var(--mib-primary));
+}
+
+.mib-standard.mib-selected:hover .mib-state-layer {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+/* FILLED VARIANT */
+.mib-filled {
+  background: var(--mib-container, var(--mib-primary));
+}
+
+.mib-filled .mib-icon {
+  color: var(--mib-selected-icon-color, #FFFFFF);
+}
+
+.mib-filled:hover .mib-state-layer {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mib-filled:focus-visible .mib-state-layer {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mib-filled.mib-selected {
+  background: var(--mib-selected-container, var(--mib-primary));
+}
+
+/* Unselected filled */
+.mib-filled:not(.mib-selected) {
+  background: var(--mib-surface-variant);
+}
+
+.mib-filled:not(.mib-selected) .mib-icon {
+  color: var(--mib-primary);
+}
+
+.mib-filled:not(.mib-selected):hover .mib-state-layer {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+/* TONAL VARIANT */
+.mib-tonal {
+  background: var(--mib-container, var(--mib-surface-variant));
+}
+
+.mib-tonal .mib-icon {
+  color: var(--mib-icon-color);
+}
+
+.mib-tonal:hover .mib-state-layer {
+  background: rgba(73, 69, 79, 0.08);
+}
+
+.mib-tonal:focus-visible .mib-state-layer {
+  background: rgba(73, 69, 79, 0.12);
+}
+
+.mib-tonal.mib-selected {
+  background: var(--mib-selected-container, var(--mib-primary));
+}
+
+.mib-tonal.mib-selected .mib-icon {
+  color: var(--mib-selected-icon-color, #FFFFFF);
+}
+
+.mib-tonal.mib-selected:hover .mib-state-layer {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* OUTLINED VARIANT */
+.mib-outlined {
+  background: transparent;
+  border: 1px solid var(--mib-outline);
+}
+
+.mib-outlined .mib-icon {
+  color: var(--mib-icon-color);
+}
+
+.mib-outlined:hover .mib-state-layer {
+  background: rgba(73, 69, 79, 0.08);
+}
+
+.mib-outlined:focus-visible .mib-state-layer {
+  background: rgba(73, 69, 79, 0.12);
+}
+
+.mib-outlined.mib-selected {
+  background: var(--mib-selected-container, var(--mib-primary));
+  border-color: var(--mib-selected-container, var(--mib-primary));
+}
+
+.mib-outlined.mib-selected .mib-icon {
+  color: var(--mib-selected-icon-color, #FFFFFF);
+}
+
+.mib-outlined.mib-selected:hover .mib-state-layer {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Ripple */
+.mib-ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.mib-ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(103, 80, 164, 0.2);
+  transform: scale(0);
+  animation: mib-ripple-animation 0.5s ease-out;
+  pointer-events: none;
+}
+
+.mib-filled .mib-ripple-effect,
+.mib-tonal.mib-selected .mib-ripple-effect,
+.mib-outlined.mib-selected .mib-ripple-effect {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes mib-ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Disabled state */
+.mib-disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Focus visible */
+.mib-button:focus-visible {
+  outline: 2px solid var(--mib-primary);
+  outline-offset: 2px;
+}
+
+/* Touch feedback */
+@media (hover: none) {
+  .mib-button:active {
+    transform: scale(0.95);
+  }
+}

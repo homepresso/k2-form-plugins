@@ -1,0 +1,189 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design segmented button for selecting from a set of options",
+  "displayName": "Material Segmented Button",
+  "tagName": "material-segmented-button",
+  "valuePropertyID": "value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the selection changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "segments",
+      "refreshdisplay": "true",
+      "friendlyname": "Segments",
+      "description": "Delimited list of segment labels (format: icon:label:value)",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "Day|Week|Month|Year",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character used to separate segments",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "|",
+      "changesdisplay": true
+    },
+    {
+      "id": "value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "Currently selected segment value",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "multiSelect",
+      "refreshdisplay": "true",
+      "friendlyname": "Multi Select",
+      "description": "Enable multiple segment selection (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "showCheckmark",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Checkmark",
+      "description": "Show checkmark on selected segments (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "density",
+      "refreshdisplay": "true",
+      "friendlyname": "Density",
+      "description": "Button density: default, comfortable, compact",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "default",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/focus color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Border/outline color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Background",
+      "description": "Background color for selected segments",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E8DEF8",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Text/label color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Text Color",
+      "description": "Text color for selected segments",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1D192B",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of icons",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "checkmarkColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Checkmark Color",
+      "description": "Color of selection checkmark",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for labels",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "selectSegment",
+      "displayname": "Select Segment",
+      "returntype": "None",
+      "description": "Selects a segment by value",
+      "parameters": []
+    },
+    {
+      "id": "clearSelection",
+      "displayname": "Clear Selection",
+      "returntype": "None",
+      "description": "Clears all selections",
+      "parameters": []
+    }
+  ]
+}

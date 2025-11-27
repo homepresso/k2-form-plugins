@@ -1,0 +1,315 @@
+/* Material Textbox - Material 3 Design */
+
+material-textbox {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mtb-container {
+  position: relative;
+  width: 100%;
+  --mtb-primary: #6750A4;
+  --mtb-error: #B3261E;
+  --mtb-on-surface: #1C1B1F;
+  --mtb-outline: #79747E;
+  --mtb-surface-variant: #E7E0EC;
+  --mtb-label-color: #49454F;
+  --mtb-icon-color: #49454F;
+}
+
+/* Input wrapper */
+.mtb-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+}
+
+/* Base input styles */
+.mtb-input {
+  flex: 1;
+  width: 100%;
+  height: 56px;
+  padding: 16px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--mtb-on-surface);
+  background: transparent;
+  border: none;
+  outline: none;
+  caret-color: var(--mtb-primary);
+  box-sizing: border-box;
+}
+
+.mtb-input::placeholder {
+  color: transparent;
+}
+
+.mtb-input:focus::placeholder {
+  color: var(--mtb-outline);
+}
+
+/* Floating label */
+.mtb-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--mtb-label-color);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  padding: 0 4px;
+}
+
+.mtb-required {
+  color: var(--mtb-error);
+  margin-left: 2px;
+}
+
+/* OUTLINED VARIANT */
+.mtb-outlined .mtb-input-wrapper {
+  border: 1px solid var(--mtb-outline);
+  border-radius: 4px;
+  background: transparent;
+}
+
+.mtb-outlined .mtb-outline {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--mtb-outline);
+  border-radius: 4px;
+  pointer-events: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+.mtb-outlined .mtb-outline-legend {
+  padding: 0;
+  height: 0;
+  width: auto;
+  max-width: 0.01px;
+  transition: max-width 0.1s ease;
+  font-size: 12px;
+  visibility: hidden;
+}
+
+.mtb-outlined .mtb-outline-legend span {
+  padding: 0 4px;
+  display: inline-block;
+  color: transparent;
+}
+
+.mtb-outlined .mtb-input-wrapper {
+  border: none;
+}
+
+/* Outlined focus state */
+.mtb-outlined.mtb-focused .mtb-outline,
+.mtb-outlined.mtb-has-value .mtb-outline {
+  border-width: 2px;
+}
+
+.mtb-outlined.mtb-focused .mtb-outline {
+  border-color: var(--mtb-primary);
+}
+
+.mtb-outlined.mtb-focused .mtb-label,
+.mtb-outlined.mtb-has-value .mtb-label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--mtb-primary);
+  background: white;
+}
+
+.mtb-outlined.mtb-has-value:not(.mtb-focused) .mtb-label {
+  color: var(--mtb-label-color);
+}
+
+.mtb-outlined.mtb-focused .mtb-outline-legend,
+.mtb-outlined.mtb-has-value .mtb-outline-legend {
+  max-width: 100%;
+  visibility: visible;
+}
+
+/* FILLED VARIANT */
+.mtb-filled .mtb-input-wrapper {
+  background: var(--mtb-surface-variant);
+  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid var(--mtb-outline);
+}
+
+.mtb-filled .mtb-input {
+  padding-top: 24px;
+  padding-bottom: 8px;
+}
+
+.mtb-filled .mtb-label {
+  top: 28px;
+}
+
+/* Filled focus state */
+.mtb-filled.mtb-focused .mtb-input-wrapper {
+  border-bottom: 2px solid var(--mtb-primary);
+}
+
+.mtb-filled.mtb-focused .mtb-label,
+.mtb-filled.mtb-has-value .mtb-label {
+  top: 8px;
+  transform: none;
+  font-size: 12px;
+  color: var(--mtb-primary);
+}
+
+.mtb-filled.mtb-has-value:not(.mtb-focused) .mtb-label {
+  color: var(--mtb-label-color);
+}
+
+.mtb-filled.mtb-has-value:not(.mtb-focused) .mtb-input-wrapper {
+  border-bottom-width: 1px;
+}
+
+/* Icons */
+.mtb-icon {
+  font-size: 24px;
+  color: var(--mtb-icon-color);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.mtb-icon-leading {
+  margin-left: 12px;
+  margin-right: -4px;
+}
+
+.mtb-icon-trailing {
+  margin-right: 12px;
+  margin-left: -4px;
+}
+
+.mtb-icon-clickable {
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.mtb-icon-clickable:hover {
+  color: var(--mtb-primary);
+}
+
+/* Adjust label position with icons */
+.mtb-input-wrapper:has(.mtb-icon-leading) .mtb-label {
+  left: 48px;
+}
+
+.mtb-input-wrapper:has(.mtb-icon-leading) .mtb-input {
+  padding-left: 8px;
+}
+
+/* Supporting text */
+.mtb-supporting {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 16px 0;
+  font-size: 12px;
+  min-height: 20px;
+}
+
+.mtb-helper-text {
+  color: var(--mtb-outline);
+}
+
+.mtb-char-count {
+  color: var(--mtb-outline);
+  margin-left: auto;
+}
+
+/* Error state */
+.mtb-error .mtb-outline {
+  border-color: var(--mtb-error) !important;
+}
+
+.mtb-error .mtb-label {
+  color: var(--mtb-error) !important;
+}
+
+.mtb-error .mtb-helper-text {
+  color: var(--mtb-error);
+}
+
+.mtb-error .mtb-icon {
+  color: var(--mtb-error);
+}
+
+.mtb-error.mtb-filled .mtb-input-wrapper {
+  border-bottom-color: var(--mtb-error) !important;
+}
+
+/* Disabled state */
+.mtb-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.mtb-disabled .mtb-input {
+  cursor: not-allowed;
+}
+
+/* Read-only state */
+.mtb-readonly .mtb-input {
+  cursor: default;
+}
+
+.mtb-readonly .mtb-input-wrapper {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Hover states */
+.mtb-outlined:not(.mtb-focused):not(.mtb-disabled):not(.mtb-error):hover .mtb-outline {
+  border-color: var(--mtb-on-surface);
+}
+
+.mtb-filled:not(.mtb-focused):not(.mtb-disabled):not(.mtb-error):hover .mtb-input-wrapper {
+  background: color-mix(in srgb, var(--mtb-surface-variant) 90%, var(--mtb-on-surface) 10%);
+}
+
+/* Number input - hide spinners */
+.mtb-input[type="number"]::-webkit-inner-spin-button,
+.mtb-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mtb-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Search input - hide clear button */
+.mtb-input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* Autofill styling */
+.mtb-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: var(--mtb-on-surface);
+}
+
+.mtb-filled .mtb-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--mtb-surface-variant) inset;
+}
+
+/* Animation */
+@keyframes mtb-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.mtb-error.mtb-shake .mtb-input-wrapper {
+  animation: mtb-shake 0.3s ease;
+}

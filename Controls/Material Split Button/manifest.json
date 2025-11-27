@@ -1,0 +1,202 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design split button with primary action and dropdown menu",
+  "displayName": "Material Split Button",
+  "tagName": "material-split-button",
+  "valuePropertyID": "text",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "PrimaryClicked",
+      "description": "Fires when the primary button is clicked"
+    },
+    {
+      "id": "MenuItemClicked",
+      "description": "Fires when a menu item is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "text",
+      "refreshdisplay": "true",
+      "friendlyname": "Text",
+      "description": "Primary button text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Save",
+      "changesdisplay": true
+    },
+    {
+      "id": "icon",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon",
+      "description": "Leading icon for primary button (optional)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Button style: filled, outlined, tonal",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "filled",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuItems",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Items",
+      "description": "Dropdown items (pipe-separated, optional icon:label format)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "Save as Draft|Save and Close|Save and New",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character to separate menu items",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "|",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Button text color (leave empty for default)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "outlineColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Outline Color",
+      "description": "Border color for outlined variant",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Color",
+      "description": "Surface/menu background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceVariantColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Variant Color",
+      "description": "Background color for tonal variant",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Background Color",
+      "description": "Custom dropdown menu background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Text Color",
+      "description": "Dropdown menu text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "dividerColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Divider Color",
+      "description": "Color of the divider between buttons",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "disableRipple",
+      "refreshdisplay": "true",
+      "friendlyname": "Disable Ripple",
+      "description": "Disable the ripple effect",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for the button text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "open",
+      "displayname": "Open",
+      "returntype": "None",
+      "description": "Open the dropdown menu",
+      "parameters": []
+    },
+    {
+      "id": "close",
+      "displayname": "Close",
+      "returntype": "None",
+      "description": "Close the dropdown menu",
+      "parameters": []
+    }
+  ]
+}

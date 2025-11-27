@@ -1,0 +1,273 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design time picker with clock dial interface",
+  "displayName": "Material Time Picker",
+  "tagName": "material-time-picker",
+  "valuePropertyID": "value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when the time value changes"
+    }
+  ],
+  "properties": [
+    {
+      "id": "value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "Selected time value (HH:MM or HH:MM AM/PM)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Field label text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Time",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeholder",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder",
+      "description": "Placeholder text when empty",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Select time",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Input style: outlined or filled",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "outlined",
+      "changesdisplay": true
+    },
+    {
+      "id": "format",
+      "refreshdisplay": "true",
+      "friendlyname": "Format",
+      "description": "Time format: 12h or 24h",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "12h",
+      "changesdisplay": true
+    },
+    {
+      "id": "minuteStep",
+      "refreshdisplay": "true",
+      "friendlyname": "Minute Step",
+      "description": "Minute increment (1, 5, 10, 15, 30)",
+      "type": "number",
+      "initialvalue": "1",
+      "changesdisplay": true
+    },
+    {
+      "id": "required",
+      "refreshdisplay": "true",
+      "friendlyname": "Required",
+      "description": "Whether the field is required",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "helperText",
+      "refreshdisplay": "true",
+      "friendlyname": "Helper Text",
+      "description": "Helper text displayed below the field",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorText",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Text",
+      "description": "Error message displayed when hasError is true",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "hasError",
+      "refreshdisplay": "true",
+      "friendlyname": "Has Error",
+      "description": "Whether the field has an error",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Input background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Label text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Border/outline color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Color",
+      "description": "Error state color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#B3261E",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Color",
+      "description": "Dialog surface color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "dialColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Dial Color",
+      "description": "Clock dial background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#EADDFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "dialTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Dial Text Color",
+      "description": "Clock dial numbers color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1D192B",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Color",
+      "description": "Selected time indicator color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Text Color",
+      "description": "Selected number text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "open",
+      "displayname": "Open",
+      "returntype": "None",
+      "description": "Open the time picker dialog",
+      "parameters": []
+    },
+    {
+      "id": "close",
+      "displayname": "Close",
+      "returntype": "None",
+      "description": "Close the time picker dialog",
+      "parameters": []
+    },
+    {
+      "id": "clear",
+      "displayname": "Clear",
+      "returntype": "None",
+      "description": "Clear the selected time",
+      "parameters": []
+    }
+  ]
+}

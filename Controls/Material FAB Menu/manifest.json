@@ -1,0 +1,249 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design Floating Action Button with expandable menu",
+  "displayName": "Material FAB Menu",
+  "tagName": "material-fab-menu",
+  "valuePropertyID": "icon",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Clicked",
+      "description": "Fires when the FAB is clicked (no menu items)"
+    },
+    {
+      "id": "ItemClicked",
+      "description": "Fires when a menu item is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "icon",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon",
+      "description": "Main FAB icon (e.g., 'add', 'edit', 'menu')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "add",
+      "changesdisplay": true
+    },
+    {
+      "id": "openIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Open Icon",
+      "description": "Icon to show when menu is open",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "close",
+      "changesdisplay": true
+    },
+    {
+      "id": "size",
+      "refreshdisplay": "true",
+      "friendlyname": "Size",
+      "description": "FAB size: small, regular, large",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "regular",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Color variant: primary, secondary, tertiary, surface",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "primary",
+      "changesdisplay": true
+    },
+    {
+      "id": "position",
+      "refreshdisplay": "true",
+      "friendlyname": "Position",
+      "description": "Menu alignment: bottom-right, bottom-left, bottom-center",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "bottom-right",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuItems",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Items",
+      "description": "Menu items (icon:label format, pipe-separated)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "edit:Edit|delete:Delete|share:Share",
+      "changesdisplay": true
+    },
+    {
+      "id": "delimiter",
+      "refreshdisplay": "true",
+      "friendlyname": "Delimiter",
+      "description": "Character to separate menu items",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "|",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Label text for extended FAB",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "extended",
+      "refreshdisplay": "true",
+      "friendlyname": "Extended",
+      "description": "Show as extended FAB with label",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary color for the FAB",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "containerColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Container Color",
+      "description": "Background color of the FAB",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of the icon",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "secondaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Secondary Color",
+      "description": "Secondary variant color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#625B71",
+      "changesdisplay": true
+    },
+    {
+      "id": "tertiaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Tertiary Color",
+      "description": "Tertiary variant color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#7D5260",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Color",
+      "description": "Surface variant background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuItemBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Item Background",
+      "description": "Background color of mini FAB menu items",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuItemIconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Item Icon Color",
+      "description": "Icon color of mini FAB menu items",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuLabelBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Label Background",
+      "description": "Background color of menu labels",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "menuLabelTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Menu Label Text Color",
+      "description": "Text color of menu labels",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "open",
+      "displayname": "Open",
+      "returntype": "None",
+      "description": "Open the menu",
+      "parameters": []
+    },
+    {
+      "id": "close",
+      "displayname": "Close",
+      "returntype": "None",
+      "description": "Close the menu",
+      "parameters": []
+    },
+    {
+      "id": "toggle",
+      "displayname": "Toggle",
+      "returntype": "None",
+      "description": "Toggle the menu open/closed",
+      "parameters": []
+    }
+  ]
+}

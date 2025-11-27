@@ -1,0 +1,512 @@
+/* Material Date Picker - Material 3 Design */
+
+material-date-picker {
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+}
+
+.mdp-container {
+  position: relative;
+  width: 100%;
+
+  --mdp-primary: #6750A4;
+  --mdp-error: #B3261E;
+  --mdp-on-surface: #1C1B1F;
+  --mdp-outline: #79747E;
+  --mdp-surface-variant: #E7E0EC;
+  --mdp-surface: #FFFBFE;
+  --mdp-label-color: #49454F;
+}
+
+/* Input wrapper */
+.mdp-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  cursor: pointer;
+}
+
+/* Field */
+.mdp-field {
+  flex: 1;
+  height: 56px;
+  padding: 16px;
+  padding-left: 48px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--mdp-on-surface);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.mdp-display-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mdp-placeholder {
+  color: var(--mdp-outline);
+}
+
+/* Icon */
+.mdp-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: var(--mdp-outline);
+  pointer-events: none;
+}
+
+/* Floating label */
+.mdp-label {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--mdp-label-color);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  padding: 0 4px;
+}
+
+.mdp-required {
+  color: var(--mdp-error);
+}
+
+/* OUTLINED VARIANT */
+.mdp-outlined .mdp-input-wrapper {
+  border: none;
+}
+
+.mdp-outlined .mdp-outline {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--mdp-outline);
+  border-radius: 4px;
+  pointer-events: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+.mdp-outlined .mdp-outline-legend {
+  padding: 0;
+  height: 0;
+  width: auto;
+  max-width: 0.01px;
+  transition: max-width 0.1s ease;
+  font-size: 12px;
+  visibility: hidden;
+}
+
+.mdp-outlined .mdp-outline-legend span {
+  padding: 0 4px;
+  display: inline-block;
+}
+
+/* Outlined focus/has-value state */
+.mdp-outlined.mdp-focused .mdp-outline,
+.mdp-outlined.mdp-has-value .mdp-outline {
+  border-width: 2px;
+}
+
+.mdp-outlined.mdp-focused .mdp-outline {
+  border-color: var(--mdp-primary);
+}
+
+.mdp-outlined.mdp-focused .mdp-label,
+.mdp-outlined.mdp-has-value .mdp-label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--mdp-primary);
+  background: var(--mdp-surface);
+  left: 12px;
+}
+
+.mdp-outlined.mdp-has-value:not(.mdp-focused) .mdp-label {
+  color: var(--mdp-label-color);
+}
+
+.mdp-outlined.mdp-focused .mdp-outline-legend,
+.mdp-outlined.mdp-has-value .mdp-outline-legend {
+  max-width: 100%;
+  visibility: visible;
+}
+
+/* FILLED VARIANT */
+.mdp-filled .mdp-input-wrapper {
+  background: var(--mdp-surface-variant);
+  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid var(--mdp-outline);
+}
+
+.mdp-filled .mdp-field {
+  padding-top: 24px;
+  padding-bottom: 8px;
+}
+
+.mdp-filled .mdp-label {
+  top: 28px;
+}
+
+/* Filled focus state */
+.mdp-filled.mdp-focused .mdp-input-wrapper {
+  border-bottom: 2px solid var(--mdp-primary);
+}
+
+.mdp-filled.mdp-focused .mdp-label,
+.mdp-filled.mdp-has-value .mdp-label {
+  top: 8px;
+  transform: none;
+  font-size: 12px;
+  color: var(--mdp-primary);
+}
+
+.mdp-filled.mdp-has-value:not(.mdp-focused) .mdp-label {
+  color: var(--mdp-label-color);
+}
+
+/* Supporting text */
+.mdp-supporting {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 16px 0;
+  font-size: 12px;
+  min-height: 20px;
+}
+
+.mdp-helper-text {
+  color: var(--mdp-label-color);
+}
+
+/* Error state */
+.mdp-error .mdp-outline {
+  border-color: var(--mdp-error) !important;
+}
+
+.mdp-error .mdp-label {
+  color: var(--mdp-error) !important;
+}
+
+.mdp-error .mdp-helper-text {
+  color: var(--mdp-error);
+}
+
+.mdp-error .mdp-icon {
+  color: var(--mdp-error);
+}
+
+.mdp-error.mdp-filled .mdp-input-wrapper {
+  border-bottom-color: var(--mdp-error) !important;
+}
+
+/* Disabled state */
+.mdp-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.mdp-disabled .mdp-field {
+  cursor: not-allowed;
+}
+
+/* Hover states */
+.mdp-outlined:not(.mdp-focused):not(.mdp-disabled):not(.mdp-error):hover .mdp-outline {
+  border-color: var(--mdp-on-surface);
+}
+
+.mdp-filled:not(.mdp-focused):not(.mdp-disabled):not(.mdp-error):hover .mdp-input-wrapper {
+  background: color-mix(in srgb, var(--mdp-surface-variant) 90%, var(--mdp-on-surface) 10%);
+}
+
+/* Dialog */
+.mdp-dialog {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  z-index: 1000;
+  animation: mdp-dialog-in 0.2s ease;
+}
+
+@keyframes mdp-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.mdp-dialog-content {
+  background: var(--mdp-surface);
+  border-radius: 28px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  min-width: 328px;
+}
+
+/* Header */
+.mdp-header {
+  background: var(--mdp-header-bg, #EADDFF);
+  padding: 16px 24px;
+}
+
+.mdp-header-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mdp-header-text, #1D192B);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mdp-header-date {
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--mdp-header-text, #1D192B);
+}
+
+/* Body */
+.mdp-body {
+  padding: 16px;
+}
+
+/* Navigation */
+.mdp-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.mdp-month-year-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mdp-on-surface);
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mdp-month-year-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mdp-month-year-btn .material-icons {
+  font-size: 20px;
+}
+
+.mdp-nav-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.mdp-nav-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  color: var(--mdp-on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.mdp-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Weekdays */
+.mdp-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.mdp-weekday {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mdp-weekday, #49454F);
+}
+
+/* Days grid */
+.mdp-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.mdp-day {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mdp-on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mdp-day:hover:not(:disabled):not(.mdp-selected) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mdp-day.mdp-day-other {
+  color: var(--mdp-outline);
+  opacity: 0.5;
+}
+
+.mdp-day.mdp-day-disabled {
+  color: var(--mdp-outline);
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.mdp-day.mdp-today:not(.mdp-selected) {
+  border: 1px solid var(--mdp-today, var(--mdp-primary));
+  color: var(--mdp-today, var(--mdp-primary));
+}
+
+.mdp-day.mdp-selected {
+  background: var(--mdp-selected, var(--mdp-primary));
+  color: var(--mdp-selected-text, #FFFFFF);
+}
+
+/* Months grid */
+.mdp-months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mdp-month {
+  height: 48px;
+  border: none;
+  background: transparent;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mdp-on-surface);
+  transition: all 0.2s ease;
+}
+
+.mdp-month:hover:not(.mdp-selected) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mdp-month.mdp-selected {
+  background: var(--mdp-selected, var(--mdp-primary));
+  color: var(--mdp-selected-text, #FFFFFF);
+}
+
+/* Years grid */
+.mdp-years {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mdp-year {
+  height: 48px;
+  border: none;
+  background: transparent;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--mdp-on-surface);
+  transition: all 0.2s ease;
+}
+
+.mdp-year:hover:not(.mdp-selected) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mdp-year.mdp-selected {
+  background: var(--mdp-selected, var(--mdp-primary));
+  color: var(--mdp-selected-text, #FFFFFF);
+}
+
+/* Actions */
+.mdp-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 8px 16px 16px;
+}
+
+.mdp-action-btn {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--mdp-primary);
+  transition: all 0.2s ease;
+}
+
+.mdp-action-btn:hover {
+  background: rgba(103, 80, 164, 0.08);
+}
+
+.mdp-action-btn.mdp-action-primary {
+  background: var(--mdp-primary);
+  color: var(--mdp-selected-text, #FFFFFF);
+}
+
+.mdp-action-btn.mdp-action-primary:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus visible */
+.mdp-field:focus-visible {
+  outline: none;
+}
+
+.mdp-outlined .mdp-field:focus-visible ~ .mdp-outline {
+  border-color: var(--mdp-primary);
+  border-width: 2px;
+}
