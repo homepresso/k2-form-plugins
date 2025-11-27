@@ -60,6 +60,16 @@
       "changesdisplay": true
     },
     {
+      "id": "fontStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Style",
+      "description": "Font style: normal, italic",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
       "id": "textAlign",
       "refreshdisplay": "true",
       "friendlyname": "Text Align",

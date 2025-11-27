@@ -200,6 +200,66 @@
       "changesdisplay": true
     },
     {
+      "id": "headerBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Header Background Color",
+      "description": "Calendar header background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#EADDFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "headerTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Header Text Color",
+      "description": "Calendar header text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1D192B",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Color",
+      "description": "Selected date background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Text Color",
+      "description": "Selected date text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "todayColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Today Color",
+      "description": "Today indicator border color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "weekdayColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Weekday Color",
+      "description": "Weekday header text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
       "id": "fontFamily",
       "refreshdisplay": "true",
       "friendlyname": "Font Family",

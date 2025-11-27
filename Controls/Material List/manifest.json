@@ -26,6 +26,10 @@
     {
       "id": "ItemSelected",
       "description": "Fires when a list item is selected"
+    },
+    {
+      "id": "ItemChecked",
+      "description": "Fires when a checkbox is checked or unchecked"
     }
   ],
   "properties": [
@@ -140,6 +144,36 @@
       "changesdisplay": true
     },
     {
+      "id": "checkboxMode",
+      "refreshdisplay": "true",
+      "friendlyname": "Checkbox Mode",
+      "description": "Show checkboxes next to items (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "checkedValues",
+      "refreshdisplay": "true",
+      "friendlyname": "Checked Values",
+      "description": "Comma-separated list of checked item values",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "checkboxColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Checkbox Color",
+      "description": "Checkbox accent color when checked",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
       "id": "primaryColor",
       "refreshdisplay": "true",
       "friendlyname": "Primary Color",
@@ -236,6 +270,20 @@
       "displayname": "Clear Selection",
       "returntype": "None",
       "description": "Clears the current selection",
+      "parameters": []
+    },
+    {
+      "id": "checkAll",
+      "displayname": "Check All",
+      "returntype": "None",
+      "description": "Checks all items in checkbox mode",
+      "parameters": []
+    },
+    {
+      "id": "uncheckAll",
+      "displayname": "Uncheck All",
+      "returntype": "None",
+      "description": "Unchecks all items in checkbox mode",
       "parameters": []
     }
   ]

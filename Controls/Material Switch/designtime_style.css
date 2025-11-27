@@ -1,8 +1,11 @@
 /* Material Switch - Material 3 Design */
 
 material-switch {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  height: 100%;
   font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
 }
 
 .msw-container {

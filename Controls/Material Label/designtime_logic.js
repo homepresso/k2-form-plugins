@@ -36,6 +36,7 @@
         this._value = 'Label';
         this._fontSize = 16;
         this._fontWeight = 'normal';
+        this._fontStyle = 'normal';
         this._textAlign = 'left';
         this._textColor = '#1C1B1F';
         this._backgroundColor = '';
@@ -83,6 +84,7 @@
         this.style.fontFamily = this._fontFamily;
         this.style.fontSize = `${this._fontSize}px`;
         this.style.fontWeight = this._fontWeight;
+        this.style.fontStyle = this._fontStyle;
         this.style.color = this._textColor;
         this.style.textAlign = this._textAlign;
         this.style.padding = `${this._padding}px`;
@@ -157,6 +159,15 @@
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
+
+      get fontStyle() { return this._fontStyle; }
+      set fontStyle(v) {
+        this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
+      }
+      get FontStyle() { return this.fontStyle; }
+      set FontStyle(v) { this.fontStyle = v; }
 
       get textAlign() { return this._textAlign; }
       set textAlign(v) {

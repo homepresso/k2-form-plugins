@@ -1,8 +1,11 @@
 /* Material Segmented Button - Material 3 Design */
 
 material-segmented-button {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  height: 100%;
   font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
 }
 
 .mseg-container {

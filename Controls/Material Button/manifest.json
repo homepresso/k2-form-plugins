@@ -100,10 +100,20 @@
       "changesdisplay": true
     },
     {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Button background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
       "id": "primaryColor",
       "refreshdisplay": "true",
       "friendlyname": "Primary Color",
-      "description": "Primary button color",
+      "description": "Primary accent color (used for focus states)",
       "type": "string",
       "inputlength": "50",
       "initialvalue": "#6750A4",
@@ -144,6 +154,16 @@
       "refreshdisplay": "true",
       "friendlyname": "Icon Color",
       "description": "Color of leading/trailing icons (leave empty for default)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "hoverColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Hover Color",
+      "description": "Button hover/focus background color",
       "type": "string",
       "inputlength": "50",
       "initialvalue": "",

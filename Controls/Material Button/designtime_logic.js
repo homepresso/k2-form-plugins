@@ -48,11 +48,13 @@
         this._iconOnly = false;
         this._fullWidth = false;
         this._size = 'medium';
+        this._backgroundColor = '#6750A4';
         this._primaryColor = '#6750A4';
         this._textColor = '';
         this._outlineColor = '#79747E';
         this._surfaceColor = '#FFFBFE';
         this._iconColor = '';
+        this._hoverColor = '';
         this._disableRipple = false;
         this._loading = false;
         this._tooltip = '';
@@ -146,7 +148,9 @@
         `;
 
         if (this._button) {
-          this._button.style.setProperty('--mbtn-primary', this._primaryColor);
+          // Background color takes precedence for filled variant
+          const bgColor = this._backgroundColor || this._primaryColor;
+          this._button.style.setProperty('--mbtn-primary', bgColor);
           this._button.style.setProperty('--mbtn-outline', this._outlineColor);
           this._button.style.setProperty('--mbtn-surface', this._surfaceColor);
 
@@ -161,9 +165,14 @@
             this._button.style.setProperty('--mbtn-icon-color', this._iconColor);
           }
 
-          // Generate tonal and surface colors from primary
-          this._button.style.setProperty('--mbtn-primary-container', this._lightenColor(this._primaryColor, 0.9));
-          this._button.style.setProperty('--mbtn-on-primary-container', this._darkenColor(this._primaryColor, 0.3));
+          // Hover color
+          if (this._hoverColor) {
+            this._button.style.setProperty('--mbtn-hover', this._hoverColor);
+          }
+
+          // Generate tonal and surface colors from background color
+          this._button.style.setProperty('--mbtn-primary-container', this._lightenColor(bgColor, 0.9));
+          this._button.style.setProperty('--mbtn-on-primary-container', this._darkenColor(bgColor, 0.3));
 
           // Apply font family to button
           this._button.style.fontFamily = this._fontFamily;
@@ -330,6 +339,15 @@
       get Size() { return this.size; }
       set Size(v) { this.size = v; }
 
+      get backgroundColor() { return this._backgroundColor; }
+      set backgroundColor(v) {
+        this._backgroundColor = v || '#6750A4';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'backgroundColor');
+      }
+      get BackgroundColor() { return this.backgroundColor; }
+      set BackgroundColor(v) { this.backgroundColor = v; }
+
       get primaryColor() { return this._primaryColor; }
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
@@ -374,6 +392,15 @@
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
+
+      get hoverColor() { return this._hoverColor; }
+      set hoverColor(v) {
+        this._hoverColor = v || '';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'hoverColor');
+      }
+      get HoverColor() { return this.hoverColor; }
+      set HoverColor(v) { this.hoverColor = v; }
 
       get disableRipple() { return this._disableRipple; }
       set disableRipple(v) {

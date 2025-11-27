@@ -15,22 +15,71 @@
     }
   }
 
-  // Load Material Icons
-  function loadMaterialIcons() {
-    if (document.querySelector('link[href*="Material+Icons"]')) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
-    document.head.appendChild(link);
+  // Font loading state management
+  let fontsLoaded = false;
+  let fontsLoadPromise = null;
+  const pendingInstances = [];
+
+  // Load Material Icons and Google Fonts with robust loading
+  function loadFonts() {
+    if (fontsLoaded) return Promise.resolve();
+    if (fontsLoadPromise) return fontsLoadPromise;
+
+    fontsLoadPromise = new Promise((resolve) => {
+      const fontsToLoad = [];
+
+      // Load Material Icons
+      if (!document.querySelector('link[href*="Material+Icons"]')) {
+        const iconLink = document.createElement('link');
+        iconLink.rel = 'stylesheet';
+        iconLink.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+        document.head.appendChild(iconLink);
+        fontsToLoad.push(new Promise(res => {
+          iconLink.onload = res;
+          iconLink.onerror = res; // Continue even if load fails
+        }));
+      }
+
+      // Load Google Fonts
+      if (!document.querySelector('link[href*="fonts.googleapis.com/css2"]')) {
+        const fontLink = document.createElement('link');
+        fontLink.rel = 'stylesheet';
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
+        document.head.appendChild(fontLink);
+        fontsToLoad.push(new Promise(res => {
+          fontLink.onload = res;
+          fontLink.onerror = res; // Continue even if load fails
+        }));
+      }
+
+      if (fontsToLoad.length === 0) {
+        fontsLoaded = true;
+        resolve();
+        return;
+      }
+
+      // Wait for fonts to load with timeout
+      Promise.race([
+        Promise.all(fontsToLoad),
+        new Promise(res => setTimeout(res, 2000)) // 2 second timeout
+      ]).then(() => {
+        fontsLoaded = true;
+        resolve();
+        // Notify pending instances
+        pendingInstances.forEach(fn => fn());
+        pendingInstances.length = 0;
+      });
+    });
+
+    return fontsLoadPromise;
   }
 
-  // Load Google Fonts
-  function loadGoogleFonts() {
-    if (document.querySelector('link[href*="fonts.googleapis.com/css2"]')) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
-    document.head.appendChild(link);
+  function onFontsReady(callback) {
+    if (fontsLoaded) {
+      callback();
+    } else {
+      pendingInstances.push(callback);
+    }
   }
 
   if (!window.customElements.get('material-list')) {
@@ -39,6 +88,8 @@
       constructor() {
         super();
         this._hasRendered = false;
+        this._fontsReady = false;
+        this._pendingRender = false;
 
         // Properties
         this._items = '';
@@ -52,6 +103,10 @@
         this._showTrailingIcon = false;
         this._trailingIcon = 'chevron_right';
         this._avatarMode = false;
+        this._checkboxMode = false;
+        this._checkedValues = '';
+        this._checkedSet = new Set();
+        this._checkboxColor = '#6750A4';
 
         // Color properties
         this._primaryColor = '#6750A4';
@@ -78,13 +133,38 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
-        loadMaterialIcons();
-        loadGoogleFonts();
-        setTimeout(() => {
+
+        // Render container immediately
+        this._renderContainer();
+        this._hasRendered = true;
+
+        // Load fonts and render list when ready
+        loadFonts().then(() => {
+          this._fontsReady = true;
+          // Process any data that arrived before fonts were ready
+          if (this._parsedItems.length > 0 || this._pendingRender) {
+            this._renderList();
+          } else {
+            // Process initial data
+            this._parseItems();
+            this._renderList();
+          }
+        }).catch(err => {
+          console.warn('Font loading issue:', err);
+          // Render anyway after timeout
+          this._fontsReady = true;
           this._parseItems();
-          this._render();
-          this._hasRendered = true;
-        }, 0);
+          this._renderList();
+        });
+      }
+
+      _renderContainer() {
+        this.innerHTML = '';
+        this._container = document.createElement('ul');
+        this._container.className = `mls-container mls-${this._variant}`;
+        this._container.setAttribute('role', 'listbox');
+        this.appendChild(this._container);
+        this._applyStyles();
       }
 
       _parseItems() {
@@ -142,27 +222,57 @@
       }
 
       _render() {
-        this.innerHTML = '';
-        this._buildList();
-        this._applyStyles();
-        this._bindEvents();
+        // Full re-render (when already rendered)
+        if (!this._container) {
+          this._renderContainer();
+        }
+        this._renderList();
       }
 
-      _buildList() {
-        this._container = document.createElement('ul');
+      _renderList() {
+        if (!this._container) return;
+
+        // Clear existing items
+        this._container.innerHTML = '';
         this._container.className = `mls-container mls-${this._variant}`;
-        this._container.setAttribute('role', 'listbox');
+        if (this._checkboxMode) {
+          this._container.classList.add('mls-checkbox-mode');
+        }
 
         this._parsedItems.forEach((item, index) => {
           const listItem = document.createElement('li');
           listItem.className = 'mls-item';
-          listItem.setAttribute('role', 'option');
+          listItem.setAttribute('role', this._checkboxMode ? 'checkbox' : 'option');
           listItem.setAttribute('data-value', item.value);
-          listItem.setAttribute('tabindex', this._selectable ? '0' : '-1');
+          listItem.setAttribute('tabindex', (this._selectable || this._checkboxMode) ? '0' : '-1');
 
           if (this._selectedValue === item.value) {
             listItem.classList.add('mls-selected');
             listItem.setAttribute('aria-selected', 'true');
+          }
+
+          // Checkbox (if checkbox mode)
+          if (this._checkboxMode) {
+            const checkboxWrapper = document.createElement('div');
+            checkboxWrapper.className = 'mls-checkbox-wrapper';
+
+            const checkbox = document.createElement('div');
+            checkbox.className = 'mls-checkbox';
+            const isChecked = this._checkedSet.has(item.value);
+            if (isChecked) {
+              checkbox.classList.add('mls-checked');
+              listItem.setAttribute('aria-checked', 'true');
+            } else {
+              listItem.setAttribute('aria-checked', 'false');
+            }
+
+            const checkIcon = document.createElement('span');
+            checkIcon.className = 'mls-check-icon material-icons';
+            checkIcon.textContent = 'check';
+            checkbox.appendChild(checkIcon);
+
+            checkboxWrapper.appendChild(checkbox);
+            listItem.appendChild(checkboxWrapper);
           }
 
           // Leading content (icon or avatar)
@@ -210,8 +320,8 @@
 
           listItem.appendChild(content);
 
-          // Trailing icon
-          if (this._showTrailingIcon) {
+          // Trailing icon (not shown in checkbox mode by default, or show if explicitly enabled)
+          if (this._showTrailingIcon && !this._checkboxMode) {
             const trailing = document.createElement('div');
             trailing.className = 'mls-trailing';
             const icon = document.createElement('span');
@@ -237,8 +347,9 @@
           }
         });
 
-        this.appendChild(this._container);
         this._updateState();
+        this._applyStyles();
+        this._bindEvents();
       }
 
       _applyStyles() {
@@ -254,6 +365,7 @@
           this._container.style.setProperty('--mls-selected', this._selectedColor);
           this._container.style.setProperty('--mls-icon', this._iconColor);
           this._container.style.setProperty('--mls-avatar-bg', this._avatarBackgroundColor);
+          this._container.style.setProperty('--mls-checkbox', this._checkboxColor || this._primaryColor);
           if (this._hoverColor) {
             this._container.style.setProperty('--mls-hover', this._hoverColor);
           }
@@ -266,21 +378,61 @@
       _bindEvents() {
         const items = this._container.querySelectorAll('.mls-item');
         items.forEach(item => {
-          item.addEventListener('click', () => {
-            if (!this._isEnabled || !this._selectable) return;
+          item.addEventListener('click', (e) => {
+            if (!this._isEnabled) return;
             const value = item.getAttribute('data-value');
-            this._selectItem(value);
+
+            if (this._checkboxMode) {
+              this._toggleCheckbox(value, item);
+            } else if (this._selectable) {
+              this._selectItem(value);
+            }
           });
 
           item.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              if (!this._isEnabled || !this._selectable) return;
+              if (!this._isEnabled) return;
               const value = item.getAttribute('data-value');
-              this._selectItem(value);
+
+              if (this._checkboxMode) {
+                this._toggleCheckbox(value, item);
+              } else if (this._selectable) {
+                this._selectItem(value);
+              }
             }
           });
         });
+      }
+
+      _toggleCheckbox(value, listItem) {
+        const checkbox = listItem.querySelector('.mls-checkbox');
+        const isChecked = this._checkedSet.has(value);
+
+        if (isChecked) {
+          this._checkedSet.delete(value);
+          checkbox?.classList.remove('mls-checked');
+          listItem.setAttribute('aria-checked', 'false');
+        } else {
+          this._checkedSet.add(value);
+          checkbox?.classList.add('mls-checked');
+          listItem.setAttribute('aria-checked', 'true');
+        }
+
+        // Update checkedValues string
+        this._checkedValues = Array.from(this._checkedSet).join(',');
+        safeRaisePropertyChanged(this, 'checkedValues');
+
+        // Fire event
+        this.dispatchEvent(new CustomEvent('ItemChecked', {
+          bubbles: true,
+          detail: {
+            value,
+            checked: !isChecked,
+            checkedValues: this._checkedValues,
+            item: this._parsedItems.find(i => i.value === value)
+          }
+        }));
       }
 
       _selectItem(value) {
@@ -312,7 +464,11 @@
       set items(v) {
         this._items = v || '';
         this._parseItems();
-        if (this._hasRendered) this._render();
+        if (this._hasRendered && this._fontsReady) {
+          this._renderList();
+        } else if (this._hasRendered) {
+          this._pendingRender = true;
+        }
         safeRaisePropertyChanged(this, 'items');
       }
       get Items() { return this.items; }
@@ -418,6 +574,37 @@
       }
       get AvatarMode() { return this.avatarMode; }
       set AvatarMode(v) { this.avatarMode = v; }
+
+      get checkboxMode() { return this._checkboxMode; }
+      set checkboxMode(v) {
+        this._checkboxMode = (v === true || v === 'true');
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'checkboxMode');
+      }
+      get CheckboxMode() { return this.checkboxMode; }
+      set CheckboxMode(v) { this.checkboxMode = v; }
+
+      get checkedValues() { return this._checkedValues; }
+      set checkedValues(v) {
+        this._checkedValues = v || '';
+        // Parse into Set
+        this._checkedSet = new Set(
+          this._checkedValues ? this._checkedValues.split(',').map(s => s.trim()).filter(s => s) : []
+        );
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'checkedValues');
+      }
+      get CheckedValues() { return this.checkedValues; }
+      set CheckedValues(v) { this.checkedValues = v; }
+
+      get checkboxColor() { return this._checkboxColor; }
+      set checkboxColor(v) {
+        this._checkboxColor = v || '#6750A4';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'checkboxColor');
+      }
+      get CheckboxColor() { return this.checkboxColor; }
+      set CheckboxColor(v) { this.checkboxColor = v; }
 
       // Color properties
       get primaryColor() { return this._primaryColor; }
@@ -540,6 +727,22 @@
           item.setAttribute('aria-selected', 'false');
         });
         safeRaisePropertyChanged(this, 'selectedValue');
+      }
+
+      checkAll() {
+        if (!this._checkboxMode) return;
+        this._checkedSet = new Set(this._parsedItems.map(item => item.value));
+        this._checkedValues = Array.from(this._checkedSet).join(',');
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'checkedValues');
+      }
+
+      uncheckAll() {
+        if (!this._checkboxMode) return;
+        this._checkedSet.clear();
+        this._checkedValues = '';
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'checkedValues');
       }
     });
   }

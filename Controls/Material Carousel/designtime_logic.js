@@ -15,22 +15,62 @@
     }
   }
 
-  // Load Material Icons
-  function loadMaterialIcons() {
-    if (document.querySelector('link[href*="Material+Icons"]')) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
-    document.head.appendChild(link);
-  }
+  // Font loading state management
+  let fontsLoaded = false;
+  let fontsLoadPromise = null;
+  const pendingInstances = [];
 
-  // Load Google Fonts
-  function loadGoogleFonts() {
-    if (document.querySelector('link[href*="fonts.googleapis.com/css2"]')) return;
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
-    document.head.appendChild(link);
+  // Load Material Icons and Google Fonts with robust loading
+  function loadFonts() {
+    if (fontsLoaded) return Promise.resolve();
+    if (fontsLoadPromise) return fontsLoadPromise;
+
+    fontsLoadPromise = new Promise((resolve) => {
+      const fontsToLoad = [];
+
+      // Load Material Icons
+      if (!document.querySelector('link[href*="Material+Icons"]')) {
+        const iconLink = document.createElement('link');
+        iconLink.rel = 'stylesheet';
+        iconLink.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+        document.head.appendChild(iconLink);
+        fontsToLoad.push(new Promise(res => {
+          iconLink.onload = res;
+          iconLink.onerror = res;
+        }));
+      }
+
+      // Load Google Fonts
+      if (!document.querySelector('link[href*="fonts.googleapis.com/css2"]')) {
+        const fontLink = document.createElement('link');
+        fontLink.rel = 'stylesheet';
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
+        document.head.appendChild(fontLink);
+        fontsToLoad.push(new Promise(res => {
+          fontLink.onload = res;
+          fontLink.onerror = res;
+        }));
+      }
+
+      if (fontsToLoad.length === 0) {
+        fontsLoaded = true;
+        resolve();
+        return;
+      }
+
+      // Wait for fonts to load with timeout
+      Promise.race([
+        Promise.all(fontsToLoad),
+        new Promise(res => setTimeout(res, 2000))
+      ]).then(() => {
+        fontsLoaded = true;
+        resolve();
+        pendingInstances.forEach(fn => fn());
+        pendingInstances.length = 0;
+      });
+    });
+
+    return fontsLoadPromise;
   }
 
   if (!window.customElements.get('material-carousel')) {
@@ -39,11 +79,14 @@
       constructor() {
         super();
         this._hasRendered = false;
+        this._fontsReady = false;
+        this._pendingRender = false;
 
         // Properties
         this._items = '';
         this._delimiter = '|';
         this._subDelimiter = ':';
+        this._height = '300';
         this._currentIndex = 0;
         this._autoPlay = false;
         this._autoPlayInterval = 5000;
@@ -85,14 +128,23 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
-        loadMaterialIcons();
-        loadGoogleFonts();
-        setTimeout(() => {
+
+        // Render container immediately
+        this._renderContainer();
+        this._hasRendered = true;
+
+        // Load fonts and render carousel when ready
+        loadFonts().then(() => {
+          this._fontsReady = true;
           this._parseItems();
-          this._render();
-          this._hasRendered = true;
+          this._renderCarousel();
           if (this._autoPlay) this._startAutoPlay();
-        }, 0);
+        }).catch(() => {
+          this._fontsReady = true;
+          this._parseItems();
+          this._renderCarousel();
+          if (this._autoPlay) this._startAutoPlay();
+        });
       }
 
       disconnectedCallback() {
@@ -108,18 +160,21 @@
           if (!trimmed) return;
 
           // Format: image:title:subtitle or image:title or image
-          const parts = trimmed.split(this._subDelimiter);
+          // Handle URLs by temporarily replacing :// to avoid splitting on protocol
+          const placeholder = '___PROTOCOL___';
+          const escaped = trimmed.replace(/:\/\//g, placeholder);
+          const parts = escaped.split(this._subDelimiter).map(p => p.replace(new RegExp(placeholder, 'g'), '://').trim());
 
           if (parts.length >= 3) {
             this._parsedItems.push({
-              image: parts[0].trim(),
-              title: parts[1].trim(),
-              subtitle: parts[2].trim()
+              image: parts[0],
+              title: parts[1],
+              subtitle: parts[2]
             });
           } else if (parts.length === 2) {
             this._parsedItems.push({
-              image: parts[0].trim(),
-              title: parts[1].trim(),
+              image: parts[0],
+              title: parts[1],
               subtitle: ''
             });
           } else {
@@ -132,17 +187,33 @@
         });
       }
 
-      _render() {
+      _renderContainer() {
         this.innerHTML = '';
-        this._buildCarousel();
+        this._container = document.createElement('div');
+        this._container.className = `mcr-container mcr-${this._variant}`;
+        this.appendChild(this._container);
+        this._applyStyles();
+      }
+
+      _render() {
+        // Full re-render
+        if (!this._container) {
+          this._renderContainer();
+        }
+        this._renderCarousel();
+      }
+
+      _renderCarousel() {
+        if (!this._container) return;
+
+        // Clear and rebuild
+        this._container.innerHTML = '';
+        this._buildCarouselContent();
         this._applyStyles();
         this._bindEvents();
       }
 
-      _buildCarousel() {
-        this._container = document.createElement('div');
-        this._container.className = `mcr-container mcr-${this._variant}`;
-
+      _buildCarouselContent() {
         // Viewport
         const viewport = document.createElement('div');
         viewport.className = 'mcr-viewport';
@@ -227,7 +298,6 @@
           this._container.appendChild(this._indicators);
         }
 
-        this.appendChild(this._container);
         this._goToSlide(this._currentIndex, false);
         this._updateState();
       }
@@ -236,8 +306,15 @@
         this.style.display = this._isVisible ? 'block' : 'none';
         this.style.fontFamily = this._fontFamily;
 
+        // Set height
+        const height = parseInt(this._height) || 300;
+        if (this._variant !== 'full-screen') {
+          this.style.height = `${height}px`;
+        }
+
         // Set CSS custom properties on the container element
         if (this._container) {
+          this._container.style.height = '100%';
           this._container.style.setProperty('--mcr-primary', this._primaryColor);
           this._container.style.setProperty('--mcr-background', this._backgroundColor);
           this._container.style.setProperty('--mcr-arrow', this._arrowColor);
@@ -398,11 +475,24 @@
       set items(v) {
         this._items = v || '';
         this._parseItems();
-        if (this._hasRendered) this._render();
+        if (this._hasRendered && this._fontsReady) {
+          this._renderCarousel();
+        } else if (this._hasRendered) {
+          this._pendingRender = true;
+        }
         safeRaisePropertyChanged(this, 'items');
       }
       get Items() { return this.items; }
       set Items(v) { this.items = v; }
+
+      get height() { return this._height; }
+      set height(v) {
+        this._height = v || '300';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'height');
+      }
+      get Height() { return this.height; }
+      set Height(v) { this.height = v; }
 
       get delimiter() { return this._delimiter; }
       set delimiter(v) {

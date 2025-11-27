@@ -1,8 +1,11 @@
 /* Material Chips - Material 3 Design */
 
 material-chips {
-  display: inline-flex;
+  display: block;
+  width: 100%;
+  height: 100%;
   font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
 }
 
 .mcp-container {

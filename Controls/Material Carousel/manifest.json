@@ -40,6 +40,16 @@
       "changesdisplay": true
     },
     {
+      "id": "height",
+      "refreshdisplay": "true",
+      "friendlyname": "Height",
+      "description": "Carousel height in pixels (ignored for full-screen variant)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "300",
+      "changesdisplay": true
+    },
+    {
       "id": "delimiter",
       "refreshdisplay": "true",
       "friendlyname": "Delimiter",
