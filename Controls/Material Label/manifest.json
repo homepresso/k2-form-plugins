@@ -1,0 +1,164 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "A Material 3 Design label for displaying text with customizable styling.",
+  "displayName": "Material Label",
+  "tagName": "material-label",
+  "valuePropertyID": "Value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Click",
+      "description": "Fires when the label is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "refreshdisplay": "true",
+      "friendlyname": "Text",
+      "description": "The text to display",
+      "type": "string",
+      "inputlength": "65000",
+      "initialvalue": "Label",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Size",
+      "description": "Font size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontWeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Weight",
+      "description": "Font weight: normal, bold, 100-900",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "textAlign",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Align",
+      "description": "Text alignment: left, center, right",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "left",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Color of the text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Background color (leave empty for transparent)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family (Roboto, Open Sans, Poppins, Montserrat, Inter, Lato, etc.)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    },
+    {
+      "id": "padding",
+      "refreshdisplay": "true",
+      "friendlyname": "Padding",
+      "description": "Padding around the text in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "8",
+      "changesdisplay": true
+    },
+    {
+      "id": "lineHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Line Height",
+      "description": "Line height (e.g., 1.5, 24px, normal)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "1.5",
+      "changesdisplay": true
+    },
+    {
+      "id": "textDecoration",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Decoration",
+      "description": "Text decoration: none, underline, line-through",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "none",
+      "changesdisplay": true
+    },
+    {
+      "id": "textTransform",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Transform",
+      "description": "Text transform: none, uppercase, lowercase, capitalize",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "none",
+      "changesdisplay": true
+    },
+    {
+      "id": "wordWrap",
+      "refreshdisplay": "true",
+      "friendlyname": "Word Wrap",
+      "description": "Allow text to wrap (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "clickable",
+      "refreshdisplay": "true",
+      "friendlyname": "Clickable",
+      "description": "Make the label clickable (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    }
+  ],
+  "methods": []
+}

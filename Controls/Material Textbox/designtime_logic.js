@@ -54,7 +54,8 @@
         this._inputType = 'text';
         this._maxLength = 0;
         this._showCharCount = false;
-        this._controlWidth = 280;
+        this._controlHeight = 56;
+        this._controlPadding = 8;
         this._primaryColor = '#6750A4';
         this._textColor = '#1C1B1F';
         this._labelColor = '#49454F';
@@ -66,6 +67,9 @@
         this._pattern = '';
         this._autocomplete = 'off';
         this._fontFamily = 'Roboto, sans-serif';
+        this._fontSize = 16;
+        this._fontWeight = 'normal';
+        this._fontStyle = 'normal';
         this._isVisible = true;
         this._isEnabled = true;
         this._isReadOnly = false;
@@ -120,6 +124,8 @@
         this._input.placeholder = this._placeholder || ' ';
         this._input.value = this._value;
         this._input.autocomplete = this._autocomplete;
+        this._input.readOnly = this._isReadOnly;
+        this._input.disabled = !this._isEnabled;
 
         if (this._maxLength > 0) {
           this._input.maxLength = this._maxLength;
@@ -187,11 +193,11 @@
       }
 
       _applyStyles() {
-        this.style.cssText = `
-          display: ${this._isVisible ? 'inline-block' : 'none'};
-          width: ${this._controlWidth}px;
-          font-family: ${this._fontFamily};
-        `;
+        // Let CSS handle width: 100% by default - K2 controls width via inline styles
+        this.style.display = this._isVisible ? 'block' : 'none';
+        this.style.boxSizing = 'border-box';
+        this.style.fontFamily = this._fontFamily;
+        this.style.padding = `${this._controlPadding}px`;
 
         this._container.style.setProperty('--mtb-primary', this._primaryColor);
         this._container.style.setProperty('--mtb-error', this._errorColor);
@@ -200,6 +206,10 @@
         this._container.style.setProperty('--mtb-surface-variant', this._backgroundColor);
         this._container.style.setProperty('--mtb-label-color', this._labelColor);
         this._container.style.setProperty('--mtb-icon-color', this._iconColor);
+        this._container.style.setProperty('--mtb-height', `${this._controlHeight}px`);
+        this._container.style.setProperty('--mtb-font-size', `${this._fontSize}px`);
+        this._container.style.setProperty('--mtb-font-weight', this._fontWeight);
+        this._container.style.setProperty('--mtb-font-style', this._fontStyle);
       }
 
       _bindEvents() {
@@ -498,15 +508,6 @@
       get ShowCharCount() { return this.showCharCount; }
       set ShowCharCount(v) { this.showCharCount = v; }
 
-      get controlWidth() { return this._controlWidth; }
-      set controlWidth(v) {
-        this._controlWidth = parseInt(v) || 280;
-        if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'controlWidth');
-      }
-      get ControlWidth() { return this.controlWidth; }
-      set ControlWidth(v) { this.controlWidth = v; }
-
       get primaryColor() { return this._primaryColor; }
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
@@ -613,6 +614,33 @@
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
 
+      get fontSize() { return this._fontSize; }
+      set fontSize(v) {
+        this._fontSize = parseInt(v) || 16;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
+      }
+      get FontSize() { return this.fontSize; }
+      set FontSize(v) { this.fontSize = v; }
+
+      get fontWeight() { return this._fontWeight; }
+      set fontWeight(v) {
+        this._fontWeight = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
+      }
+      get FontWeight() { return this.fontWeight; }
+      set FontWeight(v) { this.fontWeight = v; }
+
+      get fontStyle() { return this._fontStyle; }
+      set fontStyle(v) {
+        this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
+      }
+      get FontStyle() { return this.fontStyle; }
+      set FontStyle(v) { this.fontStyle = v; }
+
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {
         this._isVisible = (val === true || val === 'true');
@@ -630,6 +658,30 @@
         this._isReadOnly = (val === true || val === 'true');
         this._updateState();
       }
+
+      // Height property
+      get Height() { return this._controlHeight; }
+      set Height(v) {
+        const height = parseInt(v);
+        if (height && height > 0) {
+          this._controlHeight = height;
+          if (this._hasRendered) this._applyStyles();
+        }
+      }
+      get controlHeight() { return this._controlHeight; }
+      set controlHeight(v) { this.Height = v; }
+
+      // Padding property
+      get Padding() { return this._controlPadding; }
+      set Padding(v) {
+        const padding = parseInt(v);
+        if (padding >= 0) {
+          this._controlPadding = padding;
+          if (this._hasRendered) this._applyStyles();
+        }
+      }
+      get controlPadding() { return this._controlPadding; }
+      set controlPadding(v) { this.Padding = v; }
     });
   }
 })();

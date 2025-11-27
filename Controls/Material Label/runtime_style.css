@@ -1,0 +1,20 @@
+/* Material Label - Material 3 Design */
+
+material-label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+material-label *,
+material-label *::before,
+material-label *::after {
+  box-sizing: border-box;
+}
+
+.mlb-text {
+  display: block;
+  width: 100%;
+}

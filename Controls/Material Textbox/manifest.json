@@ -177,13 +177,23 @@
       "changesdisplay": true
     },
     {
-      "id": "controlWidth",
+      "id": "controlHeight",
       "refreshdisplay": "true",
-      "friendlyname": "Width",
-      "description": "Width of the textbox in pixels",
+      "friendlyname": "Height",
+      "description": "Height of the input field in pixels",
       "type": "string",
       "inputlength": "10",
-      "initialvalue": "280",
+      "initialvalue": "56",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlPadding",
+      "refreshdisplay": "true",
+      "friendlyname": "Padding",
+      "description": "Padding around the control in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "8",
       "changesdisplay": true
     },
     {
@@ -294,6 +304,36 @@
       "type": "string",
       "inputlength": "100",
       "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Size",
+      "description": "Font size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontWeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Weight",
+      "description": "Font weight: normal, bold, 100-900",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Style",
+      "description": "Font style: normal, italic",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
       "changesdisplay": true
     }
   ],
