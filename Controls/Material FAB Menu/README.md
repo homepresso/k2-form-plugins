@@ -1,0 +1,147 @@
+# Material FAB Menu Control
+
+Material 3 Design Floating Action Button with expandable menu.
+
+## Tag Name
+```
+<material-fab-menu>
+```
+
+## Properties
+
+### Icon Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `icon` | Icon | Main FAB icon (e.g., 'add', 'edit', 'menu') | `add` |
+| `openIcon` | Open Icon | Icon to show when menu is open | `close` |
+
+### Size and Style Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `size` | Size | FAB size: `small`, `regular`, `large` | `regular` |
+| `variant` | Variant | Color variant: `primary`, `secondary`, `tertiary`, `surface` | `primary` |
+| `position` | Position | Menu alignment: `bottom-right`, `bottom-left`, `bottom-center` | `bottom-right` |
+
+### Extended FAB Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `label` | Label | Label text for extended FAB | `""` |
+| `extended` | Extended | Show as extended FAB with label | `false` |
+
+### Menu Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `menuItems` | Menu Items | Menu items (icon:label format, pipe-separated) | `edit:Edit\|delete:Delete\|share:Share` |
+| `delimiter` | Delimiter | Character to separate menu items | `\|` |
+
+### Color Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `primaryColor` | Primary Color | Primary color for the FAB | `#6750A4` |
+| `containerColor` | Container Color | Background color of the FAB | `""` |
+| `iconColor` | Icon Color | Color of the icon | `#FFFFFF` |
+| `secondaryColor` | Secondary Color | Secondary variant color | `#625B71` |
+| `tertiaryColor` | Tertiary Color | Tertiary variant color | `#7D5260` |
+| `surfaceColor` | Surface Color | Surface variant background color | `#FFFBFE` |
+
+### Menu Item Colors
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `menuItemBackgroundColor` | Menu Item Background | Background color of mini FAB menu items | `""` |
+| `menuItemIconColor` | Menu Item Icon Color | Icon color of mini FAB menu items | `""` |
+| `menuLabelBackgroundColor` | Menu Label Background | Background color of menu labels | `""` |
+| `menuLabelTextColor` | Menu Label Text Color | Text color of menu labels | `#1C1B1F` |
+
+## Events
+
+| Event | Description |
+|-------|-------------|
+| `Clicked` | Fires when the FAB is clicked (no menu items) |
+| `ItemClicked` | Fires when a menu item is clicked |
+
+## Methods
+
+| Method | Description |
+|--------|-------------|
+| `open()` | Open the menu |
+| `close()` | Close the menu |
+| `toggle()` | Toggle the menu open/closed |
+
+## Usage Example
+
+### Basic FAB with Menu
+```html
+<material-fab-menu
+  icon="add"
+  menu-items="edit:Edit|delete:Delete|share:Share">
+</material-fab-menu>
+```
+
+### Extended FAB
+```html
+<material-fab-menu
+  icon="add"
+  extended="true"
+  label="Create New"
+  menu-items="note:Note|reminder:Reminder|task:Task">
+</material-fab-menu>
+```
+
+### Large FAB with Custom Colors
+```html
+<material-fab-menu
+  size="large"
+  primary-color="#1976D2"
+  icon-color="#FFFFFF"
+  icon="menu">
+</material-fab-menu>
+```
+
+### Secondary Variant
+```html
+<material-fab-menu
+  variant="secondary"
+  icon="more_vert"
+  menu-items="settings:Settings|help:Help|logout:Logout">
+</material-fab-menu>
+```
+
+### Surface Variant (Light)
+```html
+<material-fab-menu
+  variant="surface"
+  icon="add"
+  menu-items="photo:Photo|video:Video|file:File">
+</material-fab-menu>
+```
+
+### Simple FAB (No Menu)
+```html
+<material-fab-menu
+  icon="add"
+  menu-items="">
+</material-fab-menu>
+```
+
+## FAB Sizes
+
+| Size | Description |
+|------|-------------|
+| `small` | Compact FAB for tight spaces |
+| `regular` | Standard FAB size (56dp) |
+| `large` | Larger FAB for emphasis (96dp) |
+
+## FAB Variants
+
+| Variant | Description |
+|---------|-------------|
+| `primary` | Primary brand color |
+| `secondary` | Secondary brand color |
+| `tertiary` | Tertiary accent color |
+| `surface` | Light surface color with tinted icon |
