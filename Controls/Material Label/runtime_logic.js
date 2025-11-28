@@ -24,6 +24,15 @@
     document.head.appendChild(link);
   }
 
+  // Load Material Icons
+  function loadMaterialIcons() {
+    if (document.querySelector('link[href*="Material+Icons"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round';
+    document.head.appendChild(link);
+  }
+
   if (!window.customElements.get('material-label')) {
     window.customElements.define('material-label', class MaterialLabel extends HTMLElement {
 
@@ -49,13 +58,24 @@
         this._isVisible = true;
         this._isEnabled = true;
 
+        // Icon properties
+        this._leadingIcon = '';
+        this._trailingIcon = '';
+        this._iconSize = 24;
+        this._iconColor = '';
+        this._iconSpacing = 8;
+
         // DOM refs
         this._textEl = null;
+        this._leadingIconEl = null;
+        this._trailingIconEl = null;
+        this._container = null;
       }
 
       connectedCallback() {
         if (this._hasRendered) return;
         loadGoogleFonts();
+        loadMaterialIcons();
         setTimeout(() => {
           this._render();
           this._hasRendered = true;
@@ -70,10 +90,81 @@
       }
 
       _buildContent() {
+        // Create container for flex layout
+        this._container = document.createElement('div');
+        this._container.className = 'mlb-container';
+
+        // Leading icon
+        if (this._leadingIcon) {
+          this._leadingIconEl = document.createElement('span');
+          this._leadingIconEl.className = 'mlb-icon mlb-icon-leading material-icons';
+          this._leadingIconEl.textContent = this._leadingIcon;
+          this._container.appendChild(this._leadingIconEl);
+        }
+
+        // Text element
         this._textEl = document.createElement('span');
         this._textEl.className = 'mlb-text';
         this._textEl.textContent = this._value;
-        this.appendChild(this._textEl);
+        this._container.appendChild(this._textEl);
+
+        // Trailing icon
+        if (this._trailingIcon) {
+          this._trailingIconEl = document.createElement('span');
+          this._trailingIconEl.className = 'mlb-icon mlb-icon-trailing material-icons';
+          this._trailingIconEl.textContent = this._trailingIcon;
+          this._container.appendChild(this._trailingIconEl);
+        }
+
+        this.appendChild(this._container);
+      }
+
+      _updateIcons() {
+        if (!this._container) return;
+
+        // Update or create leading icon
+        if (this._leadingIcon) {
+          if (!this._leadingIconEl) {
+            this._leadingIconEl = document.createElement('span');
+            this._leadingIconEl.className = 'mlb-icon mlb-icon-leading material-icons';
+            this._container.insertBefore(this._leadingIconEl, this._textEl);
+          }
+          this._leadingIconEl.textContent = this._leadingIcon;
+          this._leadingIconEl.style.display = '';
+        } else if (this._leadingIconEl) {
+          this._leadingIconEl.style.display = 'none';
+        }
+
+        // Update or create trailing icon
+        if (this._trailingIcon) {
+          if (!this._trailingIconEl) {
+            this._trailingIconEl = document.createElement('span');
+            this._trailingIconEl.className = 'mlb-icon mlb-icon-trailing material-icons';
+            this._container.appendChild(this._trailingIconEl);
+          }
+          this._trailingIconEl.textContent = this._trailingIcon;
+          this._trailingIconEl.style.display = '';
+        } else if (this._trailingIconEl) {
+          this._trailingIconEl.style.display = 'none';
+        }
+
+        this._applyIconStyles();
+      }
+
+      _applyIconStyles() {
+        const iconColor = this._iconColor || this._textColor;
+
+        if (this._leadingIconEl) {
+          this._leadingIconEl.style.fontSize = `${this._iconSize}px`;
+          this._leadingIconEl.style.color = iconColor;
+          this._leadingIconEl.style.marginRight = `${this._iconSpacing}px`;
+        }
+
+        if (this._trailingIconEl) {
+          this._trailingIconEl.style.fontSize = `${this._iconSize}px`;
+          this._trailingIconEl.style.color = iconColor;
+          this._trailingIconEl.style.marginLeft = `${this._iconSpacing}px`;
+        }
       }
 
       _applyStyles() {
@@ -118,6 +209,17 @@
         } else {
           this.style.opacity = '1';
         }
+
+        // Apply container styles for flex layout
+        if (this._container) {
+          this._container.style.display = 'flex';
+          this._container.style.alignItems = 'center';
+          this._container.style.justifyContent = this._textAlign === 'center' ? 'center' :
+                                                  this._textAlign === 'right' ? 'flex-end' : 'flex-start';
+        }
+
+        // Apply icon styles
+        this._applyIconStyles();
       }
 
       _bindEvents() {
@@ -262,13 +364,61 @@
       set IsVisible(val) {
         this._isVisible = (val === true || val === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'IsVisible');
       }
 
       get IsEnabled() { return this._isEnabled; }
       set IsEnabled(val) {
         this._isEnabled = (val === true || val === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'IsEnabled');
       }
+
+      // Icon properties
+      get leadingIcon() { return this._leadingIcon; }
+      set leadingIcon(v) {
+        this._leadingIcon = v || '';
+        if (this._hasRendered) this._updateIcons();
+        safeRaisePropertyChanged(this, 'leadingIcon');
+      }
+      get LeadingIcon() { return this.leadingIcon; }
+      set LeadingIcon(v) { this.leadingIcon = v; }
+
+      get trailingIcon() { return this._trailingIcon; }
+      set trailingIcon(v) {
+        this._trailingIcon = v || '';
+        if (this._hasRendered) this._updateIcons();
+        safeRaisePropertyChanged(this, 'trailingIcon');
+      }
+      get TrailingIcon() { return this.trailingIcon; }
+      set TrailingIcon(v) { this.trailingIcon = v; }
+
+      get iconSize() { return this._iconSize; }
+      set iconSize(v) {
+        this._iconSize = parseInt(v) || 24;
+        if (this._hasRendered) this._applyIconStyles();
+        safeRaisePropertyChanged(this, 'iconSize');
+      }
+      get IconSize() { return this.iconSize; }
+      set IconSize(v) { this.iconSize = v; }
+
+      get iconColor() { return this._iconColor; }
+      set iconColor(v) {
+        this._iconColor = v || '';
+        if (this._hasRendered) this._applyIconStyles();
+        safeRaisePropertyChanged(this, 'iconColor');
+      }
+      get IconColor() { return this.iconColor; }
+      set IconColor(v) { this.iconColor = v; }
+
+      get iconSpacing() { return this._iconSpacing; }
+      set iconSpacing(v) {
+        this._iconSpacing = parseInt(v) || 8;
+        if (this._hasRendered) this._applyIconStyles();
+        safeRaisePropertyChanged(this, 'iconSpacing');
+      }
+      get IconSpacing() { return this.iconSpacing; }
+      set IconSpacing(v) { this.iconSpacing = v; }
     });
   }
 })();

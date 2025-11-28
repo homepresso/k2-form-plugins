@@ -14,7 +14,28 @@ material-label *::after {
   box-sizing: border-box;
 }
 
-.mlb-text {
-  display: block;
+/* Container for flex layout with icons */
+.mlb-container {
+  display: flex;
+  align-items: center;
   width: 100%;
+}
+
+.mlb-text {
+  flex: 1;
+}
+
+/* Icon styles */
+.mlb-icon {
+  flex-shrink: 0;
+  user-select: none;
+  line-height: 1;
+}
+
+.mlb-icon-leading {
+  margin-right: 8px;
+}
+
+.mlb-icon-trailing {
+  margin-left: 8px;
 }

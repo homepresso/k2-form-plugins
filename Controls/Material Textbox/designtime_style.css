@@ -24,7 +24,12 @@ material-textbox *::after {
   --mtb-surface-variant: #E7E0EC;
   --mtb-label-color: #49454F;
   --mtb-icon-color: #49454F;
-  --mtb-height: 56px;
+  --mtb-label-background: #ffffff;
+  --mtb-label-font-size: 12px;
+  --mtb-label-font-weight: normal;
+  --mtb-label-font-style: normal;
+  --mtb-height: 28px;
+  --mtb-font-family: 'Roboto', sans-serif;
   --mtb-font-size: 16px;
   --mtb-font-weight: normal;
   --mtb-font-style: normal;
@@ -35,19 +40,19 @@ material-textbox *::after {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: var(--mtb-height, 56px);
+  min-height: var(--mtb-height, 28px);
 }
 
 /* Base input styles */
 .mtb-input {
   flex: 1;
   width: 100%;
-  height: var(--mtb-height, 56px);
-  padding: 16px;
-  font-size: var(--mtb-font-size, 16px);
+  height: var(--mtb-height, 28px);
+  padding: 4px 8px;
+  font-family: var(--mtb-font-family, 'Roboto', sans-serif);
+  font-size: 12px;
   font-weight: var(--mtb-font-weight, normal);
   font-style: var(--mtb-font-style, normal);
-  font-family: inherit;
   color: var(--mtb-on-surface);
   background: transparent;
   border: none;
@@ -67,15 +72,17 @@ material-textbox *::after {
 /* Floating label */
 .mtb-label {
   position: absolute;
-  left: 16px;
+  left: 8px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: var(--mtb-label-font-size, 12px);
+  font-weight: var(--mtb-label-font-weight, normal);
+  font-style: var(--mtb-label-font-style, normal);
   color: var(--mtb-label-color);
   pointer-events: none;
   transition: all 0.2s ease;
   background: transparent;
-  padding: 0 4px;
+  padding: 0 2px;
 }
 
 .mtb-required {
@@ -137,9 +144,9 @@ material-textbox *::after {
 .mtb-outlined.mtb-has-value .mtb-label {
   top: 0;
   transform: translateY(-50%);
-  font-size: 12px;
+  font-size: 10px;
   color: var(--mtb-primary);
-  background: white;
+  background: var(--mtb-label-background, #ffffff);
 }
 
 .mtb-outlined.mtb-has-value:not(.mtb-focused) .mtb-label {
@@ -160,12 +167,12 @@ material-textbox *::after {
 }
 
 .mtb-filled .mtb-input {
-  padding-top: 24px;
-  padding-bottom: 8px;
+  padding-top: 14px;
+  padding-bottom: 2px;
 }
 
 .mtb-filled .mtb-label {
-  top: 28px;
+  top: 14px;
 }
 
 /* Filled focus state */
@@ -175,9 +182,9 @@ material-textbox *::after {
 
 .mtb-filled.mtb-focused .mtb-label,
 .mtb-filled.mtb-has-value .mtb-label {
-  top: 8px;
+  top: 2px;
   transform: none;
-  font-size: 12px;
+  font-size: 10px;
   color: var(--mtb-primary);
 }
 
@@ -191,20 +198,20 @@ material-textbox *::after {
 
 /* Icons */
 .mtb-icon {
-  font-size: 24px;
+  font-size: 16px;
   color: var(--mtb-icon-color);
   flex-shrink: 0;
   user-select: none;
 }
 
 .mtb-icon-leading {
-  margin-left: 12px;
-  margin-right: -4px;
+  margin-left: 6px;
+  margin-right: -2px;
 }
 
 .mtb-icon-trailing {
-  margin-right: 12px;
-  margin-left: -4px;
+  margin-right: 6px;
+  margin-left: -2px;
 }
 
 .mtb-icon-clickable {
@@ -218,20 +225,20 @@ material-textbox *::after {
 
 /* Adjust label position with icons */
 .mtb-input-wrapper:has(.mtb-icon-leading) .mtb-label {
-  left: 48px;
+  left: 28px;
 }
 
 .mtb-input-wrapper:has(.mtb-icon-leading) .mtb-input {
-  padding-left: 8px;
+  padding-left: 4px;
 }
 
 /* Supporting text */
 .mtb-supporting {
   display: flex;
   justify-content: space-between;
-  padding: 4px 16px 0;
-  font-size: 12px;
-  min-height: 20px;
+  padding: 2px 8px 0;
+  font-size: 10px;
+  min-height: 14px;
 }
 
 .mtb-helper-text {

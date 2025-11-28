@@ -54,7 +54,7 @@
         this._inputType = 'text';
         this._maxLength = 0;
         this._showCharCount = false;
-        this._controlHeight = 56;
+        this._controlHeight = 28;
         this._controlPadding = 8;
         this._primaryColor = '#6750A4';
         this._textColor = '#1C1B1F';
@@ -63,6 +63,10 @@
         this._backgroundColor = '#E7E0EC';
         this._errorColor = '#B3261E';
         this._iconColor = '#49454F';
+        this._labelBackground = '#ffffff';
+        this._labelFontSize = 16;
+        this._labelFontWeight = 'normal';
+        this._labelFontStyle = 'normal';
         this._required = false;
         this._pattern = '';
         this._autocomplete = 'off';
@@ -124,7 +128,7 @@
         this._input.placeholder = this._placeholder || ' ';
         this._input.value = this._value;
         this._input.autocomplete = this._autocomplete;
-        this._input.readOnly = this._isReadOnly;
+        this._input.readOnly = true; // Always read-only in designtime
         this._input.disabled = !this._isEnabled;
 
         if (this._maxLength > 0) {
@@ -206,10 +210,30 @@
         this._container.style.setProperty('--mtb-surface-variant', this._backgroundColor);
         this._container.style.setProperty('--mtb-label-color', this._labelColor);
         this._container.style.setProperty('--mtb-icon-color', this._iconColor);
+        this._container.style.setProperty('--mtb-label-background', this._labelBackground);
+        this._container.style.setProperty('--mtb-label-font-size', `${this._labelFontSize}px`);
+        this._container.style.setProperty('--mtb-label-font-weight', this._labelFontWeight);
+        this._container.style.setProperty('--mtb-label-font-style', this._labelFontStyle);
         this._container.style.setProperty('--mtb-height', `${this._controlHeight}px`);
+        this._container.style.setProperty('--mtb-font-family', this._fontFamily);
         this._container.style.setProperty('--mtb-font-size', `${this._fontSize}px`);
         this._container.style.setProperty('--mtb-font-weight', this._fontWeight);
         this._container.style.setProperty('--mtb-font-style', this._fontStyle);
+
+        // Apply font styles directly to input element for K2 compatibility
+        if (this._input) {
+          this._input.style.fontFamily = this._fontFamily;
+          this._input.style.fontSize = `${this._fontSize}px`;
+          this._input.style.fontWeight = this._fontWeight;
+          this._input.style.fontStyle = this._fontStyle;
+        }
+
+        // Apply label font styles directly for K2 compatibility
+        if (this._labelEl) {
+          this._labelEl.style.fontSize = `${this._labelFontSize}px`;
+          this._labelEl.style.fontWeight = this._labelFontWeight;
+          this._labelEl.style.fontStyle = this._labelFontStyle;
+        }
       }
 
       _bindEvents() {
@@ -282,12 +306,11 @@
           this._input.disabled = false;
         }
 
-        // Read-only state
+        // Read-only state - always read-only in designtime
+        this._input.readOnly = true;
         if (this._isReadOnly) {
-          this._input.readOnly = true;
           this._container.classList.add('mtb-readonly');
         } else {
-          this._input.readOnly = false;
           this._container.classList.remove('mtb-readonly');
         }
       }
@@ -571,6 +594,42 @@
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
 
+      get labelBackground() { return this._labelBackground; }
+      set labelBackground(v) {
+        this._labelBackground = v || '#ffffff';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'labelBackground');
+      }
+      get LabelBackground() { return this.labelBackground; }
+      set LabelBackground(v) { this.labelBackground = v; }
+
+      get labelFontSize() { return this._labelFontSize; }
+      set labelFontSize(v) {
+        this._labelFontSize = parseInt(v) || 16;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'labelFontSize');
+      }
+      get LabelFontSize() { return this.labelFontSize; }
+      set LabelFontSize(v) { this.labelFontSize = v; }
+
+      get labelFontWeight() { return this._labelFontWeight; }
+      set labelFontWeight(v) {
+        this._labelFontWeight = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'labelFontWeight');
+      }
+      get LabelFontWeight() { return this.labelFontWeight; }
+      set LabelFontWeight(v) { this.labelFontWeight = v; }
+
+      get labelFontStyle() { return this._labelFontStyle; }
+      set labelFontStyle(v) {
+        this._labelFontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'labelFontStyle');
+      }
+      get LabelFontStyle() { return this.labelFontStyle; }
+      set LabelFontStyle(v) { this.labelFontStyle = v; }
+
       get required() { return this._required; }
       set required(v) {
         this._required = (v === true || v === 'true');
@@ -650,13 +709,19 @@
       get IsEnabled() { return this._isEnabled; }
       set IsEnabled(val) {
         this._isEnabled = (val === true || val === 'true');
-        this._updateState();
+        if (this._hasRendered) {
+          this._updateState();
+        }
+        safeRaisePropertyChanged(this, 'IsEnabled');
       }
 
       get IsReadOnly() { return this._isReadOnly; }
       set IsReadOnly(val) {
         this._isReadOnly = (val === true || val === 'true');
-        this._updateState();
+        if (this._hasRendered) {
+          this._updateState();
+        }
+        safeRaisePropertyChanged(this, 'IsReadOnly');
       }
 
       // Height property

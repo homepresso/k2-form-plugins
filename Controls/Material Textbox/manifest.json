@@ -267,6 +267,46 @@
       "changesdisplay": true
     },
     {
+      "id": "labelBackground",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Background",
+      "description": "Background color for the floating label (should match page background for outlined variant)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#ffffff",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelFontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Font Size",
+      "description": "Font size of the label in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelFontWeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Font Weight",
+      "description": "Font weight of the label: normal, bold, 100-900",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelFontStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Font Style",
+      "description": "Font style of the label: normal, italic",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
       "id": "required",
       "refreshdisplay": "true",
       "friendlyname": "Required",

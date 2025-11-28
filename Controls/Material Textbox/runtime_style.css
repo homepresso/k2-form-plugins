@@ -24,7 +24,12 @@ material-textbox *::after {
   --mtb-surface-variant: #E7E0EC;
   --mtb-label-color: #49454F;
   --mtb-icon-color: #49454F;
+  --mtb-label-background: #ffffff;
+  --mtb-label-font-size: 16px;
+  --mtb-label-font-weight: normal;
+  --mtb-label-font-style: normal;
   --mtb-height: 56px;
+  --mtb-font-family: 'Roboto', sans-serif;
   --mtb-font-size: 16px;
   --mtb-font-weight: normal;
   --mtb-font-style: normal;
@@ -44,10 +49,10 @@ material-textbox *::after {
   width: 100%;
   height: var(--mtb-height, 56px);
   padding: 16px;
+  font-family: var(--mtb-font-family, 'Roboto', sans-serif);
   font-size: var(--mtb-font-size, 16px);
   font-weight: var(--mtb-font-weight, normal);
   font-style: var(--mtb-font-style, normal);
-  font-family: inherit;
   color: var(--mtb-on-surface);
   background: transparent;
   border: none;
@@ -70,7 +75,9 @@ material-textbox *::after {
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: var(--mtb-label-font-size, 16px);
+  font-weight: var(--mtb-label-font-weight, normal);
+  font-style: var(--mtb-label-font-style, normal);
   color: var(--mtb-label-color);
   pointer-events: none;
   transition: all 0.2s ease;
@@ -139,7 +146,7 @@ material-textbox *::after {
   transform: translateY(-50%);
   font-size: 12px;
   color: var(--mtb-primary);
-  background: white;
+  background: var(--mtb-label-background, #ffffff);
 }
 
 .mtb-outlined.mtb-has-value:not(.mtb-focused) .mtb-label {

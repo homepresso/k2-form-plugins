@@ -168,6 +168,56 @@
       "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
+    },
+    {
+      "id": "leadingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Leading Icon",
+      "description": "Material icon name for leading icon (e.g., 'info', 'warning', 'star')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "trailingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Trailing Icon",
+      "description": "Material icon name for trailing icon (e.g., 'arrow_forward', 'chevron_right')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Size",
+      "description": "Size of icons in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "24",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of icons (defaults to text color if empty)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconSpacing",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Spacing",
+      "description": "Space between icon and text in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "8",
+      "changesdisplay": true
     }
   ],
   "methods": []
