@@ -19,6 +19,7 @@ material-time-picker {
   --mtp-surface-variant: #E7E0EC;
   --mtp-surface: #FFFBFE;
   --mtp-label-color: #49454F;
+  --mtp-height: 28px;
 }
 
 /* Input wrapper */
@@ -26,15 +27,15 @@ material-time-picker {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 56px;
+  min-height: var(--mtp-height, 28px);
   cursor: pointer;
 }
 
 /* Field */
 .mtp-field {
   flex: 1;
-  height: 56px;
-  padding: 16px;
+  height: var(--mtp-height, 28px);
+  padding: 4px 16px;
   padding-left: 48px;
   font-size: 16px;
   font-family: inherit;

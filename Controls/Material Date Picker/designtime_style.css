@@ -19,6 +19,7 @@ material-date-picker {
   --mdp-surface-variant: #E7E0EC;
   --mdp-surface: #FFFBFE;
   --mdp-label-color: #49454F;
+  --mdp-height: 28px;
 }
 
 /* Input wrapper */
@@ -26,15 +27,15 @@ material-date-picker {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 56px;
+  min-height: var(--mdp-height, 28px);
   cursor: pointer;
 }
 
 /* Field */
 .mdp-field {
   flex: 1;
-  height: 56px;
-  padding: 16px;
+  height: var(--mdp-height, 28px);
+  padding: 4px 16px;
   padding-left: 48px;
   font-size: 16px;
   font-family: inherit;

@@ -38,23 +38,24 @@ material-button {
   --mbtn-hover: none;
 }
 
-/* Size variants */
+/* Size variants - reduced for design time */
 .mbtn-small {
-  height: 32px;
-  padding: 0 12px;
-  font-size: 13px;
-  border-radius: 16px;
+  height: 16px;
+  padding: 0 8px;
+  font-size: 11px;
+  border-radius: 8px;
 }
 
 .mbtn-medium {
-  height: 40px;
-  padding: 0 24px;
+  height: 20px;
+  padding: 0 12px;
+  font-size: 12px;
 }
 
 .mbtn-large {
-  height: 48px;
-  padding: 0 32px;
-  font-size: 15px;
+  height: 24px;
+  padding: 0 16px;
+  font-size: 13px;
 }
 
 /* Icon styles */

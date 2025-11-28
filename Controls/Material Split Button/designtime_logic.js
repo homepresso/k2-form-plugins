@@ -74,6 +74,8 @@
 
         // Bound handlers
         this._handleClickOutside = this._handleClickOutside.bind(this);
+        this._handleScroll = this._handleScroll.bind(this);
+        this._handleResize = this._handleResize.bind(this);
       }
 
       connectedCallback() {
@@ -89,6 +91,13 @@
 
       disconnectedCallback() {
         document.removeEventListener('click', this._handleClickOutside);
+        window.removeEventListener('scroll', this._handleScroll, true);
+        window.removeEventListener('resize', this._handleResize);
+
+        // Clean up portaled menu
+        if (this._menu && this._menu.__portaled && this._menu.parentNode) {
+          this._menu.parentNode.removeChild(this._menu);
+        }
       }
 
       _parseMenuItems() {
@@ -175,11 +184,11 @@
 
         this._container.appendChild(this._dropdownBtn);
 
-        // Menu
+        // Menu - create but don't append to container (will be portaled to body)
         this._menu = document.createElement('div');
         this._menu.className = 'msb-menu';
         this._buildMenuItems();
-        this._container.appendChild(this._menu);
+        // Menu will be portaled to body on first open for overlay behavior
 
         this.appendChild(this._container);
         this._updateState();
@@ -299,9 +308,46 @@
       }
 
       _handleClickOutside(e) {
-        if (this._isOpen && !this.contains(e.target)) {
+        if (this._isOpen && !this.contains(e.target) && !this._menu.contains(e.target)) {
           this.close();
         }
+      }
+
+      _handleScroll() {
+        if (this._isOpen) {
+          this._positionMenu();
+        }
+      }
+
+      _handleResize() {
+        if (this._isOpen) {
+          this._positionMenu();
+        }
+      }
+
+      _positionMenu() {
+        if (!this._menu || !this._dropdownBtn) return;
+
+        const rect = this._dropdownBtn.getBoundingClientRect();
+        const containerRect = this._container.getBoundingClientRect();
+        const menuHeight = this._menu.scrollHeight || 200;
+        const viewportHeight = window.innerHeight;
+
+        // Calculate position - prefer below button, but flip above if not enough space
+        let top = containerRect.bottom + 4;
+        if (top + menuHeight > viewportHeight && containerRect.top > menuHeight) {
+          top = containerRect.top - menuHeight - 4;
+        }
+
+        // Menu should align with left edge of the button container
+        const left = containerRect.left;
+        const minWidth = containerRect.width;
+
+        this._menu.style.position = 'fixed';
+        this._menu.style.top = `${top}px`;
+        this._menu.style.left = `${left}px`;
+        this._menu.style.minWidth = `${minWidth}px`;
+        this._menu.style.zIndex = '2147483647';
       }
 
       _createRipple(event, button) {
@@ -351,13 +397,44 @@
       open() {
         if (!this._isEnabled || this._isOpen) return;
         this._isOpen = true;
+
+        // Portal menu to body for overlay behavior (prevents clipping)
+        if (!this._menu.__portaled) {
+          document.body.appendChild(this._menu);
+          this._menu.__portaled = true;
+        }
+
+        // Apply menu styling
+        this._menu.style.display = 'block';
+        this._menu.style.backgroundColor = this._menuBackgroundColor || this._surfaceColor || '#FFFBFE';
+        this._menu.style.color = this._menuTextColor || '#1C1B1F';
+        this._menu.style.borderRadius = '4px';
+        this._menu.style.boxShadow = '0 8px 12px rgba(0, 0, 0, 0.15), 0 4px 4px rgba(0, 0, 0, 0.3)';
+        this._menu.style.overflow = 'hidden';
+        this._menu.style.maxHeight = '300px';
+        this._menu.style.overflowY = 'auto';
+
+        this._positionMenu();
         this._updateState();
+
+        // Add scroll/resize listeners
+        window.addEventListener('scroll', this._handleScroll, true);
+        window.addEventListener('resize', this._handleResize);
       }
 
       close() {
         if (!this._isOpen) return;
         this._isOpen = false;
+
+        if (this._menu) {
+          this._menu.style.display = 'none';
+        }
+
         this._updateState();
+
+        // Remove scroll/resize listeners
+        window.removeEventListener('scroll', this._handleScroll, true);
+        window.removeEventListener('resize', this._handleResize);
       }
 
       // Properties

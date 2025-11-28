@@ -18,6 +18,7 @@ material-select {
   --msl-outline: #79747E;
   --msl-surface-variant: #E7E0EC;
   --msl-surface: #FFFBFE;
+  --msl-height: 28px;
 }
 
 /* Input wrapper */
@@ -25,15 +26,15 @@ material-select {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 56px;
+  min-height: var(--msl-height, 28px);
   cursor: pointer;
 }
 
 /* Select field */
 .msl-field {
   flex: 1;
-  height: 56px;
-  padding: 16px;
+  height: var(--msl-height, 28px);
+  padding: 4px 16px;
   padding-right: 48px;
   font-size: 16px;
   font-family: inherit;

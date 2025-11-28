@@ -11,10 +11,10 @@ material-checkbox {
 .mcb-container {
   display: inline-flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 6px;
   cursor: pointer;
   position: relative;
-  padding: 8px 0;
+  padding: 2px 0;
 
   --mcb-primary: #6750A4;
   --mcb-on-primary: #FFFFFF;
@@ -39,9 +39,9 @@ material-checkbox {
 /* Checkbox visual */
 .mcb-checkbox {
   position: relative;
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--mcb-outline);
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--mcb-outline);
   border-radius: 2px;
   background: transparent;
   cursor: pointer;

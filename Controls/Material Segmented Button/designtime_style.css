@@ -28,7 +28,7 @@ material-segmented-button {
 
 .mseg-container {
   display: inline-flex;
-  border-radius: 20px;
+  border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--mseg-outline);
 
@@ -47,14 +47,14 @@ material-segmented-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding: 0 16px;
+  height: 20px;
+  padding: 0 8px;
   border: none;
   border-right: 1px solid var(--mseg-outline);
   background: transparent;
   color: var(--mseg-on-surface);
   font-family: inherit;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1px;
   cursor: pointer;

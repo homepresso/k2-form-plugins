@@ -25,7 +25,7 @@ material-switch {
 .msw-wrapper {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   cursor: pointer;
 }
 
@@ -45,8 +45,8 @@ material-switch {
 /* Switch */
 .msw-switch {
   position: relative;
-  width: 52px;
-  height: 32px;
+  width: 26px;
+  height: 16px;
   cursor: pointer;
   outline: none;
 }
@@ -54,7 +54,7 @@ material-switch {
 .msw-switch:focus-visible {
   outline: 2px solid var(--msw-primary);
   outline-offset: 2px;
-  border-radius: 16px;
+  border-radius: 8px;
 }
 
 /* Track */
@@ -65,8 +65,8 @@ material-switch {
   right: 0;
   bottom: 0;
   background: var(--msw-surface-variant);
-  border: 2px solid var(--msw-outline);
-  border-radius: 16px;
+  border: 1px solid var(--msw-outline);
+  border-radius: 8px;
   transition: all 0.2s ease;
 }
 
@@ -79,9 +79,9 @@ material-switch {
 .msw-thumb {
   position: absolute;
   top: 50%;
-  left: 6px;
-  width: 16px;
-  height: 16px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
   background: var(--msw-outline);
   border-radius: 50%;
   transform: translateY(-50%);
@@ -92,24 +92,24 @@ material-switch {
 }
 
 .msw-checked .msw-thumb {
-  left: calc(100% - 28px);
-  width: 24px;
-  height: 24px;
+  left: calc(100% - 14px);
+  width: 12px;
+  height: 12px;
   background: var(--msw-on-primary);
 }
 
 /* Pressed state - larger thumb */
 .msw-switch:active .msw-thumb {
-  width: 28px;
-  height: 28px;
+  width: 14px;
+  height: 14px;
 }
 
 .msw-switch:active:not(.msw-checked) .msw-thumb {
-  left: 4px;
+  left: 2px;
 }
 
 .msw-switch:active.msw-checked .msw-thumb {
-  left: calc(100% - 32px);
+  left: calc(100% - 16px);
 }
 
 /* State layer */

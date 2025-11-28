@@ -28,32 +28,32 @@ material-icon-button {
   --mib-surface-variant: #E7E0EC;
 }
 
-/* Size variants */
+/* Size variants - reduced for design time */
 .mib-small {
-  width: 36px;
-  height: 36px;
+  width: 18px;
+  height: 18px;
 }
 
 .mib-small .mib-icon {
-  font-size: 20px;
+  font-size: 12px;
 }
 
 .mib-medium {
-  width: 48px;
-  height: 48px;
+  width: 24px;
+  height: 24px;
 }
 
 .mib-medium .mib-icon {
-  font-size: 24px;
+  font-size: 14px;
 }
 
 .mib-large {
-  width: 56px;
-  height: 56px;
+  width: 28px;
+  height: 28px;
 }
 
 .mib-large .mib-icon {
-  font-size: 28px;
+  font-size: 16px;
 }
 
 /* Icon */
