@@ -44,6 +44,9 @@
         this._required = false;
         this._helperText = '';
         this._fontFamily = 'Roboto, sans-serif';
+        this._fontSize = 14;
+        this._fontWeight = 'normal';
+        this._fontStyle = 'normal';
         this._isVisible = true;
         this._isEnabled = true;
 
@@ -170,6 +173,15 @@
           this._container.style.setProperty('--msw-surface-variant', this._trackColor);
           this._container.style.setProperty('--msw-outline', this._borderColor);
           this._container.style.setProperty('--msw-on-surface', this._labelColor);
+
+          // Apply font styles directly to label
+          const labelEl = this._container.querySelector('.msw-label');
+          if (labelEl) {
+            labelEl.style.fontFamily = this._fontFamily;
+            labelEl.style.fontSize = `${this._fontSize}px`;
+            labelEl.style.fontWeight = this._fontWeight;
+            labelEl.style.fontStyle = this._fontStyle;
+          }
         }
       }
 
@@ -350,6 +362,33 @@
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
+
+      get fontSize() { return this._fontSize; }
+      set fontSize(v) {
+        this._fontSize = parseInt(v) || 14;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
+      }
+      get FontSize() { return this.fontSize; }
+      set FontSize(v) { this.fontSize = v; }
+
+      get fontWeight() { return this._fontWeight; }
+      set fontWeight(v) {
+        this._fontWeight = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
+      }
+      get FontWeight() { return this.fontWeight; }
+      set FontWeight(v) { this.fontWeight = v; }
+
+      get fontStyle() { return this._fontStyle; }
+      set fontStyle(v) {
+        this._fontStyle = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
+      }
+      get FontStyle() { return this.fontStyle; }
+      set FontStyle(v) { this.fontStyle = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

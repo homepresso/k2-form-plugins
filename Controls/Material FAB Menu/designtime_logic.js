@@ -60,6 +60,10 @@
         this._menuItemIconColor = '';
         this._menuLabelBackgroundColor = '';
         this._menuLabelTextColor = '#1C1B1F';
+        this._fontFamily = 'Roboto, sans-serif';
+        this._fontSize = 14;
+        this._fontWeight = '500';
+        this._fontStyle = 'normal';
         this._isVisible = true;
         this._isEnabled = true;
         this._isOpen = false;
@@ -236,6 +240,26 @@
           if (this._containerColor) {
             this._fab.style.setProperty('--mfab-container', this._containerColor);
           }
+
+          // Apply font styles to FAB label
+          const fabLabel = this._fab.querySelector('.mfab-label');
+          if (fabLabel) {
+            fabLabel.style.fontFamily = this._fontFamily;
+            fabLabel.style.fontSize = `${this._fontSize}px`;
+            fabLabel.style.fontWeight = this._fontWeight;
+            fabLabel.style.fontStyle = this._fontStyle;
+          }
+        }
+
+        // Apply font styles to menu labels
+        if (this._menu) {
+          const menuLabels = this._menu.querySelectorAll('.mfab-menu-label');
+          menuLabels.forEach(label => {
+            label.style.fontFamily = this._fontFamily;
+            label.style.fontSize = `${this._fontSize}px`;
+            label.style.fontWeight = this._fontWeight;
+            label.style.fontStyle = this._fontStyle;
+          });
         }
       }
 
@@ -488,6 +512,42 @@
       }
       get MenuLabelTextColor() { return this.menuLabelTextColor; }
       set MenuLabelTextColor(v) { this.menuLabelTextColor = v; }
+
+      get fontFamily() { return this._fontFamily; }
+      set fontFamily(v) {
+        this._fontFamily = v || 'Roboto, sans-serif';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontFamily');
+      }
+      get FontFamily() { return this.fontFamily; }
+      set FontFamily(v) { this.fontFamily = v; }
+
+      get fontSize() { return this._fontSize; }
+      set fontSize(v) {
+        this._fontSize = parseInt(v) || 14;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
+      }
+      get FontSize() { return this.fontSize; }
+      set FontSize(v) { this.fontSize = v; }
+
+      get fontWeight() { return this._fontWeight; }
+      set fontWeight(v) {
+        this._fontWeight = v || '500';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
+      }
+      get FontWeight() { return this.fontWeight; }
+      set FontWeight(v) { this.fontWeight = v; }
+
+      get fontStyle() { return this._fontStyle; }
+      set fontStyle(v) {
+        this._fontStyle = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
+      }
+      get FontStyle() { return this.fontStyle; }
+      set FontStyle(v) { this.fontStyle = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

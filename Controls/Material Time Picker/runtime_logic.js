@@ -66,6 +66,9 @@
         this._selectedTextColor = '#FFFFFF';
 
         this._fontFamily = 'Roboto, sans-serif';
+        this._fontSize = 16;
+        this._fontWeight = 'normal';
+        this._fontStyle = 'normal';
         this._isVisible = true;
         this._isEnabled = true;
         this._isOpen = false;
@@ -460,6 +463,9 @@
       _applyStyles() {
         this.style.display = this._isVisible ? 'inline-block' : 'none';
         this.style.fontFamily = this._fontFamily;
+        this.style.fontSize = `${this._fontSize}px`;
+        this.style.fontWeight = this._fontWeight;
+        this.style.fontStyle = this._fontStyle;
 
         if (this._container) {
           this._container.style.setProperty('--mtp-primary', this._primaryColor);
@@ -470,6 +476,21 @@
           this._container.style.setProperty('--mtp-surface', this._surfaceColor);
           if (this._backgroundColor) {
             this._container.style.setProperty('--mtp-surface-variant', this._backgroundColor);
+          }
+
+          // Apply font properties to input and label elements
+          const displayText = this._input?.querySelector('.mtp-display-text');
+          if (displayText) {
+            displayText.style.fontSize = `${this._fontSize}px`;
+            displayText.style.fontWeight = this._fontWeight;
+            displayText.style.fontStyle = this._fontStyle;
+          }
+
+          const label = this._container.querySelector('.mtp-label');
+          if (label) {
+            label.style.fontSize = `${this._fontSize}px`;
+            label.style.fontWeight = this._fontWeight;
+            label.style.fontStyle = this._fontStyle;
           }
         }
       }
@@ -771,6 +792,33 @@
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
+
+      get fontSize() { return this._fontSize; }
+      set fontSize(v) {
+        this._fontSize = v || 16;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
+      }
+      get FontSize() { return this.fontSize; }
+      set FontSize(v) { this.fontSize = v; }
+
+      get fontWeight() { return this._fontWeight; }
+      set fontWeight(v) {
+        this._fontWeight = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
+      }
+      get FontWeight() { return this.fontWeight; }
+      set FontWeight(v) { this.fontWeight = v; }
+
+      get fontStyle() { return this._fontStyle; }
+      set fontStyle(v) {
+        this._fontStyle = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
+      }
+      get FontStyle() { return this.fontStyle; }
+      set FontStyle(v) { this.fontStyle = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

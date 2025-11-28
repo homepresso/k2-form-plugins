@@ -56,6 +56,10 @@
         this._selectedIconColor = '#FFFFFF';
         this._surfaceVariantColor = '#E7E0EC';
         this._disableRipple = false;
+        this._fontFamily = 'Roboto, sans-serif';
+        this._fontSize = 24;
+        this._fontWeight = 'normal';
+        this._fontStyle = 'normal';
         this._isVisible = true;
         this._isEnabled = true;
 
@@ -131,6 +135,12 @@
           }
           if (this._selectedContainerColor) {
             this._button.style.setProperty('--mib-selected-container', this._selectedContainerColor);
+          }
+
+          // Apply font styles to icon
+          const iconEl = this._button.querySelector('.mib-icon');
+          if (iconEl) {
+            iconEl.style.fontSize = `${this._fontSize}px`;
           }
         }
       }
@@ -348,6 +358,42 @@
       }
       get DisableRipple() { return this.disableRipple; }
       set DisableRipple(v) { this.disableRipple = v; }
+
+      get fontFamily() { return this._fontFamily; }
+      set fontFamily(v) {
+        this._fontFamily = v || 'Roboto, sans-serif';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontFamily');
+      }
+      get FontFamily() { return this.fontFamily; }
+      set FontFamily(v) { this.fontFamily = v; }
+
+      get fontSize() { return this._fontSize; }
+      set fontSize(v) {
+        this._fontSize = parseInt(v) || 24;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
+      }
+      get FontSize() { return this.fontSize; }
+      set FontSize(v) { this.fontSize = v; }
+
+      get fontWeight() { return this._fontWeight; }
+      set fontWeight(v) {
+        this._fontWeight = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
+      }
+      get FontWeight() { return this.fontWeight; }
+      set FontWeight(v) { this.fontWeight = v; }
+
+      get fontStyle() { return this._fontStyle; }
+      set fontStyle(v) {
+        this._fontStyle = v || 'normal';
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
+      }
+      get FontStyle() { return this.fontStyle; }
+      set FontStyle(v) { this.fontStyle = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {
