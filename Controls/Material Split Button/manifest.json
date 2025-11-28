@@ -44,9 +44,9 @@
       "changesdisplay": true
     },
     {
-      "id": "icon",
+      "id": "leadingIcon",
       "refreshdisplay": "true",
-      "friendlyname": "Icon",
+      "friendlyname": "Leading Icon",
       "description": "Leading icon for primary button (optional)",
       "type": "string",
       "inputlength": "100",
@@ -167,8 +167,9 @@
       "id": "disableRipple",
       "refreshdisplay": "true",
       "friendlyname": "Disable Ripple",
-      "description": "Disable the ripple effect",
-      "type": "boolean",
+      "description": "Disable the ripple effect (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },

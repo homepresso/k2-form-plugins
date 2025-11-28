@@ -42,7 +42,7 @@
 
         // Properties
         this._text = 'Save';
-        this._icon = '';
+        this._leadingIcon = '';
         this._variant = 'filled'; // filled, outlined, tonal
         this._menuItems = 'Save as Draft|Save and Close|Save and New';
         this._delimiter = '|';
@@ -132,10 +132,10 @@
         this._primaryBtn.className = 'msb-primary';
         this._primaryBtn.type = 'button';
 
-        if (this._icon) {
+        if (this._leadingIcon) {
           const iconEl = document.createElement('span');
           iconEl.className = 'msb-icon material-icons';
-          iconEl.textContent = this._icon;
+          iconEl.textContent = this._leadingIcon;
           this._primaryBtn.appendChild(iconEl);
         }
 
@@ -373,14 +373,14 @@
       get Text() { return this.text; }
       set Text(v) { this.text = v; }
 
-      get icon() { return this._icon; }
-      set icon(v) {
-        this._icon = v || '';
+      get leadingIcon() { return this._leadingIcon; }
+      set leadingIcon(v) {
+        this._leadingIcon = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'icon');
+        safeRaisePropertyChanged(this, 'leadingIcon');
       }
-      get Icon() { return this.icon; }
-      set Icon(v) { this.icon = v; }
+      get LeadingIcon() { return this.leadingIcon; }
+      set LeadingIcon(v) { this.leadingIcon = v; }
 
       get variant() { return this._variant; }
       set variant(v) {
