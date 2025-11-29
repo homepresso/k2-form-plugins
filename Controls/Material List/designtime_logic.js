@@ -70,8 +70,11 @@
     }
   }
 
+  // Use K2BaseControl if available, fallback to HTMLElement
+  const BaseClass = window.K2BaseControl || HTMLElement;
+
   if (!window.customElements.get('material-list')) {
-    window.customElements.define('material-list', class MaterialList extends HTMLElement {
+    window.customElements.define('material-list', class MaterialList extends BaseClass {
 
       constructor() {
         super();
@@ -113,6 +116,10 @@
         this._isVisible = true;
         this._isEnabled = true;
 
+        // Sort properties
+        this._sortBy = 'ID';
+        this._sortDirection = 'asc';
+
         // Parsed items
         this._parsedItems = [];
 
@@ -120,11 +127,15 @@
         this._container = null;
 
         // K2 List binding
-        this._listConfig = null;
+        this._listConfig = { partmappings: {} };
         this._dataItems = [];
+
+        // Initial data for design-time fallback
+        this._initialListValue = '[{"icon": "inbox", "title": "Inbox", "subtitle": "3 new messages", "value": "inbox"},{"icon": "star", "title": "Starred", "subtitle": "12 items", "value": "starred"}]';
       }
 
       connectedCallback() {
+        if (super.connectedCallback) super.connectedCallback();
         if (this._hasRendered) return;
 
         // Render container immediately
@@ -444,23 +455,55 @@
         this._container.classList.toggle('mls-disabled', !this._isEnabled);
       }
 
+      // List property getter/setter for K2 data binding
+      get List() {
+        return this._dataItems;
+      }
+
+      set List(value) {
+        // Handle JSON string (from initial value or direct assignment)
+        if (typeof value === 'string' && value.trim()) {
+          try {
+            const parsed = JSON.parse(value);
+            if (Array.isArray(parsed)) {
+              this._dataItems = parsed;
+              this._processDataItems();
+              return;
+            }
+          } catch (e) {
+            console.warn('[Material List DT] Failed to parse List value as JSON:', e);
+          }
+        }
+
+        // Handle array directly
+        if (Array.isArray(value)) {
+          this._dataItems = value;
+          this._processDataItems();
+          return;
+        }
+
+        // Handle K2 list object with items property
+        if (value && typeof value === 'object' && Array.isArray(value.items)) {
+          this._dataItems = value.items;
+          this._processDataItems();
+          return;
+        }
+
+      }
+
       // K2 List Binding Callbacks
       listConfigChangedCallback(config, listname) {
-        console.log('[Material List DT] listConfigChangedCallback called', { config, listname });
         this._listConfig = config;
-        // Don't call _processDataItems here - wait for listItemsChangedCallback to provide data
-        // The config just tells us field mappings, not actual data
       }
 
       listItemsChangedCallback(itemsChangedEventArgs) {
-        console.log('[Material List DT] listItemsChangedCallback called', itemsChangedEventArgs);
         const isDesignTime = window.K2?.IsDesigner === true;
         let itemsToProcess = itemsChangedEventArgs?.NewItems;
 
         // Fallback: If at design time and we receive 0 items, use initial value
         if (isDesignTime && (!Array.isArray(itemsToProcess) || itemsToProcess.length === 0)) {
           try {
-            const fallbackItems = JSON.parse('[{"icon": "inbox", "title": "Inbox", "subtitle": "3 new messages", "value": "inbox"},{"icon": "star", "title": "Starred", "subtitle": "12 items", "value": "starred"}]');
+            const fallbackItems = JSON.parse(this._initialListValue);
             if (Array.isArray(fallbackItems) && fallbackItems.length > 0) {
               itemsToProcess = fallbackItems;
             }
@@ -478,28 +521,81 @@
       }
 
       _processDataItems() {
-        console.log('[Material List DT] _processDataItems called', { dataItems: this._dataItems, listConfig: this._listConfig });
+        // Use initial value as fallback if no data
+        if (!this._dataItems || this._dataItems.length === 0) {
+          try {
+            this._dataItems = JSON.parse(this._initialListValue);
+          } catch (e) {
+            this._dataItems = [];
+          }
+        }
+
         if (!this._dataItems || this._dataItems.length === 0) {
           console.log('[Material List DT] No data items to process');
           return;
         }
 
+        // Sort data items if sortBy is specified
+        if (this._sortBy && this._sortBy.trim()) {
+          const sortField = this._sortBy.trim();
+          const sortDir = this._sortDirection === 'desc' ? -1 : 1;
+
+          this._dataItems.sort((a, b) => {
+            let aVal = a[sortField];
+            let bVal = b[sortField];
+
+            // Handle undefined/null values
+            if (aVal === undefined || aVal === null) aVal = '';
+            if (bVal === undefined || bVal === null) bVal = '';
+
+            // Try numeric comparison first
+            const aNum = parseFloat(aVal);
+            const bNum = parseFloat(bVal);
+            if (!isNaN(aNum) && !isNaN(bNum)) {
+              return (aNum - bNum) * sortDir;
+            }
+
+            // Fall back to string comparison
+            return String(aVal).localeCompare(String(bVal)) * sortDir;
+          });
+        }
+
         // Get field mappings from K2 config
         const mappings = this._listConfig?.partmappings || {};
-        const iconProp = mappings['Icon'] || mappings['Image'] || 'icon';
-        const titleProp = mappings['Title'] || mappings['Display'] || 'title';
-        const subtitleProp = mappings['Subtitle'] || mappings['Description'] || 'subtitle';
-        const valueProp = mappings['Value'] || 'value';
-        const checkedProp = mappings['Checked'] || mappings['IsChecked'] || mappings['Selected'] || 'checked';
+
+        // Helper function to get field value with fallbacks
+        const getFieldValue = (item, mappedProp, ...fallbacks) => {
+          // First try the K2-mapped property
+          if (mappedProp && item[mappedProp] !== undefined) {
+            return item[mappedProp];
+          }
+          // Then try fallback property names
+          for (const prop of fallbacks) {
+            if (item[prop] !== undefined) {
+              return item[prop];
+            }
+          }
+          return '';
+        };
+
+        const iconProp = mappings['Icon'] || mappings['Image'];
+        const titleProp = mappings['Title'] || mappings['Display'];
+        const subtitleProp = mappings['Subtitle'] || mappings['Description'];
+        const valueProp = mappings['Value'];
+        const checkedProp = mappings['Checked'] || mappings['IsChecked'] || mappings['Selected'];
 
         // Convert K2 data items to list items
-        this._parsedItems = this._dataItems.map(item => ({
-          icon: item[iconProp] || item.icon || item.Icon || item.image || item.Image || '',
-          title: item[titleProp] || item.title || item.Title || item.name || item.Name || item.text || item.Text || '',
-          subtitle: item[subtitleProp] || item.subtitle || item.Subtitle || item.description || item.Description || '',
-          value: String(item[valueProp] || item.value || item.Value || item.id || item.Id || item.ID || item[titleProp] || ''),
-          checked: item[checkedProp] === true || item[checkedProp] === 'true'
-        }));
+        this._parsedItems = this._dataItems.map((item, index) => {
+          const parsed = {
+            icon: getFieldValue(item, iconProp, 'icon', 'Icon', 'image', 'Image'),
+            title: getFieldValue(item, titleProp, 'title', 'Title', 'Display', 'display', 'name', 'Name', 'text', 'Text'),
+            subtitle: getFieldValue(item, subtitleProp, 'subtitle', 'Subtitle', 'description', 'Description'),
+            value: String(getFieldValue(item, valueProp, 'value', 'Value') || getFieldValue(item, titleProp, 'title', 'Title') || index),
+            checked: getFieldValue(item, checkedProp, 'checked', 'Checked', 'IsChecked', 'Selected') === true ||
+                     getFieldValue(item, checkedProp, 'checked', 'Checked', 'IsChecked', 'Selected') === 'true'
+          };
+          return parsed;
+        });
 
         // Update checked set from data if in checkbox mode
         if (this._checkboxMode) {
@@ -776,6 +872,28 @@
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
+
+      get sortBy() { return this._sortBy; }
+      set sortBy(v) {
+        this._sortBy = v || 'ID';
+        if (this._hasRendered && this._dataItems.length > 0) {
+          this._processDataItems();
+        }
+        safeRaisePropertyChanged(this, 'sortBy');
+      }
+      get SortBy() { return this.sortBy; }
+      set SortBy(v) { this.sortBy = v; }
+
+      get sortDirection() { return this._sortDirection; }
+      set sortDirection(v) {
+        this._sortDirection = (v === 'desc') ? 'desc' : 'asc';
+        if (this._hasRendered && this._dataItems.length > 0) {
+          this._processDataItems();
+        }
+        safeRaisePropertyChanged(this, 'sortDirection');
+      }
+      get SortDirection() { return this.sortDirection; }
+      set SortDirection(v) { this.sortDirection = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

@@ -286,6 +286,26 @@
       "inputlength": "20",
       "initialvalue": "normal",
       "changesdisplay": true
+    },
+    {
+      "id": "sortBy",
+      "refreshdisplay": "true",
+      "friendlyname": "Sort By",
+      "description": "Column name to sort by (e.g., ID, Title, Value). Leave empty for no sorting.",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "ID",
+      "changesdisplay": true
+    },
+    {
+      "id": "sortDirection",
+      "refreshdisplay": "true",
+      "friendlyname": "Sort Direction",
+      "description": "Sort direction: asc (ascending) or desc (descending)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "asc",
+      "changesdisplay": true
     }
   ],
   "methods": [
