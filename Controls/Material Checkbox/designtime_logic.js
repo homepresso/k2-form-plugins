@@ -184,46 +184,8 @@
       }
 
       _bindEvents() {
-        const handleClick = (e) => {
-          if (!this._isEnabled) return;
-          e.preventDefault();
-
-          // Create ripple
-          if (!this._disableRipple) {
-            this._createRipple(e);
-          }
-
-          // Toggle state
-          if (this._indeterminate) {
-            this._indeterminate = false;
-            this._checked = true;
-          } else {
-            this._checked = !this._checked;
-          }
-
-          this._input.checked = this._checked;
-          this._input.indeterminate = this._indeterminate;
-          this._updateCheckboxContent();
-          this._updateState();
-
-          safeRaisePropertyChanged(this, 'checked');
-
-          this.dispatchEvent(new CustomEvent('Changed', {
-            bubbles: true,
-            detail: { checked: this._checked, indeterminate: this._indeterminate }
-          }));
-        };
-
-        this._checkbox.addEventListener('click', handleClick);
-        this._container.querySelector('.mcb-label').addEventListener('click', handleClick);
-
-        // Keyboard support
-        this._checkbox.addEventListener('keydown', (e) => {
-          if (e.key === ' ' || e.key === 'Enter') {
-            e.preventDefault();
-            handleClick(e);
-          }
-        });
+        // Design time: read-only mode - no interactive events
+        // The control displays but doesn't respond to clicks in the designer
       }
 
       _createRipple(event) {

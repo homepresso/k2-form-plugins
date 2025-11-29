@@ -15,7 +15,7 @@
   "description": "Material 3 Design Floating Action Button with expandable menu",
   "displayName": "Material FAB Menu",
   "tagName": "material-fab-menu",
-  "valuePropertyID": "icon",
+  "valuePropertyID": "menuItems",
   "supports": [
     "Value",
     "Width",
@@ -34,7 +34,7 @@
   ],
   "properties": [
     {
-      "id": "icon",
+      "id": "fabIcon",
       "refreshdisplay": "true",
       "friendlyname": "Icon",
       "description": "Main FAB icon (e.g., 'add', 'edit', 'menu')",
@@ -117,8 +117,9 @@
       "id": "extended",
       "refreshdisplay": "true",
       "friendlyname": "Extended",
-      "description": "Show as extended FAB with label",
-      "type": "boolean",
+      "description": "Show as extended FAB with label (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },

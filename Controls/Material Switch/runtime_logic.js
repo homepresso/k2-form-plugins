@@ -36,6 +36,7 @@
         this._label = 'Switch';
         this._labelPosition = 'end';
         this._showIcons = true;
+        this._iconStyle = 'check-x';
         this._primaryColor = '#6750A4';
         this._thumbColor = '#FFFFFF';
         this._trackColor = '#E7E0EC';
@@ -105,22 +106,16 @@
         thumb.className = 'msw-thumb';
 
         // Icons inside thumb
-        if (this._showIcons) {
+        if (this._showIcons && this._iconStyle !== 'thumb-none') {
+          const icons = this._getIconSvgs();
+
           const iconOn = document.createElement('span');
           iconOn.className = 'msw-icon msw-icon-on';
-          iconOn.innerHTML = `
-            <svg viewBox="0 0 24 24" width="16" height="16">
-              <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-          `;
+          iconOn.innerHTML = icons.on;
 
           const iconOff = document.createElement('span');
           iconOff.className = 'msw-icon msw-icon-off';
-          iconOff.innerHTML = `
-            <svg viewBox="0 0 24 24" width="16" height="16">
-              <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-            </svg>
-          `;
+          iconOff.innerHTML = icons.off;
 
           thumb.appendChild(iconOn);
           thumb.appendChild(iconOff);
@@ -161,6 +156,33 @@
 
         this.appendChild(this._container);
         this._updateState();
+      }
+
+      _getIconSvgs() {
+        const iconSets = {
+          'check-x': {
+            on: `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`,
+            off: `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`
+          },
+          'on-off': {
+            on: `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle fill="currentColor" cx="12" cy="12" r="5"/></svg>`,
+            off: `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`
+          },
+          'circle': {
+            on: `<svg viewBox="0 0 24 24" width="16" height="16"><circle fill="currentColor" cx="12" cy="12" r="8"/></svg>`,
+            off: `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`
+          },
+          'power': {
+            on: `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>`,
+            off: `<svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>`
+          },
+          'thumb-none': {
+            on: '',
+            off: ''
+          }
+        };
+
+        return iconSets[this._iconStyle] || iconSets['check-x'];
       }
 
       _applyStyles() {
@@ -290,6 +312,15 @@
       }
       get ShowIcons() { return this.showIcons; }
       set ShowIcons(v) { this.showIcons = v; }
+
+      get iconStyle() { return this._iconStyle; }
+      set iconStyle(v) {
+        this._iconStyle = v || 'check-x';
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'iconStyle');
+      }
+      get IconStyle() { return this.iconStyle; }
+      set IconStyle(v) { this.iconStyle = v; }
 
       get primaryColor() { return this._primaryColor; }
       set primaryColor(v) {

@@ -78,6 +78,8 @@
 
         // Bound handlers for cleanup
         this._handleClickOutside = this._handleClickOutside.bind(this);
+        this._handleScroll = this._handleScroll.bind(this);
+        this._handleResize = this._handleResize.bind(this);
 
         // K2 List binding
         this._listConfig = null;
@@ -97,6 +99,12 @@
 
       disconnectedCallback() {
         document.removeEventListener('click', this._handleClickOutside);
+        window.removeEventListener('scroll', this._handleScroll, true);
+        window.removeEventListener('resize', this._handleResize);
+        // Clean up portaled menu
+        if (this._menu && this._menu.parentNode === document.body) {
+          document.body.removeChild(this._menu);
+        }
       }
 
       _parseOptions() {
@@ -235,12 +243,18 @@
 
         this._container.appendChild(wrapper);
 
-        // Dropdown menu
+        // Dropdown menu - portal to body for overlay behavior
         this._menu = document.createElement('div');
-        this._menu.className = 'msl-menu';
+        this._menu.className = 'msl-menu msl-menu-portal';
         this._menu.setAttribute('role', 'listbox');
         this._buildMenuItems();
-        this._container.appendChild(this._menu);
+        document.body.appendChild(this._menu);
+
+        // Apply menu styles from container
+        this._menu.style.setProperty('--msl-primary', this._primaryColor);
+        this._menu.style.setProperty('--msl-on-surface', this._textColor);
+        this._menu.style.setProperty('--msl-outline', this._labelColor);
+        this._menu.style.setProperty('--msl-surface', '#FFFBFE');
 
         // Supporting text
         const supporting = document.createElement('div');
@@ -395,10 +409,55 @@
 
         // Click outside to close
         document.addEventListener('click', this._handleClickOutside);
+
+        // Scroll and resize handlers for repositioning the menu
+        window.addEventListener('scroll', this._handleScroll, true);
+        window.addEventListener('resize', this._handleResize);
+      }
+
+      _handleScroll() {
+        if (this._isOpen) {
+          this._positionMenu();
+        }
+      }
+
+      _handleResize() {
+        if (this._isOpen) {
+          this._positionMenu();
+        }
+      }
+
+      _positionMenu() {
+        if (!this._menu || !this._selectField) return;
+
+        const fieldRect = this._selectField.getBoundingClientRect();
+        const menuHeight = this._menu.offsetHeight || 256;
+        const menuWidth = fieldRect.width;
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+
+        // Calculate position - prefer below field, flip above if not enough space
+        let top = fieldRect.bottom + 4;
+        if (top + menuHeight > viewportHeight && fieldRect.top > menuHeight) {
+          top = fieldRect.top - menuHeight - 4;
+        }
+
+        // Horizontal positioning - match field width and position
+        let left = fieldRect.left;
+        if (left + menuWidth > viewportWidth) {
+          left = viewportWidth - menuWidth - 8;
+        }
+        if (left < 8) left = 8;
+
+        this._menu.style.position = 'fixed';
+        this._menu.style.top = `${top}px`;
+        this._menu.style.left = `${left}px`;
+        this._menu.style.width = `${menuWidth}px`;
+        this._menu.style.zIndex = '2147483647';
       }
 
       _handleClickOutside(e) {
-        if (this._isOpen && !this.contains(e.target)) {
+        if (this._isOpen && !this.contains(e.target) && !this._menu.contains(e.target)) {
           this.close();
         }
       }
@@ -441,6 +500,8 @@
         if (!this._isEnabled || this._isOpen) return;
         this._isOpen = true;
         this._selectField.setAttribute('aria-expanded', 'true');
+        this._positionMenu();
+        this._menu.classList.add('msl-menu-open');
         this._updateState();
       }
 
@@ -448,6 +509,7 @@
         if (!this._isOpen) return;
         this._isOpen = false;
         this._selectField.setAttribute('aria-expanded', 'false');
+        this._menu.classList.remove('msl-menu-open');
         this._selectField.focus();
         this._updateState();
       }

@@ -11,6 +11,7 @@ material-date-picker {
 .mdp-container {
   position: relative;
   width: 100%;
+  padding-top: 6px;
 
   --mdp-primary: #6750A4;
   --mdp-error: #B3261E;
@@ -127,6 +128,7 @@ material-date-picker {
 .mdp-outlined .mdp-outline-legend span {
   padding: 0 4px;
   display: inline-block;
+  color: transparent;
 }
 
 /* Outlined focus/has-value state */
@@ -141,12 +143,12 @@ material-date-picker {
 
 .mdp-outlined.mdp-focused .mdp-label,
 .mdp-outlined.mdp-has-value .mdp-label {
-  top: 0;
+  top: -6px;
+  left: 12px;
   transform: translateY(-50%);
   font-size: 12px;
   color: var(--mdp-primary);
   background: var(--mdp-surface);
-  left: 12px;
 }
 
 .mdp-outlined.mdp-has-value:not(.mdp-focused) .mdp-label {
@@ -245,14 +247,12 @@ material-date-picker {
   background: color-mix(in srgb, var(--mdp-surface-variant) 90%, var(--mdp-on-surface) 10%);
 }
 
-/* Dialog */
+/* Dialog - portaled to body for overlay behavior */
 .mdp-dialog {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-  z-index: 1000;
+  position: fixed;
+  z-index: 2147483647;
   animation: mdp-dialog-in 0.2s ease;
+  font-family: 'Roboto', sans-serif;
 }
 
 @keyframes mdp-dialog-in {

@@ -15,60 +15,47 @@
     }
   }
 
+  // Load Material Icons
+  function loadMaterialIcons() {
+    if (document.querySelector('link[href*="Material+Icons"], link[href*="material-icons"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+    document.head.appendChild(link);
+  }
+
+  // Load Google Fonts
+  function loadGoogleFonts() {
+    if (document.querySelector('link[href*="fonts.googleapis.com/css2"]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
+    document.head.appendChild(link);
+  }
+
   // Font loading state management
   let fontsLoaded = false;
   let fontsLoadPromise = null;
   const pendingInstances = [];
 
-  // Load Material Icons and Google Fonts with robust loading
+  // Load fonts with simple approach
   function loadFonts() {
+    // Load fonts immediately (non-blocking)
+    loadMaterialIcons();
+    loadGoogleFonts();
+
     if (fontsLoaded) return Promise.resolve();
     if (fontsLoadPromise) return fontsLoadPromise;
 
     fontsLoadPromise = new Promise((resolve) => {
-      const fontsToLoad = [];
-
-      // Load Material Icons
-      if (!document.querySelector('link[href*="Material+Icons"]')) {
-        const iconLink = document.createElement('link');
-        iconLink.rel = 'stylesheet';
-        iconLink.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
-        document.head.appendChild(iconLink);
-        fontsToLoad.push(new Promise(res => {
-          iconLink.onload = res;
-          iconLink.onerror = res; // Continue even if load fails
-        }));
-      }
-
-      // Load Google Fonts
-      if (!document.querySelector('link[href*="fonts.googleapis.com/css2"]')) {
-        const fontLink = document.createElement('link');
-        fontLink.rel = 'stylesheet';
-        fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
-        document.head.appendChild(fontLink);
-        fontsToLoad.push(new Promise(res => {
-          fontLink.onload = res;
-          fontLink.onerror = res; // Continue even if load fails
-        }));
-      }
-
-      if (fontsToLoad.length === 0) {
-        fontsLoaded = true;
-        resolve();
-        return;
-      }
-
-      // Wait for fonts to load with timeout
-      Promise.race([
-        Promise.all(fontsToLoad),
-        new Promise(res => setTimeout(res, 2000)) // 2 second timeout
-      ]).then(() => {
+      // Use a short timeout to let fonts start loading
+      setTimeout(() => {
         fontsLoaded = true;
         resolve();
         // Notify pending instances
         pendingInstances.forEach(fn => fn());
         pendingInstances.length = 0;
-      });
+      }, 100);
     });
 
     return fontsLoadPromise;
@@ -105,6 +92,7 @@
         this._trailingIcon = 'chevron_right';
         this._avatarMode = false;
         this._checkboxMode = false;
+        this._checkboxPosition = 'left';
         this._checkedValues = '';
         this._checkedSet = new Set();
         this._checkboxColor = '#6750A4';
@@ -178,7 +166,20 @@
       _parseItems() {
         this._parsedItems = [];
 
-        // Try listBinding first (JSON array)
+        // If K2 data items are available (from SmartObject binding), use them exclusively
+        // This is set by listItemsChangedCallback and takes priority over everything else
+        if (this._dataItems && this._dataItems.length > 0) {
+          // Data items are processed by _processDataItems, not here
+          return;
+        }
+
+        // If K2 list binding config exists but no data yet, don't render default items
+        // Wait for listItemsChangedCallback to provide data
+        if (this._listConfig !== null && this._listConfig !== undefined) {
+          return;
+        }
+
+        // Try listBinding first (JSON array) - for manual JSON binding
         if (this._listBinding && this._listBinding.trim()) {
           try {
             const parsed = JSON.parse(this._listBinding);
@@ -201,7 +202,7 @@
           }
         }
 
-        // Fall back to items (delimited string)
+        // Fall back to items (delimited string) - only when no K2 binding is configured
         const items = this._items ? this._items.split(this._delimiter) : [];
 
         items.forEach(item => {
@@ -270,6 +271,9 @@
         this._container.className = `mls-container mls-${this._variant}`;
         if (this._checkboxMode) {
           this._container.classList.add('mls-checkbox-mode');
+          if (this._checkboxPosition === 'right') {
+            this._container.classList.add('mls-checkbox-right');
+          }
         }
 
         this._parsedItems.forEach((item, index) => {
@@ -284,9 +288,10 @@
             listItem.setAttribute('aria-selected', 'true');
           }
 
-          // Checkbox (if checkbox mode)
+          // Checkbox (if checkbox mode - left position)
+          let checkboxWrapper = null;
           if (this._checkboxMode) {
-            const checkboxWrapper = document.createElement('div');
+            checkboxWrapper = document.createElement('div');
             checkboxWrapper.className = 'mls-checkbox-wrapper';
 
             const checkbox = document.createElement('div');
@@ -305,7 +310,11 @@
             checkbox.appendChild(checkIcon);
 
             checkboxWrapper.appendChild(checkbox);
-            listItem.appendChild(checkboxWrapper);
+
+            // Only append now if position is left
+            if (this._checkboxPosition !== 'right') {
+              listItem.appendChild(checkboxWrapper);
+            }
           }
 
           // Leading content (icon or avatar)
@@ -362,6 +371,11 @@
             icon.textContent = this._trailingIcon;
             trailing.appendChild(icon);
             listItem.appendChild(trailing);
+          }
+
+          // Checkbox on right side (if checkbox mode and position is right)
+          if (this._checkboxMode && this._checkboxPosition === 'right' && checkboxWrapper) {
+            listItem.appendChild(checkboxWrapper);
           }
 
           // State layer
@@ -510,19 +524,43 @@
 
       // K2 List Binding Callbacks
       listConfigChangedCallback(config, listname) {
+        console.log('[Material List] listConfigChangedCallback called', { config, listname });
         this._listConfig = config;
-        this._processDataItems();
+        // Don't call _processDataItems here - wait for listItemsChangedCallback to provide data
+        // The config just tells us field mappings, not actual data
       }
 
       listItemsChangedCallback(itemsChangedEventArgs) {
-        if (Array.isArray(itemsChangedEventArgs?.NewItems)) {
-          this._dataItems = itemsChangedEventArgs.NewItems;
+        console.log('[Material List] listItemsChangedCallback called', itemsChangedEventArgs);
+        const isDesignTime = window.K2?.IsDesigner === true;
+        let itemsToProcess = itemsChangedEventArgs?.NewItems;
+
+        // Fallback: If at design time and we receive 0 items, use initial value
+        if (isDesignTime && (!Array.isArray(itemsToProcess) || itemsToProcess.length === 0)) {
+          try {
+            const fallbackItems = JSON.parse('[{"icon": "inbox", "title": "Inbox", "subtitle": "3 new messages", "value": "inbox"},{"icon": "star", "title": "Starred", "subtitle": "12 items", "value": "starred"}]');
+            if (Array.isArray(fallbackItems) && fallbackItems.length > 0) {
+              itemsToProcess = fallbackItems;
+            }
+          } catch (error) {
+            console.warn('[Material List] Error parsing fallback initial value:', error);
+          }
+        }
+
+        if (Array.isArray(itemsToProcess)) {
+          this._dataItems = itemsToProcess;
           this._processDataItems();
+        } else {
+          console.warn('[Material List] NewItems is not an array:', itemsChangedEventArgs);
         }
       }
 
       _processDataItems() {
-        if (!this._dataItems || this._dataItems.length === 0) return;
+        console.log('[Material List] _processDataItems called', { dataItems: this._dataItems, listConfig: this._listConfig });
+        if (!this._dataItems || this._dataItems.length === 0) {
+          console.log('[Material List] No data items to process');
+          return;
+        }
 
         // Get field mappings from K2 config
         const mappings = this._listConfig?.partmappings || {};
@@ -530,17 +568,40 @@
         const titleProp = mappings['Title'] || mappings['Display'] || 'title';
         const subtitleProp = mappings['Subtitle'] || mappings['Description'] || 'subtitle';
         const valueProp = mappings['Value'] || 'value';
+        const checkedProp = mappings['Checked'] || mappings['IsChecked'] || mappings['Selected'] || 'checked';
 
         // Convert K2 data items to list items
         this._parsedItems = this._dataItems.map(item => ({
           icon: item[iconProp] || item.icon || item.Icon || item.image || item.Image || '',
           title: item[titleProp] || item.title || item.Title || item.name || item.Name || item.text || item.Text || '',
           subtitle: item[subtitleProp] || item.subtitle || item.Subtitle || item.description || item.Description || '',
-          value: item[valueProp] || item.value || item.Value || item.id || item.Id || item.ID || item[titleProp] || ''
+          value: String(item[valueProp] || item.value || item.Value || item.id || item.Id || item.ID || item[titleProp] || ''),
+          checked: item[checkedProp] === true || item[checkedProp] === 'true'
         }));
 
-        if (this._hasRendered && this._fontsReady) {
-          this._renderList();
+        // Update checked set from data if in checkbox mode
+        if (this._checkboxMode) {
+          const checkedFromData = this._parsedItems.filter(item => item.checked).map(item => item.value);
+          if (checkedFromData.length > 0) {
+            this._checkedSet = new Set(checkedFromData);
+            this._checkedValues = Array.from(this._checkedSet).join(',');
+          }
+        }
+
+        if (this._hasRendered) {
+          if (this._fontsReady) {
+            this._renderList();
+          } else {
+            // Fonts not ready yet, wait for them
+            this._pendingRender = true;
+            loadFonts().then(() => {
+              this._fontsReady = true;
+              if (this._pendingRender) {
+                this._pendingRender = false;
+                this._renderList();
+              }
+            });
+          }
         }
       }
 
@@ -682,6 +743,16 @@
       }
       get CheckboxMode() { return this.checkboxMode; }
       set CheckboxMode(v) { this.checkboxMode = v; }
+
+      get checkboxPosition() { return this._checkboxPosition; }
+      set checkboxPosition(v) {
+        const valid = ['left', 'right'];
+        this._checkboxPosition = valid.includes(v) ? v : 'left';
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'checkboxPosition');
+      }
+      get CheckboxPosition() { return this.checkboxPosition; }
+      set CheckboxPosition(v) { this.checkboxPosition = v; }
 
       get checkedValues() { return this._checkedValues; }
       set checkedValues(v) {

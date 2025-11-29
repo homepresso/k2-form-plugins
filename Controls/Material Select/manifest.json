@@ -134,8 +134,9 @@
       "id": "hasError",
       "refreshdisplay": "true",
       "friendlyname": "Has Error",
-      "description": "Show error state",
-      "type": "boolean",
+      "description": "Show error state (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },
@@ -143,8 +144,9 @@
       "id": "required",
       "refreshdisplay": "true",
       "friendlyname": "Required",
-      "description": "Mark the field as required",
-      "type": "boolean",
+      "description": "Mark the field as required (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },

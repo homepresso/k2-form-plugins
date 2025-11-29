@@ -1,0 +1,290 @@
+/* Material Address Lookup - Material 3 Design (Design Time) */
+
+material-address {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+material-address *,
+material-address *::before,
+material-address *::after {
+  box-sizing: border-box;
+}
+
+.mal-container {
+  position: relative;
+  width: 100%;
+  padding-top: 6px;
+  --mal-primary: #6750A4;
+  --mal-error: #B3261E;
+  --mal-on-surface: #1C1B1F;
+  --mal-outline: #79747E;
+  --mal-surface-variant: #E7E0EC;
+  --mal-label-color: #49454F;
+  --mal-icon-color: #49454F;
+  --mal-label-background: #ffffff;
+  --mal-label-font-size: 12px;
+  --mal-label-font-weight: normal;
+  --mal-label-font-style: normal;
+  --mal-height: 28px;
+  --mal-font-family: 'Roboto', sans-serif;
+  --mal-font-size: 16px;
+  --mal-font-weight: normal;
+  --mal-font-style: normal;
+}
+
+/* Input wrapper */
+.mal-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--mal-height, 28px);
+}
+
+/* Base input styles */
+.mal-input {
+  flex: 1;
+  width: 100%;
+  height: var(--mal-height, 28px);
+  padding: 4px 8px;
+  font-family: var(--mal-font-family, 'Roboto', sans-serif);
+  font-size: 12px;
+  font-weight: var(--mal-font-weight, normal);
+  font-style: var(--mal-font-style, normal);
+  color: var(--mal-on-surface);
+  background: transparent;
+  border: none;
+  outline: none;
+  caret-color: var(--mal-primary);
+  box-sizing: border-box;
+}
+
+.mal-input::placeholder {
+  color: transparent;
+}
+
+.mal-input:focus::placeholder {
+  color: var(--mal-outline);
+}
+
+/* Floating label */
+.mal-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--mal-label-font-size, 12px);
+  font-weight: var(--mal-label-font-weight, normal);
+  font-style: var(--mal-label-font-style, normal);
+  color: var(--mal-label-color);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: transparent;
+  padding: 0 4px;
+  z-index: 1;
+}
+
+.mal-required {
+  color: var(--mal-error);
+  margin-left: 2px;
+}
+
+/* OUTLINED VARIANT */
+.mal-outlined .mal-input-wrapper {
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.mal-outlined .mal-outline {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid var(--mal-outline);
+  border-radius: 4px;
+  pointer-events: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+.mal-outlined .mal-outline-legend {
+  padding: 0;
+  height: 0;
+  width: auto;
+  max-width: 0.01px;
+  transition: max-width 0.1s ease;
+  font-size: 12px;
+  visibility: hidden;
+}
+
+.mal-outlined .mal-outline-legend span {
+  padding: 0 4px;
+  display: inline-block;
+  color: transparent;
+}
+
+/* Outlined focus state */
+.mal-outlined.mal-focused .mal-outline,
+.mal-outlined.mal-has-value .mal-outline {
+  border-width: 2px;
+}
+
+.mal-outlined.mal-focused .mal-outline {
+  border-color: var(--mal-primary);
+}
+
+.mal-outlined.mal-focused .mal-label,
+.mal-outlined.mal-has-value .mal-label {
+  top: -6px;
+  left: 12px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--mal-primary);
+  background: var(--mal-label-background, #ffffff);
+  padding: 0 4px;
+}
+
+.mal-outlined.mal-has-value:not(.mal-focused) .mal-label {
+  color: var(--mal-label-color);
+}
+
+.mal-outlined.mal-focused .mal-outline-legend,
+.mal-outlined.mal-has-value .mal-outline-legend {
+  max-width: 100%;
+  visibility: visible;
+}
+
+/* FILLED VARIANT */
+.mal-filled .mal-input-wrapper {
+  background: var(--mal-surface-variant);
+  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid var(--mal-outline);
+}
+
+.mal-filled .mal-input {
+  padding-top: 14px;
+  padding-bottom: 2px;
+}
+
+.mal-filled .mal-label {
+  top: 14px;
+}
+
+/* Filled focus state */
+.mal-filled.mal-focused .mal-input-wrapper {
+  border-bottom: 2px solid var(--mal-primary);
+}
+
+.mal-filled.mal-focused .mal-label,
+.mal-filled.mal-has-value .mal-label {
+  top: 2px;
+  transform: none;
+  font-size: 10px;
+  color: var(--mal-primary);
+}
+
+.mal-filled.mal-has-value:not(.mal-focused) .mal-label {
+  color: var(--mal-label-color);
+}
+
+.mal-filled.mal-has-value:not(.mal-focused) .mal-input-wrapper {
+  border-bottom-width: 1px;
+}
+
+/* Icons */
+.mal-icon {
+  font-size: 16px;
+  color: var(--mal-icon-color);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.mal-icon-leading {
+  margin-left: 6px;
+  margin-right: -2px;
+}
+
+/* Adjust label position with icons */
+.mal-input-wrapper:has(.mal-icon-leading) .mal-label {
+  left: 28px;
+}
+
+/* Ensure floated label stays at left: 12px even with leading icon */
+.mal-outlined.mal-focused .mal-input-wrapper:has(.mal-icon-leading) .mal-label,
+.mal-outlined.mal-has-value .mal-input-wrapper:has(.mal-icon-leading) .mal-label {
+  left: 12px;
+  background: var(--mal-label-background, #ffffff);
+  padding: 0 4px;
+}
+
+.mal-input-wrapper:has(.mal-icon-leading) .mal-input {
+  padding-left: 4px;
+}
+
+/* Supporting text */
+.mal-supporting {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 8px 0;
+  font-size: 10px;
+  min-height: 14px;
+}
+
+.mal-helper-text {
+  color: var(--mal-outline);
+}
+
+/* Error state */
+.mal-error .mal-outline {
+  border-color: var(--mal-error) !important;
+}
+
+.mal-error .mal-label {
+  color: var(--mal-error) !important;
+}
+
+.mal-error .mal-helper-text {
+  color: var(--mal-error);
+}
+
+.mal-error .mal-icon {
+  color: var(--mal-error);
+}
+
+.mal-error.mal-filled .mal-input-wrapper {
+  border-bottom-color: var(--mal-error) !important;
+}
+
+/* Disabled state */
+.mal-disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.mal-disabled .mal-input {
+  cursor: not-allowed;
+}
+
+/* Hover states */
+.mal-outlined:not(.mal-focused):not(.mal-disabled):not(.mal-error):hover .mal-outline {
+  border-color: var(--mal-on-surface);
+}
+
+.mal-filled:not(.mal-focused):not(.mal-disabled):not(.mal-error):hover .mal-input-wrapper {
+  background: color-mix(in srgb, var(--mal-surface-variant) 90%, var(--mal-on-surface) 10%);
+}
+
+/* Autofill styling */
+.mal-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+  -webkit-text-fill-color: var(--mal-on-surface);
+}
+
+.mal-filled .mal-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--mal-surface-variant) inset;
+}

@@ -33,8 +33,9 @@
       "id": "checked",
       "refreshdisplay": "true",
       "friendlyname": "Checked",
-      "description": "Whether the switch is on",
-      "type": "boolean",
+      "description": "Whether the switch is on (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },
@@ -62,9 +63,20 @@
       "id": "showIcons",
       "refreshdisplay": "true",
       "friendlyname": "Show Icons",
-      "description": "Show check and X icons inside the switch thumb",
-      "type": "boolean",
+      "description": "Show icons inside the switch thumb (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Style",
+      "description": "Icon style: check-x, on-off, circle, power, thumb-none",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "check-x",
       "changesdisplay": true
     },
     {
@@ -121,8 +133,9 @@
       "id": "required",
       "refreshdisplay": "true",
       "friendlyname": "Required",
-      "description": "Mark the switch as required",
-      "type": "boolean",
+      "description": "Mark the switch as required (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },

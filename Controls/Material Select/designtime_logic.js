@@ -349,52 +349,8 @@
       }
 
       _bindEvents() {
-        // Toggle dropdown
-        this._selectField.addEventListener('click', () => {
-          if (!this._isEnabled) return;
-          if (this._isOpen) {
-            this.close();
-          } else {
-            this.open();
-          }
-        });
-
-        // Keyboard support
-        this._selectField.addEventListener('keydown', (e) => {
-          if (!this._isEnabled) return;
-
-          switch (e.key) {
-            case 'Enter':
-            case ' ':
-              e.preventDefault();
-              if (this._isOpen) {
-                this.close();
-              } else {
-                this.open();
-              }
-              break;
-            case 'ArrowDown':
-              e.preventDefault();
-              if (!this._isOpen) {
-                this.open();
-              } else {
-                this._focusNextItem();
-              }
-              break;
-            case 'ArrowUp':
-              e.preventDefault();
-              if (this._isOpen) {
-                this._focusPrevItem();
-              }
-              break;
-            case 'Escape':
-              this.close();
-              break;
-          }
-        });
-
-        // Click outside to close
-        document.addEventListener('click', this._handleClickOutside);
+        // Design time: read-only mode - no interactive events
+        // The control displays but doesn't open dropdowns in the designer
       }
 
       _handleClickOutside(e) {

@@ -17,6 +17,7 @@
   "tagName": "material-list",
   "valuePropertyID": "selectedValue",
   "supports": [
+    "lo",
     "Value",
     "Width",
     "IsVisible",
@@ -34,6 +35,14 @@
     }
   ],
   "properties": [
+    {
+      "id": "List",
+      "refreshdisplay": "true",
+      "friendlyname": "List Data",
+      "type": "listdata",
+      "category": "Detail",
+      "initialvalue": "[{\"icon\": \"inbox\", \"title\": \"Inbox\", \"subtitle\": \"3 new messages\", \"value\": \"inbox\"},{\"icon\": \"star\", \"title\": \"Starred\", \"subtitle\": \"12 items\", \"value\": \"starred\"}]"
+    },
     {
       "id": "listBinding",
       "refreshdisplay": "true",
@@ -172,6 +181,16 @@
       "type": "string",
       "inputlength": "2000",
       "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "checkboxPosition",
+      "refreshdisplay": "true",
+      "friendlyname": "Checkbox Position",
+      "description": "Position of checkbox: left, right",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "left",
       "changesdisplay": true
     },
     {

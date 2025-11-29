@@ -11,6 +11,7 @@ material-date-picker {
 .mdp-container {
   position: relative;
   width: 100%;
+  padding-top: 6px;
 
   --mdp-primary: #6750A4;
   --mdp-error: #B3261E;
@@ -36,14 +37,13 @@ material-date-picker {
   flex: 1;
   height: var(--mdp-height, 28px);
   padding: 4px 16px;
-  padding-left: 48px;
   font-size: 16px;
   font-family: inherit;
   color: var(--mdp-on-surface);
   background: transparent;
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: default;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -67,21 +67,15 @@ material-date-picker {
   opacity: 0;
 }
 
-/* Icon */
+/* Icon - hidden in designtime as Material Icons don't render */
 .mdp-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  color: var(--mdp-outline);
-  pointer-events: none;
+  display: none;
 }
 
 /* Floating label */
 .mdp-label {
   position: absolute;
-  left: 48px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
@@ -128,6 +122,7 @@ material-date-picker {
 .mdp-outlined .mdp-outline-legend span {
   padding: 0 4px;
   display: inline-block;
+  color: transparent;
 }
 
 /* Outlined focus/has-value state */
@@ -142,12 +137,12 @@ material-date-picker {
 
 .mdp-outlined.mdp-focused .mdp-label,
 .mdp-outlined.mdp-has-value .mdp-label {
-  top: 0;
+  top: -6px;
+  left: 12px;
   transform: translateY(-50%);
   font-size: 12px;
   color: var(--mdp-primary);
   background: var(--mdp-surface);
-  left: 12px;
 }
 
 .mdp-outlined.mdp-has-value:not(.mdp-focused) .mdp-label {
@@ -246,14 +241,12 @@ material-date-picker {
   background: color-mix(in srgb, var(--mdp-surface-variant) 90%, var(--mdp-on-surface) 10%);
 }
 
-/* Dialog */
+/* Dialog - portaled to body for overlay behavior */
 .mdp-dialog {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-  z-index: 1000;
+  position: fixed;
+  z-index: 2147483647;
   animation: mdp-dialog-in 0.2s ease;
+  font-family: 'Roboto', sans-serif;
 }
 
 @keyframes mdp-dialog-in {

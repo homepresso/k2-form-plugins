@@ -273,38 +273,8 @@
       }
 
       _bindEvents() {
-        // Primary button click
-        this._primaryBtn.addEventListener('click', (e) => {
-          if (!this._isEnabled) return;
-
-          if (!this._disableRipple) {
-            this._createRipple(e, this._primaryBtn);
-          }
-
-          this.dispatchEvent(new CustomEvent('PrimaryClicked', {
-            bubbles: true,
-            detail: { text: this._text }
-          }));
-        });
-
-        // Dropdown button click
-        this._dropdownBtn.addEventListener('click', (e) => {
-          if (!this._isEnabled) return;
-          e.stopPropagation();
-
-          if (!this._disableRipple) {
-            this._createRipple(e, this._dropdownBtn);
-          }
-
-          if (this._isOpen) {
-            this.close();
-          } else {
-            this.open();
-          }
-        });
-
-        // Click outside to close
-        document.addEventListener('click', this._handleClickOutside);
+        // Design time: read-only mode - no interactive events
+        // The control displays but doesn't respond to clicks or open menus in the designer
       }
 
       _handleClickOutside(e) {

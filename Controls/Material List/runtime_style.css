@@ -245,6 +245,12 @@ material-list {
   border-color: var(--mls-checkbox, var(--mls-primary));
 }
 
+/* Checkbox right position */
+.mls-checkbox-right .mls-checkbox-wrapper {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
 /* Touch feedback */
 @media (hover: none) {
   .mls-item:active {

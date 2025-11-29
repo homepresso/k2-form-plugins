@@ -335,17 +335,17 @@
       }
 
       // Properties
-      get icon() { return this._icon; }
-      set icon(v) {
+      get fabIcon() { return this._icon; }
+      set fabIcon(v) {
         this._icon = v || 'add';
         if (this._hasRendered && !this._isOpen) {
           const iconEl = this._fab?.querySelector('.mfab-icon');
           if (iconEl) iconEl.textContent = this._icon;
         }
-        safeRaisePropertyChanged(this, 'icon');
+        safeRaisePropertyChanged(this, 'fabIcon');
       }
-      get Icon() { return this.icon; }
-      set Icon(v) { this.icon = v; }
+      get FabIcon() { return this.fabIcon; }
+      set FabIcon(v) { this.fabIcon = v; }
 
       get openIcon() { return this._openIcon; }
       set openIcon(v) {

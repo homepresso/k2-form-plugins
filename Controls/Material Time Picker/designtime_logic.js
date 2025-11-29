@@ -69,6 +69,8 @@
         this._fontSize = 16;
         this._fontWeight = 'normal';
         this._fontStyle = 'normal';
+        this._height = 28;
+        this._padding = 8;
         this._isVisible = true;
         this._isEnabled = true;
         this._isOpen = false;
@@ -86,6 +88,8 @@
 
         // Bound handlers
         this._handleClickOutside = this._handleClickOutside.bind(this);
+        this._handleScroll = this._handleScroll.bind(this);
+        this._handleResize = this._handleResize.bind(this);
       }
 
       connectedCallback() {
@@ -101,6 +105,13 @@
 
       disconnectedCallback() {
         document.removeEventListener('click', this._handleClickOutside);
+        window.removeEventListener('scroll', this._handleScroll, true);
+        window.removeEventListener('resize', this._handleResize);
+
+        // Clean up portaled dialog
+        if (this._dialog && this._dialog.parentNode) {
+          this._dialog.parentNode.removeChild(this._dialog);
+        }
       }
 
       _parseValue() {
@@ -248,7 +259,8 @@
         hoursBtn.textContent = this._format === '12h'
           ? String(this._hours)
           : String(this._hours).padStart(2, '0');
-        hoursBtn.addEventListener('click', () => {
+        hoursBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
           this._selectingMinutes = false;
           this._updateDialog();
         });
@@ -261,7 +273,8 @@
         minutesBtn.className = 'mtp-time-btn mtp-minutes-btn' + (this._selectingMinutes ? ' mtp-active' : '');
         minutesBtn.type = 'button';
         minutesBtn.textContent = String(this._minutes).padStart(2, '0');
-        minutesBtn.addEventListener('click', () => {
+        minutesBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
           this._selectingMinutes = true;
           this._updateDialog();
         });
@@ -279,7 +292,8 @@
           amBtn.className = 'mtp-period-btn' + (this._period === 'AM' ? ' mtp-active' : '');
           amBtn.type = 'button';
           amBtn.textContent = 'AM';
-          amBtn.addEventListener('click', () => {
+          amBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             this._period = 'AM';
             this._updateDialog();
           });
@@ -288,7 +302,8 @@
           pmBtn.className = 'mtp-period-btn' + (this._period === 'PM' ? ' mtp-active' : '');
           pmBtn.type = 'button';
           pmBtn.textContent = 'PM';
-          pmBtn.addEventListener('click', () => {
+          pmBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             this._period = 'PM';
             this._updateDialog();
           });
@@ -333,7 +348,8 @@
             num.style.left = `${x}px`;
             num.style.top = `${y}px`;
             num.textContent = String(minute).padStart(2, '0');
-            num.addEventListener('click', () => {
+            num.addEventListener('click', (e) => {
+              e.stopPropagation();
               this._minutes = minute;
               this._updateDialog();
             });
@@ -341,7 +357,9 @@
           }
 
           // Update hand position
-          const minuteAngle = (this._minutes / 60) * 360 - 90;
+          // The hand has transform-origin at top center and extends downward,
+          // so at 0° it points at 6 o'clock (30 minutes). Offset by 180° to point at 0 minutes (top).
+          const minuteAngle = (this._minutes / 60) * 360 + 180;
           hand.style.transform = `rotate(${minuteAngle}deg)`;
         } else {
           // Hours
@@ -360,9 +378,9 @@
             num.style.left = `${x}px`;
             num.style.top = `${y}px`;
             num.textContent = this._format === '24h' ? String(hour).padStart(2, '0') : String(hour);
-            num.addEventListener('click', () => {
+            num.addEventListener('click', (e) => {
+              e.stopPropagation();
               this._hours = hour;
-              this._selectingMinutes = true;
               this._updateDialog();
             });
             dial.appendChild(num);
@@ -382,9 +400,9 @@
               num.style.left = `${x}px`;
               num.style.top = `${y}px`;
               num.textContent = String(hour).padStart(2, '0');
-              num.addEventListener('click', () => {
+              num.addEventListener('click', (e) => {
+                e.stopPropagation();
                 this._hours = hour;
-                this._selectingMinutes = true;
                 this._updateDialog();
               });
               dial.appendChild(num);
@@ -392,8 +410,10 @@
           }
 
           // Update hand position
-          const hourValue = this._format === '12h' ? this._hours : (this._hours % 12);
-          const hourAngle = (hourValue / 12) * 360 - 90;
+          // The hand has transform-origin at top center and extends downward,
+          // so at 0° it points at 6 o'clock. We need to offset by 180° to match hour positions.
+          const hourValue = this._hours % 12;
+          const hourAngle = (hourValue / 12) * 360 + 180;
           hand.style.transform = `rotate(${hourAngle}deg)`;
           if (this._format === '24h' && (this._hours === 0 || this._hours > 12)) {
             hand.classList.add('mtp-hand-inner');
@@ -424,7 +444,12 @@
         content.appendChild(actions);
 
         this._dialog.appendChild(content);
-        this._container.appendChild(this._dialog);
+
+        // Portal dialog to body for overlay behavior
+        document.body.appendChild(this._dialog);
+
+        // Position and style the dialog
+        this._positionDialog();
 
         // Apply dialog styles
         this._dialog.style.setProperty('--mtp-primary', this._primaryColor);
@@ -437,7 +462,10 @@
 
       _updateDialog() {
         if (this._dialog) {
+          this._isUpdatingDialog = true;
           this._buildDialog();
+          // Reset flag after a tick to allow the current event to complete
+          setTimeout(() => { this._isUpdatingDialog = false; }, 0);
         }
       }
 
@@ -474,8 +502,21 @@
           this._container.style.setProperty('--mtp-label-color', this._labelColor);
           this._container.style.setProperty('--mtp-error', this._errorColor);
           this._container.style.setProperty('--mtp-surface', this._surfaceColor);
+          this._container.style.setProperty('--mtp-height', `${this._height}px`);
           if (this._backgroundColor) {
             this._container.style.setProperty('--mtp-surface-variant', this._backgroundColor);
+          }
+
+          // Apply height and padding to input wrapper and field
+          const wrapper = this._container.querySelector('.mtp-input-wrapper');
+          if (wrapper) {
+            wrapper.style.minHeight = `${this._height}px`;
+          }
+          const field = this._container.querySelector('.mtp-field');
+          if (field) {
+            field.style.height = `${this._height}px`;
+            field.style.padding = `${this._padding}px 16px`;
+            field.style.paddingLeft = '48px'; // Account for icon
           }
 
           // Apply font properties to input and label elements
@@ -496,30 +537,57 @@
       }
 
       _bindEvents() {
-        this._input.addEventListener('click', () => {
-          if (this._isEnabled && !this._isOpen) {
-            this.open();
-          }
-        });
-
-        this._input.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            if (!this._isOpen) {
-              this.open();
-            }
-          } else if (e.key === 'Escape' && this._isOpen) {
-            this.close();
-          }
-        });
-
-        document.addEventListener('click', this._handleClickOutside);
+        // Design time: read-only mode - no interactive events
+        // The control displays but doesn't open dialogs in the designer
       }
 
       _handleClickOutside(e) {
-        if (this._isOpen && !this._container.contains(e.target)) {
+        // Skip if we're in the middle of updating the dialog (rebuilding DOM)
+        if (this._isUpdatingDialog) return;
+        if (this._isOpen && !this._container.contains(e.target) && !this._dialog?.contains(e.target)) {
           this.close();
         }
+      }
+
+      _handleScroll() {
+        if (this._isOpen) {
+          this._positionDialog();
+        }
+      }
+
+      _handleResize() {
+        if (this._isOpen) {
+          this._positionDialog();
+        }
+      }
+
+      _positionDialog() {
+        if (!this._dialog || !this._input) return;
+
+        const inputRect = this._input.getBoundingClientRect();
+        const dialogHeight = this._dialog.offsetHeight || 400;
+        const dialogWidth = this._dialog.offsetWidth || 300;
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+
+        // Calculate position - prefer below input, flip above if not enough space
+        let top = inputRect.bottom + 4;
+        if (top + dialogHeight > viewportHeight && inputRect.top > dialogHeight) {
+          top = inputRect.top - dialogHeight - 4;
+        }
+
+        // Horizontal positioning - align with input left edge, but ensure it stays on screen
+        let left = inputRect.left;
+        if (left + dialogWidth > viewportWidth) {
+          left = viewportWidth - dialogWidth - 8;
+        }
+        if (left < 8) left = 8;
+
+        this._dialog.style.position = 'fixed';
+        this._dialog.style.top = `${top}px`;
+        this._dialog.style.left = `${left}px`;
+        this._dialog.style.zIndex = '2147483647';
+        this._dialog.style.margin = '0';
       }
 
       _updateState() {
@@ -538,6 +606,10 @@
         this._selectingMinutes = false;
         this._buildDialog();
         this._updateState();
+
+        // Add scroll/resize listeners for repositioning
+        window.addEventListener('scroll', this._handleScroll, true);
+        window.addEventListener('resize', this._handleResize);
       }
 
       close() {
@@ -548,6 +620,10 @@
           this._dialog = null;
         }
         this._updateState();
+
+        // Remove scroll/resize listeners
+        window.removeEventListener('scroll', this._handleScroll, true);
+        window.removeEventListener('resize', this._handleResize);
       }
 
       clear() {
@@ -819,6 +895,24 @@
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
+
+      get height() { return this._height; }
+      set height(v) {
+        this._height = parseInt(v) || 28;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'height');
+      }
+      get Height() { return this.height; }
+      set Height(v) { this.height = v; }
+
+      get padding() { return this._padding; }
+      set padding(v) {
+        this._padding = parseInt(v) || 8;
+        if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'padding');
+      }
+      get Padding() { return this.padding; }
+      set Padding(v) { this.padding = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

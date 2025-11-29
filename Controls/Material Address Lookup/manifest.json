@@ -1,0 +1,441 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design Google Places address lookup with floating labels and styling options",
+  "displayName": "Material Address Lookup",
+  "tagName": "material-address",
+  "valuePropertyID": "Value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Changed",
+      "description": "Fires when an address is selected"
+    },
+    {
+      "id": "Cleared",
+      "description": "Fires when the address is cleared"
+    },
+    {
+      "id": "Focus",
+      "description": "Fires when the input receives focus"
+    },
+    {
+      "id": "Blur",
+      "description": "Fires when the input loses focus"
+    }
+  ],
+  "properties": [
+    {
+      "id": "Value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "The full address data as JSON",
+      "type": "string",
+      "inputlength": "65000",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "apiKey",
+      "refreshdisplay": "true",
+      "friendlyname": "Google API Key",
+      "description": "Your Google Maps API key with Places API enabled",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "countryRestriction",
+      "refreshdisplay": "true",
+      "friendlyname": "Country Restriction",
+      "description": "Comma-separated country codes to restrict results (e.g., 'us,ca')",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "label",
+      "refreshdisplay": "true",
+      "friendlyname": "Label",
+      "description": "Floating label text",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Address",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeholder",
+      "refreshdisplay": "true",
+      "friendlyname": "Placeholder",
+      "description": "Placeholder text when empty",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Start typing an address...",
+      "changesdisplay": true
+    },
+    {
+      "id": "helperText",
+      "refreshdisplay": "true",
+      "friendlyname": "Helper Text",
+      "description": "Helper text displayed below the input",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorText",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Text",
+      "description": "Error message displayed when hasError is true",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "hasError",
+      "refreshdisplay": "true",
+      "friendlyname": "Has Error",
+      "description": "Show error state (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Style variant: filled, outlined",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "outlined",
+      "changesdisplay": true
+    },
+    {
+      "id": "leadingIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Leading Icon",
+      "description": "Material icon name for leading icon (e.g., 'location_on', 'place')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "location_on",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Height",
+      "description": "Height of the input field in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "56",
+      "changesdisplay": true
+    },
+    {
+      "id": "controlPadding",
+      "refreshdisplay": "true",
+      "friendlyname": "Padding",
+      "description": "Padding around the control in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "8",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color for focus state",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Color of the input text",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Color of the floating label",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Color of the border/outline",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#79747E",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Background color (for filled variant)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "errorColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Error Color",
+      "description": "Color used for error state",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#B3261E",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Color",
+      "description": "Color of the leading icon",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelBackground",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Background",
+      "description": "Background color for the floating label (should match page background for outlined variant)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#ffffff",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelFontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Font Size",
+      "description": "Font size of the label in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelFontWeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Font Weight",
+      "description": "Font weight of the label: normal, bold, 100-900",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelFontStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Font Style",
+      "description": "Font style of the label: normal, italic",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "required",
+      "refreshdisplay": "true",
+      "friendlyname": "Required",
+      "description": "Mark field as required (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family (Roboto, Open Sans, Poppins, Montserrat, Inter, Lato, etc.)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Size",
+      "description": "Font size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontWeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Weight",
+      "description": "Font weight: normal, bold, 100-900",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontStyle",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Style",
+      "description": "Font style: normal, italic",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "formattedAddress",
+      "refreshdisplay": "true",
+      "friendlyname": "Formatted Address",
+      "description": "The full formatted address string (read-only output)",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "streetNumber",
+      "refreshdisplay": "true",
+      "friendlyname": "Street Number",
+      "description": "The street number (read-only output)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "streetName",
+      "refreshdisplay": "true",
+      "friendlyname": "Street Name",
+      "description": "The street/route name (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "city",
+      "refreshdisplay": "true",
+      "friendlyname": "City",
+      "description": "The city/locality (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "state",
+      "refreshdisplay": "true",
+      "friendlyname": "State/Province",
+      "description": "The state or province (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "postalCode",
+      "refreshdisplay": "true",
+      "friendlyname": "Postal Code",
+      "description": "The postal/ZIP code (read-only output)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "country",
+      "refreshdisplay": "true",
+      "friendlyname": "Country",
+      "description": "The country name (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "latitude",
+      "refreshdisplay": "true",
+      "friendlyname": "Latitude",
+      "description": "The latitude coordinate (read-only output)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "longitude",
+      "refreshdisplay": "true",
+      "friendlyname": "Longitude",
+      "description": "The longitude coordinate (read-only output)",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "placeId",
+      "refreshdisplay": "true",
+      "friendlyname": "Place ID",
+      "description": "The Google Place ID (read-only output)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clear",
+      "displayname": "Clear",
+      "returntype": "None",
+      "description": "Clears the address input and all parsed fields",
+      "parameters": []
+    },
+    {
+      "id": "focus",
+      "displayname": "Focus",
+      "returntype": "None",
+      "description": "Sets focus to the input",
+      "parameters": []
+    }
+  ]
+}

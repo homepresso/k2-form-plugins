@@ -300,31 +300,8 @@
       }
 
       _bindEvents() {
-        const thumbs = this._rangeMode
-          ? [this._thumbStart, this._thumbEnd]
-          : [this._thumb];
-
-        thumbs.forEach(thumb => {
-          if (!thumb) return;
-
-          // Mouse events
-          thumb.addEventListener('mousedown', (e) => this._startDrag(e, thumb));
-
-          // Touch events
-          thumb.addEventListener('touchstart', (e) => this._startDrag(e, thumb), { passive: false });
-
-          // Keyboard events
-          thumb.addEventListener('keydown', (e) => this._handleKeydown(e, thumb));
-        });
-
-        // Track click
-        this._track.addEventListener('click', (e) => this._handleTrackClick(e));
-
-        // Document events for dragging
-        document.addEventListener('mousemove', (e) => this._drag(e));
-        document.addEventListener('mouseup', () => this._endDrag());
-        document.addEventListener('touchmove', (e) => this._drag(e), { passive: false });
-        document.addEventListener('touchend', () => this._endDrag());
+        // Design time: read-only mode - no interactive events
+        // The control displays but doesn't respond to drag/click in the designer
       }
 
       _startDrag(e, thumb) {

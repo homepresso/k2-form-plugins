@@ -11,6 +11,7 @@ material-select {
 .msl-container {
   position: relative;
   width: 100%;
+  padding-top: 6px;
 
   --msl-primary: #6750A4;
   --msl-error: #B3261E;
@@ -18,6 +19,7 @@ material-select {
   --msl-outline: #79747E;
   --msl-surface-variant: #E7E0EC;
   --msl-surface: #FFFBFE;
+  --msl-label-color: #49454F;
 }
 
 /* Input wrapper */
@@ -81,11 +83,12 @@ material-select {
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
-  color: var(--msl-outline);
+  color: var(--msl-label-color);
   pointer-events: none;
   transition: all 0.2s ease;
   background: transparent;
   padding: 0 4px;
+  z-index: 1;
 }
 
 .msl-required {
@@ -124,6 +127,7 @@ material-select {
 .msl-outlined .msl-outline-legend span {
   padding: 0 4px;
   display: inline-block;
+  color: transparent;
 }
 
 /* Outlined focus/has-value state */
@@ -138,15 +142,17 @@ material-select {
 
 .msl-outlined.msl-focused .msl-label,
 .msl-outlined.msl-has-value .msl-label {
-  top: 0;
+  top: -6px;
+  left: 12px;
   transform: translateY(-50%);
   font-size: 12px;
   color: var(--msl-primary);
-  background: white;
+  background: var(--msl-surface, #ffffff);
+  padding: 0 4px;
 }
 
 .msl-outlined.msl-has-value:not(.msl-focused) .msl-label {
-  color: var(--msl-outline);
+  color: var(--msl-label-color);
 }
 
 .msl-outlined.msl-focused .msl-outline-legend,
@@ -185,7 +191,7 @@ material-select {
 }
 
 .msl-filled.msl-has-value:not(.msl-focused) .msl-label {
-  color: var(--msl-outline);
+  color: var(--msl-label-color);
 }
 
 .msl-filled.msl-has-value:not(.msl-focused) .msl-input-wrapper {
@@ -213,27 +219,34 @@ material-select {
   padding-left: 8px;
 }
 
-/* Dropdown menu */
+/* Dropdown menu - portaled to body */
 .msl-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  margin-top: 4px;
-  background: var(--msl-surface);
+  background: var(--msl-surface, #FFFBFE);
   border-radius: 4px;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.12), 0 8px 10px rgba(0, 0, 0, 0.08);
   max-height: 256px;
   overflow-y: auto;
-  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   transform: scaleY(0.8);
   transform-origin: top;
   transition: all 0.15s ease;
+  font-family: 'Roboto', sans-serif;
 }
 
-.msl-open .msl-menu {
+.msl-menu-portal {
+  position: fixed;
+  z-index: 2147483647;
+}
+
+.msl-menu-open {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+}
+
+/* Legacy support for non-portaled menus */
+.msl-open .msl-menu:not(.msl-menu-portal) {
   opacity: 1;
   visibility: visible;
   transform: scaleY(1);

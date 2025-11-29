@@ -17,6 +17,7 @@ material-textbox *::after {
 .mtb-container {
   position: relative;
   width: 100%;
+  padding-top: 6px;
   --mtb-primary: #6750A4;
   --mtb-error: #B3261E;
   --mtb-on-surface: #1C1B1F;
@@ -83,6 +84,7 @@ material-textbox *::after {
   transition: all 0.2s ease;
   background: transparent;
   padding: 0 4px;
+  z-index: 1;
 }
 
 .mtb-required {
@@ -142,11 +144,13 @@ material-textbox *::after {
 
 .mtb-outlined.mtb-focused .mtb-label,
 .mtb-outlined.mtb-has-value .mtb-label {
-  top: 0;
+  top: -6px;
+  left: 12px;
   transform: translateY(-50%);
   font-size: 12px;
   color: var(--mtb-primary);
   background: var(--mtb-label-background, #ffffff);
+  padding: 0 4px;
 }
 
 .mtb-outlined.mtb-has-value:not(.mtb-focused) .mtb-label {

@@ -233,15 +233,8 @@
       }
 
       _bindEvents() {
-        const buttons = this._container.querySelectorAll('.mseg-segment');
-        buttons.forEach(button => {
-          button.addEventListener('click', (e) => {
-            if (!this._isEnabled) return;
-
-            const value = button.getAttribute('data-value');
-            this._selectSegment(value);
-          });
-        });
+        // Design time: read-only mode - no interactive events
+        // The control displays but doesn't respond to clicks in the designer
       }
 
       _selectSegment(value) {

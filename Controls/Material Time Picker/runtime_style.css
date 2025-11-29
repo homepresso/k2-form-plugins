@@ -11,6 +11,7 @@ material-time-picker {
 .mtp-container {
   position: relative;
   width: 100%;
+  padding-top: 6px;
 
   --mtp-primary: #6750A4;
   --mtp-error: #B3261E;
@@ -127,6 +128,7 @@ material-time-picker {
 .mtp-outlined .mtp-outline-legend span {
   padding: 0 4px;
   display: inline-block;
+  color: transparent;
 }
 
 /* Outlined focus/has-value state */
@@ -141,12 +143,12 @@ material-time-picker {
 
 .mtp-outlined.mtp-focused .mtp-label,
 .mtp-outlined.mtp-has-value .mtp-label {
-  top: 0;
+  top: -6px;
+  left: 12px;
   transform: translateY(-50%);
   font-size: 12px;
   color: var(--mtp-primary);
   background: var(--mtp-surface);
-  left: 12px;
 }
 
 .mtp-outlined.mtp-has-value:not(.mtp-focused) .mtp-label {
@@ -245,14 +247,12 @@ material-time-picker {
   background: color-mix(in srgb, var(--mtp-surface-variant) 90%, var(--mtp-on-surface) 10%);
 }
 
-/* Dialog */
+/* Dialog - portaled to body for overlay behavior */
 .mtp-dialog {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
-  z-index: 1000;
+  position: fixed;
+  z-index: 2147483647;
   animation: mtp-dialog-in 0.2s ease;
+  font-family: 'Roboto', sans-serif;
 }
 
 @keyframes mtp-dialog-in {
@@ -381,35 +381,38 @@ material-time-picker {
   top: 50%;
   left: 50%;
   width: 2px;
-  height: 80px;
+  height: 100px;
   margin-left: -1px;
   background: var(--mtp-selected, var(--mtp-primary));
   transform-origin: top center;
   transform: rotate(0deg);
-  z-index: 1;
+  z-index: 2;
 }
 
 .mtp-hand::after {
   content: '';
   position: absolute;
-  bottom: -16px;
+  bottom: 0;
   left: 50%;
-  width: 32px;
-  height: 32px;
-  margin-left: -16px;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-bottom: -20px;
   background: var(--mtp-selected, var(--mtp-primary));
   border-radius: 50%;
+  z-index: 2;
 }
 
 .mtp-hand.mtp-hand-inner {
-  height: 55px;
+  height: 65px;
 }
 
 .mtp-hand.mtp-hand-inner::after {
-  bottom: -12px;
-  width: 24px;
-  height: 24px;
-  margin-left: -12px;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  margin-bottom: -16px;
 }
 
 /* Numbers */
@@ -435,7 +438,7 @@ material-time-picker {
 }
 
 .mtp-number.mtp-selected {
-  background: var(--mtp-selected, var(--mtp-primary));
+  background: transparent;
   color: var(--mtp-selected-text, #FFFFFF);
 }
 

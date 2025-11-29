@@ -36,6 +36,7 @@
         this._label = 'Switch';
         this._labelPosition = 'end';
         this._showIcons = true;
+        this._iconStyle = 'check-x';
         this._primaryColor = '#6750A4';
         this._thumbColor = '#FFFFFF';
         this._trackColor = '#E7E0EC';
@@ -290,6 +291,15 @@
       }
       get ShowIcons() { return this.showIcons; }
       set ShowIcons(v) { this.showIcons = v; }
+
+      get iconStyle() { return this._iconStyle; }
+      set iconStyle(v) {
+        this._iconStyle = v || 'check-x';
+        if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'iconStyle');
+      }
+      get IconStyle() { return this.iconStyle; }
+      set IconStyle(v) { this.iconStyle = v; }
 
       get primaryColor() { return this._primaryColor; }
       set primaryColor(v) {

@@ -298,6 +298,26 @@
       "inputlength": "20",
       "initialvalue": "normal",
       "changesdisplay": true
+    },
+    {
+      "id": "height",
+      "refreshdisplay": "true",
+      "friendlyname": "Height",
+      "description": "Input field height in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "56",
+      "changesdisplay": true
+    },
+    {
+      "id": "padding",
+      "refreshdisplay": "true",
+      "friendlyname": "Padding",
+      "description": "Input field padding in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "8",
+      "changesdisplay": true
     }
   ],
   "methods": [

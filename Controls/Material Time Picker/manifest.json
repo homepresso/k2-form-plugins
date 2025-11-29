@@ -84,7 +84,8 @@
       "refreshdisplay": "true",
       "friendlyname": "Minute Step",
       "description": "Minute increment (1, 5, 10, 15, 30)",
-      "type": "number",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "1",
       "changesdisplay": true
     },
@@ -92,8 +93,9 @@
       "id": "required",
       "refreshdisplay": "true",
       "friendlyname": "Required",
-      "description": "Whether the field is required",
-      "type": "boolean",
+      "description": "Whether the field is required (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },
@@ -121,8 +123,9 @@
       "id": "hasError",
       "refreshdisplay": "true",
       "friendlyname": "Has Error",
-      "description": "Whether the field has an error",
-      "type": "boolean",
+      "description": "Whether the field has an error (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },
@@ -274,6 +277,26 @@
       "type": "string",
       "inputlength": "20",
       "initialvalue": "normal",
+      "changesdisplay": true
+    },
+    {
+      "id": "height",
+      "refreshdisplay": "true",
+      "friendlyname": "Height",
+      "description": "Input field height in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "56",
+      "changesdisplay": true
+    },
+    {
+      "id": "padding",
+      "refreshdisplay": "true",
+      "friendlyname": "Padding",
+      "description": "Input field padding in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "8",
       "changesdisplay": true
     }
   ],

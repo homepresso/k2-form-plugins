@@ -1,6 +1,6 @@
 # Material List Control
 
-Material 3 Design list for displaying items with icons and avatars.
+Material 3 Design list for displaying items with icons and avatars. Supports checkbox mode for multi-selection and K2 SmartObject data binding.
 
 ## Tag Name
 ```
@@ -9,20 +9,35 @@ Material 3 Design list for displaying items with icons and avatars.
 
 ## K2 SmartObject Data Binding
 
-This control supports K2 SmartObject data binding. Add `"DataBinding"` to your supports configuration.
+This control supports K2 SmartObject data binding through the `List Data` property (type: `listdata`).
 
-### Expected Data Structure
+### Setting Up Data Binding in K2 Designer
 
-When binding to a SmartObject, the control expects the following field mappings:
+1. Add the Material List control to your form
+2. In the control properties, find **List Data** under the Detail category
+3. Click the binding icon and select your SmartObject
+4. Map the SmartObject fields to the control's expected fields:
+   - **Icon** → Your icon field (Material icon name or image URL)
+   - **Title** or **Display** → Your display text field
+   - **Subtitle** or **Description** → Your secondary text field
+   - **Value** → Your unique identifier field
+   - **Checked** or **IsChecked** → Your boolean checked state field (for checkbox mode)
 
-| Control Field | SmartObject Field | Description |
-|--------------|-------------------|-------------|
-| Icon | `Icon` or `Image` | Material icon name or image URL |
-| Title | `Title` or `Display` | List item title text |
-| Subtitle | `Subtitle` or `Description` | List item subtitle text |
-| Value | `Value` | Unique identifier for the item |
+### Expected Data Model
+
+When binding to a SmartObject, the control looks for these field mappings (in order of priority):
+
+| Control Field | SmartObject Field Options | Type | Description |
+|--------------|---------------------------|------|-------------|
+| Icon | `Icon`, `Image`, `icon`, `image` | String | Material icon name (e.g., "inbox", "star") or image URL |
+| Title | `Title`, `Display`, `title`, `name`, `text` | String | Primary list item text |
+| Subtitle | `Subtitle`, `Description`, `subtitle`, `description` | String | Secondary list item text |
+| Value | `Value`, `value`, `id`, `Id`, `ID` | String | Unique identifier for the item |
+| Checked | `Checked`, `IsChecked`, `Selected`, `checked` | Boolean | Pre-checked state (for checkbox mode) |
 
 ### Example SmartObject Data
+
+#### Basic List Data
 ```json
 [
   {
@@ -36,9 +51,54 @@ When binding to a SmartObject, the control expects the following field mappings:
     "title": "Starred",
     "subtitle": "12 items",
     "value": "starred"
+  },
+  {
+    "icon": "send",
+    "title": "Sent",
+    "subtitle": "24 messages",
+    "value": "sent"
   }
 ]
 ```
+
+#### Checkbox List Data (with pre-checked items)
+```json
+[
+  {
+    "icon": "task",
+    "title": "Complete report",
+    "subtitle": "Due tomorrow",
+    "value": "task1",
+    "checked": true
+  },
+  {
+    "icon": "task",
+    "title": "Review code",
+    "subtitle": "Priority: High",
+    "value": "task2",
+    "checked": false
+  },
+  {
+    "icon": "task",
+    "title": "Send email",
+    "subtitle": "To: Team",
+    "value": "task3",
+    "checked": true
+  }
+]
+```
+
+### Alternative Field Names
+
+The control is flexible and will recognize common field naming conventions:
+
+| Expected | Also Accepts |
+|----------|-------------|
+| `icon` | `Icon`, `image`, `Image` |
+| `title` | `Title`, `name`, `Name`, `text`, `Text` |
+| `subtitle` | `Subtitle`, `description`, `Description` |
+| `value` | `Value`, `id`, `Id`, `ID` |
+| `checked` | `Checked`, `IsChecked`, `Selected` |
 
 ## Properties
 
@@ -75,6 +135,7 @@ When binding to a SmartObject, the control expects the following field mappings:
 |----------|--------------|-------------|---------|
 | `selectable` | Selectable | Allow item selection (true/false) | `true` |
 | `checkboxMode` | Checkbox Mode | Show checkboxes next to items (true/false) | `false` |
+| `checkboxPosition` | Checkbox Position | Position of checkbox: `left`, `right` | `left` |
 
 ### Color Properties
 
@@ -138,10 +199,19 @@ When binding to a SmartObject, the control expects the following field mappings:
 </material-list>
 ```
 
-### Checkbox List
+### Checkbox List (Left Position - Default)
 ```html
 <material-list
   checkbox-mode="true"
+  items="task1:Complete report::task1|task2:Review code::task2|task3:Send email::task3">
+</material-list>
+```
+
+### Checkbox List (Right Position)
+```html
+<material-list
+  checkbox-mode="true"
+  checkbox-position="right"
   items="task1:Complete report::task1|task2:Review code::task2|task3:Send email::task3">
 </material-list>
 ```
@@ -158,11 +228,21 @@ When binding to a SmartObject, the control expects the following field mappings:
 ### With K2 Data Binding
 ```html
 <material-list
-  list-binding="{SmartObject.Data}"
   variant="two-line"
   selectable="true">
 </material-list>
 ```
+*Note: Bind your SmartObject to the "List Data" property in the K2 Designer*
+
+### Checkbox List with K2 Data Binding
+```html
+<material-list
+  checkbox-mode="true"
+  checkbox-position="right"
+  variant="two-line">
+</material-list>
+```
+*Note: Include a `Checked` boolean field in your SmartObject to pre-check items*
 
 ### Custom Colors
 ```html

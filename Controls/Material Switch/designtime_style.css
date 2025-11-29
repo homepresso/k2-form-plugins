@@ -112,64 +112,14 @@ material-switch {
   left: calc(100% - 16px);
 }
 
-/* State layer */
+/* State layer - hidden at design time */
 .msw-state-layer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin-top: -20px;
-  margin-left: -20px;
-  border-radius: 50%;
-  background: transparent;
-  pointer-events: none;
-  transition: background 0.2s ease;
+  display: none;
 }
 
-.msw-switch:hover .msw-state-layer {
-  background: rgba(28, 27, 31, 0.08);
-}
-
-.msw-checked:hover .msw-state-layer {
-  background: rgba(103, 80, 164, 0.08);
-}
-
-.msw-switch:focus-visible .msw-state-layer {
-  background: rgba(28, 27, 31, 0.12);
-}
-
-.msw-checked:focus-visible .msw-state-layer {
-  background: rgba(103, 80, 164, 0.12);
-}
-
-/* Icons */
+/* Icons - hidden at design time due to small size */
 .msw-icon {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transform: scale(0);
-  transition: all 0.2s ease;
-}
-
-.msw-icon-on {
-  color: var(--msw-primary);
-}
-
-.msw-icon-off {
-  color: var(--msw-surface-variant);
-}
-
-.msw-checked .msw-icon-on {
-  opacity: 1;
-  transform: scale(1);
-}
-
-:not(.msw-checked) .msw-icon-off {
-  opacity: 1;
-  transform: scale(1);
+  display: none;
 }
 
 /* Label */

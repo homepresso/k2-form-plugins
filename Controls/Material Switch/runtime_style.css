@@ -112,54 +112,41 @@ material-switch {
   left: calc(100% - 32px);
 }
 
-/* State layer */
+/* State layer - positioned on the switch, not thumb */
 .msw-state-layer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin-top: -20px;
-  margin-left: -20px;
-  border-radius: 50%;
-  background: transparent;
-  pointer-events: none;
-  transition: background 0.2s ease;
-}
-
-.msw-switch:hover .msw-state-layer {
-  background: rgba(28, 27, 31, 0.08);
-}
-
-.msw-checked:hover .msw-state-layer {
-  background: rgba(103, 80, 164, 0.08);
-}
-
-.msw-switch:focus-visible .msw-state-layer {
-  background: rgba(28, 27, 31, 0.12);
-}
-
-.msw-checked:focus-visible .msw-state-layer {
-  background: rgba(103, 80, 164, 0.12);
+  display: none;
 }
 
 /* Icons */
 .msw-icon {
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transform: scale(0);
   transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.msw-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.msw-checked .msw-icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .msw-icon-on {
   color: var(--msw-primary);
+  position: absolute;
 }
 
 .msw-icon-off {
-  color: var(--msw-surface-variant);
+  color: var(--msw-outline);
+  position: absolute;
 }
 
 .msw-checked .msw-icon-on {
@@ -167,9 +154,19 @@ material-switch {
   transform: scale(1);
 }
 
+.msw-checked .msw-icon-off {
+  opacity: 0;
+  transform: scale(0);
+}
+
 :not(.msw-checked) .msw-icon-off {
   opacity: 1;
   transform: scale(1);
+}
+
+:not(.msw-checked) .msw-icon-on {
+  opacity: 0;
+  transform: scale(0);
 }
 
 /* Label */

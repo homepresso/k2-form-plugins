@@ -6,12 +6,15 @@ material-chips {
   height: 100%;
   font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
+  overflow: visible !important;
+  position: relative;
 }
 
 .mcp-container {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  overflow: visible !important;
 
   --mcp-primary: #6750A4;
   --mcp-background: #FFFBFE;
