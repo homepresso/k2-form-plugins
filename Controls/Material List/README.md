@@ -106,10 +106,7 @@ The control is flexible and will recognize common field naming conventions:
 
 | Property | Friendly Name | Description | Default |
 |----------|--------------|-------------|---------|
-| `listBinding` | List Binding | JSON array of items [{icon, title, subtitle, value}] - takes priority over Items if provided | `""` |
-| `items` | Items | List items (pipe-separated, format: icon:title:subtitle:value) - used if List Binding is empty | Sample data |
-| `delimiter` | Delimiter | Character to separate items | `\|` |
-| `subDelimiter` | Sub Delimiter | Character to separate item parts | `:` |
+| `List` | List Data | K2 SmartObject list data binding | Sample data |
 | `selectedValue` | Selected Value | Currently selected item value | `""` |
 | `checkedValues` | Checked Values | Comma-separated list of checked item values | `""` |
 
@@ -163,6 +160,7 @@ The control is flexible and will recognize common field naming conventions:
 |-------|-------------|
 | `ItemSelected` | Fires when a list item is selected |
 | `ItemChecked` | Fires when a checkbox is checked or unchecked |
+| `AllItemsChecked` | Fires when all items in the list become checked |
 
 ## Methods
 
@@ -176,17 +174,14 @@ The control is flexible and will recognize common field naming conventions:
 
 ### Basic One-Line List
 ```html
-<material-list
-  variant="one-line"
-  items="inbox:Inbox::inbox|star:Starred::starred|send:Sent::sent">
+<material-list variant="one-line">
 </material-list>
 ```
+*Bind your SmartObject to the "List Data" property in the K2 Designer*
 
 ### Two-Line List with Subtitles
 ```html
-<material-list
-  variant="two-line"
-  items="inbox:Inbox:3 new messages:inbox|star:Starred:12 items:starred">
+<material-list variant="two-line" selectable="true">
 </material-list>
 ```
 
@@ -201,9 +196,7 @@ The control is flexible and will recognize common field naming conventions:
 
 ### Checkbox List (Left Position - Default)
 ```html
-<material-list
-  checkbox-mode="true"
-  items="task1:Complete report::task1|task2:Review code::task2|task3:Send email::task3">
+<material-list checkbox-mode="true" variant="two-line">
 </material-list>
 ```
 
@@ -212,37 +205,17 @@ The control is flexible and will recognize common field naming conventions:
 <material-list
   checkbox-mode="true"
   checkbox-position="right"
-  items="task1:Complete report::task1|task2:Review code::task2|task3:Send email::task3">
-</material-list>
-```
-
-### Avatar Mode
-```html
-<material-list
-  avatar-mode="true"
-  variant="two-line"
-  items="https://example.com/avatar1.jpg:John Doe:Software Engineer:user1">
-</material-list>
-```
-
-### With K2 Data Binding
-```html
-<material-list
-  variant="two-line"
-  selectable="true">
-</material-list>
-```
-*Note: Bind your SmartObject to the "List Data" property in the K2 Designer*
-
-### Checkbox List with K2 Data Binding
-```html
-<material-list
-  checkbox-mode="true"
-  checkbox-position="right"
   variant="two-line">
 </material-list>
 ```
-*Note: Include a `Checked` boolean field in your SmartObject to pre-check items*
+*Include a `Checked` boolean field in your SmartObject to pre-check items*
+
+### Avatar Mode
+```html
+<material-list avatar-mode="true" variant="two-line">
+</material-list>
+```
+*Use an image URL in the Icon field of your SmartObject*
 
 ### Custom Colors
 ```html

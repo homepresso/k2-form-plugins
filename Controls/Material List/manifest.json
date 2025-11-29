@@ -32,6 +32,10 @@
     {
       "id": "ItemChecked",
       "description": "Fires when a checkbox is checked or unchecked"
+    },
+    {
+      "id": "AllItemsChecked",
+      "description": "Fires when all items in the list become checked"
     }
   ],
   "properties": [
@@ -42,46 +46,6 @@
       "type": "listdata",
       "category": "Detail",
       "initialvalue": "[{\"icon\": \"inbox\", \"title\": \"Inbox\", \"subtitle\": \"3 new messages\", \"value\": \"inbox\"},{\"icon\": \"star\", \"title\": \"Starred\", \"subtitle\": \"12 items\", \"value\": \"starred\"}]"
-    },
-    {
-      "id": "listBinding",
-      "refreshdisplay": "true",
-      "friendlyname": "List Binding",
-      "description": "JSON array of items [{icon, title, subtitle, value}] - takes priority over Items if provided",
-      "type": "string",
-      "inputlength": "10000",
-      "initialvalue": "",
-      "changesdisplay": true
-    },
-    {
-      "id": "items",
-      "refreshdisplay": "true",
-      "friendlyname": "Items",
-      "description": "List items (pipe-separated, format: icon:title:subtitle:value) - used if List Binding is empty",
-      "type": "string",
-      "inputlength": "2000",
-      "initialvalue": "inbox:Inbox:3 new messages:inbox|star:Starred:12 items:starred|send:Sent:24 messages:sent",
-      "changesdisplay": true
-    },
-    {
-      "id": "delimiter",
-      "refreshdisplay": "true",
-      "friendlyname": "Delimiter",
-      "description": "Character to separate items",
-      "type": "string",
-      "inputlength": "5",
-      "initialvalue": "|",
-      "changesdisplay": true
-    },
-    {
-      "id": "subDelimiter",
-      "refreshdisplay": "true",
-      "friendlyname": "Sub Delimiter",
-      "description": "Character to separate item parts",
-      "type": "string",
-      "inputlength": "5",
-      "initialvalue": ":",
-      "changesdisplay": true
     },
     {
       "id": "variant",

@@ -80,10 +80,6 @@
         this._pendingRender = false;
 
         // Properties
-        this._listBinding = '';
-        this._items = '';
-        this._delimiter = '|';
-        this._subDelimiter = ':';
         this._variant = 'one-line'; // one-line, two-line, three-line
         this._selectedValue = '';
         this._selectable = true;
@@ -166,94 +162,8 @@
 
       _parseItems() {
         this._parsedItems = [];
-
-        // If K2 data items are available (from SmartObject binding), use them exclusively
-        // This is set by listItemsChangedCallback and takes priority over everything else
-        if (this._dataItems && this._dataItems.length > 0) {
-          // Data items are processed by _processDataItems, not here
-          return;
-        }
-
-        // If K2 list binding config exists but no data yet, don't render default items
-        // Wait for listItemsChangedCallback to provide data
-        if (this._listConfig !== null && this._listConfig !== undefined) {
-          return;
-        }
-
-        // Try listBinding first (JSON array) - for manual JSON binding
-        if (this._listBinding && this._listBinding.trim()) {
-          try {
-            const parsed = JSON.parse(this._listBinding);
-            if (Array.isArray(parsed)) {
-              parsed.forEach(item => {
-                if (item && typeof item === 'object') {
-                  this._parsedItems.push({
-                    icon: item.icon || item.Icon || item.image || item.Image || '',
-                    title: item.title || item.Title || item.name || item.Name || item.text || item.Text || '',
-                    subtitle: item.subtitle || item.Subtitle || item.description || item.Description || '',
-                    value: item.value || item.Value || item.id || item.Id || item.ID || item.title || item.Title || ''
-                  });
-                }
-              });
-              return; // Successfully parsed listBinding, skip items parsing
-            }
-          } catch (e) {
-            // Invalid JSON, fall through to items parsing
-            console.warn('Material List: Invalid listBinding JSON, falling back to items');
-          }
-        }
-
-        // Fall back to items (delimited string) - only when no K2 binding is configured
-        const items = this._items ? this._items.split(this._delimiter) : [];
-
-        items.forEach(item => {
-          const trimmed = item.trim();
-          if (!trimmed) return;
-
-          // Format: icon:title:subtitle:value or title:subtitle:value or title:value or title
-          const parts = trimmed.split(this._subDelimiter);
-
-          if (parts.length >= 4) {
-            this._parsedItems.push({
-              icon: parts[0].trim(),
-              title: parts[1].trim(),
-              subtitle: parts[2].trim(),
-              value: parts[3].trim()
-            });
-          } else if (parts.length === 3) {
-            // Check if first part looks like icon
-            const first = parts[0].trim();
-            if (first.length <= 30 && !first.includes(' ')) {
-              this._parsedItems.push({
-                icon: first,
-                title: parts[1].trim(),
-                subtitle: '',
-                value: parts[2].trim()
-              });
-            } else {
-              this._parsedItems.push({
-                icon: '',
-                title: first,
-                subtitle: parts[1].trim(),
-                value: parts[2].trim()
-              });
-            }
-          } else if (parts.length === 2) {
-            this._parsedItems.push({
-              icon: '',
-              title: parts[0].trim(),
-              subtitle: '',
-              value: parts[1].trim()
-            });
-          } else {
-            this._parsedItems.push({
-              icon: '',
-              title: trimmed,
-              subtitle: '',
-              value: trimmed
-            });
-          }
-        });
+        // Data is populated via K2 list binding through listItemsChangedCallback
+        // and processed by _processDataItems - nothing to parse here
       }
 
       _render() {
@@ -487,7 +397,7 @@
         this._checkedValues = Array.from(this._checkedSet).join(',');
         safeRaisePropertyChanged(this, 'checkedValues');
 
-        // Fire event
+        // Fire ItemChecked event
         this.dispatchEvent(new CustomEvent('ItemChecked', {
           bubbles: true,
           detail: {
@@ -497,6 +407,17 @@
             item: this._parsedItems.find(i => i.value === value)
           }
         }));
+
+        // Check if all items are now checked and fire AllItemsChecked event
+        if (this._parsedItems.length > 0 && this._checkedSet.size === this._parsedItems.length) {
+          this.dispatchEvent(new CustomEvent('AllItemsChecked', {
+            bubbles: true,
+            detail: {
+              checkedValues: this._checkedValues,
+              count: this._checkedSet.size
+            }
+          }));
+        }
       }
 
       _selectItem(value) {
@@ -607,54 +528,6 @@
       }
 
       // Properties
-      get listBinding() { return this._listBinding; }
-      set listBinding(v) {
-        this._listBinding = v || '';
-        this._parseItems();
-        if (this._hasRendered && this._fontsReady) {
-          this._renderList();
-        } else if (this._hasRendered) {
-          this._pendingRender = true;
-        }
-        safeRaisePropertyChanged(this, 'listBinding');
-      }
-      get ListBinding() { return this.listBinding; }
-      set ListBinding(v) { this.listBinding = v; }
-
-      get items() { return this._items; }
-      set items(v) {
-        this._items = v || '';
-        this._parseItems();
-        if (this._hasRendered && this._fontsReady) {
-          this._renderList();
-        } else if (this._hasRendered) {
-          this._pendingRender = true;
-        }
-        safeRaisePropertyChanged(this, 'items');
-      }
-      get Items() { return this.items; }
-      set Items(v) { this.items = v; }
-
-      get delimiter() { return this._delimiter; }
-      set delimiter(v) {
-        this._delimiter = v || '|';
-        this._parseItems();
-        if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'delimiter');
-      }
-      get Delimiter() { return this.delimiter; }
-      set Delimiter(v) { this.delimiter = v; }
-
-      get subDelimiter() { return this._subDelimiter; }
-      set subDelimiter(v) {
-        this._subDelimiter = v || ':';
-        this._parseItems();
-        if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'subDelimiter');
-      }
-      get SubDelimiter() { return this.subDelimiter; }
-      set SubDelimiter(v) { this.subDelimiter = v; }
-
       get variant() { return this._variant; }
       set variant(v) {
         const valid = ['one-line', 'two-line', 'three-line'];
@@ -933,6 +806,17 @@
         this._checkedValues = Array.from(this._checkedSet).join(',');
         if (this._hasRendered) this._render();
         safeRaisePropertyChanged(this, 'checkedValues');
+
+        // Fire AllItemsChecked event
+        if (this._parsedItems.length > 0) {
+          this.dispatchEvent(new CustomEvent('AllItemsChecked', {
+            bubbles: true,
+            detail: {
+              checkedValues: this._checkedValues,
+              count: this._checkedSet.size
+            }
+          }));
+        }
       }
 
       uncheckAll() {
