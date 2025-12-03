@@ -34,7 +34,8 @@
   }
 
   if (!window.customElements.get('material-split-button')) {
-    window.customElements.define('material-split-button', class MaterialSplitButton extends HTMLElement {
+    const BaseClass = window.K2BaseControl || HTMLElement;
+    window.customElements.define('material-split-button', class MaterialSplitButton extends BaseClass {
 
       constructor() {
         super();
@@ -79,6 +80,7 @@
       }
 
       connectedCallback() {
+        if (super.connectedCallback) super.connectedCallback();
         if (this._hasRendered) return;
         loadMaterialIcons();
         loadGoogleFonts();
