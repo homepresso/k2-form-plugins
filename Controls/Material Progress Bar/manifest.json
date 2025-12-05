@@ -1,0 +1,229 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design progress indicators with linear and circular variants",
+  "displayName": "Material Progress Bar",
+  "tagName": "material-progress-bar",
+  "valuePropertyID": "value",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "Complete",
+      "description": "Fires when progress reaches 100%"
+    }
+  ],
+  "properties": [
+    {
+      "id": "value",
+      "refreshdisplay": "true",
+      "friendlyname": "Value",
+      "description": "Progress value (0-100)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "50",
+      "changesdisplay": true
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Progress type: linear, circular",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "linear",
+      "changesdisplay": true
+    },
+    {
+      "id": "mode",
+      "refreshdisplay": "true",
+      "friendlyname": "Mode",
+      "description": "Progress mode: determinate (shows value), indeterminate (animated)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "determinate",
+      "changesdisplay": true
+    },
+    {
+      "id": "size",
+      "refreshdisplay": "true",
+      "friendlyname": "Size",
+      "description": "Size for circular variant: small (32px), medium (48px), large (64px), xlarge (96px)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "medium",
+      "changesdisplay": true
+    },
+    {
+      "id": "thickness",
+      "refreshdisplay": "true",
+      "friendlyname": "Thickness",
+      "description": "Track thickness in pixels (linear: 4-12, circular: 2-8)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "4",
+      "changesdisplay": true
+    },
+    {
+      "id": "showLabel",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Label",
+      "description": "Show progress percentage label (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelPosition",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Position",
+      "description": "Label position: inside (overlay), outside (below/right), center (circular only)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "outside",
+      "changesdisplay": true
+    },
+    {
+      "id": "customLabel",
+      "refreshdisplay": "true",
+      "friendlyname": "Custom Label",
+      "description": "Custom label text (overrides percentage)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "animated",
+      "refreshdisplay": "true",
+      "friendlyname": "Animated",
+      "description": "Animate progress value changes (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "buffer",
+      "refreshdisplay": "true",
+      "friendlyname": "Buffer Value",
+      "description": "Buffer/secondary progress value (0-100, linear only)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "ariaLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "ARIA Label",
+      "description": "Accessible label for screen readers (WCAG compliance). Defaults to 'Progress: X%'",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Progress indicator color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "trackColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Track Color",
+      "description": "Background track color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#E7E0EC",
+      "changesdisplay": true
+    },
+    {
+      "id": "bufferColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Buffer Color",
+      "description": "Buffer indicator color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#CAC4D0",
+      "changesdisplay": true
+    },
+    {
+      "id": "labelColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Label Color",
+      "description": "Label text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for label text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Size",
+      "description": "Label font size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "12",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontWeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Weight",
+      "description": "Label font weight: normal, bold, 100-900",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "500",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "reset",
+      "displayname": "Reset",
+      "returntype": "None",
+      "description": "Resets progress to 0",
+      "parameters": []
+    },
+    {
+      "id": "complete",
+      "displayname": "Complete",
+      "returntype": "None",
+      "description": "Sets progress to 100%",
+      "parameters": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Material Controls Overview
 
-Comprehensive collection of 19 Material Design 3 controls for K2 SmartForms, all **WCAG 2.1 Level AA compliant**.
+Comprehensive collection of 21 Material Design 3 controls for K2 SmartForms, all **WCAG 2.1 Level AA compliant**.
 
 ---
 
@@ -25,14 +25,16 @@ Comprehensive collection of 19 Material Design 3 controls for K2 SmartForms, all
 - [Material Segmented Button](#material-segmented-button)
 - [Material Chips](#material-chips)
 
-### Display Controls (4)
+### Display Controls (5)
 - [Material Card](#material-card)
 - [Material List](#material-list)
+- [Material List View Card](#material-list-view-card)
 - [Material Carousel](#material-carousel)
 - [Material Label](#material-label)
 
-### Utility Controls (2)
+### Utility Controls (3)
 - [Material Icon](#material-icon)
+- [Material Progress Bar](#material-progress-bar)
 - [Material Address Lookup](#material-address-lookup)
 
 ---
@@ -56,9 +58,11 @@ Comprehensive collection of 19 Material Design 3 controls for K2 SmartForms, all
 | **Material Chips** | Tags/filters | No | Input/filter/suggestion/assist types |
 | **Material Card** | Content containers | No | Media, actions, clickable, 3 variants |
 | **Material List** | Item lists | ✅ Yes | Icons, avatars, checkboxes, dividers |
+| **Material List View Card** | Card list view | ✅ Yes | Grid/vertical/horizontal layouts, actions |
 | **Material Carousel** | Image slideshow | ✅ Yes | Auto-play, indicators, 3 variants |
 | **Material Label** | Text display | No | Form label associations, typography |
 | **Material Icon** | Icon display | No | 4 styles, clickable, smart ARIA |
+| **Material Progress Bar** | Progress indicator | No | Linear/circular, determinate/indeterminate |
 | **Material Address Lookup** | Address autocomplete | No | Google Places integration, validation |
 
 ---
@@ -447,6 +451,46 @@ Material 3 Design list for displaying items with icons and avatars.
 
 ---
 
+## Material List View Card
+
+**Path:** `Controls/Material List View Card/`
+
+Material 3 Design list view displaying data as cards with K2 list binding support.
+
+### Key Features
+- **K2 List Binding:** ✅ Supports proper K2 list data binding (type: listdata)
+- **Layout Modes:** Vertical (stacked), Horizontal (side-by-side), Grid (responsive 1-4 columns)
+- **Variants:** Elevated, Filled, Outlined
+- **Card Features:** Images, titles, subtitles, descriptions, action buttons
+- **Clickable:** Selectable cards with visual states
+- **WCAG:** role="article", aria-label, aria-selected, keyboard navigation
+
+### Data Model (K2 List Binding)
+| Column | Type | Required | Description |
+|--------|------|----------|-------------|
+| Image | String | No | Card image URL |
+| Title | String | Yes | Card title/headline |
+| Subtitle | String | No | Card subtitle text |
+| Description | String | No | Card body/supporting text |
+| Value | String | Yes | Unique identifier |
+| Action | String | No | Action button text |
+
+### Properties
+- List (listdata), Selected Value
+- Variant (elevated/filled/outlined), Layout (vertical/horizontal/grid)
+- Columns (1-4 for grid), Card Gap, Clickable
+- Show Image, Image Height, Show Actions
+- Color properties (primary, background, surface, border, title, subtitle, description)
+- Font Family
+
+### Events
+- CardClicked, ActionClicked
+
+### Methods
+- clearSelection()
+
+---
+
 ## Material Carousel
 
 **Path:** `Controls/Material Carousel/`
@@ -532,6 +576,39 @@ Displays a Material Design icon with customizable properties.
 
 ---
 
+## Material Progress Bar
+
+**Path:** `Controls/Material Progress Bar/`
+
+Material 3 Design progress indicators with linear and circular variants.
+
+### Key Features
+- **Variants:** Linear (horizontal bar), Circular (circular indicator)
+- **Modes:** Determinate (specific value 0-100), Indeterminate (animated loop)
+- **Sizes:** Small (32px), Medium (48px), Large (64px), XLarge (96px) for circular
+- **Label Display:** Inside (overlay), Outside (below/right), Center (circular only)
+- **Buffer Support:** Secondary progress bar for linear variant (streaming/buffering)
+- **Animated:** Smooth transitions when value changes
+- **WCAG:** role="progressbar", aria-valuenow, aria-valuemin, aria-valuemax, aria-label
+
+### Properties
+- Value (0-100), Variant (linear/circular), Mode (determinate/indeterminate)
+- Size (circular: small/medium/large/xlarge), Thickness (2-12px)
+- Show Label, Label Position, Custom Label
+- Animated, Buffer Value (linear only)
+- **NEW:** aria-label
+- Color properties (primary, track, buffer, label)
+- Font properties (family, size, weight)
+
+### Events
+- Complete (fires when progress reaches 100%)
+
+### Methods
+- reset() - Sets progress to 0
+- complete() - Sets progress to 100%
+
+---
+
 ## Material Address Lookup
 
 **Path:** `Controls/Material Address Lookup/`
@@ -556,7 +633,7 @@ Material 3 Design address autocomplete with Google Places API integration.
 
 ## WCAG Compliance Summary
 
-All 19 Material controls are **WCAG 2.1 Level AA compliant** with:
+All 21 Material controls are **WCAG 2.1 Level AA compliant** with:
 
 ### Universal Features
 ✅ **Keyboard Navigation** - All interactive controls fully keyboard accessible
@@ -580,16 +657,16 @@ Enhanced from partial to full compliance:
 - Material Segmented Button - Arrow key navigation
 - Material Textbox - `ariaLabel`, `aria-required`, `aria-invalid`, `aria-describedby`
 
-### Already Compliant (10 controls)
+### Already Compliant (12 controls)
 - Material Checkbox, Material Switch, Material Select, Material Slider
-- Material List, Material Date Picker, Material Time Picker
-- Material Address Lookup, Material Chips, Material Carousel
+- Material List, Material List View Card, Material Date Picker, Material Time Picker
+- Material Address Lookup, Material Chips, Material Carousel, Material Progress Bar
 
 ---
 
 ## K2 SmartForms Integration
 
-### Controls with List Data Binding (3)
+### Controls with List Data Binding (4)
 
 **Material Select**
 - Bind to: SmartObject list data
@@ -600,6 +677,11 @@ Enhanced from partial to full compliance:
 - Bind to: SmartObject list data
 - Columns: `Icon`, `Title`, `Subtitle`, `Value`, `Checked`
 - Use case: Navigation menus, task lists, item selections
+
+**Material List View Card**
+- Bind to: SmartObject list data
+- Columns: `Image`, `Title`, `Subtitle`, `Description`, `Value`, `Action`
+- Use case: Product catalogs, article listings, team directories, portfolios
 
 **Material Carousel**
 - Bind to: SmartObject list data
@@ -679,5 +761,5 @@ Requirements:
 ---
 
 **Last Updated:** December 2025
-**Version:** 2.0
+**Version:** 1.0
 **WCAG Status:** All controls WCAG 2.1 Level AA compliant ✅

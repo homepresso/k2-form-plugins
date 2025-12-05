@@ -15,7 +15,7 @@
   "description": "Material 3 Design icon button with standard, filled, tonal, and outlined variants",
   "displayName": "Material Icon Button",
   "tagName": "material-icon-button",
-  "valuePropertyID": "icon",
+  "valuePropertyID": "iconName",
   "supports": [
     "Value",
     "Width",
@@ -30,7 +30,7 @@
   ],
   "properties": [
     {
-      "id": "icon",
+      "id": "iconName",
       "refreshdisplay": "true",
       "friendlyname": "Icon",
       "description": "Material icon name (e.g., 'favorite', 'bookmark', 'share')",
@@ -63,8 +63,9 @@
       "id": "toggle",
       "refreshdisplay": "true",
       "friendlyname": "Toggle",
-      "description": "Enable toggle behavior",
-      "type": "boolean",
+      "description": "Enable toggle behavior (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },
@@ -72,8 +73,9 @@
       "id": "selected",
       "refreshdisplay": "true",
       "friendlyname": "Selected",
-      "description": "Whether the button is selected (for toggle mode)",
-      "type": "boolean",
+      "description": "Whether the button is selected (for toggle mode, true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },
@@ -181,8 +183,9 @@
       "id": "disableRipple",
       "refreshdisplay": "true",
       "friendlyname": "Disable Ripple",
-      "description": "Disable the ripple effect",
-      "type": "boolean",
+      "description": "Disable the ripple effect (true/false)",
+      "type": "string",
+      "inputlength": "10",
       "initialvalue": "false",
       "changesdisplay": true
     },

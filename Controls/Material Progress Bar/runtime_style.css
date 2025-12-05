@@ -1,0 +1,538 @@
+/**
+ * Material Progress Bar - Runtime Styles
+ * Material Design 3 compliant progress indicators
+ * Supports linear and circular variants with determinate/indeterminate modes
+ */
+
+/* CSS Custom Properties */
+:root {
+  --mpb-primary: #6750A4;
+  --mpb-track: #E7E0EC;
+  --mpb-buffer: #CAC4D0;
+  --mpb-label: #1C1B1F;
+  --mpb-thickness: 4px;
+  --mpb-transition-duration: 300ms;
+  --mpb-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base container */
+material-progress-bar {
+  display: block;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+material-progress-bar *,
+material-progress-bar *::before,
+material-progress-bar *::after {
+  box-sizing: border-box;
+}
+
+/* Main container */
+.mpb-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Focus indicators for accessibility */
+.mpb-linear-track:focus,
+.mpb-circular-wrapper:focus {
+  outline: 2px solid var(--mpb-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.mpb-linear-track:focus-visible,
+.mpb-circular-wrapper:focus-visible {
+  outline: 2px solid var(--mpb-primary);
+  outline-offset: 4px;
+}
+
+/* ============================================
+   LINEAR VARIANT
+   ============================================ */
+
+.mpb-linear {
+  width: 100%;
+}
+
+.mpb-linear-track {
+  position: relative;
+  width: 100%;
+  height: var(--mpb-thickness);
+  background-color: var(--mpb-track);
+  border-radius: calc(var(--mpb-thickness) / 2);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Linear buffer bar (behind progress) */
+.mpb-linear-buffer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--mpb-buffer);
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+/* Linear progress bar */
+.mpb-linear-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--mpb-primary);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 2;
+}
+
+/* Linear animated transitions */
+.mpb-animated .mpb-linear-bar,
+.mpb-animated .mpb-linear-buffer {
+  transition: transform var(--mpb-transition-duration) var(--mpb-transition-easing);
+}
+
+/* Linear indeterminate animation */
+.mpb-linear-track.mpb-indeterminate .mpb-linear-bar {
+  transform: scaleX(1);
+  transform-origin: left center;
+  animation: mpb-linear-indeterminate 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--mpb-primary) 50%,
+    transparent 100%
+  );
+}
+
+@keyframes mpb-linear-indeterminate {
+  0% {
+    transform: translateX(-100%) scaleX(0.5);
+  }
+  50% {
+    transform: translateX(0%) scaleX(0.8);
+  }
+  100% {
+    transform: translateX(100%) scaleX(0.5);
+  }
+}
+
+/* ============================================
+   CIRCULAR VARIANT
+   ============================================ */
+
+.mpb-circular {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.mpb-circular-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Circular sizes */
+.mpb-size-small {
+  width: 32px;
+  height: 32px;
+}
+
+.mpb-size-medium {
+  width: 48px;
+  height: 48px;
+}
+
+.mpb-size-large {
+  width: 64px;
+  height: 64px;
+}
+
+.mpb-size-xlarge {
+  width: 96px;
+  height: 96px;
+}
+
+/* Circular SVG */
+.mpb-circular-svg {
+  display: block;
+  transform: rotate(-90deg);
+}
+
+/* Circular background track */
+.mpb-circular-bg {
+  stroke: var(--mpb-track);
+  transition: stroke var(--mpb-transition-duration) var(--mpb-transition-easing);
+}
+
+/* Circular progress */
+.mpb-circular-progress {
+  stroke: var(--mpb-primary);
+  transition: stroke-dashoffset var(--mpb-transition-duration) var(--mpb-transition-easing),
+              stroke var(--mpb-transition-duration) var(--mpb-transition-easing);
+}
+
+/* Disable transition when not animated */
+.mpb-container:not(.mpb-animated) .mpb-circular-progress {
+  transition: stroke var(--mpb-transition-duration) var(--mpb-transition-easing);
+}
+
+/* Circular indeterminate animation */
+.mpb-circular-progress.mpb-indeterminate {
+  animation: mpb-circular-rotate 1.4s linear infinite,
+             mpb-circular-dash 1.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes mpb-circular-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mpb-circular-dash {
+  0% {
+    stroke-dashoffset: 0;
+    transform: rotate(0deg);
+  }
+  50% {
+    stroke-dashoffset: calc(var(--circumference, 150) * -0.25);
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: calc(var(--circumference, 150) * -1);
+    transform: rotate(450deg);
+  }
+}
+
+/* ============================================
+   LABELS
+   ============================================ */
+
+.mpb-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--mpb-label);
+  line-height: 1.4;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Linear label positions */
+.mpb-linear .mpb-label-inside {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--mpb-label);
+  z-index: 3;
+  mix-blend-mode: difference;
+  filter: invert(1);
+}
+
+.mpb-linear .mpb-label-outside {
+  margin-top: 4px;
+  text-align: left;
+}
+
+/* Circular label positions */
+.mpb-circular .mpb-label-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.mpb-circular .mpb-label-outside {
+  margin-top: 4px;
+  text-align: center;
+}
+
+.mpb-circular .mpb-label-inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 10px;
+  z-index: 1;
+}
+
+/* Adjust label font sizes based on circular size */
+.mpb-size-small .mpb-label-center,
+.mpb-size-small .mpb-label-inside {
+  font-size: 9px;
+}
+
+.mpb-size-medium .mpb-label-center,
+.mpb-size-medium .mpb-label-inside {
+  font-size: 11px;
+}
+
+.mpb-size-large .mpb-label-center,
+.mpb-size-large .mpb-label-inside {
+  font-size: 13px;
+}
+
+.mpb-size-xlarge .mpb-label-center,
+.mpb-size-xlarge .mpb-label-inside {
+  font-size: 16px;
+}
+
+/* ============================================
+   DISABLED STATE
+   ============================================ */
+
+.mpb-disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.mpb-disabled .mpb-linear-bar,
+.mpb-disabled .mpb-circular-progress {
+  filter: grayscale(0.5);
+}
+
+/* ============================================
+   ACCESSIBILITY & REDUCED MOTION
+   ============================================ */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .mpb-linear-bar,
+  .mpb-linear-buffer,
+  .mpb-circular-progress {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* For indeterminate mode with reduced motion, show a pulsing effect instead */
+  .mpb-indeterminate .mpb-linear-bar {
+    animation: mpb-pulse 2s ease-in-out infinite !important;
+    transform: scaleX(1) !important;
+    background: var(--mpb-primary) !important;
+  }
+
+  .mpb-circular-progress.mpb-indeterminate {
+    animation: mpb-pulse 2s ease-in-out infinite !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  @keyframes mpb-pulse {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mpb-linear-track {
+    border: 1px solid currentColor;
+  }
+
+  .mpb-circular-bg,
+  .mpb-circular-progress {
+    stroke-width: calc(var(--mpb-thickness) + 1px);
+  }
+
+  .mpb-label {
+    font-weight: 600;
+  }
+}
+
+/* Screen reader only content */
+.mpb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   MATERIAL DESIGN SPACING & ELEVATION
+   ============================================ */
+
+/* Proper spacing following Material Design principles */
+.mpb-container {
+  padding: 0;
+  margin: 0;
+}
+
+/* Linear with label outside spacing */
+.mpb-linear.mpb-label-outside {
+  gap: 8px;
+}
+
+/* Circular with label outside spacing */
+.mpb-circular.mpb-label-outside {
+  gap: 8px;
+}
+
+/* Subtle elevation for linear track (optional, can be enabled via custom styling) */
+.mpb-linear-track {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================
+   THEME VARIATIONS (optional)
+   ============================================ */
+
+/* Error/Danger theme */
+.mpb-theme-error {
+  --mpb-primary: #B3261E;
+  --mpb-track: #F9DEDC;
+  --mpb-buffer: #F2B8B5;
+}
+
+/* Success theme */
+.mpb-theme-success {
+  --mpb-primary: #198754;
+  --mpb-track: #D1E7DD;
+  --mpb-buffer: #A3CFBB;
+}
+
+/* Warning theme */
+.mpb-theme-warning {
+  --mpb-primary: #E37400;
+  --mpb-track: #FFF4E5;
+  --mpb-buffer: #FFE0B2;
+}
+
+/* Info theme */
+.mpb-theme-info {
+  --mpb-primary: #0B57D0;
+  --mpb-track: #D3E3FD;
+  --mpb-buffer: #AECBFA;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .mpb-label {
+    font-size: 11px;
+  }
+
+  .mpb-circular .mpb-label-outside {
+    font-size: 10px;
+  }
+}
+
+/* Tablet and up */
+@media (min-width: 641px) {
+  .mpb-label {
+    font-size: 12px;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  .mpb-container {
+    break-inside: avoid;
+  }
+
+  .mpb-indeterminate .mpb-linear-bar,
+  .mpb-circular-progress.mpb-indeterminate {
+    animation: none !important;
+  }
+
+  /* Show determinate state for printing */
+  .mpb-indeterminate .mpb-linear-bar {
+    background: var(--mpb-primary) !important;
+    transform: scaleX(0.5) !important;
+  }
+}
+
+/* ============================================
+   RTL (Right-to-Left) SUPPORT
+   ============================================ */
+
+[dir="rtl"] .mpb-linear-bar,
+[dir="rtl"] .mpb-linear-buffer {
+  transform-origin: right center;
+}
+
+[dir="rtl"] .mpb-linear .mpb-label-inside {
+  left: auto;
+  right: 8px;
+}
+
+[dir="rtl"] .mpb-linear .mpb-label-outside {
+  text-align: right;
+}
+
+@keyframes mpb-linear-indeterminate-rtl {
+  0% {
+    transform: translateX(100%) scaleX(0.5);
+  }
+  50% {
+    transform: translateX(0%) scaleX(0.8);
+  }
+  100% {
+    transform: translateX(-100%) scaleX(0.5);
+  }
+}
+
+[dir="rtl"] .mpb-linear-track.mpb-indeterminate .mpb-linear-bar {
+  animation-name: mpb-linear-indeterminate-rtl;
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+/* Hide element but keep accessible */
+.mpb-hidden {
+  display: none !important;
+}
+
+/* Visually hidden but accessible */
+.mpb-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

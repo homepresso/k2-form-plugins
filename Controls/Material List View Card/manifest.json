@@ -1,0 +1,217 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Material 3 Design list view displaying data as cards with K2 list binding support",
+  "displayName": "Material List View Card",
+  "tagName": "material-list-view-card",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled",
+    "DataBinding"
+  ],
+  "events": [
+    {
+      "id": "CardClicked",
+      "description": "Fires when a card is clicked"
+    },
+    {
+      "id": "ActionClicked",
+      "description": "Fires when a card action button is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "List",
+      "refreshdisplay": "true",
+      "friendlyname": "List Data",
+      "type": "listdata",
+      "category": "Detail",
+      "initialvalue": "[{\"image\": \"https://picsum.photos/300/200?random=1\", \"title\": \"Card Title 1\", \"subtitle\": \"Card Subtitle\", \"description\": \"Supporting text for the card content\", \"value\": \"card1\", \"action\": \"Learn More\"},{\"image\": \"https://picsum.photos/300/200?random=2\", \"title\": \"Card Title 2\", \"subtitle\": \"Card Subtitle\", \"description\": \"Supporting text for the card content\", \"value\": \"card2\", \"action\": \"Learn More\"}]"
+    },
+    {
+      "id": "variant",
+      "refreshdisplay": "true",
+      "friendlyname": "Variant",
+      "description": "Card style: elevated, filled, outlined",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "elevated",
+      "changesdisplay": true
+    },
+    {
+      "id": "layout",
+      "refreshdisplay": "true",
+      "friendlyname": "Layout",
+      "description": "Card layout: vertical (stacked), horizontal (side-by-side), grid (responsive grid)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "vertical",
+      "changesdisplay": true
+    },
+    {
+      "id": "columns",
+      "refreshdisplay": "true",
+      "friendlyname": "Grid Columns",
+      "description": "Number of columns for grid layout (1-4)",
+      "type": "string",
+      "inputlength": "5",
+      "initialvalue": "2",
+      "changesdisplay": true
+    },
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Currently selected card value",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "clickable",
+      "refreshdisplay": "true",
+      "friendlyname": "Clickable",
+      "description": "Make cards clickable (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showImage",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Image",
+      "description": "Show card images (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "imageHeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Image Height",
+      "description": "Card image height in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "200",
+      "changesdisplay": true
+    },
+    {
+      "id": "showActions",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Actions",
+      "description": "Show action buttons (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardGap",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Gap",
+      "description": "Gap between cards in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Color",
+      "description": "Primary/accent color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#6750A4",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Card background color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#FFFBFE",
+      "changesdisplay": true
+    },
+    {
+      "id": "surfaceColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Surface Color",
+      "description": "Filled variant surface color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#F7F2FA",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Outlined variant border color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#CAC4D0",
+      "changesdisplay": true
+    },
+    {
+      "id": "titleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Title Color",
+      "description": "Title text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "subtitleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Subtitle Color",
+      "description": "Subtitle text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "descriptionColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Description Color",
+      "description": "Description text color",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "#49454F",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": []
+}

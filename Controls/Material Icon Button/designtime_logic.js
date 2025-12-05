@@ -220,6 +220,12 @@
       get Icon() { return this.icon; }
       set Icon(v) { this.icon = v; }
 
+      // K2 property name (delegates to icon)
+      get iconName() { return this.icon; }
+      set iconName(v) { this.icon = v; }
+      get IconName() { return this.icon; }
+      set IconName(v) { this.icon = v; }
+
       get variant() { return this._variant; }
       set variant(v) {
         const valid = ['standard', 'filled', 'tonal', 'outlined'];

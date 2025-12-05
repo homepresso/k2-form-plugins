@@ -1,0 +1,610 @@
+/**
+ * Material List View Card - Design Time Styles
+ * Material Design 3 compliant card component
+ * Supports elevated, filled, and outlined variants
+ * Supports vertical, horizontal, and grid layouts
+ */
+
+/* ============================================
+   CSS Custom Properties (Design Tokens)
+   ============================================ */
+:host {
+  /* Material Design 3 Typography Scale */
+  --mlvc-font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Default Colors (can be overridden via JS) */
+  --mlvc-primary: #6750A4;
+  --mlvc-background: #FFFBFE;
+  --mlvc-surface: #F7F2FA;
+  --mlvc-border: #CAC4D0;
+  --mlvc-title: #1C1B1F;
+  --mlvc-subtitle: #49454F;
+  --mlvc-description: #49454F;
+
+  /* Spacing */
+  --mlvc-gap: 16px;
+  --mlvc-image-height: 200px;
+  --mlvc-columns: 2;
+
+  /* Material Design 3 Elevation Shadows */
+  --mlvc-elevation-1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+                      0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --mlvc-elevation-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3),
+                      0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --mlvc-elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15),
+                      0px 1px 3px 0px rgba(0, 0, 0, 0.3);
+
+  /* Material Design 3 State Layers */
+  --mlvc-state-hover: rgba(103, 80, 164, 0.08);
+  --mlvc-state-focus: rgba(103, 80, 164, 0.12);
+  --mlvc-state-pressed: rgba(103, 80, 164, 0.16);
+  --mlvc-state-selected: rgba(103, 80, 164, 0.12);
+
+  /* Transitions */
+  --mlvc-transition-duration: 200ms;
+  --mlvc-transition-easing: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* Border Radius */
+  --mlvc-border-radius: 12px;
+  --mlvc-border-radius-image: 12px 12px 0 0;
+
+  /* Typography Sizes (Material Design 3) */
+  --mlvc-title-size: 1.375rem; /* 22px - Title Large */
+  --mlvc-title-weight: 400;
+  --mlvc-title-line-height: 1.75rem; /* 28px */
+
+  --mlvc-subtitle-size: 0.875rem; /* 14px - Label Large */
+  --mlvc-subtitle-weight: 500;
+  --mlvc-subtitle-line-height: 1.25rem; /* 20px */
+
+  --mlvc-description-size: 0.875rem; /* 14px - Body Medium */
+  --mlvc-description-weight: 400;
+  --mlvc-description-line-height: 1.25rem; /* 20px */
+
+  --mlvc-button-size: 0.875rem; /* 14px - Label Large */
+  --mlvc-button-weight: 500;
+  --mlvc-button-line-height: 1.25rem; /* 20px */
+}
+
+/* ============================================
+   Container Base Styles
+   ============================================ */
+.mlvc-container {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--mlvc-font-family);
+  position: relative;
+}
+
+/* ============================================
+   Layout: Vertical (Stacked)
+   ============================================ */
+.mlvc-container.mlvc-vertical {
+  flex-direction: column;
+  gap: var(--mlvc-gap);
+}
+
+.mlvc-container.mlvc-vertical .mlvc-card {
+  width: 100%;
+}
+
+/* ============================================
+   Layout: Horizontal (Side-by-side)
+   ============================================ */
+.mlvc-container.mlvc-horizontal {
+  flex-direction: row;
+  gap: var(--mlvc-gap);
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mlvc-border) transparent;
+}
+
+.mlvc-container.mlvc-horizontal::-webkit-scrollbar {
+  height: 8px;
+}
+
+.mlvc-container.mlvc-horizontal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mlvc-container.mlvc-horizontal::-webkit-scrollbar-thumb {
+  background-color: var(--mlvc-border);
+  border-radius: 4px;
+}
+
+.mlvc-container.mlvc-horizontal .mlvc-card {
+  flex: 0 0 auto;
+  min-width: 280px;
+  max-width: 360px;
+}
+
+/* ============================================
+   Layout: Grid (Responsive)
+   ============================================ */
+.mlvc-container.mlvc-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--mlvc-columns, 2), 1fr);
+  gap: var(--mlvc-gap);
+}
+
+/* Responsive grid breakpoints */
+@media (max-width: 1200px) {
+  .mlvc-container.mlvc-grid {
+    grid-template-columns: repeat(min(var(--mlvc-columns, 2), 3), 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .mlvc-container.mlvc-grid {
+    grid-template-columns: repeat(min(var(--mlvc-columns, 2), 2), 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .mlvc-container.mlvc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mlvc-container.mlvc-horizontal .mlvc-card {
+    min-width: 240px;
+  }
+}
+
+/* ============================================
+   Card Base Styles
+   ============================================ */
+.mlvc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--mlvc-border-radius);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: box-shadow var(--mlvc-transition-duration) var(--mlvc-transition-easing),
+              transform var(--mlvc-transition-duration) var(--mlvc-transition-easing),
+              border-color var(--mlvc-transition-duration) var(--mlvc-transition-easing);
+  cursor: pointer;
+  outline: none;
+  background-color: var(--mlvc-background);
+}
+
+.mlvc-card:focus-visible {
+  outline: 2px solid var(--mlvc-primary);
+  outline-offset: 2px;
+}
+
+/* State Layer for ripple and hover effects */
+.mlvc-state-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-color: transparent;
+  transition: background-color var(--mlvc-transition-duration) var(--mlvc-transition-easing);
+  z-index: 1;
+}
+
+/* ============================================
+   Card Variant: Elevated (with shadow)
+   ============================================ */
+.mlvc-container.mlvc-elevated .mlvc-card {
+  box-shadow: var(--mlvc-elevation-1);
+  background-color: var(--mlvc-background);
+  border: none;
+}
+
+.mlvc-container.mlvc-elevated .mlvc-card:hover:not(.mlvc-disabled) {
+  box-shadow: var(--mlvc-elevation-2);
+  transform: translateY(-2px);
+}
+
+.mlvc-container.mlvc-elevated .mlvc-card:hover:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-hover);
+}
+
+.mlvc-container.mlvc-elevated .mlvc-card:focus-visible:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-focus);
+}
+
+.mlvc-container.mlvc-elevated .mlvc-card:active:not(.mlvc-disabled) {
+  box-shadow: var(--mlvc-elevation-1);
+  transform: translateY(0);
+}
+
+.mlvc-container.mlvc-elevated .mlvc-card:active:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-pressed);
+}
+
+/* ============================================
+   Card Variant: Filled (with surface color)
+   ============================================ */
+.mlvc-container.mlvc-filled .mlvc-card {
+  background-color: var(--mlvc-surface);
+  box-shadow: none;
+  border: none;
+}
+
+.mlvc-container.mlvc-filled .mlvc-card:hover:not(.mlvc-disabled) {
+  box-shadow: var(--mlvc-elevation-1);
+  transform: translateY(-1px);
+}
+
+.mlvc-container.mlvc-filled .mlvc-card:hover:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-hover);
+}
+
+.mlvc-container.mlvc-filled .mlvc-card:focus-visible:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-focus);
+}
+
+.mlvc-container.mlvc-filled .mlvc-card:active:not(.mlvc-disabled) {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.mlvc-container.mlvc-filled .mlvc-card:active:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-pressed);
+}
+
+/* ============================================
+   Card Variant: Outlined (with border)
+   ============================================ */
+.mlvc-container.mlvc-outlined .mlvc-card {
+  background-color: var(--mlvc-background);
+  box-shadow: none;
+  border: 1px solid var(--mlvc-border);
+}
+
+.mlvc-container.mlvc-outlined .mlvc-card:hover:not(.mlvc-disabled) {
+  border-color: var(--mlvc-title);
+  box-shadow: var(--mlvc-elevation-1);
+  transform: translateY(-1px);
+}
+
+.mlvc-container.mlvc-outlined .mlvc-card:hover:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-hover);
+}
+
+.mlvc-container.mlvc-outlined .mlvc-card:focus-visible:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-focus);
+}
+
+.mlvc-container.mlvc-outlined .mlvc-card:active:not(.mlvc-disabled) {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.mlvc-container.mlvc-outlined .mlvc-card:active:not(.mlvc-disabled) .mlvc-state-layer {
+  background-color: var(--mlvc-state-pressed);
+}
+
+/* ============================================
+   Selected State (All Variants)
+   ============================================ */
+.mlvc-card.mlvc-selected {
+  border-color: var(--mlvc-primary) !important;
+}
+
+.mlvc-container.mlvc-elevated .mlvc-card.mlvc-selected {
+  box-shadow: var(--mlvc-elevation-2), 0 0 0 2px var(--mlvc-primary);
+}
+
+.mlvc-container.mlvc-filled .mlvc-card.mlvc-selected {
+  box-shadow: 0 0 0 2px var(--mlvc-primary);
+}
+
+.mlvc-container.mlvc-outlined .mlvc-card.mlvc-selected {
+  border-width: 2px;
+  border-color: var(--mlvc-primary);
+}
+
+.mlvc-card.mlvc-selected .mlvc-state-layer {
+  background-color: var(--mlvc-state-selected);
+}
+
+/* ============================================
+   Image Container
+   ============================================ */
+.mlvc-image {
+  width: 100%;
+  height: var(--mlvc-image-height);
+  overflow: hidden;
+  background-color: var(--mlvc-surface);
+  position: relative;
+  z-index: 0;
+}
+
+.mlvc-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform var(--mlvc-transition-duration) var(--mlvc-transition-easing);
+}
+
+.mlvc-card:hover:not(.mlvc-disabled) .mlvc-image img {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   Content Area
+   ============================================ */
+.mlvc-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+/* Title */
+.mlvc-title {
+  font-size: var(--mlvc-title-size);
+  font-weight: var(--mlvc-title-weight);
+  line-height: var(--mlvc-title-line-height);
+  color: var(--mlvc-title);
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Subtitle */
+.mlvc-subtitle {
+  font-size: var(--mlvc-subtitle-size);
+  font-weight: var(--mlvc-subtitle-weight);
+  line-height: var(--mlvc-subtitle-line-height);
+  color: var(--mlvc-subtitle);
+  letter-spacing: 0.1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Description */
+.mlvc-description {
+  font-size: var(--mlvc-description-size);
+  font-weight: var(--mlvc-description-weight);
+  line-height: var(--mlvc-description-line-height);
+  color: var(--mlvc-description);
+  letter-spacing: 0.25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* ============================================
+   Actions Area
+   ============================================ */
+.mlvc-actions {
+  padding: 8px 16px 16px 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Action Button - Material Design 3 Text Button */
+.mlvc-action-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 20px;
+  background-color: transparent;
+  color: var(--mlvc-primary);
+  font-family: var(--mlvc-font-family);
+  font-size: var(--mlvc-button-size);
+  font-weight: var(--mlvc-button-weight);
+  line-height: var(--mlvc-button-line-height);
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  transition: background-color var(--mlvc-transition-duration) var(--mlvc-transition-easing),
+              box-shadow var(--mlvc-transition-duration) var(--mlvc-transition-easing);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.mlvc-action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: currentColor;
+  opacity: 0;
+  transition: opacity var(--mlvc-transition-duration) var(--mlvc-transition-easing);
+}
+
+.mlvc-action-btn:hover::before {
+  opacity: 0.08;
+}
+
+.mlvc-action-btn:focus-visible {
+  outline: 2px solid var(--mlvc-primary);
+  outline-offset: 2px;
+}
+
+.mlvc-action-btn:focus-visible::before {
+  opacity: 0.12;
+}
+
+.mlvc-action-btn:active::before {
+  opacity: 0.16;
+}
+
+.mlvc-action-btn:disabled {
+  color: rgba(28, 27, 31, 0.38);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============================================
+   Disabled State
+   ============================================ */
+.mlvc-container.mlvc-disabled .mlvc-card {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.mlvc-card.mlvc-disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.mlvc-container.mlvc-disabled .mlvc-card:hover {
+  transform: none;
+  box-shadow: var(--mlvc-elevation-1);
+}
+
+.mlvc-container.mlvc-filled.mlvc-disabled .mlvc-card:hover {
+  box-shadow: none;
+}
+
+.mlvc-container.mlvc-outlined.mlvc-disabled .mlvc-card:hover {
+  box-shadow: none;
+  border-color: var(--mlvc-border);
+}
+
+/* ============================================
+   Accessibility Enhancements
+   ============================================ */
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .mlvc-card,
+  .mlvc-state-layer,
+  .mlvc-image img,
+  .mlvc-action-btn,
+  .mlvc-action-btn::before {
+    transition-duration: 0.01ms !important;
+  }
+
+  .mlvc-card:hover:not(.mlvc-disabled) {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .mlvc-card {
+    border: 2px solid currentColor;
+  }
+
+  .mlvc-card:focus-visible {
+    outline-width: 3px;
+  }
+
+  .mlvc-action-btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :host {
+    --mlvc-background: #1C1B1F;
+    --mlvc-surface: #2B2930;
+    --mlvc-border: #938F99;
+    --mlvc-title: #E6E1E5;
+    --mlvc-subtitle: #CAC4D0;
+    --mlvc-description: #CAC4D0;
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+  .mlvc-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .mlvc-container.mlvc-horizontal {
+    flex-direction: column;
+  }
+
+  .mlvc-card:hover,
+  .mlvc-card:focus-visible,
+  .mlvc-card:active {
+    transform: none;
+    box-shadow: var(--mlvc-elevation-1);
+  }
+
+  .mlvc-state-layer {
+    display: none;
+  }
+}
+
+/* ============================================
+   Loading State (Optional)
+   ============================================ */
+.mlvc-card.mlvc-loading {
+  pointer-events: none;
+}
+
+.mlvc-card.mlvc-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: mlvc-shimmer 1.5s infinite;
+  z-index: 10;
+}
+
+@keyframes mlvc-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+.mlvc-container:empty::after {
+  content: 'No cards to display';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 16px;
+  color: var(--mlvc-subtitle);
+  font-size: var(--mlvc-description-size);
+  font-family: var(--mlvc-font-family);
+}
