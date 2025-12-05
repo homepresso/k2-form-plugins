@@ -31,10 +31,18 @@
   ],
   "properties": [
     {
+      "id": "List",
+      "refreshdisplay": "true",
+      "friendlyname": "List Data",
+      "type": "listdata",
+      "category": "Detail",
+      "initialvalue": "[{\"image\": \"https://picsum.photos/800/400?random=1\", \"title\": \"Welcome\", \"subtitle\": \"Discover amazing features\"},{\"image\": \"https://picsum.photos/800/400?random=2\", \"title\": \"Explore\", \"subtitle\": \"Find what you need\"}]"
+    },
+    {
       "id": "listBinding",
       "refreshdisplay": "true",
-      "friendlyname": "List Binding",
-      "description": "JSON array of items [{image, title, subtitle}] - takes priority over Items if provided",
+      "friendlyname": "List Binding (JSON)",
+      "description": "JSON array of items [{image, title, subtitle}] - for backward compatibility. Use List Data for K2 binding.",
       "type": "string",
       "inputlength": "10000",
       "initialvalue": "",

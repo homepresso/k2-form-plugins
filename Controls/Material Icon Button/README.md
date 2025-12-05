@@ -7,6 +7,27 @@ Material 3 Design icon button with standard, filled, tonal, and outlined variant
 <material-icon-button>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support with Enter and Space keys
+- **ARIA Attributes**: Proper ARIA implementation
+  - `aria-label` for accessible button names (configurable)
+  - `aria-pressed` for toggle button state
+  - Smart defaults: uses aria-label → tooltip → icon name
+- **Screen Reader Support**: Icon-only buttons properly labeled for assistive technology
+- **Focus Management**: Visible focus indicators with outline
+- **Color Adaptability**: Dynamic color mixing ensures visibility on any background
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `ariaLabel` | ARIA Label | Accessible label for screen readers (WCAG required) | Falls back to tooltip or icon name |
+
 ## Properties
 
 ### Icon Properties

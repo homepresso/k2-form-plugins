@@ -7,6 +7,29 @@ A Material 3 Design label for displaying text with customizable styling.
 <material-label>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Semantic HTML**: Uses `<label>` element when associated with form controls
+- **Label Associations**: Supports `for` attribute to connect with input fields (WCAG 1.3.1)
+- **Screen Reader Support**: Proper semantic structure for assistive technology
+- **Programmatic Relationships**: Creates accessible label-control associations
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `labelFor` | Label For | ID of the form control this label is associated with (enables semantic `<label for="">` binding) | `""` |
+
+**Usage for Accessible Forms:**
+```html
+<material-label label-for="email-input" value="Email Address:"></material-label>
+<material-textbox id="email-input"></material-textbox>
+```
+
 ## Properties
 
 ### Content Properties

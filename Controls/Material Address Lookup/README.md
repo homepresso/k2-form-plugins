@@ -7,6 +7,13 @@ A Material 3 Design address input with Google Places Autocomplete integration, f
 <material-address>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features with proper ARIA attributes, keyboard navigation, and screen reader support.
+
+
 ## Known Issues
 
 ### K2 Designer Clipping

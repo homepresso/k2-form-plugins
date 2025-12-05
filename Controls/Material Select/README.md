@@ -7,20 +7,39 @@ Material 3 Design dropdown/select with outlined and filled variants.
 <material-select>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support with arrow keys, Enter, Space, and Escape
+- **ARIA Attributes**: Complete ARIA combobox pattern implementation
+  - `role="combobox"` on select field
+  - `role="listbox"` on dropdown menu
+  - `role="option"` on menu items
+  - `aria-expanded` for menu state
+  - `aria-haspopup="listbox"` for menu indicator
+  - `aria-selected` for selected options
+- **Screen Reader Support**: All elements properly labeled for assistive technology
+- **Focus Management**: Visible focus indicators and logical focus order
+
 ## K2 SmartObject Data Binding
 
 This control supports K2 SmartObject data binding. Add `"DataBinding"` to your supports configuration.
 
-### Expected Data Structure
+### List Data Binding (Recommended)
 
-When binding to a SmartObject, the control expects the following field mappings:
+The control now supports proper K2 list binding using the **List Data** property (type: `listdata`). This enables direct binding to K2 SmartForm data sources in the designer.
 
-| Control Field | SmartObject Field | Description |
-|--------------|-------------------|-------------|
-| Value | `Value` | Option value (stored value) |
-| Display | `Display` or `Label` | Option display text |
+**Required Data Model Columns:**
 
-### Example SmartObject Data
+| Column Name | Type | Description | Required |
+|------------|------|-------------|----------|
+| `Value` | String | Option value (stored value) | Yes |
+| `Display` or `Label` | String | Option display text | Yes |
+
+**Example K2 List Binding:**
 ```json
 [
   {
@@ -38,6 +57,13 @@ When binding to a SmartObject, the control expects the following field mappings:
 ]
 ```
 
+### Legacy JSON Binding
+
+For backward compatibility, the **List Binding (JSON)** property accepts JSON string format:
+```json
+"[{\"value\":\"us\",\"label\":\"United States\"},{\"value\":\"ca\",\"label\":\"Canada\"}]"
+```
+
 ## Properties
 
 ### Data Properties
@@ -45,8 +71,9 @@ When binding to a SmartObject, the control expects the following field mappings:
 | Property | Friendly Name | Description | Default |
 |----------|--------------|-------------|---------|
 | `value` | Value | Currently selected value | `""` |
-| `listBinding` | List Binding | JSON array of options [{value, label}] - takes priority over Options if provided | `""` |
-| `options` | Options | Dropdown options (comma-separated, or value:label pairs) - used if List Binding is empty | `Option 1,Option 2,Option 3` |
+| `List` | List Data | K2 list binding (type: listdata) - Recommended for K2 SmartForms | `[{value, label}]` |
+| `listBinding` | List Binding (JSON) | JSON array of options [{value, label}] - For backward compatibility | `""` |
+| `options` | Options | Dropdown options (comma-separated, or value:label pairs) - used if List Data is empty | `Option 1,Option 2,Option 3` |
 | `delimiter` | Delimiter | Character used to separate options | `,` |
 
 ### Label Properties

@@ -119,13 +119,14 @@ material-icon-button {
   background: rgba(255, 255, 255, 0.12);
 }
 
+/* Selected filled */
 .mib-filled.mib-selected {
-  background: var(--mib-selected-container, var(--mib-primary));
+  background: var(--mib-selected-container, var(--mib-container, var(--mib-primary)));
 }
 
-/* Unselected filled */
+/* Unselected filled - only override if container color is not set */
 .mib-filled:not(.mib-selected) {
-  background: var(--mib-surface-variant);
+  background: var(--mib-container, var(--mib-surface-variant));
 }
 
 .mib-filled:not(.mib-selected) .mib-icon {
@@ -154,7 +155,7 @@ material-icon-button {
 }
 
 .mib-tonal.mib-selected {
-  background: var(--mib-selected-container, var(--mib-primary));
+  background: var(--mib-selected-container, var(--mib-container, var(--mib-primary)));
 }
 
 .mib-tonal.mib-selected .mib-icon {

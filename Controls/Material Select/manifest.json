@@ -51,10 +51,18 @@
       "changesdisplay": true
     },
     {
+      "id": "List",
+      "refreshdisplay": "true",
+      "friendlyname": "List Data",
+      "type": "listdata",
+      "category": "Detail",
+      "initialvalue": "[{\"value\": \"option1\", \"label\": \"Option 1\"},{\"value\": \"option2\", \"label\": \"Option 2\"},{\"value\": \"option3\", \"label\": \"Option 3\"}]"
+    },
+    {
       "id": "listBinding",
       "refreshdisplay": "true",
-      "friendlyname": "List Binding",
-      "description": "JSON array of options [{value, label}] - takes priority over Options if provided",
+      "friendlyname": "List Binding (JSON)",
+      "description": "JSON array of options [{value, label}] - for backward compatibility. Use List Data for K2 binding.",
       "type": "string",
       "inputlength": "10000",
       "initialvalue": "",

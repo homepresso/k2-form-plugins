@@ -7,6 +7,27 @@ Material 3 Design Floating Action Button with expandable menu.
 <material-fab-menu>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support with Escape to close menu
+- **ARIA Attributes**: Proper ARIA implementation
+  - `aria-label` for main FAB button (configurable)
+  - `aria-haspopup="menu"` to indicate expandable menu
+  - `aria-expanded` for menu state (true/false)
+  - `aria-label` on each menu action button
+- **Screen Reader Support**: All menu items properly labeled for assistive technology
+- **Focus Management**: Visible focus indicators and returns focus to trigger after menu closes
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `ariaLabel` | ARIA Label | Accessible label for main FAB button (WCAG required) | Falls back to label or "Menu" |
+
 ## Properties
 
 ### Icon Properties

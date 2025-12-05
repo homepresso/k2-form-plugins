@@ -7,6 +7,28 @@ A Material 3 Design textbox with floating labels, icons, helper text, and valida
 <material-textbox>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support for text input
+- **ARIA Attributes**: Complete ARIA implementation for form accessibility
+  - `aria-label` for accessible field names (configurable)
+  - `aria-required` for required fields
+  - `aria-invalid` for validation errors
+  - `aria-describedby` linking to helper text and error messages
+- **Screen Reader Support**: All labels, hints, and errors properly announced
+- **Form Validation**: Proper error state communication to assistive technology
+- **Label Associations**: Floating label with accessible text
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `ariaLabel` | ARIA Label | Accessible label for screen readers (WCAG required) | Falls back to label text |
+
 ## Properties
 
 ### Value Properties

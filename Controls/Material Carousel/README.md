@@ -7,21 +7,37 @@ Material 3 Design carousel for displaying scrollable image content.
 <material-carousel>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support for carousel navigation
+- **ARIA Attributes**: Proper ARIA labels for all navigation controls
+  - `aria-label` on navigation buttons (Previous/Next slide)
+  - `aria-label` on indicator buttons (Go to slide N)
+  - Accessible names for all interactive elements
+- **Screen Reader Support**: Slide changes and navigation properly announced
+- **Focus Management**: Visible focus indicators on all controls
+
 ## K2 SmartObject Data Binding
 
 This control supports K2 SmartObject data binding. Add `"DataBinding"` to your supports configuration.
 
-### Expected Data Structure
+### List Data Binding (Recommended)
 
-When binding to a SmartObject, the control expects the following field mappings:
+The control now supports proper K2 list binding using the **List Data** property (type: `listdata`). This enables direct binding to K2 SmartForm data sources in the designer.
 
-| Control Field | SmartObject Field | Description |
-|--------------|-------------------|-------------|
-| Image | `Image` or `Display` | URL for the carousel slide image |
-| Title | `Title` | Slide title text |
-| Subtitle | `Subtitle` or `Description` | Slide subtitle/description text |
+**Required Data Model Columns:**
 
-### Example SmartObject Data
+| Column Name | Type | Description | Required |
+|------------|------|-------------|----------|
+| `Image` or `Display` | String | URL for the carousel slide image | Yes |
+| `Title` | String | Slide title text | No |
+| `Subtitle` or `Description` | String | Slide subtitle/description text | No |
+
+**Example K2 List Binding:**
 ```json
 [
   {
@@ -37,14 +53,22 @@ When binding to a SmartObject, the control expects the following field mappings:
 ]
 ```
 
+### Legacy JSON Binding
+
+For backward compatibility, the **List Binding (JSON)** property accepts JSON string format:
+```json
+"[{\"image\":\"https://example.com/slide1.jpg\",\"title\":\"Welcome\",\"subtitle\":\"Discover amazing features\"}]"
+```
+
 ## Properties
 
 ### Data Properties
 
 | Property | Friendly Name | Description | Default |
 |----------|--------------|-------------|---------|
-| `listBinding` | List Binding | JSON array of items [{image, title, subtitle}] - takes priority over Items if provided | `""` |
-| `items` | Items | Carousel items (pipe-separated, format: image:title:subtitle) - used if List Binding is empty | Sample data |
+| `List` | List Data | K2 list binding (type: listdata) - Recommended for K2 SmartForms | `[{image, title, subtitle}]` |
+| `listBinding` | List Binding (JSON) | JSON array of items [{image, title, subtitle}] - For backward compatibility | `""` |
+| `items` | Items | Carousel items (pipe-separated, format: image:title:subtitle) - used if List Data is empty | Sample data |
 | `delimiter` | Delimiter | Character to separate items | `\|` |
 | `subDelimiter` | Sub Delimiter | Character to separate item parts | `:` |
 | `currentIndex` | Current Index | Current slide index (0-based) | `0` |

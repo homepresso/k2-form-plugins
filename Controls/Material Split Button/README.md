@@ -7,6 +7,28 @@ Material 3 Design split button with primary action and dropdown menu.
 <material-split-button>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support with Escape to close menu
+- **ARIA Attributes**: Proper ARIA implementation
+  - `aria-label` for primary button (configurable)
+  - `aria-label` for dropdown trigger ("More options" by default)
+  - `aria-haspopup="menu"` on dropdown trigger
+  - `aria-expanded` for menu state (true/false)
+- **Screen Reader Support**: Both buttons properly labeled for assistive technology
+- **Focus Management**: Visible focus indicators and logical tab order
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `ariaLabel` | ARIA Label | Accessible label for primary button | Falls back to button text |
+| `dropdownAriaLabel` | Dropdown ARIA Label | Accessible label for dropdown trigger | "More options" |
+
 ## Properties
 
 ### Content Properties

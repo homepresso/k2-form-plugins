@@ -7,6 +7,24 @@ Material 3 Design segmented button for selecting from a set of options.
 <material-segmented-button>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support for segment selection
+  - Arrow keys (Left/Right/Up/Down) to navigate between segments
+  - Home key to jump to first segment
+  - End key to jump to last segment
+  - Circular wrapping for seamless navigation
+- **ARIA Attributes**: Proper ARIA implementation
+  - `role="group"` on container
+  - `aria-pressed` on each segment to indicate selected state
+  - Accessible names for all segments
+- **Screen Reader Support**: Selection state properly announced
+- **Focus Management**: Visible focus indicators and logical focus order
+
 ## Properties
 
 ### Data Properties

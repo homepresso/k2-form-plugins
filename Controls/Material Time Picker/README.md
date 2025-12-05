@@ -7,6 +7,13 @@ Material 3 Design time picker with clock dial interface.
 <material-time-picker>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features with proper ARIA attributes, keyboard navigation, and screen reader support.
+
+
 ## Properties
 
 ### Value Properties

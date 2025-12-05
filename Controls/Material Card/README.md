@@ -7,6 +7,26 @@ Material 3 Design card for displaying content with media, header, and actions.
 <material-card>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support for clickable cards (Enter and Space keys)
+- **ARIA Attributes**: Proper ARIA implementation for interactive cards
+  - `role="button"` for clickable cards
+  - `aria-label` for accessible card names (configurable)
+  - `tabindex="0"` for keyboard accessibility
+- **Screen Reader Support**: Clickable cards properly labeled for assistive technology
+- **Focus Management**: Visible focus indicators for interactive cards
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `ariaLabel` | ARIA Label | Accessible label for clickable cards (WCAG required for clickable) | Falls back to headline or "Card" |
+
 ## Properties
 
 ### Content Properties

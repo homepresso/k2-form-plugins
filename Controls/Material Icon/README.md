@@ -7,6 +7,26 @@ Displays a Material Design icon with customizable icon name, size, and color.
 <material-icon>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Smart ARIA Handling**: Automatically adapts based on usage context
+  - **Decorative icons** (non-clickable, no label): `aria-hidden="true"` to hide from screen readers
+  - **Interactive icons** (clickable): `aria-label`, `role="button"`, keyboard support
+  - **Labeled icons**: `aria-label` with `role="img"` for semantic meaning
+- **Keyboard Navigation**: Enter and Space key support for clickable icons
+- **Screen Reader Support**: Proper labeling based on icon purpose
+- **Focus Management**: Visible focus indicators for interactive icons
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `ariaLabel` | ARIA Label | Accessible label for interactive or semantic icons (WCAG required for clickable icons) | Falls back to tooltip or icon name |
+
 ## Properties
 
 ### Icon Properties

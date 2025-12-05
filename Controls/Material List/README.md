@@ -7,6 +7,22 @@ Material 3 Design list for displaying items with icons and avatars. Supports che
 <material-list>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support with arrow keys, Enter, and Space
+- **ARIA Attributes**: Complete ARIA listbox pattern implementation
+  - `role="listbox"` on list container
+  - `role="option"` on list items
+  - `aria-selected` for selected items
+  - `aria-checked` for checkbox items
+  - `aria-label` for checkboxes and icons
+- **Screen Reader Support**: All elements properly labeled for assistive technology
+- **Focus Management**: Visible focus indicators and logical focus order
+
 ## K2 SmartObject Data Binding
 
 This control supports K2 SmartObject data binding through the `List Data` property (type: `listdata`).

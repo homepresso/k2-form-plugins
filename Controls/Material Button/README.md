@@ -7,6 +7,29 @@ A Material 3 Design button with multiple variants, icons, and ripple effect.
 <material-button>
 ```
 
+## WCAG Compliance
+
+✅ **WCAG 2.1 Level AA Compliant**
+
+This control implements comprehensive accessibility features:
+
+- **Keyboard Navigation**: Full keyboard support with Enter and Space keys
+- **ARIA Attributes**: Proper ARIA implementation
+  - `aria-label` for icon-only buttons (configurable)
+  - `aria-pressed` for toggle buttons
+  - Accessible names for all button states
+- **Screen Reader Support**: Icon-only buttons properly labeled for assistive technology
+- **Focus Management**: Visible focus indicators with outline
+- **Toggle State**: Proper state communication for toggle mode
+
+### New Accessibility Properties
+
+| Property | Friendly Name | Description | Default |
+|----------|--------------|-------------|---------|
+| `ariaLabel` | ARIA Label | Accessible label for icon-only buttons (WCAG required for icon-only) | Falls back to text or icon |
+| `toggleMode` | Toggle Mode | Enable toggle button behavior with aria-pressed | `false` |
+| `pressed` | Pressed | Whether the toggle button is in pressed state | `false` |
+
 ## Properties
 
 ### Content Properties

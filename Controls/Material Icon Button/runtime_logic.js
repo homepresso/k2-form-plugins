@@ -145,12 +145,10 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
           this._button.style.setProperty('--mib-outline', this._outlineColor);
           this._button.style.setProperty('--mib-surface-variant', this._surfaceVariantColor);
           this._button.style.setProperty('--mib-selected-icon-color', this._selectedIconColor);
-          if (this._containerColor) {
-            this._button.style.setProperty('--mib-container', this._containerColor);
-          }
-          if (this._selectedContainerColor) {
-            this._button.style.setProperty('--mib-selected-container', this._selectedContainerColor);
-          }
+
+          // Always apply container colors (they have CSS fallbacks, but user can override)
+          this._button.style.setProperty('--mib-container', this._containerColor || '');
+          this._button.style.setProperty('--mib-selected-container', this._selectedContainerColor || '');
 
           // Apply font styles to icon
           const iconEl = this._button.querySelector('.mib-icon');
