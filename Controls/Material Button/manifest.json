@@ -40,6 +40,36 @@
       "changesdisplay": true
     },
     {
+      "id": "ariaLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "ARIA Label",
+      "description": "Accessible label for screen readers (required for icon-only buttons). Defaults to button text.",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "toggleMode",
+      "refreshdisplay": "true",
+      "friendlyname": "Toggle Mode",
+      "description": "Enable toggle button behavior (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "pressed",
+      "refreshdisplay": "true",
+      "friendlyname": "Pressed",
+      "description": "Toggle button pressed state (true/false)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
       "id": "variant",
       "refreshdisplay": "true",
       "friendlyname": "Variant",

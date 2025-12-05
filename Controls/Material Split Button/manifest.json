@@ -44,6 +44,26 @@
       "changesdisplay": true
     },
     {
+      "id": "ariaLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "ARIA Label",
+      "description": "Accessible label for primary button (defaults to button text)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "dropdownAriaLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "Dropdown ARIA Label",
+      "description": "Accessible label for dropdown trigger (defaults to 'More options')",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
       "id": "leadingIcon",
       "refreshdisplay": "true",
       "friendlyname": "Leading Icon",

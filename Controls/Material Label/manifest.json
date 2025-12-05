@@ -40,6 +40,16 @@
       "changesdisplay": true
     },
     {
+      "id": "labelFor",
+      "refreshdisplay": "false",
+      "friendlyname": "Label For (Control ID)",
+      "description": "ID of the form control this label is associated with (for WCAG compliance)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
       "id": "fontSize",
       "refreshdisplay": "true",
       "friendlyname": "Font Size",

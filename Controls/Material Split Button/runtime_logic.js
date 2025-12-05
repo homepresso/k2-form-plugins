@@ -46,6 +46,8 @@ if (!window.__materialsplitbuttonRuntimeLoaded) {
 
         // Properties
         this._text = 'Save';
+        this._ariaLabel = '';
+        this._dropdownAriaLabel = '';
         this._leadingIcon = '';
         this._variant = 'filled'; // filled, outlined, tonal
         this._menuItems = 'Save as Draft|Save and Close|Save and New';
@@ -146,6 +148,12 @@ if (!window.__materialsplitbuttonRuntimeLoaded) {
         this._primaryBtn.className = 'msb-primary';
         this._primaryBtn.type = 'button';
 
+        // WCAG: Add accessible label to primary button
+        const primaryLabel = this._ariaLabel || this._text;
+        if (primaryLabel) {
+          this._primaryBtn.setAttribute('aria-label', primaryLabel);
+        }
+
         if (this._leadingIcon) {
           const iconEl = document.createElement('span');
           iconEl.className = 'msb-icon material-icons';
@@ -175,6 +183,12 @@ if (!window.__materialsplitbuttonRuntimeLoaded) {
         this._dropdownBtn = document.createElement('button');
         this._dropdownBtn.className = 'msb-dropdown';
         this._dropdownBtn.type = 'button';
+
+        // WCAG: Add ARIA attributes for dropdown menu
+        const dropdownLabel = this._dropdownAriaLabel || 'More options';
+        this._dropdownBtn.setAttribute('aria-label', dropdownLabel);
+        this._dropdownBtn.setAttribute('aria-haspopup', 'menu');
+        this._dropdownBtn.setAttribute('aria-expanded', this._isOpen ? 'true' : 'false');
 
         const arrowEl = document.createElement('span');
         arrowEl.className = 'msb-arrow material-icons';
@@ -308,6 +322,16 @@ if (!window.__materialsplitbuttonRuntimeLoaded) {
           }
         });
 
+        // WCAG: Keyboard navigation - Escape to close menu
+        this._dropdownBtn.addEventListener('keydown', (e) => {
+          if (!this._isEnabled) return;
+          if (e.key === 'Escape' && this._isOpen) {
+            e.preventDefault();
+            this.close();
+            this._dropdownBtn.focus(); // Return focus to dropdown button
+          }
+        });
+
         // Click outside to close
         document.addEventListener('click', this._handleClickOutside);
       }
@@ -391,6 +415,9 @@ if (!window.__materialsplitbuttonRuntimeLoaded) {
 
         this._container.classList.toggle('msb-open', this._isOpen);
 
+        // Update ARIA expanded state
+        this._dropdownBtn.setAttribute('aria-expanded', this._isOpen ? 'true' : 'false');
+
         // Rotate arrow
         const arrow = this._dropdownBtn.querySelector('.msb-arrow');
         if (arrow) {
@@ -454,6 +481,30 @@ if (!window.__materialsplitbuttonRuntimeLoaded) {
       }
       get Text() { return this.text; }
       set Text(v) { this.text = v; }
+
+      get ariaLabel() { return this._ariaLabel; }
+      set ariaLabel(v) {
+        this._ariaLabel = v || '';
+        if (this._primaryBtn) {
+          const label = this._ariaLabel || this._text;
+          this._primaryBtn.setAttribute('aria-label', label);
+        }
+        safeRaisePropertyChanged(this, 'ariaLabel');
+      }
+      get AriaLabel() { return this.ariaLabel; }
+      set AriaLabel(v) { this.ariaLabel = v; }
+
+      get dropdownAriaLabel() { return this._dropdownAriaLabel; }
+      set dropdownAriaLabel(v) {
+        this._dropdownAriaLabel = v || '';
+        if (this._dropdownBtn) {
+          const label = this._dropdownAriaLabel || 'More options';
+          this._dropdownBtn.setAttribute('aria-label', label);
+        }
+        safeRaisePropertyChanged(this, 'dropdownAriaLabel');
+      }
+      get DropdownAriaLabel() { return this.dropdownAriaLabel; }
+      set DropdownAriaLabel(v) { this.dropdownAriaLabel = v; }
 
       get leadingIcon() { return this._leadingIcon; }
       set leadingIcon(v) {

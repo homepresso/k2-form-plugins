@@ -75,6 +75,7 @@ if (!window.__materialiconRuntimeLoaded) {
         this._iconStyle = 'filled';
         this._clickable = false;
         this._tooltip = '';
+        this._ariaLabel = '';
         this._isVisible = true;
         this._isEnabled = true;
 
@@ -102,6 +103,22 @@ if (!window.__materialiconRuntimeLoaded) {
         this._iconSpan = document.createElement('span');
         this._iconSpan.className = this._getFontClass();
         this._iconSpan.textContent = this._iconName;
+
+        // WCAG: Add appropriate ARIA attributes
+        if (this._clickable) {
+          // Interactive icon - needs aria-label
+          const label = this._ariaLabel || this._tooltip || this._iconName;
+          this.setAttribute('aria-label', label);
+          this.setAttribute('role', 'button');
+          this.setAttribute('tabindex', this._isEnabled ? '0' : '-1');
+        } else if (!this._ariaLabel) {
+          // Decorative icon - hide from screen readers
+          this.setAttribute('aria-hidden', 'true');
+        } else {
+          // Has aria-label but not clickable - use img role
+          this.setAttribute('aria-label', this._ariaLabel);
+          this.setAttribute('role', 'img');
+        }
 
         this.appendChild(this._iconSpan);
         this._applyStyles();
@@ -260,6 +277,28 @@ if (!window.__materialiconRuntimeLoaded) {
       }
       get Tooltip() { return this.tooltip; }
       set Tooltip(v) { this.tooltip = v; }
+
+      get ariaLabel() { return this._ariaLabel; }
+      set ariaLabel(v) {
+        this._ariaLabel = v || '';
+        if (this._hasRendered) {
+          if (this._clickable) {
+            const label = this._ariaLabel || this._tooltip || this._iconName;
+            this.setAttribute('aria-label', label);
+          } else if (!this._ariaLabel) {
+            this.setAttribute('aria-hidden', 'true');
+            this.removeAttribute('aria-label');
+            this.removeAttribute('role');
+          } else {
+            this.setAttribute('aria-label', this._ariaLabel);
+            this.setAttribute('role', 'img');
+            this.removeAttribute('aria-hidden');
+          }
+        }
+        safeRaisePropertyChanged(this, 'ariaLabel');
+      }
+      get AriaLabel() { return this.ariaLabel; }
+      set AriaLabel(v) { this.ariaLabel = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

@@ -155,6 +155,9 @@ if (!window.__materialsegmentedbuttonRuntimeLoaded) {
             button.classList.add('mseg-selected');
           }
 
+          // WCAG: Add aria-pressed to indicate selected state
+          button.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+
           // Position classes
           if (index === 0) {
             button.classList.add('mseg-first');
@@ -237,12 +240,44 @@ if (!window.__materialsegmentedbuttonRuntimeLoaded) {
 
       _bindEvents() {
         const buttons = this._container.querySelectorAll('.mseg-segment');
-        buttons.forEach(button => {
+        buttons.forEach((button, index) => {
           button.addEventListener('click', (e) => {
             if (!this._isEnabled) return;
 
             const value = button.getAttribute('data-value');
             this._selectSegment(value);
+          });
+
+          // WCAG: Add keyboard navigation
+          button.addEventListener('keydown', (e) => {
+            if (!this._isEnabled) return;
+
+            let targetIndex = -1;
+
+            switch (e.key) {
+              case 'ArrowLeft':
+              case 'ArrowUp':
+                e.preventDefault();
+                targetIndex = index > 0 ? index - 1 : buttons.length - 1;
+                break;
+              case 'ArrowRight':
+              case 'ArrowDown':
+                e.preventDefault();
+                targetIndex = index < buttons.length - 1 ? index + 1 : 0;
+                break;
+              case 'Home':
+                e.preventDefault();
+                targetIndex = 0;
+                break;
+              case 'End':
+                e.preventDefault();
+                targetIndex = buttons.length - 1;
+                break;
+            }
+
+            if (targetIndex !== -1) {
+              buttons[targetIndex].focus();
+            }
           });
         });
       }
@@ -281,6 +316,7 @@ if (!window.__materialsegmentedbuttonRuntimeLoaded) {
             : this._value === value;
 
           button.classList.toggle('mseg-selected', isSelected);
+          button.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
 
           // Update content (checkmark visibility)
           const content = button.querySelector('.mseg-content');

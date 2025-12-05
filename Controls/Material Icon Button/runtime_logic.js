@@ -51,6 +51,7 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
         this._selected = false;
         this._selectedIcon = '';
         this._tooltip = '';
+        this._ariaLabel = '';
         this._primaryColor = '#6750A4';
         this._iconColor = '#49454F';
         this._containerColor = '';
@@ -92,8 +93,19 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
         this._button.className = `mib-button mib-${this._variant} mib-${this._size}`;
         this._button.type = 'button';
 
+        // WCAG 2.4.4: Icon buttons must have accessible names
+        const accessibleLabel = this._ariaLabel || this._tooltip || this._icon;
+        if (accessibleLabel) {
+          this._button.setAttribute('aria-label', accessibleLabel);
+        }
+
         if (this._tooltip) {
           this._button.title = this._tooltip;
+        }
+
+        // WCAG: Add aria-pressed for toggle buttons
+        if (this._toggle) {
+          this._button.setAttribute('aria-pressed', this._selected ? 'true' : 'false');
         }
 
         if (this._toggle && this._selected) {
@@ -161,6 +173,9 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
           if (this._toggle) {
             this._selected = !this._selected;
             this._button.classList.toggle('mib-selected', this._selected);
+
+            // Update ARIA pressed state
+            this._button.setAttribute('aria-pressed', this._selected ? 'true' : 'false');
 
             // Update icon
             const iconEl = this._button.querySelector('.mib-icon');
@@ -261,6 +276,9 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
         this._selected = (v === true || v === 'true');
         if (this._hasRendered) {
           this._button?.classList.toggle('mib-selected', this._selected);
+          if (this._toggle && this._button) {
+            this._button.setAttribute('aria-pressed', this._selected ? 'true' : 'false');
+          }
           const iconEl = this._button?.querySelector('.mib-icon');
           if (iconEl) {
             iconEl.textContent = (this._selected && this._selectedIcon)
@@ -289,6 +307,18 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       }
       get Tooltip() { return this.tooltip; }
       set Tooltip(v) { this.tooltip = v; }
+
+      get ariaLabel() { return this._ariaLabel; }
+      set ariaLabel(v) {
+        this._ariaLabel = v || '';
+        if (this._button) {
+          const accessibleLabel = this._ariaLabel || this._tooltip || this._icon;
+          this._button.setAttribute('aria-label', accessibleLabel);
+        }
+        safeRaisePropertyChanged(this, 'ariaLabel');
+      }
+      get AriaLabel() { return this.ariaLabel; }
+      set AriaLabel(v) { this.ariaLabel = v; }
 
       get primaryColor() { return this._primaryColor; }
       set primaryColor(v) {

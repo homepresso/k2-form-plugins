@@ -57,6 +57,7 @@ if (!window.__materialcardRuntimeLoaded) {
         this._secondaryAction = '';
         this._showDivider = false;
         this._clickable = false;
+        this._ariaLabel = '';
 
         // Color properties
         this._primaryColor = '#6750A4';
@@ -107,6 +108,10 @@ if (!window.__materialcardRuntimeLoaded) {
           this._container.classList.add('mcd-clickable');
           this._container.setAttribute('role', 'button');
           this._container.setAttribute('tabindex', '0');
+
+          // WCAG 2.4.4: Clickable cards must have accessible names
+          const accessibleLabel = this._ariaLabel || this._headline || 'Card';
+          this._container.setAttribute('aria-label', accessibleLabel);
         }
 
         // Media (top position)
@@ -449,6 +454,18 @@ if (!window.__materialcardRuntimeLoaded) {
       }
       get Clickable() { return this.clickable; }
       set Clickable(v) { this.clickable = v; }
+
+      get ariaLabel() { return this._ariaLabel; }
+      set ariaLabel(v) {
+        this._ariaLabel = v || '';
+        if (this._hasRendered && this._clickable && this._container) {
+          const accessibleLabel = this._ariaLabel || this._headline || 'Card';
+          this._container.setAttribute('aria-label', accessibleLabel);
+        }
+        safeRaisePropertyChanged(this, 'ariaLabel');
+      }
+      get AriaLabel() { return this.ariaLabel; }
+      set AriaLabel(v) { this.ariaLabel = v; }
 
       // Color properties
       get primaryColor() { return this._primaryColor; }

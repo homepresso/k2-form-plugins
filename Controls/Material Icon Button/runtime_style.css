@@ -83,15 +83,15 @@ material-icon-button {
 }
 
 .mib-standard:hover .mib-state-layer {
-  background: rgba(73, 69, 79, 0.08);
+  background: color-mix(in srgb, var(--mib-icon-color) 8%, transparent);
 }
 
 .mib-standard:focus-visible .mib-state-layer {
-  background: rgba(73, 69, 79, 0.12);
+  background: color-mix(in srgb, var(--mib-icon-color) 12%, transparent);
 }
 
 .mib-standard:active .mib-state-layer {
-  background: rgba(73, 69, 79, 0.12);
+  background: color-mix(in srgb, var(--mib-icon-color) 12%, transparent);
 }
 
 .mib-standard.mib-selected .mib-icon {
@@ -99,7 +99,7 @@ material-icon-button {
 }
 
 .mib-standard.mib-selected:hover .mib-state-layer {
-  background: rgba(103, 80, 164, 0.08);
+  background: color-mix(in srgb, var(--mib-primary) 8%, transparent);
 }
 
 /* FILLED VARIANT */
@@ -133,7 +133,7 @@ material-icon-button {
 }
 
 .mib-filled:not(.mib-selected):hover .mib-state-layer {
-  background: rgba(103, 80, 164, 0.08);
+  background: color-mix(in srgb, var(--mib-primary) 8%, transparent);
 }
 
 /* TONAL VARIANT */
@@ -146,11 +146,11 @@ material-icon-button {
 }
 
 .mib-tonal:hover .mib-state-layer {
-  background: rgba(73, 69, 79, 0.08);
+  background: color-mix(in srgb, var(--mib-icon-color) 8%, transparent);
 }
 
 .mib-tonal:focus-visible .mib-state-layer {
-  background: rgba(73, 69, 79, 0.12);
+  background: color-mix(in srgb, var(--mib-icon-color) 12%, transparent);
 }
 
 .mib-tonal.mib-selected {
@@ -176,11 +176,11 @@ material-icon-button {
 }
 
 .mib-outlined:hover .mib-state-layer {
-  background: rgba(73, 69, 79, 0.08);
+  background: color-mix(in srgb, var(--mib-icon-color) 8%, transparent);
 }
 
 .mib-outlined:focus-visible .mib-state-layer {
-  background: rgba(73, 69, 79, 0.12);
+  background: color-mix(in srgb, var(--mib-icon-color) 12%, transparent);
 }
 
 .mib-outlined.mib-selected {
@@ -211,7 +211,7 @@ material-icon-button {
 .mib-ripple-effect {
   position: absolute;
   border-radius: 50%;
-  background: rgba(103, 80, 164, 0.2);
+  background: color-mix(in srgb, var(--mib-primary) 20%, transparent);
   transform: scale(0);
   animation: mib-ripple-animation 0.5s ease-out;
   pointer-events: none;

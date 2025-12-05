@@ -98,6 +98,16 @@
       "inputlength": "255",
       "initialvalue": "",
       "changesdisplay": true
+    },
+    {
+      "id": "ariaLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "ARIA Label",
+      "description": "Accessible label for screen readers (required for interactive icons). Leave empty for decorative icons.",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
     }
   ],
   "methods": []

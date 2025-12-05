@@ -71,6 +71,7 @@ if (!window.__materialtextboxRuntimeLoaded) {
         this._labelFontWeight = 'normal';
         this._labelFontStyle = 'normal';
         this._required = false;
+        this._ariaLabel = '';
         this._pattern = '';
         this._autocomplete = 'off';
         this._fontFamily = 'Roboto, sans-serif';
@@ -134,14 +135,23 @@ if (!window.__materialtextboxRuntimeLoaded) {
         this._input.readOnly = this._isReadOnly;
         this._input.disabled = !this._isEnabled;
 
+        // WCAG: Add accessible label
+        const accessibleLabel = this._ariaLabel || this._label;
+        if (accessibleLabel) {
+          this._input.setAttribute('aria-label', accessibleLabel);
+        }
+
+        // WCAG: Add aria-required when field is required
+        if (this._required) {
+          this._input.required = true;
+          this._input.setAttribute('aria-required', 'true');
+        }
+
         if (this._maxLength > 0) {
           this._input.maxLength = this._maxLength;
         }
         if (this._pattern) {
           this._input.pattern = this._pattern;
-        }
-        if (this._required) {
-          this._input.required = true;
         }
 
         inputWrapper.appendChild(this._input);
@@ -183,6 +193,16 @@ if (!window.__materialtextboxRuntimeLoaded) {
         this._helperEl = document.createElement('span');
         this._helperEl.className = 'mtb-helper-text';
         this._helperEl.textContent = this._hasError ? this._errorText : this._helperText;
+
+        // WCAG: Add unique ID for aria-describedby
+        const helperId = `mtb-helper-${Math.random().toString(36).substr(2, 9)}`;
+        this._helperEl.id = helperId;
+
+        // WCAG: Link input to helper text with aria-describedby
+        if (this._helperText || this._errorText) {
+          this._input.setAttribute('aria-describedby', helperId);
+        }
+
         supportingWrapper.appendChild(this._helperEl);
 
         if (this._showCharCount) {
@@ -295,9 +315,13 @@ if (!window.__materialtextboxRuntimeLoaded) {
         if (this._hasError) {
           this._container.classList.add('mtb-error');
           this._helperEl.textContent = this._errorText || this._helperText;
+          // WCAG: Add aria-invalid for error state
+          this._input.setAttribute('aria-invalid', 'true');
         } else {
           this._container.classList.remove('mtb-error');
           this._helperEl.textContent = this._helperText;
+          // WCAG: Remove aria-invalid when no error
+          this._input.setAttribute('aria-invalid', 'false');
         }
 
         // Disabled state
@@ -637,12 +661,34 @@ if (!window.__materialtextboxRuntimeLoaded) {
       get required() { return this._required; }
       set required(v) {
         this._required = (v === true || v === 'true');
-        if (this._input) this._input.required = this._required;
+        if (this._input) {
+          this._input.required = this._required;
+          // WCAG: Update aria-required
+          if (this._required) {
+            this._input.setAttribute('aria-required', 'true');
+          } else {
+            this._input.removeAttribute('aria-required');
+          }
+        }
         this._updateLabel();
         safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
+
+      get ariaLabel() { return this._ariaLabel; }
+      set ariaLabel(v) {
+        this._ariaLabel = v || '';
+        if (this._input) {
+          const accessibleLabel = this._ariaLabel || this._label;
+          if (accessibleLabel) {
+            this._input.setAttribute('aria-label', accessibleLabel);
+          }
+        }
+        safeRaisePropertyChanged(this, 'ariaLabel');
+      }
+      get AriaLabel() { return this.ariaLabel; }
+      set AriaLabel(v) { this.ariaLabel = v; }
 
       get pattern() { return this._pattern; }
       set pattern(v) {

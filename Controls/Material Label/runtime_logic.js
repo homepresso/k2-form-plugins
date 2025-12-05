@@ -45,6 +45,7 @@ if (!window.__materiallabelRuntimeLoaded) {
 
         // Properties
         this._value = 'Label';
+        this._labelFor = '';
         this._fontSize = 16;
         this._fontWeight = 'normal';
         this._fontStyle = 'normal';
@@ -93,9 +94,15 @@ if (!window.__materiallabelRuntimeLoaded) {
       }
 
       _buildContent() {
-        // Create container for flex layout
-        this._container = document.createElement('div');
+        // WCAG: Use semantic <label> element when labelFor is set
+        const tagName = this._labelFor ? 'label' : 'div';
+        this._container = document.createElement(tagName);
         this._container.className = 'mlb-container';
+
+        // WCAG: Add for attribute if labelFor is set
+        if (this._labelFor) {
+          this._container.setAttribute('for', this._labelFor);
+        }
 
         // Leading icon
         if (this._leadingIcon) {
@@ -245,6 +252,18 @@ if (!window.__materiallabelRuntimeLoaded) {
         }
         safeRaisePropertyChanged(this, 'Value');
       }
+
+      get labelFor() { return this._labelFor; }
+      set labelFor(v) {
+        this._labelFor = v || '';
+        // If labelFor changes, need to re-render to switch between label/div
+        if (this._hasRendered) {
+          this._render();
+        }
+        safeRaisePropertyChanged(this, 'labelFor');
+      }
+      get LabelFor() { return this.labelFor; }
+      set LabelFor(v) { this.labelFor = v; }
 
       get fontSize() { return this._fontSize; }
       set fontSize(v) {

@@ -168,6 +168,16 @@
       "changesdisplay": true
     },
     {
+      "id": "ariaLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "ARIA Label",
+      "description": "Accessible label for clickable cards (required for WCAG compliance when clickable). Defaults to headline text.",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
       "id": "primaryColor",
       "refreshdisplay": "true",
       "friendlyname": "Primary Color",

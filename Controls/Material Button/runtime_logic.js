@@ -45,6 +45,9 @@ if (!window.__materialButtonRuntimeLoaded) {
 
         // Properties
         this._text = 'Button';
+        this._ariaLabel = '';
+        this._toggleMode = false;
+        this._pressed = false;
         this._variant = 'filled';
         this._leadingIcon = '';
         this._trailingIcon = '';
@@ -93,6 +96,17 @@ if (!window.__materialButtonRuntimeLoaded) {
         this._button = document.createElement('button');
         this._button.className = `mbtn mbtn-${this._variant} mbtn-${this._size}`;
         this._button.type = 'button';
+
+        // WCAG: Add aria-label (required for icon-only buttons)
+        const accessibleLabel = this._ariaLabel || (this._iconOnly ? this._leadingIcon || this._text : null);
+        if (accessibleLabel) {
+          this._button.setAttribute('aria-label', accessibleLabel);
+        }
+
+        // WCAG: Add aria-pressed for toggle buttons
+        if (this._toggleMode) {
+          this._button.setAttribute('aria-pressed', this._pressed ? 'true' : 'false');
+        }
 
         if (this._iconOnly) {
           this._button.classList.add('mbtn-icon-only');
@@ -224,9 +238,17 @@ if (!window.__materialButtonRuntimeLoaded) {
             this._createRipple(e);
           }
 
+          // Handle toggle mode
+          if (this._toggleMode) {
+            this._pressed = !this._pressed;
+            this._button.setAttribute('aria-pressed', this._pressed ? 'true' : 'false');
+            this._button.classList.toggle('mbtn-pressed', this._pressed);
+            safeRaisePropertyChanged(this, 'pressed');
+          }
+
           this.dispatchEvent(new CustomEvent('Clicked', {
             bubbles: true,
-            detail: { text: this._text }
+            detail: { text: this._text, pressed: this._pressed }
           }));
         });
       }
@@ -291,6 +313,49 @@ if (!window.__materialButtonRuntimeLoaded) {
       }
       get Text() { return this.text; }
       set Text(v) { this.text = v; }
+
+      get ariaLabel() { return this._ariaLabel; }
+      set ariaLabel(v) {
+        this._ariaLabel = v || '';
+        if (this._button) {
+          const label = this._ariaLabel || (this._iconOnly ? this._leadingIcon || this._text : null);
+          if (label) {
+            this._button.setAttribute('aria-label', label);
+          } else {
+            this._button.removeAttribute('aria-label');
+          }
+        }
+        safeRaisePropertyChanged(this, 'ariaLabel');
+      }
+      get AriaLabel() { return this.ariaLabel; }
+      set AriaLabel(v) { this.ariaLabel = v; }
+
+      get toggleMode() { return this._toggleMode; }
+      set toggleMode(v) {
+        this._toggleMode = (v === true || v === 'true');
+        if (this._button) {
+          if (this._toggleMode) {
+            this._button.setAttribute('aria-pressed', this._pressed ? 'true' : 'false');
+          } else {
+            this._button.removeAttribute('aria-pressed');
+          }
+        }
+        safeRaisePropertyChanged(this, 'toggleMode');
+      }
+      get ToggleMode() { return this.toggleMode; }
+      set ToggleMode(v) { this.toggleMode = v; }
+
+      get pressed() { return this._pressed; }
+      set pressed(v) {
+        this._pressed = (v === true || v === 'true');
+        if (this._button && this._toggleMode) {
+          this._button.setAttribute('aria-pressed', this._pressed ? 'true' : 'false');
+          this._button.classList.toggle('mbtn-pressed', this._pressed);
+        }
+        safeRaisePropertyChanged(this, 'pressed');
+      }
+      get Pressed() { return this.pressed; }
+      set Pressed(v) { this.pressed = v; }
 
       get variant() { return this._variant; }
       set variant(v) {

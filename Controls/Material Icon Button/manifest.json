@@ -98,6 +98,16 @@
       "changesdisplay": true
     },
     {
+      "id": "ariaLabel",
+      "refreshdisplay": "false",
+      "friendlyname": "ARIA Label",
+      "description": "Accessible label for screen readers (required for WCAG compliance). If empty, defaults to icon name.",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
       "id": "primaryColor",
       "refreshdisplay": "true",
       "friendlyname": "Primary Color",

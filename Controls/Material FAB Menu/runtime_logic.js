@@ -52,6 +52,7 @@ if (!window.__materialfabmenuRuntimeLoaded) {
         this._menuItems = 'edit:Edit|delete:Delete|share:Share';
         this._delimiter = '|';
         this._label = '';
+        this._ariaLabel = '';
         this._extended = false;
         this._primaryColor = '#6750A4';
         this._containerColor = '';
@@ -144,6 +145,16 @@ if (!window.__materialfabmenuRuntimeLoaded) {
         this._fab.className = `mfab-button mfab-${this._size} mfab-${this._variant}`;
         this._fab.type = 'button';
 
+        // WCAG: Add accessible name and state
+        const accessibleLabel = this._ariaLabel || this._label || 'Menu';
+        this._fab.setAttribute('aria-label', accessibleLabel);
+
+        // Add aria-expanded if there are menu items
+        if (this._parsedItems.length > 0) {
+          this._fab.setAttribute('aria-haspopup', 'menu');
+          this._fab.setAttribute('aria-expanded', this._isOpen ? 'true' : 'false');
+        }
+
         if (this._extended && this._label) {
           this._fab.classList.add('mfab-extended');
         }
@@ -185,6 +196,9 @@ if (!window.__materialfabmenuRuntimeLoaded) {
           const miniFab = document.createElement('button');
           miniFab.className = 'mfab-mini';
           miniFab.type = 'button';
+
+          // WCAG: Add accessible label to menu item buttons
+          miniFab.setAttribute('aria-label', item.label);
 
           const iconEl = document.createElement('span');
           iconEl.className = 'mfab-mini-icon material-icons';
@@ -286,6 +300,16 @@ if (!window.__materialfabmenuRuntimeLoaded) {
           }
         });
 
+        // WCAG: Keyboard navigation - Escape to close menu
+        this._fab.addEventListener('keydown', (e) => {
+          if (!this._isEnabled) return;
+          if (e.key === 'Escape' && this._isOpen) {
+            e.preventDefault();
+            this.close();
+            this._fab.focus(); // Return focus to FAB
+          }
+        });
+
         // Click outside to close
         document.addEventListener('click', this._handleClickOutside);
       }
@@ -308,6 +332,11 @@ if (!window.__materialfabmenuRuntimeLoaded) {
         }
 
         this._container.classList.toggle('mfab-open', this._isOpen);
+
+        // Update ARIA expanded state
+        if (this._parsedItems.length > 0) {
+          this._fab.setAttribute('aria-expanded', this._isOpen ? 'true' : 'false');
+        }
 
         // Update icon
         const iconEl = this._fab.querySelector('.mfab-icon');
@@ -416,6 +445,18 @@ if (!window.__materialfabmenuRuntimeLoaded) {
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
+
+      get ariaLabel() { return this._ariaLabel; }
+      set ariaLabel(v) {
+        this._ariaLabel = v || '';
+        if (this._fab) {
+          const accessibleLabel = this._ariaLabel || this._label || 'Menu';
+          this._fab.setAttribute('aria-label', accessibleLabel);
+        }
+        safeRaisePropertyChanged(this, 'ariaLabel');
+      }
+      get AriaLabel() { return this.ariaLabel; }
+      set AriaLabel(v) { this.ariaLabel = v; }
 
       get extended() { return this._extended; }
       set extended(v) {
