@@ -1,3 +1,6 @@
+if (!window.__materialcardRuntimeLoaded) {
+  window.__materialcardRuntimeLoaded = true;
+
 /**
  * Material Card Control for K2 SmartForms
  * Material 3 Design card for displaying content in a contained format
@@ -606,3 +609,5 @@
     });
   }
 })();
+
+}

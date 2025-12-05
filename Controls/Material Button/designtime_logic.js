@@ -1,19 +1,9 @@
 /**
- * Material Button Control for K2 SmartForms
+ * Material Button Control for K2 SmartForms - Design Time
  * Material 3 Design with variants, icons, and ripple effect
  */
-(function() {
+(() => {
   'use strict';
-
-  if (typeof window.K2 === "undefined") {
-    window.K2 = {};
-  }
-
-  function safeRaisePropertyChanged(ctrl, prop) {
-    if (window.K2?.RaisePropertyChanged) {
-      K2.RaisePropertyChanged(ctrl, prop);
-    }
-  }
 
   // Load Material Icons
   function loadMaterialIcons() {
@@ -34,7 +24,7 @@
   }
 
   if (!window.customElements.get('material-button')) {
-    window.customElements.define('material-button', class MaterialButton extends HTMLElement {
+    window.customElements.define('material-button', class MaterialButtonDesign extends HTMLElement {
 
       constructor() {
         super();
@@ -69,21 +59,64 @@
         this._button = null;
       }
 
+      static get observedAttributes() {
+        return [
+          'text', 'variant', 'leadingicon', 'trailingicon', 'icononly',
+          'fullwidth', 'size', 'backgroundcolor', 'primarycolor', 'textcolor',
+          'outlinecolor', 'surfacecolor', 'iconcolor', 'hovercolor',
+          'disableripple', 'loading', 'tooltip', 'fontfamily', 'fontsize',
+          'fontweight', 'fontstyle', 'isvisible', 'isenabled'
+        ];
+      }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        if (oldValue === newValue) return;
+
+        const propertyMap = {
+          'text': 'text',
+          'variant': 'variant',
+          'leadingicon': 'leadingIcon',
+          'trailingicon': 'trailingIcon',
+          'icononly': 'iconOnly',
+          'fullwidth': 'fullWidth',
+          'size': 'size',
+          'backgroundcolor': 'backgroundColor',
+          'primarycolor': 'primaryColor',
+          'textcolor': 'textColor',
+          'outlinecolor': 'outlineColor',
+          'surfacecolor': 'surfaceColor',
+          'iconcolor': 'iconColor',
+          'hovercolor': 'hoverColor',
+          'disableripple': 'disableRipple',
+          'loading': 'loading',
+          'tooltip': 'tooltip',
+          'fontfamily': 'fontFamily',
+          'fontsize': 'fontSize',
+          'fontweight': 'fontWeight',
+          'fontstyle': 'fontStyle',
+          'isvisible': 'IsVisible',
+          'isenabled': 'IsEnabled'
+        };
+
+        const prop = propertyMap[name.toLowerCase()];
+        if (prop) {
+          this[prop] = newValue;
+        }
+      }
+
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
-        setTimeout(() => {
-          this._render();
-          this._hasRendered = true;
-        }, 0);
+        this._render();
+        this._hasRendered = true;
       }
 
       _render() {
         this.innerHTML = '';
         this._buildButton();
         this._applyStyles();
-        this._bindEvents();
       }
 
       _buildButton() {
@@ -135,7 +168,7 @@
           content += `<span class="mbtn-icon material-icons">${this._trailingIcon}</span>`;
         }
 
-        // Ripple container
+        // Ripple container (visual only in design-time)
         if (!this._disableRipple) {
           content += '<span class="mbtn-ripple"></span>';
         }
@@ -148,7 +181,8 @@
           display: ${this._isVisible ? 'inline-block' : 'none'};
           ${this._fullWidth ? 'width: 100%;' : ''}
           font-family: ${this._fontFamily};
-        `;
+        
+          pointer-events: none;`;
 
         if (this._button) {
           // Background color takes precedence for filled variant
@@ -182,6 +216,21 @@
           this._button.style.fontSize = `${this._fontSize}px`;
           this._button.style.fontWeight = this._fontWeight;
           this._button.style.fontStyle = this._fontStyle;
+
+          // Design-time state
+          if (!this._isEnabled || this._loading) {
+            this._button.disabled = true;
+            this._button.classList.add('mbtn-disabled');
+          } else {
+            this._button.disabled = true; // Design-time: always disabled
+            this._button.classList.remove('mbtn-disabled');
+          }
+
+          if (this._loading) {
+            this._button.classList.add('mbtn-loading');
+          } else {
+            this._button.classList.remove('mbtn-loading');
+          }
         }
       }
 
@@ -212,79 +261,11 @@
         } : null;
       }
 
-      _bindEvents() {
-        this._button.addEventListener('click', (e) => {
-          if (!this._isEnabled || this._loading) return;
-
-          // Trigger ripple effect
-          if (!this._disableRipple) {
-            this._createRipple(e);
-          }
-
-          this.dispatchEvent(new CustomEvent('Clicked', {
-            bubbles: true,
-            detail: { text: this._text }
-          }));
-        });
-      }
-
-      _createRipple(event) {
-        const rippleContainer = this._button.querySelector('.mbtn-ripple');
-        if (!rippleContainer) return;
-
-        const ripple = document.createElement('span');
-        ripple.className = 'mbtn-ripple-effect';
-
-        const rect = this._button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = event.clientX - rect.left - size / 2;
-        const y = event.clientY - rect.top - size / 2;
-
-        ripple.style.cssText = `
-          width: ${size}px;
-          height: ${size}px;
-          left: ${x}px;
-          top: ${y}px;
-        `;
-
-        rippleContainer.appendChild(ripple);
-
-        ripple.addEventListener('animationend', () => {
-          ripple.remove();
-        });
-      }
-
-      _updateState() {
-        if (!this._button) return;
-
-        if (!this._isEnabled) {
-          this._button.disabled = true;
-          this._button.classList.add('mbtn-disabled');
-        } else {
-          this._button.disabled = false;
-          this._button.classList.remove('mbtn-disabled');
-        }
-
-        if (this._loading) {
-          this._button.classList.add('mbtn-loading');
-        } else {
-          this._button.classList.remove('mbtn-loading');
-        }
-      }
-
-      // Public method
-      click() {
-        if (this._button && this._isEnabled && !this._loading) {
-          this._button.click();
-        }
-      }
-
-      // Properties
+      // Properties (design-time doesn't need RaisePropertyChanged)
       get text() { return this._text; }
       set text(v) {
         this._text = v || 'Button';
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'text');
+        if (this._hasRendered) this._updateContent();
       }
       get Text() { return this.text; }
       set Text(v) { this.text = v; }
@@ -294,7 +275,6 @@
         const valid = ['filled', 'outlined', 'text', 'elevated', 'tonal'];
         this._variant = valid.includes(v) ? v : 'filled';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -302,8 +282,7 @@
       get leadingIcon() { return this._leadingIcon; }
       set leadingIcon(v) {
         this._leadingIcon = v || '';
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'leadingIcon');
+        if (this._hasRendered) this._updateContent();
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -311,8 +290,7 @@
       get trailingIcon() { return this._trailingIcon; }
       set trailingIcon(v) {
         this._trailingIcon = v || '';
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'trailingIcon');
+        if (this._hasRendered) this._updateContent();
       }
       get TrailingIcon() { return this.trailingIcon; }
       set TrailingIcon(v) { this.trailingIcon = v; }
@@ -321,7 +299,6 @@
       set iconOnly(v) {
         this._iconOnly = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'iconOnly');
       }
       get IconOnly() { return this.iconOnly; }
       set IconOnly(v) { this.iconOnly = v; }
@@ -330,7 +307,6 @@
       set fullWidth(v) {
         this._fullWidth = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'fullWidth');
       }
       get FullWidth() { return this.fullWidth; }
       set FullWidth(v) { this.fullWidth = v; }
@@ -340,7 +316,6 @@
         const valid = ['small', 'medium', 'large'];
         this._size = valid.includes(v) ? v : 'medium';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'size');
       }
       get Size() { return this.size; }
       set Size(v) { this.size = v; }
@@ -349,7 +324,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -358,7 +332,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -367,7 +340,6 @@
       set textColor(v) {
         this._textColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -376,7 +348,6 @@
       set outlineColor(v) {
         this._outlineColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'outlineColor');
       }
       get OutlineColor() { return this.outlineColor; }
       set OutlineColor(v) { this.outlineColor = v; }
@@ -385,7 +356,6 @@
       set surfaceColor(v) {
         this._surfaceColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceColor');
       }
       get SurfaceColor() { return this.surfaceColor; }
       set SurfaceColor(v) { this.surfaceColor = v; }
@@ -394,7 +364,6 @@
       set iconColor(v) {
         this._iconColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -403,7 +372,6 @@
       set hoverColor(v) {
         this._hoverColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'hoverColor');
       }
       get HoverColor() { return this.hoverColor; }
       set HoverColor(v) { this.hoverColor = v; }
@@ -411,8 +379,7 @@
       get disableRipple() { return this._disableRipple; }
       set disableRipple(v) {
         this._disableRipple = (v === true || v === 'true');
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'disableRipple');
+        if (this._hasRendered) this._updateContent();
       }
       get DisableRipple() { return this.disableRipple; }
       set DisableRipple(v) { this.disableRipple = v; }
@@ -420,9 +387,10 @@
       get loading() { return this._loading; }
       set loading(v) {
         this._loading = (v === true || v === 'true');
-        this._updateContent();
-        this._updateState();
-        safeRaisePropertyChanged(this, 'loading');
+        if (this._hasRendered) {
+          this._updateContent();
+          this._applyStyles();
+        }
       }
       get Loading() { return this.loading; }
       set Loading(v) { this.loading = v; }
@@ -431,7 +399,6 @@
       set tooltip(v) {
         this._tooltip = v || '';
         if (this._button) this._button.title = this._tooltip;
-        safeRaisePropertyChanged(this, 'tooltip');
       }
       get Tooltip() { return this.tooltip; }
       set Tooltip(v) { this.tooltip = v; }
@@ -440,7 +407,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -449,7 +415,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 14;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -458,7 +423,6 @@
       set fontWeight(v) {
         this._fontWeight = v || '500';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -467,7 +431,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -475,13 +438,13 @@
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {
         this._isVisible = (val === true || val === 'true');
-        this.style.display = this._isVisible ? 'inline-block' : 'none';
+        if (this._hasRendered) this._applyStyles();
       }
 
       get IsEnabled() { return this._isEnabled; }
       set IsEnabled(val) {
         this._isEnabled = (val === true || val === 'true');
-        this._updateState();
+        if (this._hasRendered) this._applyStyles();
       }
     });
   }

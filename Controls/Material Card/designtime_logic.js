@@ -1,5 +1,5 @@
 /**
- * Material Card Control for K2 SmartForms
+ * Material Card Control for K2 SmartForms - Design Time
  * Material 3 Design card for displaying content in a contained format
  */
 (function() {
@@ -82,6 +82,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -99,11 +100,12 @@
 
       _buildCard() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mcd-container mcd-${this._variant}`;
         if (this._clickable) {
           this._container.classList.add('mcd-clickable');
           this._container.setAttribute('role', 'button');
-          this._container.setAttribute('tabindex', '0');
+          this._container.setAttribute("tabindex", "-1") // Design-time: prevent focus;
         }
 
         // Media (top position)
@@ -334,7 +336,6 @@
         const valid = ['elevated', 'filled', 'outlined'];
         this._variant = valid.includes(v) ? v : 'elevated';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -343,7 +344,6 @@
       set headline(v) {
         this._headline = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'headline');
       }
       get Headline() { return this.headline; }
       set Headline(v) { this.headline = v; }
@@ -352,7 +352,6 @@
       set subhead(v) {
         this._subhead = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'subhead');
       }
       get Subhead() { return this.subhead; }
       set Subhead(v) { this.subhead = v; }
@@ -361,7 +360,6 @@
       set supportingText(v) {
         this._supportingText = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'supportingText');
       }
       get SupportingText() { return this.supportingText; }
       set SupportingText(v) { this.supportingText = v; }
@@ -370,7 +368,6 @@
       set image(v) {
         this._image = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'image');
       }
       get Image() { return this.image; }
       set Image(v) { this.image = v; }
@@ -379,7 +376,6 @@
       set imagePosition(v) {
         this._imagePosition = (v === 'bottom') ? 'bottom' : 'top';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'imagePosition');
       }
       get ImagePosition() { return this.imagePosition; }
       set ImagePosition(v) { this.imagePosition = v; }
@@ -388,7 +384,6 @@
       set avatar(v) {
         this._avatar = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'avatar');
       }
       get Avatar() { return this.avatar; }
       set Avatar(v) { this.avatar = v; }
@@ -397,7 +392,6 @@
       set avatarText(v) {
         this._avatarText = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'avatarText');
       }
       get AvatarText() { return this.avatarText; }
       set AvatarText(v) { this.avatarText = v; }
@@ -406,7 +400,6 @@
       set overline(v) {
         this._overline = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'overline');
       }
       get Overline() { return this.overline; }
       set Overline(v) { this.overline = v; }
@@ -415,7 +408,6 @@
       set primaryAction(v) {
         this._primaryAction = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'primaryAction');
       }
       get PrimaryAction() { return this.primaryAction; }
       set PrimaryAction(v) { this.primaryAction = v; }
@@ -424,7 +416,6 @@
       set secondaryAction(v) {
         this._secondaryAction = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'secondaryAction');
       }
       get SecondaryAction() { return this.secondaryAction; }
       set SecondaryAction(v) { this.secondaryAction = v; }
@@ -433,7 +424,6 @@
       set showDivider(v) {
         this._showDivider = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showDivider');
       }
       get ShowDivider() { return this.showDivider; }
       set ShowDivider(v) { this.showDivider = v; }
@@ -442,7 +432,6 @@
       set clickable(v) {
         this._clickable = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'clickable');
       }
       get Clickable() { return this.clickable; }
       set Clickable(v) { this.clickable = v; }
@@ -452,7 +441,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -461,7 +449,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -470,7 +457,6 @@
       set surfaceColor(v) {
         this._surfaceColor = v || '#F7F2FA';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceColor');
       }
       get SurfaceColor() { return this.surfaceColor; }
       set SurfaceColor(v) { this.surfaceColor = v; }
@@ -479,7 +465,6 @@
       set borderColor(v) {
         this._borderColor = v || '#CAC4D0';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -488,7 +473,6 @@
       set headlineColor(v) {
         this._headlineColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'headlineColor');
       }
       get HeadlineColor() { return this.headlineColor; }
       set HeadlineColor(v) { this.headlineColor = v; }
@@ -497,7 +481,6 @@
       set subheadColor(v) {
         this._subheadColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'subheadColor');
       }
       get SubheadColor() { return this.subheadColor; }
       set SubheadColor(v) { this.subheadColor = v; }
@@ -506,7 +489,6 @@
       set supportingTextColor(v) {
         this._supportingTextColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'supportingTextColor');
       }
       get SupportingTextColor() { return this.supportingTextColor; }
       set SupportingTextColor(v) { this.supportingTextColor = v; }
@@ -515,7 +497,6 @@
       set overlineColor(v) {
         this._overlineColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'overlineColor');
       }
       get OverlineColor() { return this.overlineColor; }
       set OverlineColor(v) { this.overlineColor = v; }
@@ -524,7 +505,6 @@
       set actionColor(v) {
         this._actionColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'actionColor');
       }
       get ActionColor() { return this.actionColor; }
       set ActionColor(v) { this.actionColor = v; }
@@ -533,7 +513,6 @@
       set dividerColor(v) {
         this._dividerColor = v || '#CAC4D0';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'dividerColor');
       }
       get DividerColor() { return this.dividerColor; }
       set DividerColor(v) { this.dividerColor = v; }
@@ -542,7 +521,6 @@
       set avatarBackgroundColor(v) {
         this._avatarBackgroundColor = v || '#E8DEF8';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'avatarBackgroundColor');
       }
       get AvatarBackgroundColor() { return this.avatarBackgroundColor; }
       set AvatarBackgroundColor(v) { this.avatarBackgroundColor = v; }
@@ -551,7 +529,6 @@
       set avatarTextColor(v) {
         this._avatarTextColor = v || '#1D192B';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'avatarTextColor');
       }
       get AvatarTextColor() { return this.avatarTextColor; }
       set AvatarTextColor(v) { this.avatarTextColor = v; }
@@ -560,7 +537,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -569,7 +545,6 @@
       set fontSize(v) {
         this._fontSize = v || 14;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -578,7 +553,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -587,7 +561,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

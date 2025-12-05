@@ -1,5 +1,5 @@
 /**
- * Material Chips Control for K2 SmartForms
+ * Material Chips Control for K2 SmartForms - Design Time
  * Material 3 Design chips for input, filter, or action
  */
 (function() {
@@ -79,6 +79,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -141,6 +142,7 @@
 
       _buildChips() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mcp-container mcp-${this._variant}`;
         this._container.setAttribute('role', 'group');
 
@@ -325,8 +327,6 @@
           bubbles: true,
           detail: { value }
         }));
-
-        safeRaisePropertyChanged(this, 'chips');
       }
 
       _updateSelection() {
@@ -367,8 +367,6 @@
       }
 
       _fireChangeEvent() {
-        safeRaisePropertyChanged(this, 'selectedValue');
-        safeRaisePropertyChanged(this, 'selectedValues');
 
         this.dispatchEvent(new CustomEvent('Changed', {
           bubbles: true,
@@ -399,8 +397,6 @@
         ).join(this._delimiter);
 
         this._render();
-        safeRaisePropertyChanged(this, 'chips');
-
         this.dispatchEvent(new CustomEvent('ChipAdded', {
           bubbles: true,
           detail: newChip
@@ -420,7 +416,6 @@
         this._chips = v || '';
         this._parseChips();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'chips');
       }
       get Chips() { return this.chips; }
       set Chips(v) { this.chips = v; }
@@ -430,7 +425,6 @@
         this._delimiter = v || '|';
         this._parseChips();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'delimiter');
       }
       get Delimiter() { return this.delimiter; }
       set Delimiter(v) { this.delimiter = v; }
@@ -440,7 +434,6 @@
         this._subDelimiter = v || ':';
         this._parseChips();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'subDelimiter');
       }
       get SubDelimiter() { return this.subDelimiter; }
       set SubDelimiter(v) { this.subDelimiter = v; }
@@ -450,7 +443,6 @@
         const valid = ['assist', 'filter', 'input', 'suggestion'];
         this._variant = valid.includes(v) ? v : 'assist';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -459,7 +451,6 @@
       set multiSelect(v) {
         this._multiSelect = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'multiSelect');
       }
       get MultiSelect() { return this.multiSelect; }
       set MultiSelect(v) { this.multiSelect = v; }
@@ -471,7 +462,6 @@
           this._selectedValues = this._selectedValue ? this._selectedValue.split(this._delimiter).map(s => s.trim()) : [];
         }
         if (this._hasRendered) this._updateSelection();
-        safeRaisePropertyChanged(this, 'selectedValue');
       }
       get SelectedValue() { return this.selectedValue; }
       set SelectedValue(v) { this.selectedValue = v; }
@@ -481,7 +471,6 @@
         this._selectedValues = v ? v.split(this._delimiter).map(s => s.trim()) : [];
         this._selectedValue = this._selectedValues.join(this._delimiter);
         if (this._hasRendered) this._updateSelection();
-        safeRaisePropertyChanged(this, 'selectedValues');
       }
       get SelectedValues() { return this.selectedValues; }
       set SelectedValues(v) { this.selectedValues = v; }
@@ -490,7 +479,6 @@
       set removable(v) {
         this._removable = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'removable');
       }
       get Removable() { return this.removable; }
       set Removable(v) { this.removable = v; }
@@ -499,7 +487,6 @@
       set showCheckmark(v) {
         this._showCheckmark = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showCheckmark');
       }
       get ShowCheckmark() { return this.showCheckmark; }
       set ShowCheckmark(v) { this.showCheckmark = v; }
@@ -509,7 +496,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -518,7 +504,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -527,7 +512,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -536,7 +520,6 @@
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -545,7 +528,6 @@
       set selectedBackgroundColor(v) {
         this._selectedBackgroundColor = v || '#E8DEF8';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedBackgroundColor');
       }
       get SelectedBackgroundColor() { return this.selectedBackgroundColor; }
       set SelectedBackgroundColor(v) { this.selectedBackgroundColor = v; }
@@ -554,7 +536,6 @@
       set selectedBorderColor(v) {
         this._selectedBorderColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedBorderColor');
       }
       get SelectedBorderColor() { return this.selectedBorderColor; }
       set SelectedBorderColor(v) { this.selectedBorderColor = v; }
@@ -563,7 +544,6 @@
       set selectedTextColor(v) {
         this._selectedTextColor = v || '#1D192B';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedTextColor');
       }
       get SelectedTextColor() { return this.selectedTextColor; }
       set SelectedTextColor(v) { this.selectedTextColor = v; }
@@ -572,7 +552,6 @@
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -581,7 +560,6 @@
       set removeIconColor(v) {
         this._removeIconColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'removeIconColor');
       }
       get RemoveIconColor() { return this.removeIconColor; }
       set RemoveIconColor(v) { this.removeIconColor = v; }
@@ -590,7 +568,6 @@
       set elevatedBackgroundColor(v) {
         this._elevatedBackgroundColor = v || '#F3EDF7';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'elevatedBackgroundColor');
       }
       get ElevatedBackgroundColor() { return this.elevatedBackgroundColor; }
       set ElevatedBackgroundColor(v) { this.elevatedBackgroundColor = v; }
@@ -599,7 +576,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -608,7 +584,6 @@
       set fontSize(v) {
         this._fontSize = v || '14';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -617,7 +592,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -626,7 +600,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

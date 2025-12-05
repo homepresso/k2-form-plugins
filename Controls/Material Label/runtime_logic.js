@@ -1,3 +1,6 @@
+if (!window.__materiallabelRuntimeLoaded) {
+  window.__materiallabelRuntimeLoaded = true;
+
 /**
  * Material Label Control for K2 SmartForms
  * Material 3 Design label for displaying text
@@ -422,3 +425,6 @@
     });
   }
 })();
+
+
+}

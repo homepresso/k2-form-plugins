@@ -1,3 +1,6 @@
+if (!window.__materialselectRuntimeLoaded) {
+  window.__materialselectRuntimeLoaded = true;
+
 /**
  * Material Select Control for K2 SmartForms
  * Material 3 Design dropdown with outlined and filled variants
@@ -786,3 +789,6 @@
     });
   }
 })();
+
+
+}

@@ -1,3 +1,6 @@
+if (!window.__materialtextboxRuntimeLoaded) {
+  window.__materialtextboxRuntimeLoaded = true;
+
 /**
  * Material Textbox Control for K2 SmartForms
  * Material 3 Design with floating labels, icons, and validation
@@ -751,3 +754,6 @@
     });
   }
 })();
+
+
+}

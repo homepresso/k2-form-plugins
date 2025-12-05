@@ -1,5 +1,5 @@
 /**
- * Material FAB Menu Control for K2 SmartForms
+ * Material FAB Menu Control for K2 SmartForms - Design Time
  * Material 3 Design Floating Action Button with expandable menu
  */
 (function() {
@@ -82,6 +82,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -128,6 +129,7 @@
 
       _buildFabMenu() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mfab-container mfab-${this._position}`;
 
         // Menu items (above FAB)
@@ -342,7 +344,6 @@
           const iconEl = this._fab?.querySelector('.mfab-icon');
           if (iconEl) iconEl.textContent = this._icon;
         }
-        safeRaisePropertyChanged(this, 'fabIcon');
       }
       get FabIcon() { return this.fabIcon; }
       set FabIcon(v) { this.fabIcon = v; }
@@ -350,7 +351,6 @@
       get openIcon() { return this._openIcon; }
       set openIcon(v) {
         this._openIcon = v || 'close';
-        safeRaisePropertyChanged(this, 'openIcon');
       }
       get OpenIcon() { return this.openIcon; }
       set OpenIcon(v) { this.openIcon = v; }
@@ -360,7 +360,6 @@
         const valid = ['small', 'regular', 'large'];
         this._size = valid.includes(v) ? v : 'regular';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'size');
       }
       get Size() { return this.size; }
       set Size(v) { this.size = v; }
@@ -370,7 +369,6 @@
         const valid = ['primary', 'secondary', 'tertiary', 'surface'];
         this._variant = valid.includes(v) ? v : 'primary';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -380,7 +378,6 @@
         const valid = ['bottom-right', 'bottom-left', 'bottom-center'];
         this._position = valid.includes(v) ? v : 'bottom-right';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'position');
       }
       get Position() { return this.position; }
       set Position(v) { this.position = v; }
@@ -390,7 +387,6 @@
         this._menuItems = v || '';
         this._parseMenuItems();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'menuItems');
       }
       get MenuItems() { return this.menuItems; }
       set MenuItems(v) { this.menuItems = v; }
@@ -400,7 +396,6 @@
         this._delimiter = v || '|';
         this._parseMenuItems();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'delimiter');
       }
       get Delimiter() { return this.delimiter; }
       set Delimiter(v) { this.delimiter = v; }
@@ -409,7 +404,6 @@
       set label(v) {
         this._label = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -418,7 +412,6 @@
       set extended(v) {
         this._extended = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'extended');
       }
       get Extended() { return this.extended; }
       set Extended(v) { this.extended = v; }
@@ -427,7 +420,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -436,7 +428,6 @@
       set containerColor(v) {
         this._containerColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'containerColor');
       }
       get ContainerColor() { return this.containerColor; }
       set ContainerColor(v) { this.containerColor = v; }
@@ -445,7 +436,6 @@
       set iconColor(v) {
         this._iconColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -454,7 +444,6 @@
       set secondaryColor(v) {
         this._secondaryColor = v || '#625B71';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'secondaryColor');
       }
       get SecondaryColor() { return this.secondaryColor; }
       set SecondaryColor(v) { this.secondaryColor = v; }
@@ -463,7 +452,6 @@
       set tertiaryColor(v) {
         this._tertiaryColor = v || '#7D5260';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'tertiaryColor');
       }
       get TertiaryColor() { return this.tertiaryColor; }
       set TertiaryColor(v) { this.tertiaryColor = v; }
@@ -472,7 +460,6 @@
       set surfaceColor(v) {
         this._surfaceColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceColor');
       }
       get SurfaceColor() { return this.surfaceColor; }
       set SurfaceColor(v) { this.surfaceColor = v; }
@@ -481,7 +468,6 @@
       set menuItemBackgroundColor(v) {
         this._menuItemBackgroundColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'menuItemBackgroundColor');
       }
       get MenuItemBackgroundColor() { return this.menuItemBackgroundColor; }
       set MenuItemBackgroundColor(v) { this.menuItemBackgroundColor = v; }
@@ -490,7 +476,6 @@
       set menuItemIconColor(v) {
         this._menuItemIconColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'menuItemIconColor');
       }
       get MenuItemIconColor() { return this.menuItemIconColor; }
       set MenuItemIconColor(v) { this.menuItemIconColor = v; }
@@ -499,7 +484,6 @@
       set menuLabelBackgroundColor(v) {
         this._menuLabelBackgroundColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'menuLabelBackgroundColor');
       }
       get MenuLabelBackgroundColor() { return this.menuLabelBackgroundColor; }
       set MenuLabelBackgroundColor(v) { this.menuLabelBackgroundColor = v; }
@@ -508,7 +492,6 @@
       set menuLabelTextColor(v) {
         this._menuLabelTextColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'menuLabelTextColor');
       }
       get MenuLabelTextColor() { return this.menuLabelTextColor; }
       set MenuLabelTextColor(v) { this.menuLabelTextColor = v; }
@@ -517,7 +500,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -526,7 +508,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 14;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -535,7 +516,6 @@
       set fontWeight(v) {
         this._fontWeight = v || '500';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -544,7 +524,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

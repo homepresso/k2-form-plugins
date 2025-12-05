@@ -1,3 +1,6 @@
+if (!window.__materialswitchRuntimeLoaded) {
+  window.__materialswitchRuntimeLoaded = true;
+
 /**
  * Material Switch Control for K2 SmartForms
  * Material 3 Design toggle switch with icons and smooth animations
@@ -435,3 +438,6 @@
     });
   }
 })();
+
+
+}

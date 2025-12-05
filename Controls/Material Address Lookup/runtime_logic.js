@@ -1,3 +1,6 @@
+if (!window.__materialaddresslookupRuntimeLoaded) {
+  window.__materialaddresslookupRuntimeLoaded = true;
+
 /**
  * Material Address Lookup Control for K2 SmartForms
  * Material 3 Design with Google Places Autocomplete
@@ -1098,3 +1101,6 @@
     });
   }
 })();
+
+
+}

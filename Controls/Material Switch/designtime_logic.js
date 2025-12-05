@@ -1,5 +1,5 @@
 /**
- * Material Switch Control for K2 SmartForms
+ * Material Switch Control for K2 SmartForms - Design Time
  * Material 3 Design toggle switch with icons and smooth animations
  */
 (function() {
@@ -59,6 +59,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadGoogleFonts();
         setTimeout(() => {
           this._render();
@@ -75,6 +76,7 @@
 
       _buildSwitch() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = 'msw-container';
         if (this._labelPosition === 'start') {
           this._container.classList.add('msw-label-start');
@@ -86,6 +88,9 @@
 
         // Hidden input for form compatibility
         this._input = document.createElement('input');
+        this._input.disabled = true;
+        this._input.readOnly = true;
+        this._input.style.pointerEvents = "none";
         this._input.type = 'checkbox';
         this._input.className = 'msw-native-input';
         this._input.checked = this._checked;
@@ -95,7 +100,7 @@
         this._switch.className = 'msw-switch';
         this._switch.setAttribute('role', 'switch');
         this._switch.setAttribute('aria-checked', String(this._checked));
-        this._switch.tabIndex = 0;
+        this._switch.tabIndex = -1; // Design-time: prevent focus
 
         // Track
         const track = document.createElement('div');
@@ -194,9 +199,6 @@
           this._checked = !this._checked;
           this._input.checked = this._checked;
           this._updateState();
-
-          safeRaisePropertyChanged(this, 'checked');
-
           this.dispatchEvent(new CustomEvent('Changed', {
             bubbles: true,
             detail: { checked: this._checked }
@@ -232,7 +234,6 @@
           this._checked = !this._checked;
           this._input.checked = this._checked;
           this._updateState();
-          safeRaisePropertyChanged(this, 'checked');
         }
       }
 
@@ -241,7 +242,6 @@
           this._checked = true;
           this._input.checked = true;
           this._updateState();
-          safeRaisePropertyChanged(this, 'checked');
         }
       }
 
@@ -250,7 +250,6 @@
           this._checked = false;
           this._input.checked = false;
           this._updateState();
-          safeRaisePropertyChanged(this, 'checked');
         }
       }
 
@@ -260,7 +259,6 @@
         this._checked = (v === true || v === 'true');
         if (this._input) this._input.checked = this._checked;
         this._updateState();
-        safeRaisePropertyChanged(this, 'checked');
       }
       get Checked() { return this.checked; }
       set Checked(v) { this.checked = v; }
@@ -269,7 +267,6 @@
       set label(v) {
         this._label = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -278,7 +275,6 @@
       set labelPosition(v) {
         this._labelPosition = (v === 'start') ? 'start' : 'end';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'labelPosition');
       }
       get LabelPosition() { return this.labelPosition; }
       set LabelPosition(v) { this.labelPosition = v; }
@@ -287,7 +283,6 @@
       set showIcons(v) {
         this._showIcons = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showIcons');
       }
       get ShowIcons() { return this.showIcons; }
       set ShowIcons(v) { this.showIcons = v; }
@@ -296,7 +291,6 @@
       set iconStyle(v) {
         this._iconStyle = v || 'check-x';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'iconStyle');
       }
       get IconStyle() { return this.iconStyle; }
       set IconStyle(v) { this.iconStyle = v; }
@@ -305,7 +299,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -314,7 +307,6 @@
       set thumbColor(v) {
         this._thumbColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'thumbColor');
       }
       get ThumbColor() { return this.thumbColor; }
       set ThumbColor(v) { this.thumbColor = v; }
@@ -323,7 +315,6 @@
       set trackColor(v) {
         this._trackColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'trackColor');
       }
       get TrackColor() { return this.trackColor; }
       set TrackColor(v) { this.trackColor = v; }
@@ -332,7 +323,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -341,7 +331,6 @@
       set labelColor(v) {
         this._labelColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -350,7 +339,6 @@
       set required(v) {
         this._required = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -359,7 +347,6 @@
       set helperText(v) {
         this._helperText = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -368,7 +355,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -377,7 +363,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 14;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -386,7 +371,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -395,7 +379,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

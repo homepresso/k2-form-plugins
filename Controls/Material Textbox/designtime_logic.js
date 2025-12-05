@@ -1,5 +1,5 @@
 /**
- * Material Textbox Control for K2 SmartForms
+ * Material Textbox Control for K2 SmartForms - Design Time
  * Material 3 Design with floating labels, icons, and validation
  */
 (function() {
@@ -90,6 +90,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -107,6 +108,7 @@
 
       _buildContainer() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mtb-container mtb-${this._variant}`;
 
         // Input wrapper
@@ -129,7 +131,7 @@
         this._input.value = this._value;
         this._input.autocomplete = this._autocomplete;
         this._input.readOnly = true; // Always read-only in designtime
-        this._input.disabled = !this._isEnabled;
+        this._input.disabled = true; // Always disabled in design-time
 
         if (this._maxLength > 0) {
           this._input.maxLength = this._maxLength;
@@ -240,7 +242,6 @@
         this._input.addEventListener('input', (e) => {
           this._value = e.target.value;
           this._updateCharCount();
-          safeRaisePropertyChanged(this, 'Value');
           this.dispatchEvent(new CustomEvent('Changed', {
             bubbles: true,
             detail: { value: this._value }
@@ -303,7 +304,7 @@
           this._input.disabled = true;
         } else {
           this._container.classList.remove('mtb-disabled');
-          this._input.disabled = false;
+          this._input.disabled = true; // Design-time: always disabled
         }
 
         // Read-only state - always read-only in designtime
@@ -356,7 +357,6 @@
         if (this._input) this._input.value = '';
         this._updateCharCount();
         this._updateState();
-        safeRaisePropertyChanged(this, 'Value');
       }
 
       validate() {
@@ -396,7 +396,6 @@
           this._errorText = errorMsg;
         }
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
 
       // Properties
@@ -408,14 +407,12 @@
         }
         this._updateCharCount();
         this._updateState();
-        safeRaisePropertyChanged(this, 'Value');
       }
 
       get label() { return this._label; }
       set label(v) {
         this._label = v || '';
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -424,7 +421,6 @@
       set placeholder(v) {
         this._placeholder = v || '';
         if (this._input) this._input.placeholder = this._placeholder || ' ';
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -435,7 +431,6 @@
         if (!this._hasError && this._helperEl) {
           this._helperEl.textContent = this._helperText;
         }
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -446,7 +441,6 @@
         if (this._hasError && this._helperEl) {
           this._helperEl.textContent = this._errorText;
         }
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -455,7 +449,6 @@
       set hasError(v) {
         this._hasError = (v === true || v === 'true');
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -464,7 +457,6 @@
       set variant(v) {
         this._variant = ['filled', 'outlined'].includes(v) ? v : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -473,7 +465,6 @@
       set leadingIcon(v) {
         this._leadingIcon = v || '';
         if (this._hasRendered) this._rebuildIcons();
-        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -482,7 +473,6 @@
       set trailingIcon(v) {
         this._trailingIcon = v || '';
         if (this._hasRendered) this._rebuildIcons();
-        safeRaisePropertyChanged(this, 'trailingIcon');
       }
       get TrailingIcon() { return this.trailingIcon; }
       set TrailingIcon(v) { this.trailingIcon = v; }
@@ -491,7 +481,6 @@
       set trailingIconClickable(v) {
         this._trailingIconClickable = (v === true || v === 'true');
         if (this._hasRendered) this._rebuildIcons();
-        safeRaisePropertyChanged(this, 'trailingIconClickable');
       }
       get TrailingIconClickable() { return this.trailingIconClickable; }
       set TrailingIconClickable(v) { this.trailingIconClickable = v; }
@@ -501,7 +490,6 @@
         const validTypes = ['text', 'password', 'email', 'number', 'tel', 'url', 'search'];
         this._inputType = validTypes.includes(v) ? v : 'text';
         if (this._input) this._input.type = this._inputType;
-        safeRaisePropertyChanged(this, 'inputType');
       }
       get InputType() { return this.inputType; }
       set InputType(v) { this.inputType = v; }
@@ -517,7 +505,6 @@
           }
         }
         this._updateCharCount();
-        safeRaisePropertyChanged(this, 'maxLength');
       }
       get MaxLength() { return this.maxLength; }
       set MaxLength(v) { this.maxLength = v; }
@@ -526,7 +513,6 @@
       set showCharCount(v) {
         this._showCharCount = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showCharCount');
       }
       get ShowCharCount() { return this.showCharCount; }
       set ShowCharCount(v) { this.showCharCount = v; }
@@ -535,7 +521,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -544,7 +529,6 @@
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -553,7 +537,6 @@
       set labelColor(v) {
         this._labelColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -562,7 +545,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -571,7 +553,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -580,7 +561,6 @@
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -589,7 +569,6 @@
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -598,7 +577,6 @@
       set labelBackground(v) {
         this._labelBackground = v || '#ffffff';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelBackground');
       }
       get LabelBackground() { return this.labelBackground; }
       set LabelBackground(v) { this.labelBackground = v; }
@@ -607,7 +585,6 @@
       set labelFontSize(v) {
         this._labelFontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontSize');
       }
       get LabelFontSize() { return this.labelFontSize; }
       set LabelFontSize(v) { this.labelFontSize = v; }
@@ -616,7 +593,6 @@
       set labelFontWeight(v) {
         this._labelFontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontWeight');
       }
       get LabelFontWeight() { return this.labelFontWeight; }
       set LabelFontWeight(v) { this.labelFontWeight = v; }
@@ -625,7 +601,6 @@
       set labelFontStyle(v) {
         this._labelFontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontStyle');
       }
       get LabelFontStyle() { return this.labelFontStyle; }
       set LabelFontStyle(v) { this.labelFontStyle = v; }
@@ -635,7 +610,6 @@
         this._required = (v === true || v === 'true');
         if (this._input) this._input.required = this._required;
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -650,7 +624,6 @@
             this._input.removeAttribute('pattern');
           }
         }
-        safeRaisePropertyChanged(this, 'pattern');
       }
       get Pattern() { return this.pattern; }
       set Pattern(v) { this.pattern = v; }
@@ -659,7 +632,6 @@
       set autocomplete(v) {
         this._autocomplete = v || 'off';
         if (this._input) this._input.autocomplete = this._autocomplete;
-        safeRaisePropertyChanged(this, 'autocomplete');
       }
       get Autocomplete() { return this.autocomplete; }
       set Autocomplete(v) { this.autocomplete = v; }
@@ -668,7 +640,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -677,7 +648,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -686,7 +656,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -695,7 +664,6 @@
       set fontStyle(v) {
         this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -712,7 +680,6 @@
         if (this._hasRendered) {
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'IsEnabled');
       }
 
       get IsReadOnly() { return this._isReadOnly; }
@@ -721,7 +688,6 @@
         if (this._hasRendered) {
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'IsReadOnly');
       }
 
       // Height property

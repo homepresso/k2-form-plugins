@@ -1,5 +1,5 @@
 /**
- * Material Checkbox Control for K2 SmartForms
+ * Material Checkbox Control for K2 SmartForms - Design Time
  * Material 3 Design with indeterminate state and ripple effect
  */
 (function() {
@@ -60,6 +60,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadGoogleFonts();
         setTimeout(() => {
           this._render();
@@ -76,6 +77,7 @@
 
       _buildCheckbox() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = 'mcb-container';
         if (this._labelPosition === 'start') {
           this._container.classList.add('mcb-label-start');
@@ -83,6 +85,9 @@
 
         // Hidden input for form compatibility
         this._input = document.createElement('input');
+        this._input.disabled = true;
+        this._input.readOnly = true;
+        this._input.style.pointerEvents = "none";
         this._input.type = 'checkbox';
         this._input.className = 'mcb-native-input';
         this._input.checked = this._checked;
@@ -93,7 +98,7 @@
         this._checkbox.className = 'mcb-checkbox';
         this._checkbox.setAttribute('role', 'checkbox');
         this._checkbox.setAttribute('aria-checked', this._indeterminate ? 'mixed' : String(this._checked));
-        this._checkbox.tabIndex = 0;
+        this._checkbox.tabIndex = -1; // Design-time: prevent focus
 
         this._updateCheckboxContent();
 
@@ -224,7 +229,6 @@
           this._input.indeterminate = false;
           this._updateCheckboxContent();
           this._updateState();
-          safeRaisePropertyChanged(this, 'checked');
         }
       }
 
@@ -236,7 +240,6 @@
           this._input.indeterminate = false;
           this._updateCheckboxContent();
           this._updateState();
-          safeRaisePropertyChanged(this, 'checked');
         }
       }
 
@@ -248,7 +251,6 @@
           this._input.indeterminate = false;
           this._updateCheckboxContent();
           this._updateState();
-          safeRaisePropertyChanged(this, 'checked');
         }
       }
 
@@ -259,7 +261,6 @@
         if (this._input) this._input.checked = this._checked;
         this._updateCheckboxContent();
         this._updateState();
-        safeRaisePropertyChanged(this, 'checked');
       }
       get Checked() { return this.checked; }
       set Checked(v) { this.checked = v; }
@@ -268,7 +269,6 @@
       set label(v) {
         this._label = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -279,7 +279,6 @@
         if (this._input) this._input.indeterminate = this._indeterminate;
         this._updateCheckboxContent();
         this._updateState();
-        safeRaisePropertyChanged(this, 'indeterminate');
       }
       get Indeterminate() { return this.indeterminate; }
       set Indeterminate(v) { this.indeterminate = v; }
@@ -288,7 +287,6 @@
       set labelPosition(v) {
         this._labelPosition = (v === 'start') ? 'start' : 'end';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'labelPosition');
       }
       get LabelPosition() { return this.labelPosition; }
       set LabelPosition(v) { this.labelPosition = v; }
@@ -297,7 +295,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -306,7 +303,6 @@
       set checkColor(v) {
         this._checkColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'checkColor');
       }
       get CheckColor() { return this.checkColor; }
       set CheckColor(v) { this.checkColor = v; }
@@ -315,7 +311,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -324,7 +319,6 @@
       set labelColor(v) {
         this._labelColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -333,7 +327,6 @@
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -342,7 +335,6 @@
       set disableRipple(v) {
         this._disableRipple = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'disableRipple');
       }
       get DisableRipple() { return this.disableRipple; }
       set DisableRipple(v) { this.disableRipple = v; }
@@ -351,7 +343,6 @@
       set required(v) {
         this._required = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -360,7 +351,6 @@
       set errorText(v) {
         this._errorText = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -372,7 +362,6 @@
         if (this._hasRendered && !this._container.querySelector('.mcb-error-text') && this._hasError) {
           this._render();
         }
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -381,7 +370,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -390,7 +378,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 14;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -399,7 +386,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -408,7 +394,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

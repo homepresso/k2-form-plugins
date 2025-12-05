@@ -1,3 +1,6 @@
+if (!window.__materialtimepickerRuntimeLoaded) {
+  window.__materialtimepickerRuntimeLoaded = true;
+
 /**
  * Material Time Picker Control for K2 SmartForms
  * Material 3 Design time picker with dial and input modes
@@ -944,3 +947,6 @@
     });
   }
 })();
+
+
+}

@@ -46,7 +46,7 @@
       "description": "Field label text",
       "type": "string",
       "inputlength": "100",
-      "initialvalue": "Select date",
+      "initialvalue": "Date",
       "changesdisplay": true
     },
     {

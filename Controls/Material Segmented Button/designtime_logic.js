@@ -1,5 +1,5 @@
 /**
- * Material Segmented Button Control for K2 SmartForms
+ * Material Segmented Button Control for K2 SmartForms - Design Time
  * Material 3 Design segmented button for single or multi-select options
  */
 (function() {
@@ -71,6 +71,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -134,6 +135,7 @@
 
       _buildSegmentedButton() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mseg-container mseg-${this._density}`;
         this._container.setAttribute('role', 'group');
 
@@ -251,8 +253,6 @@
         }
 
         this._updateSelection();
-        safeRaisePropertyChanged(this, 'value');
-
         this.dispatchEvent(new CustomEvent('Changed', {
           bubbles: true,
           detail: {
@@ -321,7 +321,6 @@
         this._segments = v || '';
         this._parseSegments();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'segments');
       }
       get Segments() { return this.segments; }
       set Segments(v) { this.segments = v; }
@@ -331,7 +330,6 @@
         this._delimiter = v || '|';
         this._parseSegments();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'delimiter');
       }
       get Delimiter() { return this.delimiter; }
       set Delimiter(v) { this.delimiter = v; }
@@ -343,7 +341,6 @@
           this._selectedValues = this._value ? this._value.split(this._delimiter).map(s => s.trim()) : [];
         }
         if (this._hasRendered) this._updateSelection();
-        safeRaisePropertyChanged(this, 'value');
       }
       get Value() { return this.value; }
       set Value(v) { this.value = v; }
@@ -355,7 +352,6 @@
           this._selectedValues = [this._value];
         }
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'multiSelect');
       }
       get MultiSelect() { return this.multiSelect; }
       set MultiSelect(v) { this.multiSelect = v; }
@@ -364,7 +360,6 @@
       set showCheckmark(v) {
         this._showCheckmark = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showCheckmark');
       }
       get ShowCheckmark() { return this.showCheckmark; }
       set ShowCheckmark(v) { this.showCheckmark = v; }
@@ -374,7 +369,6 @@
         const valid = ['default', 'comfortable', 'compact'];
         this._density = valid.includes(v) ? v : 'default';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'density');
       }
       get Density() { return this.density; }
       set Density(v) { this.density = v; }
@@ -383,7 +377,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -392,7 +385,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -401,7 +393,6 @@
       set selectedBackgroundColor(v) {
         this._selectedBackgroundColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedBackgroundColor');
       }
       get SelectedBackgroundColor() { return this.selectedBackgroundColor; }
       set SelectedBackgroundColor(v) { this.selectedBackgroundColor = v; }
@@ -410,7 +401,6 @@
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -419,7 +409,6 @@
       set selectedTextColor(v) {
         this._selectedTextColor = v || '#1D192B';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedTextColor');
       }
       get SelectedTextColor() { return this.selectedTextColor; }
       set SelectedTextColor(v) { this.selectedTextColor = v; }
@@ -428,7 +417,6 @@
       set iconColor(v) {
         this._iconColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -437,7 +425,6 @@
       set checkmarkColor(v) {
         this._checkmarkColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'checkmarkColor');
       }
       get CheckmarkColor() { return this.checkmarkColor; }
       set CheckmarkColor(v) { this.checkmarkColor = v; }
@@ -446,7 +433,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -455,7 +441,6 @@
       set fontSize(v) {
         this._fontSize = v || 14;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -464,7 +449,6 @@
       set fontWeight(v) {
         this._fontWeight = v || '500';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -473,7 +457,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

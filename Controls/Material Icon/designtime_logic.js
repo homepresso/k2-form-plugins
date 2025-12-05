@@ -1,5 +1,5 @@
 /**
- * Material Icon Control for K2 SmartForms
+ * Material Icon Control for K2 SmartForms - Design Time
  * Displays Material Design icons with customizable properties
  */
 (function() {
@@ -81,6 +81,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         setTimeout(() => {
           this._render();
           this._hasRendered = true;
@@ -129,7 +130,8 @@
           justify-content: center;
           vertical-align: middle;
           ${!this._isVisible ? 'display: none;' : ''}
-        `;
+        
+          pointer-events: none;`;
 
         if (this._iconSpan) {
           this._iconSpan.style.cssText = `
@@ -195,7 +197,6 @@
       set iconName(v) {
         this._iconName = v || 'home';
         if (this._hasRendered) this._updateIcon();
-        safeRaisePropertyChanged(this, 'iconName');
       }
       get IconName() { return this.iconName; }
       set IconName(v) { this.iconName = v; }
@@ -204,7 +205,6 @@
       set iconSize(v) {
         this._iconSize = parseInt(v) || 24;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconSize');
       }
       get IconSize() { return this.iconSize; }
       set IconSize(v) { this.iconSize = v; }
@@ -213,7 +213,6 @@
       set iconColor(v) {
         this._iconColor = v || '#6b7280';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -221,7 +220,6 @@
       get hoverColor() { return this._hoverColor; }
       set hoverColor(v) {
         this._hoverColor = v || '';
-        safeRaisePropertyChanged(this, 'hoverColor');
       }
       get HoverColor() { return this.hoverColor; }
       set HoverColor(v) { this.hoverColor = v; }
@@ -235,7 +233,6 @@
             this._updateIcon();
           });
         }
-        safeRaisePropertyChanged(this, 'iconStyle');
       }
       get IconStyle() { return this.iconStyle; }
       set IconStyle(v) { this.iconStyle = v; }
@@ -244,7 +241,6 @@
       set clickable(v) {
         this._clickable = (v === true || v === 'true');
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'clickable');
       }
       get Clickable() { return this.clickable; }
       set Clickable(v) { this.clickable = v; }
@@ -253,7 +249,6 @@
       set tooltip(v) {
         this._tooltip = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'tooltip');
       }
       get Tooltip() { return this.tooltip; }
       set Tooltip(v) { this.tooltip = v; }

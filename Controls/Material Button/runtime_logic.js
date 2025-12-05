@@ -1,5 +1,8 @@
+if (!window.__materialButtonRuntimeLoaded) {
+  window.__materialButtonRuntimeLoaded = true;
+
 /**
- * Material Button Control for K2 SmartForms
+ * Material Button Control for K2 SmartForms - Runtime
  * Material 3 Design with variants, icons, and ripple effect
  */
 (function() {
@@ -486,3 +489,6 @@
     });
   }
 })();
+
+}
+

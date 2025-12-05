@@ -1,3 +1,6 @@
+if (!window.__materialcarouselRuntimeLoaded) {
+  window.__materialcarouselRuntimeLoaded = true;
+
 /**
  * Material Carousel Control for K2 SmartForms
  * Material 3 Design carousel for displaying scrollable content
@@ -814,3 +817,5 @@
     });
   }
 })();
+
+}

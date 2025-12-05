@@ -1,3 +1,6 @@
+if (!window.__materialsplitbuttonRuntimeLoaded) {
+  window.__materialsplitbuttonRuntimeLoaded = true;
+
 /**
  * Material Split Button Control for K2 SmartForms
  * Material 3 Design split button with primary action and dropdown menu
@@ -622,3 +625,6 @@
     });
   }
 })();
+
+
+}

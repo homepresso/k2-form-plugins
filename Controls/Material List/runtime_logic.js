@@ -1,3 +1,6 @@
+if (!window.__materiallistRuntimeLoaded) {
+  window.__materiallistRuntimeLoaded = true;
+
 /**
  * Material List Control for K2 SmartForms
  * Material 3 Design list for displaying items with various layouts
@@ -945,3 +948,6 @@
     });
   }
 })();
+
+
+}

@@ -1,5 +1,5 @@
 /**
- * Material Label Control for K2 SmartForms
+ * Material Label Control for K2 SmartForms - Design Time
  * Material 3 Design label for displaying text
  * Design-time version
  */
@@ -75,6 +75,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadGoogleFonts();
         loadMaterialIcons();
         setTimeout(() => {
@@ -93,6 +94,7 @@
       _buildContent() {
         // Create container for flex layout
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = 'mlb-container';
 
         // Leading icon
@@ -241,14 +243,12 @@
         if (this._textEl) {
           this._textEl.textContent = this._value;
         }
-        safeRaisePropertyChanged(this, 'Value');
       }
 
       get fontSize() { return this._fontSize; }
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -257,7 +257,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -266,7 +265,6 @@
       set fontStyle(v) {
         this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -275,7 +273,6 @@
       set textAlign(v) {
         this._textAlign = ['left', 'center', 'right', 'justify'].includes(v) ? v : 'left';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textAlign');
       }
       get TextAlign() { return this.textAlign; }
       set TextAlign(v) { this.textAlign = v; }
@@ -284,7 +281,6 @@
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -293,7 +289,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -302,7 +297,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -311,7 +305,6 @@
       set padding(v) {
         this._padding = parseInt(v) || 8;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'padding');
       }
       get Padding() { return this.padding; }
       set Padding(v) { this.padding = v; }
@@ -320,7 +313,6 @@
       set lineHeight(v) {
         this._lineHeight = v || '1.5';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'lineHeight');
       }
       get LineHeight() { return this.lineHeight; }
       set LineHeight(v) { this.lineHeight = v; }
@@ -329,7 +321,6 @@
       set textDecoration(v) {
         this._textDecoration = ['none', 'underline', 'line-through', 'overline'].includes(v) ? v : 'none';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textDecoration');
       }
       get TextDecoration() { return this.textDecoration; }
       set TextDecoration(v) { this.textDecoration = v; }
@@ -338,7 +329,6 @@
       set textTransform(v) {
         this._textTransform = ['none', 'uppercase', 'lowercase', 'capitalize'].includes(v) ? v : 'none';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textTransform');
       }
       get TextTransform() { return this.textTransform; }
       set TextTransform(v) { this.textTransform = v; }
@@ -347,7 +337,6 @@
       set wordWrap(v) {
         this._wordWrap = (v === true || v === 'true');
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'wordWrap');
       }
       get WordWrap() { return this.wordWrap; }
       set WordWrap(v) { this.wordWrap = v; }
@@ -356,7 +345,6 @@
       set clickable(v) {
         this._clickable = (v === true || v === 'true');
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'clickable');
       }
       get Clickable() { return this.clickable; }
       set Clickable(v) { this.clickable = v; }
@@ -365,14 +353,12 @@
       set IsVisible(val) {
         this._isVisible = (val === true || val === 'true');
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'IsVisible');
       }
 
       get IsEnabled() { return this._isEnabled; }
       set IsEnabled(val) {
         this._isEnabled = (val === true || val === 'true');
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'IsEnabled');
       }
 
       // Icon properties
@@ -380,7 +366,6 @@
       set leadingIcon(v) {
         this._leadingIcon = v || '';
         if (this._hasRendered) this._updateIcons();
-        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -389,7 +374,6 @@
       set trailingIcon(v) {
         this._trailingIcon = v || '';
         if (this._hasRendered) this._updateIcons();
-        safeRaisePropertyChanged(this, 'trailingIcon');
       }
       get TrailingIcon() { return this.trailingIcon; }
       set TrailingIcon(v) { this.trailingIcon = v; }
@@ -398,7 +382,6 @@
       set iconSize(v) {
         this._iconSize = parseInt(v) || 24;
         if (this._hasRendered) this._applyIconStyles();
-        safeRaisePropertyChanged(this, 'iconSize');
       }
       get IconSize() { return this.iconSize; }
       set IconSize(v) { this.iconSize = v; }
@@ -407,7 +390,6 @@
       set iconColor(v) {
         this._iconColor = v || '';
         if (this._hasRendered) this._applyIconStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -416,7 +398,6 @@
       set iconSpacing(v) {
         this._iconSpacing = parseInt(v) || 8;
         if (this._hasRendered) this._applyIconStyles();
-        safeRaisePropertyChanged(this, 'iconSpacing');
       }
       get IconSpacing() { return this.iconSpacing; }
       set IconSpacing(v) { this.iconSpacing = v; }

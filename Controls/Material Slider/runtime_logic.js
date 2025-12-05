@@ -1,3 +1,6 @@
+if (!window.__materialsliderRuntimeLoaded) {
+  window.__materialsliderRuntimeLoaded = true;
+
 /**
  * Material Slider Control for K2 SmartForms
  * Material 3 Design slider for selecting values from a range
@@ -699,3 +702,6 @@
     });
   }
 })();
+
+
+}

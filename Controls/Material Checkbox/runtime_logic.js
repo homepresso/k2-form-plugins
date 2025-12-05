@@ -1,3 +1,6 @@
+if (!window.__materialcheckboxRuntimeLoaded) {
+  window.__materialcheckboxRuntimeLoaded = true;
+
 /**
  * Material Checkbox Control for K2 SmartForms
  * Material 3 Design with indeterminate state and ripple effect
@@ -465,3 +468,6 @@
     });
   }
 })();
+
+
+}

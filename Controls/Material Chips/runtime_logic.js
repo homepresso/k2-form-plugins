@@ -1,3 +1,6 @@
+if (!window.__materialchipsRuntimeLoaded) {
+  window.__materialchipsRuntimeLoaded = true;
+
 /**
  * Material Chips Control for K2 SmartForms
  * Material 3 Design chips for input, filter, or action
@@ -645,3 +648,5 @@
     });
   }
 })();
+
+}

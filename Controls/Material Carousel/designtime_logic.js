@@ -1,5 +1,5 @@
 /**
- * Material Carousel Control for K2 SmartForms
+ * Material Carousel Control for K2 SmartForms - Design Time
  * Material 3 Design carousel for displaying scrollable content
  */
 (function() {
@@ -136,6 +136,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
 
         // Render container immediately
         this._renderContainer();
@@ -222,6 +223,7 @@
       _renderContainer() {
         this.innerHTML = '';
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mcr-container mcr-${this._variant}`;
         this.appendChild(this._container);
         this._applyStyles();
@@ -477,8 +479,6 @@
           if (prevBtn) prevBtn.disabled = index === 0;
           if (nextBtn) nextBtn.disabled = index === this._parsedItems.length - 1;
         }
-
-        safeRaisePropertyChanged(this, 'currentIndex');
         this.dispatchEvent(new CustomEvent('SlideChanged', {
           bubbles: true,
           detail: { index, item: this._parsedItems[index] }
@@ -563,7 +563,6 @@
         } else if (this._hasRendered) {
           this._pendingRender = true;
         }
-        safeRaisePropertyChanged(this, 'listBinding');
       }
       get ListBinding() { return this.listBinding; }
       set ListBinding(v) { this.listBinding = v; }
@@ -577,7 +576,6 @@
         } else if (this._hasRendered) {
           this._pendingRender = true;
         }
-        safeRaisePropertyChanged(this, 'items');
       }
       get Items() { return this.items; }
       set Items(v) { this.items = v; }
@@ -586,7 +584,6 @@
       set height(v) {
         this._height = v || '300';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'height');
       }
       get Height() { return this.height; }
       set Height(v) { this.height = v; }
@@ -596,7 +593,6 @@
         this._delimiter = v || '|';
         this._parseItems();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'delimiter');
       }
       get Delimiter() { return this.delimiter; }
       set Delimiter(v) { this.delimiter = v; }
@@ -606,7 +602,6 @@
         this._subDelimiter = v || ':';
         this._parseItems();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'subDelimiter');
       }
       get SubDelimiter() { return this.subDelimiter; }
       set SubDelimiter(v) { this.subDelimiter = v; }
@@ -615,7 +610,6 @@
       set currentIndex(v) {
         this._currentIndex = parseInt(v) || 0;
         if (this._hasRendered) this._goToSlide(this._currentIndex);
-        safeRaisePropertyChanged(this, 'currentIndex');
       }
       get CurrentIndex() { return this.currentIndex; }
       set CurrentIndex(v) { this.currentIndex = v; }
@@ -630,7 +624,6 @@
             this._stopAutoPlay();
           }
         }
-        safeRaisePropertyChanged(this, 'autoPlay');
       }
       get AutoPlay() { return this.autoPlay; }
       set AutoPlay(v) { this.autoPlay = v; }
@@ -641,7 +634,6 @@
         if (this._autoPlay && this._hasRendered) {
           this._startAutoPlay();
         }
-        safeRaisePropertyChanged(this, 'autoPlayInterval');
       }
       get AutoPlayInterval() { return this.autoPlayInterval; }
       set AutoPlayInterval(v) { this.autoPlayInterval = v; }
@@ -650,7 +642,6 @@
       set showArrows(v) {
         this._showArrows = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showArrows');
       }
       get ShowArrows() { return this.showArrows; }
       set ShowArrows(v) { this.showArrows = v; }
@@ -659,7 +650,6 @@
       set showIndicators(v) {
         this._showIndicators = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showIndicators');
       }
       get ShowIndicators() { return this.showIndicators; }
       set ShowIndicators(v) { this.showIndicators = v; }
@@ -667,7 +657,6 @@
       get loop() { return this._loop; }
       set loop(v) {
         this._loop = (v === true || v === 'true');
-        safeRaisePropertyChanged(this, 'loop');
       }
       get Loop() { return this.loop; }
       set Loop(v) { this.loop = v; }
@@ -677,7 +666,6 @@
         const valid = ['contained', 'hero', 'full-screen'];
         this._variant = valid.includes(v) ? v : 'contained';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -687,7 +675,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -696,7 +683,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -705,7 +691,6 @@
       set arrowColor(v) {
         this._arrowColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'arrowColor');
       }
       get ArrowColor() { return this.arrowColor; }
       set ArrowColor(v) { this.arrowColor = v; }
@@ -714,7 +699,6 @@
       set arrowBackgroundColor(v) {
         this._arrowBackgroundColor = v || 'rgba(0, 0, 0, 0.3)';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'arrowBackgroundColor');
       }
       get ArrowBackgroundColor() { return this.arrowBackgroundColor; }
       set ArrowBackgroundColor(v) { this.arrowBackgroundColor = v; }
@@ -723,7 +707,6 @@
       set indicatorColor(v) {
         this._indicatorColor = v || 'rgba(255, 255, 255, 0.5)';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'indicatorColor');
       }
       get IndicatorColor() { return this.indicatorColor; }
       set IndicatorColor(v) { this.indicatorColor = v; }
@@ -732,7 +715,6 @@
       set indicatorActiveColor(v) {
         this._indicatorActiveColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'indicatorActiveColor');
       }
       get IndicatorActiveColor() { return this.indicatorActiveColor; }
       set IndicatorActiveColor(v) { this.indicatorActiveColor = v; }
@@ -741,7 +723,6 @@
       set overlayColor(v) {
         this._overlayColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'overlayColor');
       }
       get OverlayColor() { return this.overlayColor; }
       set OverlayColor(v) { this.overlayColor = v; }
@@ -750,7 +731,6 @@
       set textColor(v) {
         this._textColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -759,7 +739,6 @@
       set captionBackgroundColor(v) {
         this._captionBackgroundColor = v || 'rgba(0, 0, 0, 0.5)';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'captionBackgroundColor');
       }
       get CaptionBackgroundColor() { return this.captionBackgroundColor; }
       set CaptionBackgroundColor(v) { this.captionBackgroundColor = v; }
@@ -768,7 +747,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -777,7 +755,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -786,7 +763,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -795,7 +771,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

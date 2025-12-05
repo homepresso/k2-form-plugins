@@ -5,14 +5,10 @@
 (function() {
   'use strict';
 
+  // Design-time preview only - non-interactive
+
   if (typeof window.K2 === "undefined") {
     window.K2 = {};
-  }
-
-  function safeRaisePropertyChanged(ctrl, prop) {
-    if (window.K2?.RaisePropertyChanged) {
-      K2.RaisePropertyChanged(ctrl, prop);
-    }
   }
 
   // Load Google Fonts
@@ -74,6 +70,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadGoogleFonts();
         setTimeout(() => {
           this._render();
@@ -84,12 +81,11 @@
       _render() {
         this.innerHTML = '';
         this._buildSlider();
-        this._applyStyles();
-        this._bindEvents();
-      }
+        this._applyStyles();}
 
       _buildSlider() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = 'msl-container';
         if (this._discrete) this._container.classList.add('msl-discrete');
         if (this._rangeMode) this._container.classList.add('msl-range');
@@ -174,7 +170,7 @@
         thumb.className = 'msl-thumb';
         thumb.setAttribute('data-thumb', type);
         thumb.setAttribute('role', 'slider');
-        thumb.setAttribute('tabindex', '0');
+        thumb.setAttribute("tabindex", "-1") // Design-time: prevent focus;
 
         if (this._rangeMode) {
           const value = type === 'start' ? this._valueStart : this._valueEnd;
@@ -298,13 +294,7 @@
           });
         }
       }
-
-      _bindEvents() {
-        // Design time: read-only mode - no interactive events
-        // The control displays but doesn't respond to drag/click in the designer
-      }
-
-      _startDrag(e, thumb) {
+_startDrag(e, thumb) {
         if (!this._isEnabled) return;
         e.preventDefault();
         this._isDragging = true;
@@ -443,19 +433,8 @@
       }
 
       _fireChangeEvent() {
-        safeRaisePropertyChanged(this, 'value');
         if (this._rangeMode) {
-          safeRaisePropertyChanged(this, 'valueStart');
-          safeRaisePropertyChanged(this, 'valueEnd');
-        }
-
-        this.dispatchEvent(new CustomEvent('Changed', {
-          bubbles: true,
-          detail: this._rangeMode
-            ? { valueStart: this._valueStart, valueEnd: this._valueEnd }
-            : { value: this._value }
-        }));
-      }
+        }}
 
       _updateState() {
         if (!this._container) return;
@@ -467,7 +446,6 @@
       set value(v) {
         this._value = this._snapToStep(parseFloat(v) || 0);
         if (this._hasRendered) this._updateTrack();
-        safeRaisePropertyChanged(this, 'value');
       }
       get Value() { return this.value; }
       set Value(v) { this.value = v; }
@@ -476,7 +454,6 @@
       set min(v) {
         this._min = parseFloat(v) || 0;
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'min');
       }
       get Min() { return this.min; }
       set Min(v) { this.min = v; }
@@ -485,7 +462,6 @@
       set max(v) {
         this._max = parseFloat(v) || 100;
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'max');
       }
       get Max() { return this.max; }
       set Max(v) { this.max = v; }
@@ -494,7 +470,6 @@
       set step(v) {
         this._step = Math.max(0.001, parseFloat(v) || 1);
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'step');
       }
       get Step() { return this.step; }
       set Step(v) { this.step = v; }
@@ -503,7 +478,6 @@
       set label(v) {
         this._label = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -512,7 +486,6 @@
       set showValue(v) {
         this._showValue = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showValue');
       }
       get ShowValue() { return this.showValue; }
       set ShowValue(v) { this.showValue = v; }
@@ -521,7 +494,6 @@
       set showTicks(v) {
         this._showTicks = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showTicks');
       }
       get ShowTicks() { return this.showTicks; }
       set ShowTicks(v) { this.showTicks = v; }
@@ -530,7 +502,6 @@
       set discrete(v) {
         this._discrete = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'discrete');
       }
       get Discrete() { return this.discrete; }
       set Discrete(v) { this.discrete = v; }
@@ -539,7 +510,6 @@
       set rangeMode(v) {
         this._rangeMode = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'rangeMode');
       }
       get RangeMode() { return this.rangeMode; }
       set RangeMode(v) { this.rangeMode = v; }
@@ -548,7 +518,6 @@
       set valueStart(v) {
         this._valueStart = this._snapToStep(parseFloat(v) || 0);
         if (this._hasRendered) this._updateTrack();
-        safeRaisePropertyChanged(this, 'valueStart');
       }
       get ValueStart() { return this.valueStart; }
       set ValueStart(v) { this.valueStart = v; }
@@ -557,7 +526,6 @@
       set valueEnd(v) {
         this._valueEnd = this._snapToStep(parseFloat(v) || 100);
         if (this._hasRendered) this._updateTrack();
-        safeRaisePropertyChanged(this, 'valueEnd');
       }
       get ValueEnd() { return this.valueEnd; }
       set ValueEnd(v) { this.valueEnd = v; }
@@ -567,7 +535,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -576,7 +543,6 @@
       set trackColor(v) {
         this._trackColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'trackColor');
       }
       get TrackColor() { return this.trackColor; }
       set TrackColor(v) { this.trackColor = v; }
@@ -585,7 +551,6 @@
       set trackActiveColor(v) {
         this._trackActiveColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'trackActiveColor');
       }
       get TrackActiveColor() { return this.trackActiveColor; }
       set TrackActiveColor(v) { this.trackActiveColor = v; }
@@ -594,7 +559,6 @@
       set thumbColor(v) {
         this._thumbColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'thumbColor');
       }
       get ThumbColor() { return this.thumbColor; }
       set ThumbColor(v) { this.thumbColor = v; }
@@ -603,7 +567,6 @@
       set labelColor(v) {
         this._labelColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -612,7 +575,6 @@
       set valueColor(v) {
         this._valueColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'valueColor');
       }
       get ValueColor() { return this.valueColor; }
       set ValueColor(v) { this.valueColor = v; }
@@ -621,7 +583,6 @@
       set tickColor(v) {
         this._tickColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'tickColor');
       }
       get TickColor() { return this.tickColor; }
       set TickColor(v) { this.tickColor = v; }
@@ -630,7 +591,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -639,7 +599,6 @@
       set fontSize(v) {
         this._fontSize = parseFloat(v) || 12;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -648,7 +607,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -657,7 +615,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

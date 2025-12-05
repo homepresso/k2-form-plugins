@@ -1,3 +1,6 @@
+if (!window.__materialiconRuntimeLoaded) {
+  window.__materialiconRuntimeLoaded = true;
+
 /**
  * Material Icon Control for K2 SmartForms
  * Displays Material Design icons with customizable properties
@@ -276,3 +279,5 @@
     });
   }
 })();
+
+}

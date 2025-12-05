@@ -1,3 +1,6 @@
+if (!window.__materialsegmentedbuttonRuntimeLoaded) {
+  window.__materialsegmentedbuttonRuntimeLoaded = true;
+
 /**
  * Material Segmented Button Control for K2 SmartForms
  * Material 3 Design segmented button for single or multi-select options
@@ -499,3 +502,6 @@
     });
   }
 })();
+
+
+}

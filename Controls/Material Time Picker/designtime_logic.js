@@ -1,5 +1,5 @@
 /**
- * Material Time Picker Control for K2 SmartForms
+ * Material Time Picker Control for K2 SmartForms - Design Time
  * Material 3 Design time picker with dial and input modes
  */
 (function() {
@@ -94,6 +94,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -165,6 +166,7 @@
 
       _buildInput() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mtp-container mtp-${this._variant}`;
 
         // Input wrapper
@@ -174,7 +176,7 @@
         // Input field
         this._input = document.createElement('div');
         this._input.className = 'mtp-field';
-        this._input.tabIndex = 0;
+        this._input.tabIndex = -1; // Design-time: prevent focus
         this._input.setAttribute('role', 'combobox');
         this._input.setAttribute('aria-haspopup', 'dialog');
 
@@ -480,8 +482,6 @@
           displayText.classList.remove('mtp-placeholder');
         }
         this._container.classList.add('mtp-has-value');
-
-        safeRaisePropertyChanged(this, 'value');
         this.dispatchEvent(new CustomEvent('Changed', {
           bubbles: true,
           detail: { value: this._value, hours: this._hours, minutes: this._minutes, period: this._period }
@@ -638,7 +638,6 @@
           displayText.classList.add('mtp-placeholder');
         }
         this._container?.classList.remove('mtp-has-value');
-        safeRaisePropertyChanged(this, 'value');
       }
 
       // Properties
@@ -659,7 +658,6 @@
           }
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'value');
       }
       get Value() { return this.value; }
       set Value(v) { this.value = v; }
@@ -668,7 +666,6 @@
       set label(v) {
         this._label = v || 'Time';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -680,7 +677,6 @@
           const displayText = this._input?.querySelector('.mtp-display-text');
           if (displayText) displayText.textContent = this._placeholder;
         }
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -689,7 +685,6 @@
       set variant(v) {
         this._variant = (v === 'filled') ? 'filled' : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -704,7 +699,6 @@
             displayText.textContent = this._formatValue();
           }
         }
-        safeRaisePropertyChanged(this, 'format');
       }
       get Format() { return this.format; }
       set Format(v) { this.format = v; }
@@ -713,7 +707,6 @@
       set minuteStep(v) {
         const valid = [1, 5, 10, 15, 30];
         this._minuteStep = valid.includes(parseInt(v)) ? parseInt(v) : 1;
-        safeRaisePropertyChanged(this, 'minuteStep');
       }
       get MinuteStep() { return this.minuteStep; }
       set MinuteStep(v) { this.minuteStep = v; }
@@ -722,7 +715,6 @@
       set required(v) {
         this._required = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -734,7 +726,6 @@
           const helper = this._container?.querySelector('.mtp-helper-text');
           if (helper) helper.textContent = this._helperText;
         }
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -742,7 +733,6 @@
       get errorText() { return this._errorText; }
       set errorText(v) {
         this._errorText = v || '';
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -755,7 +745,6 @@
           if (helper) helper.textContent = this._hasError ? this._errorText : this._helperText;
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -765,7 +754,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -774,7 +762,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -783,7 +770,6 @@
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -792,7 +778,6 @@
       set labelColor(v) {
         this._labelColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -801,7 +786,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -810,7 +794,6 @@
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -819,7 +802,6 @@
       set surfaceColor(v) {
         this._surfaceColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceColor');
       }
       get SurfaceColor() { return this.surfaceColor; }
       set SurfaceColor(v) { this.surfaceColor = v; }
@@ -828,7 +810,6 @@
       set dialColor(v) {
         this._dialColor = v || '#EADDFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'dialColor');
       }
       get DialColor() { return this.dialColor; }
       set DialColor(v) { this.dialColor = v; }
@@ -837,7 +818,6 @@
       set dialTextColor(v) {
         this._dialTextColor = v || '#1D192B';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'dialTextColor');
       }
       get DialTextColor() { return this.dialTextColor; }
       set DialTextColor(v) { this.dialTextColor = v; }
@@ -846,7 +826,6 @@
       set selectedColor(v) {
         this._selectedColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedColor');
       }
       get SelectedColor() { return this.selectedColor; }
       set SelectedColor(v) { this.selectedColor = v; }
@@ -855,7 +834,6 @@
       set selectedTextColor(v) {
         this._selectedTextColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedTextColor');
       }
       get SelectedTextColor() { return this.selectedTextColor; }
       set SelectedTextColor(v) { this.selectedTextColor = v; }
@@ -864,7 +842,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -873,7 +850,6 @@
       set fontSize(v) {
         this._fontSize = v || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -882,7 +858,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -891,7 +866,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -900,7 +874,6 @@
       set height(v) {
         this._height = parseInt(v) || 28;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'height');
       }
       get Height() { return this.height; }
       set Height(v) { this.height = v; }
@@ -909,7 +882,6 @@
       set padding(v) {
         this._padding = parseInt(v) || 8;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'padding');
       }
       get Padding() { return this.padding; }
       set Padding(v) { this.padding = v; }

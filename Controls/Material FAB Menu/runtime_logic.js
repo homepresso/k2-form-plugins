@@ -1,3 +1,6 @@
+if (!window.__materialfabmenuRuntimeLoaded) {
+  window.__materialfabmenuRuntimeLoaded = true;
+
 /**
  * Material FAB Menu Control for K2 SmartForms
  * Material 3 Design Floating Action Button with expandable menu
@@ -563,3 +566,5 @@
     });
   }
 })();
+
+}

@@ -5,14 +5,10 @@
 (function() {
   'use strict';
 
+  // Design-time preview only - non-interactive
+
   if (typeof window.K2 === "undefined") {
     window.K2 = {};
-  }
-
-  function safeRaisePropertyChanged(ctrl, prop) {
-    if (window.K2?.RaisePropertyChanged) {
-      K2.RaisePropertyChanged(ctrl, prop);
-    }
   }
 
   // Load Material Icons
@@ -96,6 +92,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -107,12 +104,11 @@
       _render() {
         this.innerHTML = '';
         this._buildContainer();
-        this._applyStyles();
-        this._bindEvents();
-      }
+        this._applyStyles();}
 
       _buildContainer() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `mal-container mal-${this._variant}`;
 
         // Input wrapper
@@ -134,7 +130,7 @@
         this._input.placeholder = this._placeholder || ' ';
         this._input.autocomplete = 'off';
         this._input.readOnly = true; // Always read-only in designtime
-        this._input.disabled = !this._isEnabled;
+        this._input.disabled = true; // Always disabled in design-time
 
         inputWrapper.appendChild(this._input);
 
@@ -212,17 +208,6 @@
         }
       }
 
-      _bindEvents() {
-        this._input.addEventListener('focus', () => {
-          this._container.classList.add('mal-focused');
-        });
-
-        this._input.addEventListener('blur', () => {
-          this._container.classList.remove('mal-focused');
-          this._updateState();
-        });
-      }
-
       _updateState() {
         if (!this._container) return;
 
@@ -248,7 +233,7 @@
           if (this._input) this._input.disabled = true;
         } else {
           this._container.classList.remove('mal-disabled');
-          if (this._input) this._input.disabled = false;
+          if (this._input) this._input.disabled = true; // Design-time: always disabled
         }
       }
 
@@ -276,7 +261,6 @@
         this._value = null;
         this._formattedAddress = '';
         this._container.classList.remove('mal-has-value');
-        safeRaisePropertyChanged(this, 'Value');
       }
 
       // Properties
@@ -303,7 +287,6 @@
           this._input.value = this._formattedAddress;
         }
         this._updateState();
-        safeRaisePropertyChanged(this, 'Value');
       }
 
       get apiKey() { return this._apiKey; }
@@ -320,7 +303,6 @@
       set label(v) {
         this._label = v || '';
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -329,7 +311,6 @@
       set placeholder(v) {
         this._placeholder = v || '';
         if (this._input) this._input.placeholder = this._placeholder || ' ';
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -340,7 +321,6 @@
         if (!this._hasError && this._helperEl) {
           this._helperEl.textContent = this._helperText;
         }
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -351,7 +331,6 @@
         if (this._hasError && this._helperEl) {
           this._helperEl.textContent = this._errorText;
         }
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -360,7 +339,6 @@
       set hasError(v) {
         this._hasError = (v === true || v === 'true');
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -369,7 +347,6 @@
       set variant(v) {
         this._variant = ['filled', 'outlined'].includes(v) ? v : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -378,7 +355,6 @@
       set leadingIcon(v) {
         this._leadingIcon = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -387,7 +363,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -396,7 +371,6 @@
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -405,7 +379,6 @@
       set labelColor(v) {
         this._labelColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -414,7 +387,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -423,7 +395,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -432,7 +403,6 @@
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -441,7 +411,6 @@
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -450,7 +419,6 @@
       set labelBackground(v) {
         this._labelBackground = v || '#ffffff';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelBackground');
       }
       get LabelBackground() { return this.labelBackground; }
       set LabelBackground(v) { this.labelBackground = v; }
@@ -459,7 +427,6 @@
       set labelFontSize(v) {
         this._labelFontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontSize');
       }
       get LabelFontSize() { return this.labelFontSize; }
       set LabelFontSize(v) { this.labelFontSize = v; }
@@ -468,7 +435,6 @@
       set labelFontWeight(v) {
         this._labelFontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontWeight');
       }
       get LabelFontWeight() { return this.labelFontWeight; }
       set LabelFontWeight(v) { this.labelFontWeight = v; }
@@ -477,7 +443,6 @@
       set labelFontStyle(v) {
         this._labelFontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontStyle');
       }
       get LabelFontStyle() { return this.labelFontStyle; }
       set LabelFontStyle(v) { this.labelFontStyle = v; }
@@ -486,7 +451,6 @@
       set required(v) {
         this._required = (v === true || v === 'true');
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -495,7 +459,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -504,7 +467,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -513,7 +475,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -522,7 +483,6 @@
       set fontStyle(v) {
         this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -614,7 +574,6 @@
         if (this._hasRendered) {
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'IsEnabled');
       }
     });
   }

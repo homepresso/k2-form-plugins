@@ -1,5 +1,5 @@
 /**
- * Material Select Control for K2 SmartForms
+ * Material Select Control for K2 SmartForms - Design Time
  * Material 3 Design dropdown with outlined and filled variants
  */
 (function() {
@@ -86,6 +86,7 @@
 
       connectedCallback() {
         if (this._hasRendered) return;
+        this.setAttribute('tabindex', '-1'); // Prevent focus in design-time
         loadMaterialIcons();
         loadGoogleFonts();
         setTimeout(() => {
@@ -168,6 +169,7 @@
 
       _buildSelect() {
         this._container = document.createElement('div');
+        this._container.style.pointerEvents = "none"; // Design-time: non-interactive
         this._container.className = `msl-container msl-${this._variant}`;
 
         // Input wrapper
@@ -184,8 +186,10 @@
 
         // Select field
         this._selectField = document.createElement('div');
+        this._selectField.style.pointerEvents = "none"; // Design-time: non-interactive
+        this._selectField.setAttribute("aria-disabled", "true");
         this._selectField.className = 'msl-field';
-        this._selectField.tabIndex = 0;
+        this._selectField.tabIndex = -1; // Design-time: prevent focus
         this._selectField.setAttribute('role', 'combobox');
         this._selectField.setAttribute('aria-haspopup', 'listbox');
         this._selectField.setAttribute('aria-expanded', 'false');
@@ -307,9 +311,6 @@
         this._buildMenuItems();
         this._updateState();
         this.close();
-
-        safeRaisePropertyChanged(this, 'value');
-
         this.dispatchEvent(new CustomEvent('Changed', {
           bubbles: true,
           detail: { value: this._value, label: this._displayValue }
@@ -418,7 +419,6 @@
         }
         this._buildMenuItems();
         this._updateState();
-        safeRaisePropertyChanged(this, 'value');
       }
 
       // K2 List Binding Callbacks
@@ -469,7 +469,6 @@
           this._buildMenuItems();
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'value');
       }
       get Value() { return this.value; }
       set Value(v) { this.value = v; }
@@ -478,7 +477,6 @@
       set label(v) {
         this._label = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -488,7 +486,6 @@
         this._listBinding = v || '';
         this._parseOptions();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'listBinding');
       }
       get ListBinding() { return this.listBinding; }
       set ListBinding(v) { this.listBinding = v; }
@@ -498,7 +495,6 @@
         this._options = v || '';
         this._parseOptions();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'options');
       }
       get Options() { return this.options; }
       set Options(v) { this.options = v; }
@@ -508,7 +504,6 @@
         this._delimiter = v || ',';
         this._parseOptions();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'delimiter');
       }
       get Delimiter() { return this.delimiter; }
       set Delimiter(v) { this.delimiter = v; }
@@ -517,7 +512,6 @@
       set variant(v) {
         this._variant = (v === 'filled') ? 'filled' : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -526,7 +520,6 @@
       set placeholder(v) {
         this._placeholder = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -535,7 +528,6 @@
       set leadingIcon(v) {
         this._leadingIcon = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -544,7 +536,6 @@
       set helperText(v) {
         this._helperText = v || '';
         this._updateState();
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -553,7 +544,6 @@
       set errorText(v) {
         this._errorText = v || '';
         this._updateState();
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -562,7 +552,6 @@
       set hasError(v) {
         this._hasError = (v === true || v === 'true');
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -571,7 +560,6 @@
       set required(v) {
         this._required = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -580,7 +568,6 @@
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -589,7 +576,6 @@
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -598,7 +584,6 @@
       set labelColor(v) {
         this._labelColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -607,7 +592,6 @@
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -616,7 +600,6 @@
       set backgroundColor(v) {
         this._backgroundColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -625,7 +608,6 @@
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -634,7 +616,6 @@
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -643,7 +624,6 @@
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -652,7 +632,6 @@
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -661,7 +640,6 @@
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

@@ -1,3 +1,6 @@
+if (!window.__materialiconbuttonRuntimeLoaded) {
+  window.__materialiconbuttonRuntimeLoaded = true;
+
 /**
  * Material Icon Button Control for K2 SmartForms
  * Material 3 Design icon button with standard, filled, tonal, and outlined variants
@@ -409,3 +412,5 @@
     });
   }
 })();
+
+}

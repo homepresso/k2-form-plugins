@@ -1,3 +1,6 @@
+if (!window.__materialdatepickerRuntimeLoaded) {
+  window.__materialdatepickerRuntimeLoaded = true;
+
 /**
  * Material Date Picker Control for K2 SmartForms
  * Material 3 Design date picker with calendar interface
@@ -1171,3 +1174,6 @@
     });
   }
 })();
+
+
+}
