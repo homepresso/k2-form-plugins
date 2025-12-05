@@ -372,13 +372,6 @@
             if (this._checkboxMode) {
               this._toggleCheckbox(value, item);
             } else if (this._selectable) {
-              this._selectItem(value);
-            }
-          });
-
-          item.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
               if (!this._isEnabled) return;
               const value = item.getAttribute('data-value');
 

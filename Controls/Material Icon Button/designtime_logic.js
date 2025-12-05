@@ -194,7 +194,6 @@
         `;
 
         rippleContainer.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove());
       }
 
       _updateState() {
