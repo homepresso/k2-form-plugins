@@ -249,3 +249,73 @@ The control is flexible and will recognize common field naming conventions:
 | `one-line` | Single line items with title only |
 | `two-line` | Items with title and subtitle |
 | `three-line` | Items with title, subtitle, and additional text |
+
+## Using CSS Gradients
+
+All color properties support CSS gradients, allowing you to create visually rich designs beyond solid colors.
+
+### Basic Gradient Examples
+
+**Linear Gradient (Purple to Pink):**
+```
+Primary Color: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+```
+
+**Radial Gradient:**
+```
+Background Color: radial-gradient(circle, #ee7752, #e73c7e, #23a6d5)
+```
+
+**Multi-Color Gradient:**
+```
+Selected Item Color: linear-gradient(to right, #4facfe 0%, #00f2fe 50%, #667eea 100%)
+```
+
+### Popular Gradient Combinations
+
+**Sunset:**
+```
+linear-gradient(to right, #ff512f 0%, #dd2476 100%)
+```
+
+**Ocean Blue:**
+```
+linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%)
+```
+
+**Green Beach:**
+```
+linear-gradient(to right, #02aab0 0%, #00cdac 100%)
+```
+
+**Soft Pink:**
+```
+linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%)
+```
+
+### How to Apply
+
+In K2 SmartForms, simply paste the gradient CSS directly into any color property:
+
+1. Select the Material List control
+2. Find the color property (e.g., "Primary Color" or "Selected Item Color")
+3. Paste the gradient: `linear-gradient(135deg, #667eea 0%, #764ba2 100%)`
+
+### Advanced Techniques
+
+**Diagonal Gradient:**
+```
+linear-gradient(45deg, #fa709a 0%, #fee140 100%)
+```
+
+**Gradient with Transparency:**
+```
+linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9))
+```
+
+**Animated Gradient Effect:**
+```
+linear-gradient(45deg, #ff6b6b, #ee5a6f, #f06595, #cc5de8)
+```
+
+All modern browsers support CSS gradients (Chrome, Firefox, Edge, Safari).

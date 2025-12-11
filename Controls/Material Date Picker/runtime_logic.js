@@ -871,7 +871,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
           }
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'value');
       }
       get Value() { return this.value; }
       set Value(v) { this.value = v; }
@@ -880,7 +879,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set label(v) {
         this._label = v || 'Date';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -892,7 +890,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
           const displayText = this._input?.querySelector('.mdp-display-text');
           if (displayText) displayText.textContent = this._placeholder;
         }
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -901,7 +898,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set variant(v) {
         this._variant = (v === 'filled') ? 'filled' : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -917,7 +913,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
           }
           this._value = this._formatDate(this._selectedDate);
         }
-        safeRaisePropertyChanged(this, 'dateFormat');
       }
       get DateFormat() { return this.dateFormat; }
       set DateFormat(v) { this.dateFormat = v; }
@@ -925,7 +920,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       get minDate() { return this._minDate; }
       set minDate(v) {
         this._minDate = v || '';
-        safeRaisePropertyChanged(this, 'minDate');
       }
       get MinDate() { return this.minDate; }
       set MinDate(v) { this.minDate = v; }
@@ -933,7 +927,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       get maxDate() { return this._maxDate; }
       set maxDate(v) {
         this._maxDate = v || '';
-        safeRaisePropertyChanged(this, 'maxDate');
       }
       get MaxDate() { return this.maxDate; }
       set MaxDate(v) { this.maxDate = v; }
@@ -941,7 +934,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       get firstDayOfWeek() { return this._firstDayOfWeek; }
       set firstDayOfWeek(v) {
         this._firstDayOfWeek = (parseInt(v) === 1) ? 1 : 0;
-        safeRaisePropertyChanged(this, 'firstDayOfWeek');
       }
       get FirstDayOfWeek() { return this.firstDayOfWeek; }
       set FirstDayOfWeek(v) { this.firstDayOfWeek = v; }
@@ -950,7 +942,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set required(v) {
         this._required = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -962,7 +953,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
           const helper = this._container?.querySelector('.mdp-helper-text');
           if (helper) helper.textContent = this._helperText;
         }
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -970,7 +960,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       get errorText() { return this._errorText; }
       set errorText(v) {
         this._errorText = v || '';
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -983,7 +972,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
           if (helper) helper.textContent = this._hasError ? this._errorText : this._helperText;
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -993,7 +981,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -1002,7 +989,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -1011,7 +997,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -1020,7 +1005,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set labelColor(v) {
         this._labelColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -1029,7 +1013,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -1038,7 +1021,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -1047,7 +1029,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set surfaceColor(v) {
         this._surfaceColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceColor');
       }
       get SurfaceColor() { return this.surfaceColor; }
       set SurfaceColor(v) { this.surfaceColor = v; }
@@ -1056,7 +1037,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set headerBackgroundColor(v) {
         this._headerBackgroundColor = v || '#EADDFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'headerBackgroundColor');
       }
       get HeaderBackgroundColor() { return this.headerBackgroundColor; }
       set HeaderBackgroundColor(v) { this.headerBackgroundColor = v; }
@@ -1065,7 +1045,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set headerTextColor(v) {
         this._headerTextColor = v || '#1D192B';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'headerTextColor');
       }
       get HeaderTextColor() { return this.headerTextColor; }
       set HeaderTextColor(v) { this.headerTextColor = v; }
@@ -1074,7 +1053,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set selectedColor(v) {
         this._selectedColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedColor');
       }
       get SelectedColor() { return this.selectedColor; }
       set SelectedColor(v) { this.selectedColor = v; }
@@ -1083,7 +1061,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set selectedTextColor(v) {
         this._selectedTextColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedTextColor');
       }
       get SelectedTextColor() { return this.selectedTextColor; }
       set SelectedTextColor(v) { this.selectedTextColor = v; }
@@ -1092,7 +1069,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set todayColor(v) {
         this._todayColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'todayColor');
       }
       get TodayColor() { return this.todayColor; }
       set TodayColor(v) { this.todayColor = v; }
@@ -1101,7 +1077,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set weekdayColor(v) {
         this._weekdayColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'weekdayColor');
       }
       get WeekdayColor() { return this.weekdayColor; }
       set WeekdayColor(v) { this.weekdayColor = v; }
@@ -1110,7 +1085,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -1119,7 +1093,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -1128,7 +1101,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -1137,7 +1109,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -1146,7 +1117,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set height(v) {
         this._height = parseInt(v) || 56;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'height');
       }
       get Height() { return this.height; }
       set Height(v) { this.height = v; }
@@ -1155,7 +1125,6 @@ if (!window.__materialdatepickerRuntimeLoaded) {
       set padding(v) {
         this._padding = parseInt(v) || 8;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'padding');
       }
       get Padding() { return this.padding; }
       set Padding(v) { this.padding = v; }

@@ -384,7 +384,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
         if (this._input) this._input.value = '';
         this._updateCharCount();
         this._updateState();
-        safeRaisePropertyChanged(this, 'Value');
       }
 
       validate() {
@@ -424,7 +423,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
           this._errorText = errorMsg;
         }
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
 
       // Properties
@@ -436,14 +434,12 @@ if (!window.__materialtextboxRuntimeLoaded) {
         }
         this._updateCharCount();
         this._updateState();
-        safeRaisePropertyChanged(this, 'Value');
       }
 
       get label() { return this._label; }
       set label(v) {
         this._label = v || '';
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -452,7 +448,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set placeholder(v) {
         this._placeholder = v || '';
         if (this._input) this._input.placeholder = this._placeholder || ' ';
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -463,7 +458,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
         if (!this._hasError && this._helperEl) {
           this._helperEl.textContent = this._helperText;
         }
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -474,7 +468,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
         if (this._hasError && this._helperEl) {
           this._helperEl.textContent = this._errorText;
         }
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -483,7 +476,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set hasError(v) {
         this._hasError = (v === true || v === 'true');
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -492,7 +484,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set variant(v) {
         this._variant = ['filled', 'outlined'].includes(v) ? v : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -501,7 +492,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set leadingIcon(v) {
         this._leadingIcon = v || '';
         if (this._hasRendered) this._rebuildIcons();
-        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -510,7 +500,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set trailingIcon(v) {
         this._trailingIcon = v || '';
         if (this._hasRendered) this._rebuildIcons();
-        safeRaisePropertyChanged(this, 'trailingIcon');
       }
       get TrailingIcon() { return this.trailingIcon; }
       set TrailingIcon(v) { this.trailingIcon = v; }
@@ -519,7 +508,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set trailingIconClickable(v) {
         this._trailingIconClickable = (v === true || v === 'true');
         if (this._hasRendered) this._rebuildIcons();
-        safeRaisePropertyChanged(this, 'trailingIconClickable');
       }
       get TrailingIconClickable() { return this.trailingIconClickable; }
       set TrailingIconClickable(v) { this.trailingIconClickable = v; }
@@ -529,7 +517,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
         const validTypes = ['text', 'password', 'email', 'number', 'tel', 'url', 'search'];
         this._inputType = validTypes.includes(v) ? v : 'text';
         if (this._input) this._input.type = this._inputType;
-        safeRaisePropertyChanged(this, 'inputType');
       }
       get InputType() { return this.inputType; }
       set InputType(v) { this.inputType = v; }
@@ -545,7 +532,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
           }
         }
         this._updateCharCount();
-        safeRaisePropertyChanged(this, 'maxLength');
       }
       get MaxLength() { return this.maxLength; }
       set MaxLength(v) { this.maxLength = v; }
@@ -554,7 +540,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set showCharCount(v) {
         this._showCharCount = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showCharCount');
       }
       get ShowCharCount() { return this.showCharCount; }
       set ShowCharCount(v) { this.showCharCount = v; }
@@ -563,7 +548,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -572,7 +556,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -581,7 +564,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set labelColor(v) {
         this._labelColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -590,7 +572,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -599,7 +580,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -608,7 +588,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -617,7 +596,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -626,7 +604,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set labelBackground(v) {
         this._labelBackground = v || '#ffffff';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelBackground');
       }
       get LabelBackground() { return this.labelBackground; }
       set LabelBackground(v) { this.labelBackground = v; }
@@ -635,7 +612,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set labelFontSize(v) {
         this._labelFontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontSize');
       }
       get LabelFontSize() { return this.labelFontSize; }
       set LabelFontSize(v) { this.labelFontSize = v; }
@@ -644,7 +620,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set labelFontWeight(v) {
         this._labelFontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontWeight');
       }
       get LabelFontWeight() { return this.labelFontWeight; }
       set LabelFontWeight(v) { this.labelFontWeight = v; }
@@ -653,7 +628,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set labelFontStyle(v) {
         this._labelFontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontStyle');
       }
       get LabelFontStyle() { return this.labelFontStyle; }
       set LabelFontStyle(v) { this.labelFontStyle = v; }
@@ -671,7 +645,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
           }
         }
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -685,7 +658,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
             this._input.setAttribute('aria-label', accessibleLabel);
           }
         }
-        safeRaisePropertyChanged(this, 'ariaLabel');
       }
       get AriaLabel() { return this.ariaLabel; }
       set AriaLabel(v) { this.ariaLabel = v; }
@@ -700,7 +672,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
             this._input.removeAttribute('pattern');
           }
         }
-        safeRaisePropertyChanged(this, 'pattern');
       }
       get Pattern() { return this.pattern; }
       set Pattern(v) { this.pattern = v; }
@@ -709,7 +680,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set autocomplete(v) {
         this._autocomplete = v || 'off';
         if (this._input) this._input.autocomplete = this._autocomplete;
-        safeRaisePropertyChanged(this, 'autocomplete');
       }
       get Autocomplete() { return this.autocomplete; }
       set Autocomplete(v) { this.autocomplete = v; }
@@ -718,7 +688,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -727,7 +696,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -736,7 +704,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -745,7 +712,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -762,7 +728,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
         if (this._hasRendered) {
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'IsEnabled');
       }
 
       get IsReadOnly() { return this._isReadOnly; }
@@ -771,7 +736,6 @@ if (!window.__materialtextboxRuntimeLoaded) {
         if (this._hasRendered) {
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'IsReadOnly');
       }
 
       // Height property

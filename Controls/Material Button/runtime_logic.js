@@ -308,8 +308,9 @@ if (!window.__materialButtonRuntimeLoaded) {
       get text() { return this._text; }
       set text(v) {
         this._text = v || 'Button';
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'text');
+        if (this._hasRendered) {
+          this._updateContent();
+        }
       }
       get Text() { return this.text; }
       set Text(v) { this.text = v; }
@@ -325,7 +326,6 @@ if (!window.__materialButtonRuntimeLoaded) {
             this._button.removeAttribute('aria-label');
           }
         }
-        safeRaisePropertyChanged(this, 'ariaLabel');
       }
       get AriaLabel() { return this.ariaLabel; }
       set AriaLabel(v) { this.ariaLabel = v; }
@@ -340,7 +340,6 @@ if (!window.__materialButtonRuntimeLoaded) {
             this._button.removeAttribute('aria-pressed');
           }
         }
-        safeRaisePropertyChanged(this, 'toggleMode');
       }
       get ToggleMode() { return this.toggleMode; }
       set ToggleMode(v) { this.toggleMode = v; }
@@ -352,7 +351,6 @@ if (!window.__materialButtonRuntimeLoaded) {
           this._button.setAttribute('aria-pressed', this._pressed ? 'true' : 'false');
           this._button.classList.toggle('mbtn-pressed', this._pressed);
         }
-        safeRaisePropertyChanged(this, 'pressed');
       }
       get Pressed() { return this.pressed; }
       set Pressed(v) { this.pressed = v; }
@@ -362,7 +360,6 @@ if (!window.__materialButtonRuntimeLoaded) {
         const valid = ['filled', 'outlined', 'text', 'elevated', 'tonal'];
         this._variant = valid.includes(v) ? v : 'filled';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -370,8 +367,9 @@ if (!window.__materialButtonRuntimeLoaded) {
       get leadingIcon() { return this._leadingIcon; }
       set leadingIcon(v) {
         this._leadingIcon = v || '';
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'leadingIcon');
+        if (this._hasRendered) {
+          this._updateContent();
+        }
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -379,8 +377,9 @@ if (!window.__materialButtonRuntimeLoaded) {
       get trailingIcon() { return this._trailingIcon; }
       set trailingIcon(v) {
         this._trailingIcon = v || '';
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'trailingIcon');
+        if (this._hasRendered) {
+          this._updateContent();
+        }
       }
       get TrailingIcon() { return this.trailingIcon; }
       set TrailingIcon(v) { this.trailingIcon = v; }
@@ -389,7 +388,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set iconOnly(v) {
         this._iconOnly = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'iconOnly');
       }
       get IconOnly() { return this.iconOnly; }
       set IconOnly(v) { this.iconOnly = v; }
@@ -398,7 +396,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set fullWidth(v) {
         this._fullWidth = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'fullWidth');
       }
       get FullWidth() { return this.fullWidth; }
       set FullWidth(v) { this.fullWidth = v; }
@@ -408,7 +405,6 @@ if (!window.__materialButtonRuntimeLoaded) {
         const valid = ['small', 'medium', 'large'];
         this._size = valid.includes(v) ? v : 'medium';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'size');
       }
       get Size() { return this.size; }
       set Size(v) { this.size = v; }
@@ -417,7 +413,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -426,7 +421,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -435,7 +429,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -444,7 +437,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set outlineColor(v) {
         this._outlineColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'outlineColor');
       }
       get OutlineColor() { return this.outlineColor; }
       set OutlineColor(v) { this.outlineColor = v; }
@@ -453,7 +445,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set surfaceColor(v) {
         this._surfaceColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceColor');
       }
       get SurfaceColor() { return this.surfaceColor; }
       set SurfaceColor(v) { this.surfaceColor = v; }
@@ -462,7 +453,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -471,7 +461,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set hoverColor(v) {
         this._hoverColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'hoverColor');
       }
       get HoverColor() { return this.hoverColor; }
       set HoverColor(v) { this.hoverColor = v; }
@@ -479,8 +468,9 @@ if (!window.__materialButtonRuntimeLoaded) {
       get disableRipple() { return this._disableRipple; }
       set disableRipple(v) {
         this._disableRipple = (v === true || v === 'true');
-        this._updateContent();
-        safeRaisePropertyChanged(this, 'disableRipple');
+        if (this._hasRendered) {
+          this._updateContent();
+        }
       }
       get DisableRipple() { return this.disableRipple; }
       set DisableRipple(v) { this.disableRipple = v; }
@@ -488,9 +478,10 @@ if (!window.__materialButtonRuntimeLoaded) {
       get loading() { return this._loading; }
       set loading(v) {
         this._loading = (v === true || v === 'true');
-        this._updateContent();
-        this._updateState();
-        safeRaisePropertyChanged(this, 'loading');
+        if (this._hasRendered) {
+          this._updateContent();
+          this._updateState();
+        }
       }
       get Loading() { return this.loading; }
       set Loading(v) { this.loading = v; }
@@ -499,7 +490,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set tooltip(v) {
         this._tooltip = v || '';
         if (this._button) this._button.title = this._tooltip;
-        safeRaisePropertyChanged(this, 'tooltip');
       }
       get Tooltip() { return this.tooltip; }
       set Tooltip(v) { this.tooltip = v; }
@@ -508,7 +498,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -517,7 +506,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseInt(v) || 14;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -526,7 +514,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || '500';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -535,7 +522,6 @@ if (!window.__materialButtonRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

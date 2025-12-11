@@ -492,7 +492,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
         const valid = ['elevated', 'filled', 'outlined'];
         this._variant = valid.includes(v) ? v : 'elevated';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -502,7 +501,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
         const valid = ['vertical', 'horizontal', 'grid'];
         this._layout = valid.includes(v) ? v : 'vertical';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'layout');
       }
       get Layout() { return this.layout; }
       set Layout(v) { this.layout = v; }
@@ -511,7 +509,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set columns(v) {
         this._columns = v || '2';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'columns');
       }
       get Columns() { return this.columns; }
       set Columns(v) { this.columns = v; }
@@ -528,7 +525,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
             card.setAttribute('aria-selected', isSelected ? 'true' : 'false');
           });
         }
-        safeRaisePropertyChanged(this, 'selectedValue');
       }
       get SelectedValue() { return this.selectedValue; }
       set SelectedValue(v) { this.selectedValue = v; }
@@ -537,7 +533,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set clickable(v) {
         this._clickable = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'clickable');
       }
       get Clickable() { return this.clickable; }
       set Clickable(v) { this.clickable = v; }
@@ -546,7 +541,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set showImage(v) {
         this._showImage = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showImage');
       }
       get ShowImage() { return this.showImage; }
       set ShowImage(v) { this.showImage = v; }
@@ -555,7 +549,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set imageHeight(v) {
         this._imageHeight = v || '200';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'imageHeight');
       }
       get ImageHeight() { return this.imageHeight; }
       set ImageHeight(v) { this.imageHeight = v; }
@@ -564,7 +557,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set showActions(v) {
         this._showActions = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showActions');
       }
       get ShowActions() { return this.showActions; }
       set ShowActions(v) { this.showActions = v; }
@@ -573,7 +565,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set cardGap(v) {
         this._cardGap = v || '16';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'cardGap');
       }
       get CardGap() { return this.cardGap; }
       set CardGap(v) { this.cardGap = v; }
@@ -583,7 +574,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -592,7 +582,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -601,7 +590,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set surfaceColor(v) {
         this._surfaceColor = v || '#F7F2FA';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceColor');
       }
       get SurfaceColor() { return this.surfaceColor; }
       set SurfaceColor(v) { this.surfaceColor = v; }
@@ -610,7 +598,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set borderColor(v) {
         this._borderColor = v || '#CAC4D0';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -619,7 +606,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set titleColor(v) {
         this._titleColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'titleColor');
       }
       get TitleColor() { return this.titleColor; }
       set TitleColor(v) { this.titleColor = v; }
@@ -628,7 +614,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set subtitleColor(v) {
         this._subtitleColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'subtitleColor');
       }
       get SubtitleColor() { return this.subtitleColor; }
       set SubtitleColor(v) { this.subtitleColor = v; }
@@ -637,7 +622,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set descriptionColor(v) {
         this._descriptionColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'descriptionColor');
       }
       get DescriptionColor() { return this.descriptionColor; }
       set DescriptionColor(v) { this.descriptionColor = v; }
@@ -646,7 +630,6 @@ if (!window.__materiallistviewcardRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }

@@ -630,7 +630,6 @@ if (!window.__materiallistRuntimeLoaded) {
         const valid = ['one-line', 'two-line', 'three-line'];
         this._variant = valid.includes(v) ? v : 'one-line';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -647,7 +646,6 @@ if (!window.__materiallistRuntimeLoaded) {
             item.setAttribute('aria-selected', isSelected ? 'true' : 'false');
           });
         }
-        safeRaisePropertyChanged(this, 'selectedValue');
       }
       get SelectedValue() { return this.selectedValue; }
       set SelectedValue(v) { this.selectedValue = v; }
@@ -656,7 +654,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set selectable(v) {
         this._selectable = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'selectable');
       }
       get Selectable() { return this.selectable; }
       set Selectable(v) { this.selectable = v; }
@@ -665,7 +662,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set showDividers(v) {
         this._showDividers = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showDividers');
       }
       get ShowDividers() { return this.showDividers; }
       set ShowDividers(v) { this.showDividers = v; }
@@ -674,7 +670,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set showLeadingIcon(v) {
         this._showLeadingIcon = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showLeadingIcon');
       }
       get ShowLeadingIcon() { return this.showLeadingIcon; }
       set ShowLeadingIcon(v) { this.showLeadingIcon = v; }
@@ -683,7 +678,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set showTrailingIcon(v) {
         this._showTrailingIcon = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'showTrailingIcon');
       }
       get ShowTrailingIcon() { return this.showTrailingIcon; }
       set ShowTrailingIcon(v) { this.showTrailingIcon = v; }
@@ -692,7 +686,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set trailingIcon(v) {
         this._trailingIcon = v || 'chevron_right';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'trailingIcon');
       }
       get TrailingIcon() { return this.trailingIcon; }
       set TrailingIcon(v) { this.trailingIcon = v; }
@@ -701,7 +694,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set avatarMode(v) {
         this._avatarMode = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'avatarMode');
       }
       get AvatarMode() { return this.avatarMode; }
       set AvatarMode(v) { this.avatarMode = v; }
@@ -710,7 +702,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set checkboxMode(v) {
         this._checkboxMode = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'checkboxMode');
       }
       get CheckboxMode() { return this.checkboxMode; }
       set CheckboxMode(v) { this.checkboxMode = v; }
@@ -720,7 +711,6 @@ if (!window.__materiallistRuntimeLoaded) {
         const valid = ['left', 'right'];
         this._checkboxPosition = valid.includes(v) ? v : 'left';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'checkboxPosition');
       }
       get CheckboxPosition() { return this.checkboxPosition; }
       set CheckboxPosition(v) { this.checkboxPosition = v; }
@@ -733,7 +723,6 @@ if (!window.__materiallistRuntimeLoaded) {
           this._checkedValues ? this._checkedValues.split(',').map(s => s.trim()).filter(s => s) : []
         );
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'checkedValues');
       }
       get CheckedValues() { return this.checkedValues; }
       set CheckedValues(v) { this.checkedValues = v; }
@@ -742,7 +731,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set checkboxColor(v) {
         this._checkboxColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'checkboxColor');
       }
       get CheckboxColor() { return this.checkboxColor; }
       set CheckboxColor(v) { this.checkboxColor = v; }
@@ -752,7 +740,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -761,7 +748,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -770,7 +756,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -779,7 +764,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set secondaryTextColor(v) {
         this._secondaryTextColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'secondaryTextColor');
       }
       get SecondaryTextColor() { return this.secondaryTextColor; }
       set SecondaryTextColor(v) { this.secondaryTextColor = v; }
@@ -788,7 +772,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set dividerColor(v) {
         this._dividerColor = v || '#CAC4D0';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'dividerColor');
       }
       get DividerColor() { return this.dividerColor; }
       set DividerColor(v) { this.dividerColor = v; }
@@ -797,7 +780,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set hoverColor(v) {
         this._hoverColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'hoverColor');
       }
       get HoverColor() { return this.hoverColor; }
       set HoverColor(v) { this.hoverColor = v; }
@@ -806,7 +788,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set selectedColor(v) {
         this._selectedColor = v || '#E8DEF8';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedColor');
       }
       get SelectedColor() { return this.selectedColor; }
       set SelectedColor(v) { this.selectedColor = v; }
@@ -815,7 +796,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -824,7 +804,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set trailingIconColor(v) {
         this._trailingIconColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'trailingIconColor');
       }
       get TrailingIconColor() { return this.trailingIconColor; }
       set TrailingIconColor(v) { this.trailingIconColor = v; }
@@ -833,7 +812,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set avatarBackgroundColor(v) {
         this._avatarBackgroundColor = v || '#E8DEF8';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'avatarBackgroundColor');
       }
       get AvatarBackgroundColor() { return this.avatarBackgroundColor; }
       set AvatarBackgroundColor(v) { this.avatarBackgroundColor = v; }
@@ -842,7 +820,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -851,7 +828,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = v || '16';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -860,7 +836,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -869,7 +844,6 @@ if (!window.__materiallistRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -880,7 +854,6 @@ if (!window.__materiallistRuntimeLoaded) {
         if (this._hasRendered && this._dataItems.length > 0) {
           this._processDataItems();
         }
-        safeRaisePropertyChanged(this, 'sortBy');
       }
       get SortBy() { return this.sortBy; }
       set SortBy(v) { this.sortBy = v; }
@@ -891,7 +864,6 @@ if (!window.__materiallistRuntimeLoaded) {
         if (this._hasRendered && this._dataItems.length > 0) {
           this._processDataItems();
         }
-        safeRaisePropertyChanged(this, 'sortDirection');
       }
       get SortDirection() { return this.sortDirection; }
       set SortDirection(v) { this.sortDirection = v; }

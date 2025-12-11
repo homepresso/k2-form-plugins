@@ -44,6 +44,16 @@
       "changesdisplay": true
     },
     {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Last selected menu item label",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
       "id": "ariaLabel",
       "refreshdisplay": "false",
       "friendlyname": "ARIA Label",

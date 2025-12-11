@@ -90,6 +90,7 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
         this._sessionToken = null;
         this._debounceTimer = null;
         this._suggestions = [];
+        this._programmaticUpdate = false;
 
         // Google API properties
         this._apiKey = '';
@@ -736,6 +737,8 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       }
 
       set Value(val) {
+        this._programmaticUpdate = true;
+
         if (!val || (typeof val === 'string' && !val.trim())) {
           this._value = null;
           this._formattedAddress = '';
@@ -775,7 +778,10 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
         }
         this._updateState();
 
-        safeRaisePropertyChanged(this, 'Value');
+        if (!this._programmaticUpdate) {
+          safeRaisePropertyChanged(this, 'Value');
+        }
+        this._programmaticUpdate = false;
       }
 
       get apiKey() { return this._apiKey; }
@@ -799,7 +805,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set label(v) {
         this._label = v || '';
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -808,7 +813,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set placeholder(v) {
         this._placeholder = v || '';
         if (this._input) this._input.placeholder = this._placeholder || ' ';
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -819,7 +823,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
         if (!this._hasError && this._helperEl) {
           this._helperEl.textContent = this._helperText;
         }
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -830,7 +833,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
         if (this._hasError && this._helperEl) {
           this._helperEl.textContent = this._errorText;
         }
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -839,7 +841,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set hasError(v) {
         this._hasError = (v === true || v === 'true');
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -848,7 +849,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set variant(v) {
         this._variant = ['filled', 'outlined'].includes(v) ? v : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -860,7 +860,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
           this._leadingIconEl.textContent = this._leadingIcon;
           this._leadingIconEl.style.display = this._leadingIcon ? 'block' : 'none';
         }
-        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -869,7 +868,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -878,7 +876,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -887,7 +884,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set labelColor(v) {
         this._labelColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -896,7 +892,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -905,7 +900,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -914,7 +908,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -923,7 +916,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -932,7 +924,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set labelBackground(v) {
         this._labelBackground = v || '#ffffff';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelBackground');
       }
       get LabelBackground() { return this.labelBackground; }
       set LabelBackground(v) { this.labelBackground = v; }
@@ -941,7 +932,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set labelFontSize(v) {
         this._labelFontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontSize');
       }
       get LabelFontSize() { return this.labelFontSize; }
       set LabelFontSize(v) { this.labelFontSize = v; }
@@ -950,7 +940,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set labelFontWeight(v) {
         this._labelFontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontWeight');
       }
       get LabelFontWeight() { return this.labelFontWeight; }
       set LabelFontWeight(v) { this.labelFontWeight = v; }
@@ -959,7 +948,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set labelFontStyle(v) {
         this._labelFontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelFontStyle');
       }
       get LabelFontStyle() { return this.labelFontStyle; }
       set LabelFontStyle(v) { this.labelFontStyle = v; }
@@ -968,7 +956,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set required(v) {
         this._required = (v === true || v === 'true');
         this._updateLabel();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -977,7 +964,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -986,7 +972,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -995,7 +980,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -1004,7 +988,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -1096,7 +1079,6 @@ if (!window.__materialaddresslookupRuntimeLoaded) {
         if (this._hasRendered) {
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'IsEnabled');
       }
     });
   }

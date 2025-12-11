@@ -75,9 +75,9 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
         if (this._hasRendered) return;
         loadMaterialIcons();
         loadGoogleFonts();
+        this._hasRendered = true;
         setTimeout(() => {
           this._render();
-          this._hasRendered = true;
         }, 0);
       }
 
@@ -236,7 +236,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
             iconEl.textContent = this._icon;
           }
         }
-        safeRaisePropertyChanged(this, 'icon');
       }
       get Icon() { return this.icon; }
       set Icon(v) { this.icon = v; }
@@ -252,7 +251,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
         const valid = ['standard', 'filled', 'tonal', 'outlined'];
         this._variant = valid.includes(v) ? v : 'standard';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -262,7 +260,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
         const valid = ['small', 'medium', 'large'];
         this._size = valid.includes(v) ? v : 'medium';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'size');
       }
       get Size() { return this.size; }
       set Size(v) { this.size = v; }
@@ -270,7 +267,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       get toggle() { return this._toggle; }
       set toggle(v) {
         this._toggle = (v === true || v === 'true');
-        safeRaisePropertyChanged(this, 'toggle');
       }
       get Toggle() { return this.toggle; }
       set Toggle(v) { this.toggle = v; }
@@ -290,7 +286,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
               : this._icon;
           }
         }
-        safeRaisePropertyChanged(this, 'selected');
       }
       get Selected() { return this.selected; }
       set Selected(v) { this.selected = v; }
@@ -298,7 +293,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       get selectedIcon() { return this._selectedIcon; }
       set selectedIcon(v) {
         this._selectedIcon = v || '';
-        safeRaisePropertyChanged(this, 'selectedIcon');
       }
       get SelectedIcon() { return this.selectedIcon; }
       set SelectedIcon(v) { this.selectedIcon = v; }
@@ -307,7 +301,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set tooltip(v) {
         this._tooltip = v || '';
         if (this._button) this._button.title = this._tooltip;
-        safeRaisePropertyChanged(this, 'tooltip');
       }
       get Tooltip() { return this.tooltip; }
       set Tooltip(v) { this.tooltip = v; }
@@ -319,7 +312,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
           const accessibleLabel = this._ariaLabel || this._tooltip || this._icon;
           this._button.setAttribute('aria-label', accessibleLabel);
         }
-        safeRaisePropertyChanged(this, 'ariaLabel');
       }
       get AriaLabel() { return this.ariaLabel; }
       set AriaLabel(v) { this.ariaLabel = v; }
@@ -328,7 +320,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -337,7 +328,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -346,7 +336,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set containerColor(v) {
         this._containerColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'containerColor');
       }
       get ContainerColor() { return this.containerColor; }
       set ContainerColor(v) { this.containerColor = v; }
@@ -355,7 +344,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set outlineColor(v) {
         this._outlineColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'outlineColor');
       }
       get OutlineColor() { return this.outlineColor; }
       set OutlineColor(v) { this.outlineColor = v; }
@@ -364,7 +352,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set selectedContainerColor(v) {
         this._selectedContainerColor = v || '';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedContainerColor');
       }
       get SelectedContainerColor() { return this.selectedContainerColor; }
       set SelectedContainerColor(v) { this.selectedContainerColor = v; }
@@ -373,7 +360,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set selectedIconColor(v) {
         this._selectedIconColor = v || '#FFFFFF';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'selectedIconColor');
       }
       get SelectedIconColor() { return this.selectedIconColor; }
       set SelectedIconColor(v) { this.selectedIconColor = v; }
@@ -382,7 +368,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set surfaceVariantColor(v) {
         this._surfaceVariantColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'surfaceVariantColor');
       }
       get SurfaceVariantColor() { return this.surfaceVariantColor; }
       set SurfaceVariantColor(v) { this.surfaceVariantColor = v; }
@@ -391,7 +376,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set disableRipple(v) {
         this._disableRipple = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'disableRipple');
       }
       get DisableRipple() { return this.disableRipple; }
       set DisableRipple(v) { this.disableRipple = v; }
@@ -400,7 +384,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -409,7 +392,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseInt(v) || 24;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -418,7 +400,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -427,7 +408,6 @@ if (!window.__materialiconbuttonRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

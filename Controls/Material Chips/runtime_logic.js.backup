@@ -423,6 +423,7 @@ if (!window.__materialchipsRuntimeLoaded) {
         this._chips = v || '';
         this._parseChips();
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'chips');
       }
       get Chips() { return this.chips; }
       set Chips(v) { this.chips = v; }
@@ -432,6 +433,7 @@ if (!window.__materialchipsRuntimeLoaded) {
         this._delimiter = v || '|';
         this._parseChips();
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'delimiter');
       }
       get Delimiter() { return this.delimiter; }
       set Delimiter(v) { this.delimiter = v; }
@@ -441,6 +443,7 @@ if (!window.__materialchipsRuntimeLoaded) {
         this._subDelimiter = v || ':';
         this._parseChips();
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'subDelimiter');
       }
       get SubDelimiter() { return this.subDelimiter; }
       set SubDelimiter(v) { this.subDelimiter = v; }
@@ -450,6 +453,7 @@ if (!window.__materialchipsRuntimeLoaded) {
         const valid = ['assist', 'filter', 'input', 'suggestion'];
         this._variant = valid.includes(v) ? v : 'assist';
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -458,6 +462,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set multiSelect(v) {
         this._multiSelect = (v === true || v === 'true');
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'multiSelect');
       }
       get MultiSelect() { return this.multiSelect; }
       set MultiSelect(v) { this.multiSelect = v; }
@@ -469,6 +474,7 @@ if (!window.__materialchipsRuntimeLoaded) {
           this._selectedValues = this._selectedValue ? this._selectedValue.split(this._delimiter).map(s => s.trim()) : [];
         }
         if (this._hasRendered) this._updateSelection();
+        safeRaisePropertyChanged(this, 'selectedValue');
       }
       get SelectedValue() { return this.selectedValue; }
       set SelectedValue(v) { this.selectedValue = v; }
@@ -478,6 +484,7 @@ if (!window.__materialchipsRuntimeLoaded) {
         this._selectedValues = v ? v.split(this._delimiter).map(s => s.trim()) : [];
         this._selectedValue = this._selectedValues.join(this._delimiter);
         if (this._hasRendered) this._updateSelection();
+        safeRaisePropertyChanged(this, 'selectedValues');
       }
       get SelectedValues() { return this.selectedValues; }
       set SelectedValues(v) { this.selectedValues = v; }
@@ -486,6 +493,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set removable(v) {
         this._removable = (v === true || v === 'true');
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'removable');
       }
       get Removable() { return this.removable; }
       set Removable(v) { this.removable = v; }
@@ -494,6 +502,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set showCheckmark(v) {
         this._showCheckmark = (v === true || v === 'true');
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'showCheckmark');
       }
       get ShowCheckmark() { return this.showCheckmark; }
       set ShowCheckmark(v) { this.showCheckmark = v; }
@@ -503,6 +512,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -511,6 +521,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '#FFFBFE';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -519,6 +530,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -527,6 +539,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -535,6 +548,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set selectedBackgroundColor(v) {
         this._selectedBackgroundColor = v || '#E8DEF8';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'selectedBackgroundColor');
       }
       get SelectedBackgroundColor() { return this.selectedBackgroundColor; }
       set SelectedBackgroundColor(v) { this.selectedBackgroundColor = v; }
@@ -543,6 +557,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set selectedBorderColor(v) {
         this._selectedBorderColor = v || '';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'selectedBorderColor');
       }
       get SelectedBorderColor() { return this.selectedBorderColor; }
       set SelectedBorderColor(v) { this.selectedBorderColor = v; }
@@ -551,6 +566,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set selectedTextColor(v) {
         this._selectedTextColor = v || '#1D192B';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'selectedTextColor');
       }
       get SelectedTextColor() { return this.selectedTextColor; }
       set SelectedTextColor(v) { this.selectedTextColor = v; }
@@ -559,6 +575,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '#49454F';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -567,6 +584,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set removeIconColor(v) {
         this._removeIconColor = v || '';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'removeIconColor');
       }
       get RemoveIconColor() { return this.removeIconColor; }
       set RemoveIconColor(v) { this.removeIconColor = v; }
@@ -575,6 +593,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set elevatedBackgroundColor(v) {
         this._elevatedBackgroundColor = v || '#F3EDF7';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'elevatedBackgroundColor');
       }
       get ElevatedBackgroundColor() { return this.elevatedBackgroundColor; }
       set ElevatedBackgroundColor(v) { this.elevatedBackgroundColor = v; }
@@ -583,6 +602,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -591,6 +611,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = v || '14';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -599,6 +620,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -607,6 +629,7 @@ if (!window.__materialchipsRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

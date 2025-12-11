@@ -250,6 +250,7 @@ if (!window.__materiallabelRuntimeLoaded) {
         if (this._textEl) {
           this._textEl.textContent = this._value;
         }
+        safeRaisePropertyChanged(this, 'Value');
       }
 
       get labelFor() { return this._labelFor; }
@@ -259,6 +260,7 @@ if (!window.__materiallabelRuntimeLoaded) {
         if (this._hasRendered) {
           this._render();
         }
+        safeRaisePropertyChanged(this, 'labelFor');
       }
       get LabelFor() { return this.labelFor; }
       set LabelFor(v) { this.labelFor = v; }
@@ -267,6 +269,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -275,6 +278,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -283,6 +287,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = ['normal', 'italic'].includes(v) ? v : 'normal';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }
@@ -291,6 +296,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set textAlign(v) {
         this._textAlign = ['left', 'center', 'right', 'justify'].includes(v) ? v : 'left';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'textAlign');
       }
       get TextAlign() { return this.textAlign; }
       set TextAlign(v) { this.textAlign = v; }
@@ -299,6 +305,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -307,6 +314,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -315,6 +323,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -323,6 +332,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set padding(v) {
         this._padding = parseInt(v) || 8;
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'padding');
       }
       get Padding() { return this.padding; }
       set Padding(v) { this.padding = v; }
@@ -331,6 +341,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set lineHeight(v) {
         this._lineHeight = v || '1.5';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'lineHeight');
       }
       get LineHeight() { return this.lineHeight; }
       set LineHeight(v) { this.lineHeight = v; }
@@ -339,6 +350,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set textDecoration(v) {
         this._textDecoration = ['none', 'underline', 'line-through', 'overline'].includes(v) ? v : 'none';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'textDecoration');
       }
       get TextDecoration() { return this.textDecoration; }
       set TextDecoration(v) { this.textDecoration = v; }
@@ -347,6 +359,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set textTransform(v) {
         this._textTransform = ['none', 'uppercase', 'lowercase', 'capitalize'].includes(v) ? v : 'none';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'textTransform');
       }
       get TextTransform() { return this.textTransform; }
       set TextTransform(v) { this.textTransform = v; }
@@ -355,6 +368,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set wordWrap(v) {
         this._wordWrap = (v === true || v === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'wordWrap');
       }
       get WordWrap() { return this.wordWrap; }
       set WordWrap(v) { this.wordWrap = v; }
@@ -363,6 +377,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set clickable(v) {
         this._clickable = (v === true || v === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'clickable');
       }
       get Clickable() { return this.clickable; }
       set Clickable(v) { this.clickable = v; }
@@ -371,12 +386,14 @@ if (!window.__materiallabelRuntimeLoaded) {
       set IsVisible(val) {
         this._isVisible = (val === true || val === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'IsVisible');
       }
 
       get IsEnabled() { return this._isEnabled; }
       set IsEnabled(val) {
         this._isEnabled = (val === true || val === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'IsEnabled');
       }
 
       // Icon properties
@@ -384,6 +401,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set leadingIcon(v) {
         this._leadingIcon = v || '';
         if (this._hasRendered) this._updateIcons();
+        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -392,6 +410,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set trailingIcon(v) {
         this._trailingIcon = v || '';
         if (this._hasRendered) this._updateIcons();
+        safeRaisePropertyChanged(this, 'trailingIcon');
       }
       get TrailingIcon() { return this.trailingIcon; }
       set TrailingIcon(v) { this.trailingIcon = v; }
@@ -400,6 +419,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set iconSize(v) {
         this._iconSize = parseInt(v) || 24;
         if (this._hasRendered) this._applyIconStyles();
+        safeRaisePropertyChanged(this, 'iconSize');
       }
       get IconSize() { return this.iconSize; }
       set IconSize(v) { this.iconSize = v; }
@@ -408,6 +428,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '';
         if (this._hasRendered) this._applyIconStyles();
+        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -416,6 +437,7 @@ if (!window.__materiallabelRuntimeLoaded) {
       set iconSpacing(v) {
         this._iconSpacing = parseInt(v) || 8;
         if (this._hasRendered) this._applyIconStyles();
+        safeRaisePropertyChanged(this, 'iconSpacing');
       }
       get IconSpacing() { return this.iconSpacing; }
       set IconSpacing(v) { this.iconSpacing = v; }

@@ -112,7 +112,7 @@
 }
 
 .mlvc-container.mlvc-horizontal::-webkit-scrollbar-thumb {
-  background-color: var(--mlvc-border);
+  background: var(--mlvc-border);
   border-radius: 4px;
 }
 
@@ -169,7 +169,7 @@
               border-color var(--mlvc-transition-duration) var(--mlvc-transition-easing);
   cursor: pointer;
   outline: none;
-  background-color: var(--mlvc-background);
+  background: var(--mlvc-background);
 }
 
 .mlvc-card:focus-visible {
@@ -185,7 +185,7 @@
   right: 0;
   bottom: 0;
   pointer-events: none;
-  background-color: transparent;
+  background: transparent;
   transition: background-color var(--mlvc-transition-duration) var(--mlvc-transition-easing);
   z-index: 1;
 }
@@ -195,7 +195,7 @@
    ============================================ */
 .mlvc-container.mlvc-elevated .mlvc-card {
   box-shadow: var(--mlvc-elevation-1);
-  background-color: var(--mlvc-background);
+  background: var(--mlvc-background);
   border: none;
 }
 
@@ -205,11 +205,11 @@
 }
 
 .mlvc-container.mlvc-elevated .mlvc-card:hover:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-hover);
+  background: var(--mlvc-state-hover);
 }
 
 .mlvc-container.mlvc-elevated .mlvc-card:focus-visible:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-focus);
+  background: var(--mlvc-state-focus);
 }
 
 .mlvc-container.mlvc-elevated .mlvc-card:active:not(.mlvc-disabled) {
@@ -218,14 +218,14 @@
 }
 
 .mlvc-container.mlvc-elevated .mlvc-card:active:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-pressed);
+  background: var(--mlvc-state-pressed);
 }
 
 /* ============================================
    Card Variant: Filled (with surface color)
    ============================================ */
 .mlvc-container.mlvc-filled .mlvc-card {
-  background-color: var(--mlvc-surface);
+  background: var(--mlvc-surface);
   box-shadow: none;
   border: none;
 }
@@ -236,11 +236,11 @@
 }
 
 .mlvc-container.mlvc-filled .mlvc-card:hover:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-hover);
+  background: var(--mlvc-state-hover);
 }
 
 .mlvc-container.mlvc-filled .mlvc-card:focus-visible:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-focus);
+  background: var(--mlvc-state-focus);
 }
 
 .mlvc-container.mlvc-filled .mlvc-card:active:not(.mlvc-disabled) {
@@ -249,14 +249,14 @@
 }
 
 .mlvc-container.mlvc-filled .mlvc-card:active:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-pressed);
+  background: var(--mlvc-state-pressed);
 }
 
 /* ============================================
    Card Variant: Outlined (with border)
    ============================================ */
 .mlvc-container.mlvc-outlined .mlvc-card {
-  background-color: var(--mlvc-background);
+  background: var(--mlvc-background);
   box-shadow: none;
   border: 1px solid var(--mlvc-border);
 }
@@ -268,11 +268,11 @@
 }
 
 .mlvc-container.mlvc-outlined .mlvc-card:hover:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-hover);
+  background: var(--mlvc-state-hover);
 }
 
 .mlvc-container.mlvc-outlined .mlvc-card:focus-visible:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-focus);
+  background: var(--mlvc-state-focus);
 }
 
 .mlvc-container.mlvc-outlined .mlvc-card:active:not(.mlvc-disabled) {
@@ -281,7 +281,7 @@
 }
 
 .mlvc-container.mlvc-outlined .mlvc-card:active:not(.mlvc-disabled) .mlvc-state-layer {
-  background-color: var(--mlvc-state-pressed);
+  background: var(--mlvc-state-pressed);
 }
 
 /* ============================================
@@ -305,7 +305,7 @@
 }
 
 .mlvc-card.mlvc-selected .mlvc-state-layer {
-  background-color: var(--mlvc-state-selected);
+  background: var(--mlvc-state-selected);
 }
 
 /* ============================================
@@ -315,7 +315,7 @@
   width: 100%;
   height: var(--mlvc-image-height);
   overflow: hidden;
-  background-color: var(--mlvc-surface);
+  background: var(--mlvc-surface);
   position: relative;
   z-index: 0;
 }
@@ -411,7 +411,7 @@
   padding: 10px 12px;
   border: none;
   border-radius: 20px;
-  background-color: transparent;
+  background: transparent;
   color: var(--mlvc-primary);
   font-family: var(--mlvc-font-family);
   font-size: var(--mlvc-button-size);
@@ -435,7 +435,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: currentColor;
+  background: currentColor;
   opacity: 0;
   transition: opacity var(--mlvc-transition-duration) var(--mlvc-transition-easing);
 }

@@ -578,7 +578,6 @@ if (!window.__materialselectRuntimeLoaded) {
           this._buildMenuItems();
           this._updateState();
         }
-        safeRaisePropertyChanged(this, 'value');
       }
       get Value() { return this.value; }
       set Value(v) { this.value = v; }
@@ -587,7 +586,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set label(v) {
         this._label = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'label');
       }
       get Label() { return this.label; }
       set Label(v) { this.label = v; }
@@ -597,7 +595,6 @@ if (!window.__materialselectRuntimeLoaded) {
         this._listBinding = v || '';
         this._parseOptions();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'listBinding');
       }
       get ListBinding() { return this.listBinding; }
       set ListBinding(v) { this.listBinding = v; }
@@ -607,7 +604,6 @@ if (!window.__materialselectRuntimeLoaded) {
         this._options = v || '';
         this._parseOptions();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'options');
       }
       get Options() { return this.options; }
       set Options(v) { this.options = v; }
@@ -617,7 +613,6 @@ if (!window.__materialselectRuntimeLoaded) {
         this._delimiter = v || ',';
         this._parseOptions();
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'delimiter');
       }
       get Delimiter() { return this.delimiter; }
       set Delimiter(v) { this.delimiter = v; }
@@ -626,7 +621,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set variant(v) {
         this._variant = (v === 'filled') ? 'filled' : 'outlined';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -635,7 +629,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set placeholder(v) {
         this._placeholder = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'placeholder');
       }
       get Placeholder() { return this.placeholder; }
       set Placeholder(v) { this.placeholder = v; }
@@ -644,7 +637,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set leadingIcon(v) {
         this._leadingIcon = v || '';
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'leadingIcon');
       }
       get LeadingIcon() { return this.leadingIcon; }
       set LeadingIcon(v) { this.leadingIcon = v; }
@@ -653,7 +645,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set helperText(v) {
         this._helperText = v || '';
         this._updateState();
-        safeRaisePropertyChanged(this, 'helperText');
       }
       get HelperText() { return this.helperText; }
       set HelperText(v) { this.helperText = v; }
@@ -662,7 +653,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set errorText(v) {
         this._errorText = v || '';
         this._updateState();
-        safeRaisePropertyChanged(this, 'errorText');
       }
       get ErrorText() { return this.errorText; }
       set ErrorText(v) { this.errorText = v; }
@@ -671,7 +661,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set hasError(v) {
         this._hasError = (v === true || v === 'true');
         this._updateState();
-        safeRaisePropertyChanged(this, 'hasError');
       }
       get HasError() { return this.hasError; }
       set HasError(v) { this.hasError = v; }
@@ -680,7 +669,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set required(v) {
         this._required = (v === true || v === 'true');
         if (this._hasRendered) this._render();
-        safeRaisePropertyChanged(this, 'required');
       }
       get Required() { return this.required; }
       set Required(v) { this.required = v; }
@@ -689,7 +677,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -698,7 +685,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set textColor(v) {
         this._textColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'textColor');
       }
       get TextColor() { return this.textColor; }
       set TextColor(v) { this.textColor = v; }
@@ -707,7 +693,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set labelColor(v) {
         this._labelColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -716,7 +701,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set borderColor(v) {
         this._borderColor = v || '#79747E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'borderColor');
       }
       get BorderColor() { return this.borderColor; }
       set BorderColor(v) { this.borderColor = v; }
@@ -725,7 +709,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set backgroundColor(v) {
         this._backgroundColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'backgroundColor');
       }
       get BackgroundColor() { return this.backgroundColor; }
       set BackgroundColor(v) { this.backgroundColor = v; }
@@ -734,7 +717,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set errorColor(v) {
         this._errorColor = v || '#B3261E';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'errorColor');
       }
       get ErrorColor() { return this.errorColor; }
       set ErrorColor(v) { this.errorColor = v; }
@@ -743,7 +725,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -752,7 +733,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseInt(v) || 16;
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -761,7 +741,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }
@@ -770,7 +749,6 @@ if (!window.__materialselectRuntimeLoaded) {
       set fontStyle(v) {
         this._fontStyle = v || 'normal';
         if (this._hasRendered) this._applyStyles();
-        safeRaisePropertyChanged(this, 'fontStyle');
       }
       get FontStyle() { return this.fontStyle; }
       set FontStyle(v) { this.fontStyle = v; }

@@ -325,6 +325,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set value(v) {
         this._value = Math.max(0, Math.min(100, parseFloat(v) || 0));
         if (this._hasRendered) this._updateProgress();
+        safeRaisePropertyChanged(this, 'value');
       }
       get Value() { return this.value; }
       set Value(v) { this.value = v; }
@@ -334,6 +335,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
         const valid = ['linear', 'circular'];
         this._variant = valid.includes(v) ? v : 'linear';
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'variant');
       }
       get Variant() { return this.variant; }
       set Variant(v) { this.variant = v; }
@@ -343,6 +345,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
         const valid = ['determinate', 'indeterminate'];
         this._mode = valid.includes(v) ? v : 'determinate';
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'mode');
       }
       get Mode() { return this.mode; }
       set Mode(v) { this.mode = v; }
@@ -352,6 +355,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
         const valid = ['small', 'medium', 'large', 'xlarge'];
         this._size = valid.includes(v) ? v : 'medium';
         if (this._hasRendered && this._variant === 'circular') this._render();
+        safeRaisePropertyChanged(this, 'size');
       }
       get Size() { return this.size; }
       set Size(v) { this.size = v; }
@@ -360,6 +364,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set thickness(v) {
         this._thickness = Math.max(1, parseFloat(v) || 4);
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'thickness');
       }
       get Thickness() { return this.thickness; }
       set Thickness(v) { this.thickness = v; }
@@ -368,6 +373,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set showLabel(v) {
         this._showLabel = (v === true || v === 'true');
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'showLabel');
       }
       get ShowLabel() { return this.showLabel; }
       set ShowLabel(v) { this.showLabel = v; }
@@ -377,6 +383,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
         const valid = ['inside', 'outside', 'center'];
         this._labelPosition = valid.includes(v) ? v : 'outside';
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'labelPosition');
       }
       get LabelPosition() { return this.labelPosition; }
       set LabelPosition(v) { this.labelPosition = v; }
@@ -385,6 +392,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set customLabel(v) {
         this._customLabel = v || '';
         if (this._hasRendered) this._updateProgress();
+        safeRaisePropertyChanged(this, 'customLabel');
       }
       get CustomLabel() { return this.customLabel; }
       set CustomLabel(v) { this.customLabel = v; }
@@ -393,6 +401,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set animated(v) {
         this._animated = (v === true || v === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'animated');
       }
       get Animated() { return this.animated; }
       set Animated(v) { this.animated = v; }
@@ -402,6 +411,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
         const num = parseFloat(v);
         this._buffer = isNaN(num) ? null : Math.max(0, Math.min(100, num));
         if (this._hasRendered) this._render();
+        safeRaisePropertyChanged(this, 'buffer');
       }
       get Buffer() { return this.buffer; }
       set Buffer(v) { this.buffer = v; }
@@ -413,6 +423,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
           const label = this._ariaLabel || `Progress: ${Math.round(this._value)}%`;
           this._progressElement.setAttribute('aria-label', label);
         }
+        safeRaisePropertyChanged(this, 'ariaLabel');
       }
       get AriaLabel() { return this.ariaLabel; }
       set AriaLabel(v) { this.ariaLabel = v; }
@@ -422,6 +433,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set primaryColor(v) {
         this._primaryColor = v || '#6750A4';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'primaryColor');
       }
       get PrimaryColor() { return this.primaryColor; }
       set PrimaryColor(v) { this.primaryColor = v; }
@@ -430,6 +442,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set trackColor(v) {
         this._trackColor = v || '#E7E0EC';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'trackColor');
       }
       get TrackColor() { return this.trackColor; }
       set TrackColor(v) { this.trackColor = v; }
@@ -438,6 +451,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set bufferColor(v) {
         this._bufferColor = v || '#CAC4D0';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'bufferColor');
       }
       get BufferColor() { return this.bufferColor; }
       set BufferColor(v) { this.bufferColor = v; }
@@ -446,6 +460,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set labelColor(v) {
         this._labelColor = v || '#1C1B1F';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'labelColor');
       }
       get LabelColor() { return this.labelColor; }
       set LabelColor(v) { this.labelColor = v; }
@@ -454,6 +469,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set fontFamily(v) {
         this._fontFamily = v || 'Roboto, sans-serif';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontFamily');
       }
       get FontFamily() { return this.fontFamily; }
       set FontFamily(v) { this.fontFamily = v; }
@@ -462,6 +478,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set fontSize(v) {
         this._fontSize = parseFloat(v) || 12;
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontSize');
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
@@ -470,6 +487,7 @@ if (!window.__materialprogressbarRuntimeLoaded) {
       set fontWeight(v) {
         this._fontWeight = v || '500';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'fontWeight');
       }
       get FontWeight() { return this.fontWeight; }
       set FontWeight(v) { this.fontWeight = v; }

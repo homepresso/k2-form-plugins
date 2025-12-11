@@ -112,11 +112,11 @@ material-address *::after {
 }
 
 .mal-clear-btn:hover {
-  background-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .mal-clear-btn:active {
-  background-color: rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.12);
 }
 
 /* OUTLINED VARIANT */
@@ -314,7 +314,7 @@ material-address *::after {
 /* Dropdown styles (portaled to body) */
 .mal-dropdown {
   position: fixed;
-  background-color: #ffffff;
+  background: #ffffff;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1);
   max-height: 300px;
@@ -333,12 +333,12 @@ material-address *::after {
 
 .mal-suggestion-item:hover,
 .mal-suggestion-item:focus {
-  background-color: rgba(0, 0, 0, 0.04);
+  background: rgba(0, 0, 0, 0.04);
   outline: none;
 }
 
 .mal-suggestion-item:active {
-  background-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .mal-suggestion-icon {
@@ -377,12 +377,12 @@ material-address *::after {
 }
 
 .mal-dropdown::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 .mal-dropdown::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* Autofill styling */

@@ -215,6 +215,7 @@ if (!window.__materialiconRuntimeLoaded) {
       set iconName(v) {
         this._iconName = v || 'home';
         if (this._hasRendered) this._updateIcon();
+        safeRaisePropertyChanged(this, 'iconName');
       }
       get IconName() { return this.iconName; }
       set IconName(v) { this.iconName = v; }
@@ -223,6 +224,7 @@ if (!window.__materialiconRuntimeLoaded) {
       set iconSize(v) {
         this._iconSize = parseInt(v) || 24;
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'iconSize');
       }
       get IconSize() { return this.iconSize; }
       set IconSize(v) { this.iconSize = v; }
@@ -231,6 +233,7 @@ if (!window.__materialiconRuntimeLoaded) {
       set iconColor(v) {
         this._iconColor = v || '#6b7280';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'iconColor');
       }
       get IconColor() { return this.iconColor; }
       set IconColor(v) { this.iconColor = v; }
@@ -238,6 +241,7 @@ if (!window.__materialiconRuntimeLoaded) {
       get hoverColor() { return this._hoverColor; }
       set hoverColor(v) {
         this._hoverColor = v || '';
+        safeRaisePropertyChanged(this, 'hoverColor');
       }
       get HoverColor() { return this.hoverColor; }
       set HoverColor(v) { this.hoverColor = v; }
@@ -251,6 +255,7 @@ if (!window.__materialiconRuntimeLoaded) {
             this._updateIcon();
           });
         }
+        safeRaisePropertyChanged(this, 'iconStyle');
       }
       get IconStyle() { return this.iconStyle; }
       set IconStyle(v) { this.iconStyle = v; }
@@ -259,6 +264,7 @@ if (!window.__materialiconRuntimeLoaded) {
       set clickable(v) {
         this._clickable = (v === true || v === 'true');
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'clickable');
       }
       get Clickable() { return this.clickable; }
       set Clickable(v) { this.clickable = v; }
@@ -267,6 +273,7 @@ if (!window.__materialiconRuntimeLoaded) {
       set tooltip(v) {
         this._tooltip = v || '';
         if (this._hasRendered) this._applyStyles();
+        safeRaisePropertyChanged(this, 'tooltip');
       }
       get Tooltip() { return this.tooltip; }
       set Tooltip(v) { this.tooltip = v; }
@@ -288,6 +295,7 @@ if (!window.__materialiconRuntimeLoaded) {
             this.removeAttribute('aria-hidden');
           }
         }
+        safeRaisePropertyChanged(this, 'ariaLabel');
       }
       get AriaLabel() { return this.ariaLabel; }
       set AriaLabel(v) { this.ariaLabel = v; }
