@@ -1,9 +1,9 @@
-if (!window.__nintexcasenavigationRuntimeLoaded) {
-  window.__nintexcasenavigationRuntimeLoaded = true;
+if (!window.__nintexcaseheaderRuntimeLoaded) {
+  window.__nintexcaseheaderRuntimeLoaded = true;
 
 /**
- * NintexCase Navigation Control for K2 SmartForms
- * Horizontal navigation menu with optional user menu on the right
+ * NintexCase Header Control for K2 SmartForms
+ * Complete header with navigation and user menu
  */
 (function() {
   'use strict';
@@ -23,19 +23,19 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
     if (document.querySelector('link[href*="fonts.googleapis.com/css2"]')) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap';
     document.head.appendChild(link);
   }
 
-  if (!window.customElements.get('nintexcase-navigation')) {
-    window.customElements.define('nintexcase-navigation', class NintexCaseNavigation extends HTMLElement {
+  if (!window.customElements.get('nintexcase-header')) {
+    window.customElements.define('nintexcase-header', class NintexCaseHeader extends HTMLElement {
 
       constructor() {
         super();
         this._hasRendered = false;
 
-        // Sample data for preview/testing when list binding is empty
-        this._sampleItems = [
+        // Sample data
+        this._sampleNavItems = [
           { Name: 'Dashboard', Mode: '' },
           { Name: 'My Cases', Mode: '' },
           { Name: 'New Case', Mode: 'create' },
@@ -47,7 +47,6 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
           { Name: 'Admin', Mode: 'admin' }
         ];
 
-        // Sample user menu items
         this._sampleUserMenuItems = [
           { Name: 'My Profile' },
           { Name: 'Settings' },
@@ -60,44 +59,36 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
         this._selectedUserMenuItem = '';
         this._mode = '';
         this._title = '';
+        this._showTitle = false;
         this._titleColor = '#FFFFFF';
-        this._titleFontSize = 18;
-        this._titleFontWeight = '700';
-        this._titleFontFamily = '';
+        this._titleFontSize = 20;
+        this._titleFontWeight = 700;
         this._showUserMenu = true;
         this._displayName = 'John Doe';
-        this._userMenuButtonBackground = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        this._userMenuButtonTextColor = '#FFFFFF';
-        this._userMenuButtonBorderColor = 'rgba(255, 255, 255, 0.3)';
-        this._userMenuButtonSize = 40;
-        this._userMenuDropdownBackground = '#FFFFFF';
-        this._userMenuDropdownTextColor = '#1C1B1F';
-        this._userMenuDropdownHoverColor = '#F5F5F5';
         this._backgroundColor = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
         this._textColor = 'rgba(255, 255, 255, 0.95)';
         this._activeColor = '#FFFFFF';
         this._hoverColor = 'rgba(255, 255, 255, 0.15)';
-        this._borderColor = '#E0E0E0';
         this._height = 60;
-        this._borderRadius = '0';
         this._fontFamily = 'Poppins, sans-serif';
         this._fontSize = 14;
-        this._fontWeight = '500';
+        this._borderRadius = '0px';
+        this._position = 'static';
+        this._zIndex = 100;
         this._isVisible = true;
         this._isEnabled = true;
         this._isUserMenuOpen = false;
 
         // K2 list binding
-        this._listConfig = null;
         this._navListConfig = null;
+        this._navListItems = [];
+        this._filteredNavItems = [];
+
         this._userMenuListConfig = null;
-        this._listItems = [];
         this._userMenuListItems = [];
-        this._filteredItems = [];
 
         // DOM refs
         this._container = null;
-        this._nav = null;
         this._userMenuButton = null;
         this._userMenuDropdown = null;
       }
@@ -105,8 +96,24 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       connectedCallback() {
         if (this._hasRendered) return;
         loadGoogleFonts();
+
+        // Ensure full-width header with no gaps
+        this.style.width = '100%';
+        this.style.margin = '0';
+        this.style.padding = '0';
+        this.style.display = 'block';
+        this.style.position = this._position;
+        this.style.zIndex = this._zIndex;
+
+        // For sticky/fixed positioning, ensure it's at the top
+        if (this._position === 'sticky' || this._position === 'fixed') {
+          this.style.top = '0';
+          this.style.left = '0';
+          this.style.right = '0';
+        }
+
         this._hasRendered = true;
-        this._processListItems(); // Initialize with sample data
+        this._processNavItems();
         setTimeout(() => {
           this._render();
           this._addGlobalClickListener();
@@ -117,12 +124,12 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
         this._removeGlobalClickListener();
       }
 
-      // K2 List Binding Callbacks
+      // K2 List Binding Callbacks for Navigation
       listConfigChangedCallback(config, listname) {
-        if (listname === 'UserMenuList') {
+        if (listname === 'NavigationList') {
+          this._navListConfig = config;
+        } else if (listname === 'UserMenuList') {
           this._userMenuListConfig = config;
-        } else {
-          this._listConfig = config;
         }
       }
 
@@ -130,31 +137,26 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
         const listname = itemsChangedEventArgs?.ListName;
         const items = itemsChangedEventArgs?.NewItems;
 
-        if (listname === 'UserMenuList' && items && Array.isArray(items)) {
-          this._userMenuListItems = items;
+        if (listname === 'NavigationList' && items && Array.isArray(items)) {
+          this._navListItems = items;
+          this._processNavItems();
           if (this._hasRendered) {
             this._render();
           }
-        } else if (items && Array.isArray(items)) {
-          this._listItems = items;
-          this._processListItems();
+        } else if (listname === 'UserMenuList' && items && Array.isArray(items)) {
+          this._userMenuListItems = items;
           if (this._hasRendered) {
             this._render();
           }
         }
       }
 
-      _processListItems() {
-        // Use sample data as fallback when list binding is empty
-        const sourceItems = this._listItems.length > 0 ? this._listItems : this._sampleItems;
-
-        // Filter items based on current mode if Mode field exists
-        this._filteredItems = sourceItems.filter(item => {
-          // If no mode filter or item has no Mode field, include it
+      _processNavItems() {
+        const sourceItems = this._navListItems.length > 0 ? this._navListItems : this._sampleNavItems;
+        this._filteredNavItems = sourceItems.filter(item => {
           if (!this._mode || !item.Mode) {
             return true;
           }
-          // Otherwise, check if item's Mode matches current mode
           return item.Mode === this._mode;
         });
       }
@@ -171,53 +173,52 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
 
       _render() {
         this.innerHTML = '';
-        this._buildNav();
+        this._buildHeader();
         this._applyStyles();
         this._bindEvents();
       }
 
-      _buildNav() {
+      _buildHeader() {
         this._container = document.createElement('div');
-        this._container.className = 'ncn-container';
+        this._container.className = 'nch-container';
 
-        // Optional title
-        if (this._title && this._title.trim() !== '') {
-          const titleEl = document.createElement('div');
-          titleEl.className = 'ncn-title';
-          titleEl.textContent = this._title;
-          this._container.appendChild(titleEl);
+        // Title (if enabled)
+        if (this._showTitle && this._title) {
+          const titleElement = document.createElement('div');
+          titleElement.className = 'nch-title';
+          titleElement.textContent = this._title;
+          titleElement.style.color = this._titleColor;
+          titleElement.style.fontSize = `${this._titleFontSize}px`;
+          titleElement.style.fontWeight = this._titleFontWeight;
+          this._container.appendChild(titleElement);
         }
 
-        // Navigation section
-        this._nav = document.createElement('nav');
-        this._nav.className = 'ncn-nav';
-        this._nav.setAttribute('role', 'navigation');
-        this._nav.setAttribute('aria-label', 'NintexCase Navigation');
+        const nav = document.createElement('nav');
+        nav.className = 'nch-nav';
+        nav.setAttribute('role', 'navigation');
 
+        // Navigation items
         const navList = document.createElement('ul');
-        navList.className = 'ncn-list';
+        navList.className = 'nch-nav-list';
 
-        // Build navigation items
-        this._filteredItems.forEach((item, index) => {
+        this._filteredNavItems.forEach((item, index) => {
           const name = item.Name || item.name || `Item ${index + 1}`;
 
           const listItem = document.createElement('li');
-          listItem.className = 'ncn-item';
+          listItem.className = 'nch-nav-item';
 
           const button = document.createElement('button');
-          button.className = 'ncn-button';
+          button.className = 'nch-nav-button';
           button.type = 'button';
           button.textContent = name;
           button.dataset.name = name;
           button.dataset.index = index;
 
-          // Set active state if this is the selected item
           if (name === this._selectedValue) {
-            button.classList.add('ncn-active');
+            button.classList.add('nch-active');
             button.setAttribute('aria-current', 'page');
           }
 
-          // WCAG: Button should be keyboard accessible
           button.setAttribute('role', 'menuitem');
           button.tabIndex = 0;
 
@@ -225,42 +226,41 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
           navList.appendChild(listItem);
         });
 
-        this._nav.appendChild(navList);
-        this._container.appendChild(this._nav);
+        nav.appendChild(navList);
+        this._container.appendChild(nav);
 
         // User menu (if enabled)
         if (this._showUserMenu) {
           const userMenuContainer = document.createElement('div');
-          userMenuContainer.className = 'ncn-user-menu-container';
+          userMenuContainer.className = 'nch-user-menu-container';
 
           // Avatar button
           this._userMenuButton = document.createElement('button');
-          this._userMenuButton.className = 'ncn-user-button';
+          this._userMenuButton.className = 'nch-user-button';
           this._userMenuButton.type = 'button';
           this._userMenuButton.setAttribute('aria-haspopup', 'true');
           this._userMenuButton.setAttribute('aria-expanded', 'false');
           this._userMenuButton.textContent = this._getInitials(this._displayName);
 
-          // Dropdown menu
+          // Dropdown
           this._userMenuDropdown = document.createElement('div');
-          this._userMenuDropdown.className = 'ncn-user-dropdown';
+          this._userMenuDropdown.className = 'nch-user-dropdown';
           this._userMenuDropdown.setAttribute('role', 'menu');
           this._userMenuDropdown.style.display = 'none';
 
-          const menuList = document.createElement('ul');
-          menuList.className = 'ncn-user-menu-list';
+          const userMenuList = document.createElement('ul');
+          userMenuList.className = 'nch-user-menu-list';
 
-          // Use list items or sample data
-          const items = this._userMenuListItems.length > 0 ? this._userMenuListItems : this._sampleUserMenuItems;
+          const userMenuItems = this._userMenuListItems.length > 0 ? this._userMenuListItems : this._sampleUserMenuItems;
 
-          items.forEach((item, index) => {
+          userMenuItems.forEach((item, index) => {
             const name = item.Name || item.name || `Item ${index + 1}`;
 
             const listItem = document.createElement('li');
-            listItem.className = 'ncn-user-menu-item';
+            listItem.className = 'nch-user-menu-item';
 
             const menuButton = document.createElement('button');
-            menuButton.className = 'ncn-user-menu-button';
+            menuButton.className = 'nch-user-menu-button';
             menuButton.type = 'button';
             menuButton.textContent = name;
             menuButton.dataset.name = name;
@@ -268,10 +268,10 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
             menuButton.setAttribute('role', 'menuitem');
 
             listItem.appendChild(menuButton);
-            menuList.appendChild(listItem);
+            userMenuList.appendChild(listItem);
           });
 
-          this._userMenuDropdown.appendChild(menuList);
+          this._userMenuDropdown.appendChild(userMenuList);
           userMenuContainer.appendChild(this._userMenuButton);
           userMenuContainer.appendChild(this._userMenuDropdown);
           this._container.appendChild(userMenuContainer);
@@ -284,58 +284,38 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
         this.style.display = this._isVisible ? 'block' : 'none';
 
         if (this._container) {
-          this._container.style.setProperty('--ncn-bg', this._backgroundColor);
-          this._container.style.setProperty('--ncn-text', this._textColor);
-          this._container.style.setProperty('--ncn-active', this._activeColor);
-          this._container.style.setProperty('--ncn-hover', this._hoverColor);
-          this._container.style.setProperty('--ncn-border', this._borderColor);
-          this._container.style.setProperty('--ncn-height', `${this._height}px`);
-          this._container.style.setProperty('--ncn-border-radius', this._borderRadius);
-          this._container.style.setProperty('--ncn-font-family', this._fontFamily);
-          this._container.style.setProperty('--ncn-font-size', `${this._fontSize}px`);
-          this._container.style.setProperty('--ncn-font-weight', this._fontWeight);
-
-          // Title styles
-          this._container.style.setProperty('--ncn-title-color', this._titleColor);
-          this._container.style.setProperty('--ncn-title-font-size', `${this._titleFontSize}px`);
-          this._container.style.setProperty('--ncn-title-font-weight', this._titleFontWeight);
-          this._container.style.setProperty('--ncn-title-font-family', this._titleFontFamily || this._fontFamily);
-
-          // User menu styles
-          this._container.style.setProperty('--ncn-user-button-bg', this._userMenuButtonBackground);
-          this._container.style.setProperty('--ncn-user-button-text', this._userMenuButtonTextColor);
-          this._container.style.setProperty('--ncn-user-button-border', this._userMenuButtonBorderColor);
-          this._container.style.setProperty('--ncn-user-button-size', `${this._userMenuButtonSize}px`);
-          this._container.style.setProperty('--ncn-user-dropdown-bg', this._userMenuDropdownBackground);
-          this._container.style.setProperty('--ncn-user-dropdown-text', this._userMenuDropdownTextColor);
-          this._container.style.setProperty('--ncn-user-dropdown-hover', this._userMenuDropdownHoverColor);
+          this._container.style.setProperty('--nch-bg', this._backgroundColor);
+          this._container.style.setProperty('--nch-text', this._textColor);
+          this._container.style.setProperty('--nch-active', this._activeColor);
+          this._container.style.setProperty('--nch-hover', this._hoverColor);
+          this._container.style.setProperty('--nch-height', `${this._height}px`);
+          this._container.style.setProperty('--nch-font-family', this._fontFamily);
+          this._container.style.setProperty('--nch-font-size', `${this._fontSize}px`);
+          this._container.style.borderRadius = `0 0 ${this._borderRadius} ${this._borderRadius}`;
         }
 
         // Apply disabled state
-        if (this._nav) {
-          this._nav.classList.toggle('ncn-disabled', !this._isEnabled);
-        }
-
-        // Apply disabled state to user menu
-        if (this._userMenuButton) {
-          this._userMenuButton.disabled = !this._isEnabled;
+        if (this._container) {
+          this._container.classList.toggle('nch-disabled', !this._isEnabled);
         }
       }
 
       _bindEvents() {
-        const buttons = this._container?.querySelectorAll('.ncn-button');
-        if (buttons) {
-          buttons.forEach(button => {
-            button.addEventListener('click', (e) => this._handleItemClick(e));
-            button.addEventListener('keydown', (e) => this._handleKeyDown(e));
+        // Navigation items
+        const navButtons = this._container?.querySelectorAll('.nch-nav-button');
+        if (navButtons) {
+          navButtons.forEach(button => {
+            button.addEventListener('click', (e) => this._handleNavItemClick(e));
           });
         }
 
+        // User menu button
         if (this._userMenuButton) {
           this._userMenuButton.addEventListener('click', (e) => this._handleUserMenuButtonClick(e));
         }
 
-        const userMenuButtons = this._userMenuDropdown?.querySelectorAll('.ncn-user-menu-button');
+        // User menu items
+        const userMenuButtons = this._userMenuDropdown?.querySelectorAll('.nch-user-menu-button');
         if (userMenuButtons) {
           userMenuButtons.forEach(button => {
             button.addEventListener('click', (e) => this._handleUserMenuItemClick(e));
@@ -343,48 +323,36 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
         }
       }
 
-      _handleItemClick(event) {
+      _handleNavItemClick(event) {
         if (!this._isEnabled) return;
 
         const button = event.currentTarget;
         const name = button.dataset.name;
         const index = parseInt(button.dataset.index);
 
-        // Update selected value
         this._selectedValue = name;
 
         // Update active state
-        const buttons = this._container.querySelectorAll('.ncn-button');
+        const buttons = this._container.querySelectorAll('.nch-nav-button');
         buttons.forEach(btn => {
-          btn.classList.remove('ncn-active');
+          btn.classList.remove('nch-active');
           btn.removeAttribute('aria-current');
         });
-        button.classList.add('ncn-active');
+        button.classList.add('nch-active');
         button.setAttribute('aria-current', 'page');
 
-        // Raise property changed event for K2
         if (this._hasRendered) {
           safeRaisePropertyChanged(this, 'selectedValue');
         }
 
-        // Fire custom event
-        this.dispatchEvent(new CustomEvent('ItemClicked', {
+        this.dispatchEvent(new CustomEvent('NavigationItemClicked', {
           bubbles: true,
           detail: {
             name: name,
             index: index,
-            item: this._filteredItems[index]
+            item: this._filteredNavItems[index]
           }
         }));
-      }
-
-      _handleKeyDown(event) {
-        if (!this._isEnabled) return;
-
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          this._handleItemClick(event);
-        }
       }
 
       _handleUserMenuButtonClick(event) {
@@ -424,22 +392,16 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
         const name = button.dataset.name;
         const index = parseInt(button.dataset.index);
 
-        // Update selected value
         this._selectedUserMenuItem = name;
-
-        // Close menu
         this._closeUserMenu();
 
-        // Raise property changed event for K2
         if (this._hasRendered) {
           safeRaisePropertyChanged(this, 'selectedUserMenuItem');
         }
 
-        // Get the item data
         const items = this._userMenuListItems.length > 0 ? this._userMenuListItems : this._sampleUserMenuItems;
         const item = items[index];
 
-        // Fire custom event
         this.dispatchEvent(new CustomEvent('UserMenuItemClicked', {
           bubbles: true,
           detail: {
@@ -452,7 +414,7 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
 
       _addGlobalClickListener() {
         this._globalClickHandler = (e) => {
-          if (this._isUserMenuOpen && !this._container?.contains(e.target)) {
+          if (this._isUserMenuOpen && this._container && !this._container.contains(e.target)) {
             this._closeUserMenu();
           }
         };
@@ -468,10 +430,10 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       // Public Methods
       clearSelection() {
         this._selectedValue = '';
-        const buttons = this._container?.querySelectorAll('.ncn-button');
+        const buttons = this._container?.querySelectorAll('.nch-nav-button');
         if (buttons) {
           buttons.forEach(btn => {
-            btn.classList.remove('ncn-active');
+            btn.classList.remove('nch-active');
             btn.removeAttribute('aria-current');
           });
         }
@@ -489,15 +451,14 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       set selectedValue(v) {
         this._selectedValue = v || '';
         if (this._hasRendered) {
-          // Update active state based on new value
-          const buttons = this._container?.querySelectorAll('.ncn-button');
+          const buttons = this._container?.querySelectorAll('.nch-nav-button');
           if (buttons) {
             buttons.forEach(btn => {
               if (btn.dataset.name === this._selectedValue) {
-                btn.classList.add('ncn-active');
+                btn.classList.add('nch-active');
                 btn.setAttribute('aria-current', 'page');
               } else {
-                btn.classList.remove('ncn-active');
+                btn.classList.remove('nch-active');
                 btn.removeAttribute('aria-current');
               }
             });
@@ -507,7 +468,6 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       get SelectedValue() { return this.selectedValue; }
       set SelectedValue(v) { this.selectedValue = v; }
 
-      // K2 Value property (maps to selectedValue)
       get Value() { return this._selectedValue; }
       set Value(v) { this.selectedValue = v; }
 
@@ -521,7 +481,7 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       get mode() { return this._mode; }
       set mode(v) {
         this._mode = v || '';
-        this._processListItems();
+        this._processNavItems();
         if (this._hasRendered) this._render();
       }
       get Mode() { return this.mode; }
@@ -535,37 +495,37 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       get Title() { return this.title; }
       set Title(v) { this.title = v; }
 
+      get showTitle() { return this._showTitle; }
+      set showTitle(v) {
+        this._showTitle = (v === true || v === 'true');
+        if (this._hasRendered) this._render();
+      }
+      get ShowTitle() { return this.showTitle; }
+      set ShowTitle(v) { this.showTitle = v; }
+
       get titleColor() { return this._titleColor; }
       set titleColor(v) {
         this._titleColor = v || '#FFFFFF';
-        if (this._hasRendered) this._applyStyles();
+        if (this._hasRendered) this._render();
       }
       get TitleColor() { return this.titleColor; }
       set TitleColor(v) { this.titleColor = v; }
 
       get titleFontSize() { return this._titleFontSize; }
       set titleFontSize(v) {
-        this._titleFontSize = parseInt(v) || 18;
-        if (this._hasRendered) this._applyStyles();
+        this._titleFontSize = parseInt(v) || 20;
+        if (this._hasRendered) this._render();
       }
       get TitleFontSize() { return this.titleFontSize; }
       set TitleFontSize(v) { this.titleFontSize = v; }
 
       get titleFontWeight() { return this._titleFontWeight; }
       set titleFontWeight(v) {
-        this._titleFontWeight = v || '700';
-        if (this._hasRendered) this._applyStyles();
+        this._titleFontWeight = parseInt(v) || 700;
+        if (this._hasRendered) this._render();
       }
       get TitleFontWeight() { return this.titleFontWeight; }
       set TitleFontWeight(v) { this.titleFontWeight = v; }
-
-      get titleFontFamily() { return this._titleFontFamily; }
-      set titleFontFamily(v) {
-        this._titleFontFamily = v || '';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get TitleFontFamily() { return this.titleFontFamily; }
-      set TitleFontFamily(v) { this.titleFontFamily = v; }
 
       get showUserMenu() { return this._showUserMenu; }
       set showUserMenu(v) {
@@ -584,62 +544,6 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       }
       get DisplayName() { return this.displayName; }
       set DisplayName(v) { this.displayName = v; }
-
-      get userMenuButtonBackground() { return this._userMenuButtonBackground; }
-      set userMenuButtonBackground(v) {
-        this._userMenuButtonBackground = v || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get UserMenuButtonBackground() { return this.userMenuButtonBackground; }
-      set UserMenuButtonBackground(v) { this.userMenuButtonBackground = v; }
-
-      get userMenuButtonTextColor() { return this._userMenuButtonTextColor; }
-      set userMenuButtonTextColor(v) {
-        this._userMenuButtonTextColor = v || '#FFFFFF';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get UserMenuButtonTextColor() { return this.userMenuButtonTextColor; }
-      set UserMenuButtonTextColor(v) { this.userMenuButtonTextColor = v; }
-
-      get userMenuButtonBorderColor() { return this._userMenuButtonBorderColor; }
-      set userMenuButtonBorderColor(v) {
-        this._userMenuButtonBorderColor = v || 'rgba(255, 255, 255, 0.3)';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get UserMenuButtonBorderColor() { return this.userMenuButtonBorderColor; }
-      set UserMenuButtonBorderColor(v) { this.userMenuButtonBorderColor = v; }
-
-      get userMenuButtonSize() { return this._userMenuButtonSize; }
-      set userMenuButtonSize(v) {
-        this._userMenuButtonSize = parseInt(v) || 40;
-        if (this._hasRendered) this._applyStyles();
-      }
-      get UserMenuButtonSize() { return this.userMenuButtonSize; }
-      set UserMenuButtonSize(v) { this.userMenuButtonSize = v; }
-
-      get userMenuDropdownBackground() { return this._userMenuDropdownBackground; }
-      set userMenuDropdownBackground(v) {
-        this._userMenuDropdownBackground = v || '#FFFFFF';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get UserMenuDropdownBackground() { return this.userMenuDropdownBackground; }
-      set UserMenuDropdownBackground(v) { this.userMenuDropdownBackground = v; }
-
-      get userMenuDropdownTextColor() { return this._userMenuDropdownTextColor; }
-      set userMenuDropdownTextColor(v) {
-        this._userMenuDropdownTextColor = v || '#1C1B1F';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get UserMenuDropdownTextColor() { return this.userMenuDropdownTextColor; }
-      set UserMenuDropdownTextColor(v) { this.userMenuDropdownTextColor = v; }
-
-      get userMenuDropdownHoverColor() { return this._userMenuDropdownHoverColor; }
-      set userMenuDropdownHoverColor(v) {
-        this._userMenuDropdownHoverColor = v || '#F5F5F5';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get UserMenuDropdownHoverColor() { return this.userMenuDropdownHoverColor; }
-      set UserMenuDropdownHoverColor(v) { this.userMenuDropdownHoverColor = v; }
 
       get backgroundColor() { return this._backgroundColor; }
       set backgroundColor(v) {
@@ -673,14 +577,6 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       get HoverColor() { return this.hoverColor; }
       set HoverColor(v) { this.hoverColor = v; }
 
-      get borderColor() { return this._borderColor; }
-      set borderColor(v) {
-        this._borderColor = v || '#E0E0E0';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get BorderColor() { return this.borderColor; }
-      set BorderColor(v) { this.borderColor = v; }
-
       get height() { return this._height; }
       set height(v) {
         this._height = parseInt(v) || 60;
@@ -688,14 +584,6 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       }
       get Height() { return this.height; }
       set Height(v) { this.height = v; }
-
-      get borderRadius() { return this._borderRadius; }
-      set borderRadius(v) {
-        this._borderRadius = v || '0';
-        if (this._hasRendered) this._applyStyles();
-      }
-      get BorderRadius() { return this.borderRadius; }
-      set BorderRadius(v) { this.borderRadius = v; }
 
       get fontFamily() { return this._fontFamily; }
       set fontFamily(v) {
@@ -713,13 +601,38 @@ if (!window.__nintexcasenavigationRuntimeLoaded) {
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
 
-      get fontWeight() { return this._fontWeight; }
-      set fontWeight(v) {
-        this._fontWeight = v || '500';
+      get borderRadius() { return this._borderRadius; }
+      set borderRadius(v) {
+        this._borderRadius = v || '0px';
         if (this._hasRendered) this._applyStyles();
       }
-      get FontWeight() { return this.fontWeight; }
-      set FontWeight(v) { this.fontWeight = v; }
+      get BorderRadius() { return this.borderRadius; }
+      set BorderRadius(v) { this.borderRadius = v; }
+
+      get position() { return this._position; }
+      set position(v) {
+        this._position = v || 'static';
+        this.style.position = this._position;
+        if (this._position === 'sticky' || this._position === 'fixed') {
+          this.style.top = '0';
+          this.style.left = '0';
+          this.style.right = '0';
+        } else {
+          this.style.top = '';
+          this.style.left = '';
+          this.style.right = '';
+        }
+      }
+      get Position() { return this.position; }
+      set Position(v) { this.position = v; }
+
+      get zIndex() { return this._zIndex; }
+      set zIndex(v) {
+        this._zIndex = parseInt(v) || 100;
+        this.style.zIndex = this._zIndex;
+      }
+      get ZIndex() { return this.zIndex; }
+      set ZIndex(v) { this.zIndex = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

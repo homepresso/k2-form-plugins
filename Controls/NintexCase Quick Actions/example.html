@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NintexCase Quick Actions - Example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #F5F5F7;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .demo-header {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .demo-header h1 {
+      font-size: 32px;
+      color: #1C1B1F;
+      margin-bottom: 12px;
+    }
+
+    .demo-header p {
+      color: #666;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .event-log {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-top: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .event-log h3 {
+      margin-bottom: 16px;
+      color: #1C1B1F;
+    }
+
+    .event-log-content {
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #333;
+      background: #F9F9F9;
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    .event-entry {
+      padding: 8px 0;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    .event-entry:last-child {
+      border-bottom: none;
+    }
+
+    .event-time {
+      color: #999;
+      margin-right: 12px;
+    }
+
+    .event-name {
+      color: #4285F4;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+
+    .clear-log-btn {
+      margin-top: 16px;
+      padding: 10px 20px;
+      background: #4285F4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .clear-log-btn:hover {
+      background: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="demo-header">
+      <h1>🎯 NintexCase Quick Actions</h1>
+      <p>
+        A card-based action grid for common tasks. Click any card to trigger an action.
+        The control supports customizable icons, colors, descriptions, and responds to user interactions.
+      </p>
+    </div>
+
+    <!-- Quick Actions Control -->
+    <nintexcase-quick-actions id="quickActions"></nintexcase-quick-actions>
+
+    <!-- Event Log -->
+    <div class="event-log">
+      <h3>📋 Event Log</h3>
+      <div class="event-log-content" id="eventLog">
+        <div style="color: #999; font-style: italic;">Click on any action card to see events...</div>
+      </div>
+      <button class="clear-log-btn" onclick="clearEventLog()">Clear Log</button>
+    </div>
+  </div>
+
+  <!-- Load Control -->
+  <script src="runtime_logic.js"></script>
+  <link rel="stylesheet" href="runtime_style.css">
+
+  <!-- Initialize Control -->
+  <script>
+    const eventLog = document.getElementById('eventLog');
+
+    function logEvent(eventName, detail) {
+      const time = new Date().toLocaleTimeString();
+      const entry = document.createElement('div');
+      entry.className = 'event-entry';
+
+      let detailStr = '';
+      if (detail) {
+        if (detail.actionTitle) detailStr += ` - ${detail.actionTitle}`;
+        if (detail.index !== undefined) detailStr += ` (Index: ${detail.index})`;
+      }
+
+      entry.innerHTML = `<span class="event-time">${time}</span><span class="event-name">${eventName}</span>${detailStr}`;
+
+      if (eventLog.children[0]?.style?.fontStyle === 'italic') {
+        eventLog.innerHTML = '';
+      }
+
+      eventLog.insertBefore(entry, eventLog.firstChild);
+    }
+
+    function clearEventLog() {
+      eventLog.innerHTML = '<div style="color: #999; font-style: italic;">Event log cleared. Click on action cards to see events...</div>';
+    }
+
+    // Initialize Quick Actions
+    const quickActions = document.getElementById('quickActions');
+    quickActions.title = 'Quick Actions';
+    quickActions.showTitle = true;
+    quickActions.columns = 3;
+
+    // Sample action items
+    const actionItems = [
+      { Title: 'New Case', Icon: 'add_circle', Description: 'Create a new case', Color: '#4285F4' },
+      { Title: 'Search Cases', Icon: 'search', Description: 'Find existing cases', Color: '#34A853' },
+      { Title: 'Reports', Icon: 'assessment', Description: 'View analytics and reports', Color: '#FBBC04' },
+      { Title: 'Export Data', Icon: 'download', Description: 'Export case data to CSV', Color: '#EA4335' },
+      { Title: 'Assign Cases', Icon: 'person_add', Description: 'Assign cases to team', Color: '#9C27B0' },
+      { Title: 'Bulk Update', Icon: 'sync', Description: 'Update multiple cases', Color: '#FF6F00' },
+      { Title: 'Archive', Icon: 'archive', Description: 'Archive completed cases', Color: '#607D8B' },
+      { Title: 'Settings', Icon: 'settings', Description: 'Configure preferences', Color: '#795548' },
+      { Title: 'Help', Icon: 'help', Description: 'View documentation', Color: '#00ACC1' }
+    ];
+
+    // Mock K2 list binding
+    quickActions.listItemsChangedCallback({ NewItems: actionItems });
+
+    // Listen for action clicks
+    quickActions.addEventListener('ActionClicked', (e) => {
+      logEvent('ActionClicked', e.detail);
+      console.log('Action clicked:', e.detail);
+    });
+
+    // Log initial load
+    setTimeout(() => {
+      logEvent('ControlLoaded', { message: 'Quick Actions initialized with ' + actionItems.length + ' actions' });
+    }, 500);
+  </script>
+</body>
+</html>

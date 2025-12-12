@@ -54,6 +54,8 @@ if (!window.__nintexcasequeueRuntimeLoaded) {
 
         // Properties
         this._selectedValue = '';
+        this._configJSON = '';
+        this._enableSwipe = true;
         this._title = 'Case Queue';
         this._showTitle = true;
         this._showSearch = true;
@@ -1247,154 +1249,147 @@ if (!window.__nintexcasequeueRuntimeLoaded) {
           row.addEventListener('dblclick', (e) => this._handleRowDoubleClick(e));
           row.addEventListener('keydown', (e) => this._handleKeyDown(e));
 
-          // Touch/swipe gestures with animation
-          let touchStartX = 0;
-          let touchStartY = 0;
-          let touchStartTime = 0;
-          const minSwipeDistance = 50;
+          // Touch/swipe gestures with animation (only if enabled)
+          if (this._enableSwipe) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchStartTime = 0;
+            const minSwipeDistance = 50;
 
-          row.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
-            touchStartTime = Date.now();
-            row.style.transition = 'none';
-          }, { passive: true });
+            row.addEventListener('touchstart', (e) => {
+              touchStartX = e.changedTouches[0].screenX;
+              touchStartY = e.changedTouches[0].screenY;
+              touchStartTime = Date.now();
+              row.style.transition = 'none';
+            }, { passive: true });
 
-          row.addEventListener('touchmove', (e) => {
-            const touchX = e.changedTouches[0].screenX;
-            const touchY = e.changedTouches[0].screenY;
-            const deltaX = touchX - touchStartX;
-            const deltaY = touchY - touchStartY;
+            row.addEventListener('touchmove', (e) => {
+              const touchX = e.changedTouches[0].screenX;
+              const touchY = e.changedTouches[0].screenY;
+              const deltaX = touchX - touchStartX;
+              const deltaY = touchY - touchStartY;
 
-            // Only apply transform if horizontal swipe is dominant
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-              const translateX = Math.max(-100, Math.min(100, deltaX * 0.5)); // Limit movement
-              row.style.transform = `translateX(${translateX}px)`;
-              row.style.opacity = 1 - Math.abs(translateX) / 200;
-            }
-          }, { passive: true });
+              // Only apply transform if horizontal swipe is dominant
+              if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                const translateX = Math.max(-100, Math.min(100, deltaX * 0.5)); // Limit movement
+                row.style.transform = `translateX(${translateX}px)`;
+                row.style.opacity = 1 - Math.abs(translateX) / 200;
+              }
+            }, { passive: true });
 
-          row.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const touchEndY = e.changedTouches[0].screenY;
-            const swipeDistance = touchEndX - touchStartX;
-            const swipeTime = Date.now() - touchStartTime;
-            const deltaY = touchEndY - touchStartY;
+            row.addEventListener('touchend', (e) => {
+              const touchEndX = e.changedTouches[0].screenX;
+              const touchEndY = e.changedTouches[0].screenY;
+              const swipeDistance = touchEndX - touchStartX;
+              const swipeTime = Date.now() - touchStartTime;
+              const deltaY = touchEndY - touchStartY;
 
-            // Reset with animation
-            row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-            row.style.transform = 'translateX(0)';
-            row.style.opacity = '1';
+              // Reset with animation
+              row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+              row.style.transform = 'translateX(0)';
+              row.style.opacity = '1';
 
-            // Check if horizontal swipe is dominant and meets threshold
-            if (Math.abs(swipeDistance) > Math.abs(deltaY) &&
-                Math.abs(swipeDistance) > minSwipeDistance &&
-                swipeTime < 500) {
+              // Check if horizontal swipe is dominant and meets threshold
+              if (Math.abs(swipeDistance) > Math.abs(deltaY) &&
+                  Math.abs(swipeDistance) > minSwipeDistance &&
+                  swipeTime < 500) {
 
-              // Animate swipe out
-              const direction = swipeDistance > 0 ? 'right' : 'left';
-              row.style.transform = `translateX(${direction === 'right' ? '100%' : '-100%'})`;
-              row.style.opacity = '0';
+                // Animate swipe out
+                const direction = swipeDistance > 0 ? 'right' : 'left';
+                row.style.transform = `translateX(${direction === 'right' ? '100%' : '-100%'})`;
+                row.style.opacity = '0';
 
-              // Fire event and reset
-              setTimeout(() => {
-                this._handleRowSwipe(e, direction, row);
-                row.style.transition = 'none';
-                row.style.transform = 'translateX(0)';
-                row.style.opacity = '1';
+                // Fire event and remove item
                 setTimeout(() => {
-                  row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-                }, 50);
-              }, 300);
-            }
-          }, { passive: true });
+                  this._handleRowSwipe(e, direction, row);
+                }, 300);
+              }
+            }, { passive: true });
+          }
 
-          // Mouse drag/swipe gestures
-          let mouseStartX = 0;
-          let mouseStartY = 0;
-          let mouseStartTime = 0;
-          let isDragging = false;
+          // Mouse drag/swipe gestures (only if enabled)
+          if (this._enableSwipe) {
+            let mouseStartX = 0;
+            let mouseStartY = 0;
+            let mouseStartTime = 0;
+            let isDragging = false;
+            const minSwipeDistance = 50;
 
-          row.addEventListener('mousedown', (e) => {
-            // Ignore if clicking on action buttons
-            if (e.target.closest('.ncq-action-btn')) return;
+            row.addEventListener('mousedown', (e) => {
+              // Ignore if clicking on action buttons
+              if (e.target.closest('.ncq-action-btn')) return;
 
-            mouseStartX = e.clientX;
-            mouseStartY = e.clientY;
-            mouseStartTime = Date.now();
-            isDragging = true;
-            row.style.transition = 'none';
-            row.style.cursor = 'grabbing';
-            e.preventDefault(); // Prevent text selection
-          });
+              mouseStartX = e.clientX;
+              mouseStartY = e.clientY;
+              mouseStartTime = Date.now();
+              isDragging = true;
+              row.style.transition = 'none';
+              row.style.cursor = 'grabbing';
+              e.preventDefault(); // Prevent text selection
+            });
 
-          row.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
+            row.addEventListener('mousemove', (e) => {
+              if (!isDragging) return;
 
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-            const deltaX = mouseX - mouseStartX;
-            const deltaY = mouseY - mouseStartY;
+              const mouseX = e.clientX;
+              const mouseY = e.clientY;
+              const deltaX = mouseX - mouseStartX;
+              const deltaY = mouseY - mouseStartY;
 
-            // Only apply transform if horizontal drag is dominant
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
-              const translateX = Math.max(-100, Math.min(100, deltaX * 0.5)); // Limit movement
-              row.style.transform = `translateX(${translateX}px)`;
-              row.style.opacity = 1 - Math.abs(translateX) / 200;
-            }
-          });
+              // Only apply transform if horizontal drag is dominant
+              if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+                const translateX = Math.max(-100, Math.min(100, deltaX * 0.5)); // Limit movement
+                row.style.transform = `translateX(${translateX}px)`;
+                row.style.opacity = 1 - Math.abs(translateX) / 200;
+              }
+            });
 
-          row.addEventListener('mouseup', (e) => {
-            if (!isDragging) return;
+            row.addEventListener('mouseup', (e) => {
+              if (!isDragging) return;
 
-            const mouseEndX = e.clientX;
-            const mouseEndY = e.clientY;
-            const swipeDistance = mouseEndX - mouseStartX;
-            const swipeTime = Date.now() - mouseStartTime;
-            const deltaY = mouseEndY - mouseStartY;
+              const mouseEndX = e.clientX;
+              const mouseEndY = e.clientY;
+              const swipeDistance = mouseEndX - mouseStartX;
+              const swipeTime = Date.now() - mouseStartTime;
+              const deltaY = mouseEndY - mouseStartY;
 
-            isDragging = false;
-            row.style.cursor = '';
+              isDragging = false;
+              row.style.cursor = '';
 
-            // Reset with animation
-            row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-            row.style.transform = 'translateX(0)';
-            row.style.opacity = '1';
+              // Reset with animation
+              row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+              row.style.transform = 'translateX(0)';
+              row.style.opacity = '1';
 
-            // Check if horizontal swipe is dominant and meets threshold
-            if (Math.abs(swipeDistance) > Math.abs(deltaY) &&
-                Math.abs(swipeDistance) > minSwipeDistance &&
-                swipeTime < 1000) {
+              // Check if horizontal swipe is dominant and meets threshold
+              if (Math.abs(swipeDistance) > Math.abs(deltaY) &&
+                  Math.abs(swipeDistance) > minSwipeDistance &&
+                  swipeTime < 1000) {
 
-              // Animate swipe out
-              const direction = swipeDistance > 0 ? 'right' : 'left';
-              row.style.transform = `translateX(${direction === 'right' ? '100%' : '-100%'})`;
-              row.style.opacity = '0';
+                // Animate swipe out
+                const direction = swipeDistance > 0 ? 'right' : 'left';
+                row.style.transform = `translateX(${direction === 'right' ? '100%' : '-100%'})`;
+                row.style.opacity = '0';
 
-              // Fire event and reset
-              setTimeout(() => {
-                this._handleRowSwipe(e, direction, row);
-                row.style.transition = 'none';
-                row.style.transform = 'translateX(0)';
-                row.style.opacity = '1';
+                // Fire event and remove item
                 setTimeout(() => {
-                  row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-                }, 50);
-              }, 300);
-            }
-          });
+                  this._handleRowSwipe(e, direction, row);
+                }, 300);
+              }
+            });
 
-          row.addEventListener('mouseleave', (e) => {
-            if (!isDragging) return;
+            row.addEventListener('mouseleave', (e) => {
+              if (!isDragging) return;
 
-            isDragging = false;
-            row.style.cursor = '';
+              isDragging = false;
+              row.style.cursor = '';
 
-            // Reset with animation
-            row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-            row.style.transform = 'translateX(0)';
-            row.style.opacity = '1';
-          });
+              // Reset with animation
+              row.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+              row.style.transform = 'translateX(0)';
+              row.style.opacity = '1';
+            });
+          }
         });
       }
 
@@ -1455,16 +1450,15 @@ if (!window.__nintexcasequeueRuntimeLoaded) {
         }));
       }
 
-      _handleRowSwipe(event, direction) {
+      _handleRowSwipe(event, direction, row) {
         if (!this._isEnabled) return;
 
-        const row = event.currentTarget;
         const title = row.dataset.title;
         const index = parseInt(row.dataset.index);
 
-        // Get the item data
-        const items = this._listItems.length > 0 ? this._listItems : this._sampleItems;
-        const item = items[index];
+        // Get the item data from paginated items
+        const paginatedItems = this._getPaginatedItems();
+        const item = paginatedItems[index];
 
         // Fire swipe event
         const eventName = direction === 'left' ? 'RowSwipedLeft' : 'RowSwipedRight';
@@ -1477,6 +1471,30 @@ if (!window.__nintexcasequeueRuntimeLoaded) {
             direction: direction
           }
         }));
+
+        // Remove item from data (both real and sample)
+        if (this._listItems.length > 0) {
+          // Find and remove from actual list items
+          const actualIndex = this._listItems.findIndex(i =>
+            (i.Title || i.title) === title
+          );
+          if (actualIndex !== -1) {
+            this._listItems.splice(actualIndex, 1);
+          }
+        } else {
+          // Remove from sample items if using sample data
+          const sampleIndex = this._sampleItems.findIndex(i =>
+            (i.Title || i.title) === title
+          );
+          if (sampleIndex !== -1) {
+            this._sampleItems.splice(sampleIndex, 1);
+          }
+        }
+
+        // Re-render to update pagination and counts after a brief delay
+        setTimeout(() => {
+          this._render();
+        }, 350);
       }
 
       _handleKeyDown(event) {
@@ -1573,6 +1591,12 @@ if (!window.__nintexcasequeueRuntimeLoaded) {
 
         // Reset to first page when config changes
         this._currentPage = 1;
+
+        // Serialize config to JSON output
+        this._configJSON = JSON.stringify(this._configSettings);
+        if (this._hasRendered) {
+          safeRaisePropertyChanged(this, 'configJSON');
+        }
 
         // Fire config changed event
         this.dispatchEvent(new CustomEvent('ConfigChanged', {
@@ -1837,6 +1861,33 @@ if (!window.__nintexcasequeueRuntimeLoaded) {
         this._isEnabled = (val === true || val === 'true');
         if (this._hasRendered) this._applyStyles();
       }
+
+      get configJSON() { return this._configJSON; }
+      set configJSON(v) {
+        this._configJSON = v || '';
+        // Parse and apply config if valid JSON
+        if (v && v.trim() !== '') {
+          try {
+            const parsed = JSON.parse(v);
+            this._configSettings = { ...this._configSettings, ...parsed };
+            if (this._hasRendered) {
+              this._render();
+            }
+          } catch (e) {
+            console.error('Invalid config JSON:', e);
+          }
+        }
+      }
+      get ConfigJSON() { return this.configJSON; }
+      set ConfigJSON(v) { this.configJSON = v; }
+
+      get enableSwipe() { return this._enableSwipe; }
+      set enableSwipe(v) {
+        this._enableSwipe = (v === true || v === 'true');
+        if (this._hasRendered) this._render();
+      }
+      get EnableSwipe() { return this.enableSwipe; }
+      set EnableSwipe(v) { this.enableSwipe = v; }
     });
   }
 })();

@@ -7,8 +7,8 @@ if (!window.__nintexcasequeueDesigntimeLoaded) {
 (function() {
   'use strict';
 
-  if (!window.customElements.get('nintexcase-queue-designtime')) {
-    window.customElements.define('nintexcase-queue-designtime', class extends HTMLElement {
+  if (!window.customElements.get('nintexcase-queue')) {
+    window.customElements.define('nintexcase-queue', class extends HTMLElement {
 
       constructor() {
         super();

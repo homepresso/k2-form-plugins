@@ -64,6 +64,26 @@
       "changesdisplay": false
     },
     {
+      "id": "configJSON",
+      "refreshdisplay": "false",
+      "friendlyname": "Config JSON",
+      "description": "JSON string of current configuration settings (output only, can be used to reload config)",
+      "type": "string",
+      "inputlength": "2000",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "enableSwipe",
+      "refreshdisplay": "true",
+      "friendlyname": "Enable Swipe",
+      "description": "Enable or disable swipe gestures on rows",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": false
+    },
+    {
       "id": "List",
       "type": "listdata",
       "category": "Detail",

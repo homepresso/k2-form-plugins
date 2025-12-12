@@ -1,399 +1,365 @@
 # NintexCase Queue Control
 
-A professional table-based list control for K2 SmartForms, designed for case management systems. Displays cases in a structured table format with columns for Title, Type, Assigned, SLA, Status, and Stage.
+A comprehensive case queue control with advanced features including search, sort, filter, pagination, swipe-to-remove, and quick actions.
 
 ## Features
 
-- **Clean Table Layout** - Professional grid design with proper spacing and alignment
-- **K2 List Binding** - Seamlessly integrates with K2 SmartObject data sources
-- **Multiple Interaction Events** - Single-click, double-click, swipe left, and swipe right gestures
-- **Status Badges** - Color-coded status indicators with 6 predefined styles
-- **Responsive Design** - Adapts to desktop, tablet, and mobile screen sizes
-- **Touch Gesture Support** - Swipe detection for mobile interactions
-- **Keyboard Navigation** - Full keyboard support with Enter/Space activation
-- **WCAG 2.1 Compliant** - Accessible design with proper focus indicators and ARIA roles
-- **Customizable Styling** - 15+ properties for complete visual control
+- 📋 **Interactive Table** - Displays cases in a sortable, searchable table
+- 🔍 **Search** - Real-time search across all fields
+- ↕️ **Sorting** - Click column headers to sort (with visual indicators)
+- ⚙️ **Configuration Panel** - Filter by date, SLA, status, and more
+- 👆 **Swipe to Remove** - Drag or swipe rows to remove items from queue
+- 📄 **Pagination** - Navigate through multiple pages of data
+- 🎯 **Quick Actions** - Per-row action buttons (Open, Redirect, Push, Pull)
+- 🎨 **Fully Customizable** - Colors, fonts, sizing, visibility options
+- ♿ **Accessible** - Keyboard navigation and ARIA support
 
-## Installation
+## List Data Structure
 
-1. Copy the `NintexCase Queue` folder to your K2 SmartForms controls directory
-2. Register the control in K2 Designer
-3. The control will appear in your toolbox as "NintexCase Queue"
+The control expects a K2 list with the following fields:
 
-## Table Columns
+### Required Fields
 
-The control displays 6 columns by default:
-
-| Column | Width | Description |
-|--------|-------|-------------|
-| **Title** | 30% | Case title or name (bold, primary field) |
-| **Type** | 12% | Case type or category |
-| **Assigned** | 15% | Assigned user or team |
-| **SLA** | 10% | Service level agreement deadline |
-| **Status** | 12% | Current status with colored badge |
-| **Stage** | 15% | Current workflow stage |
-
-## K2 List Binding
-
-### Required SmartObject Fields
-
-Your K2 SmartObject or List must include these fields:
-
-- `Title` (string) - Case title
-- `Type` (string) - Case type
-- `Assigned` (string) - Assigned to
-- `SLA` (string) - SLA deadline
-- `Status` (string) - Current status
-- `Stage` (string) - Current stage
-
-### Binding Steps
-
-1. Add the NintexCase Queue control to your form
-2. Open control properties
-3. Click the **List** property
-4. Select your SmartObject data source
-5. Map the required fields to the corresponding columns
-6. Save and preview
-
-### Example SmartObject Structure
-
+```javascript
+{
+  "Title": "string",      // Case title (displays in first column with icon)
+  "Type": "string",       // Case type (Onboarding, Support, Contract, Bug, etc.)
+  "Assigned": "string",   // Assigned user name
+  "SLA": "string",        // SLA time (e.g., "2 days", "4 hours", "30 minutes")
+  "Status": "string",     // Status (Open, In Progress, Assigned, Closed, etc.)
+  "Stage": "string"       // Current stage/workflow step
+}
 ```
-CaseItem
-├─ Title (Text)
-├─ Type (Text)
-├─ Assigned (Text)
-├─ SLA (Text)
-├─ Status (Text)
-└─ Stage (Text)
+
+### Optional Fields
+
+```javascript
+{
+  "Priority": "string",   // Priority level (Critical, High, Medium, Low)
+  "Date": "datetime"      // Case date (used for date filtering)
+}
 ```
+
+### Example Data
+
+```javascript
+const queueData = [
+  {
+    Title: "Customer Onboarding - Acme Corp",
+    Type: "Onboarding",
+    Assigned: "John Doe",
+    Priority: "High",
+    SLA: "2 days",
+    Status: "In Progress",
+    Stage: "Documentation",
+    Date: new Date("2025-12-10")
+  },
+  {
+    Title: "Support Request - Payment Issue",
+    Type: "Support",
+    Assigned: "Jane Smith",
+    Priority: "Critical",
+    SLA: "4 hours",
+    Status: "Open",
+    Stage: "Triage",
+    Date: new Date("2025-12-11")
+  }
+];
+
+// Bind to control
+queueControl.listItemsChangedCallback({ NewItems: queueData });
+```
+
+### Supported Case Types
+
+The control recognizes these case types and displays appropriate icons:
+
+- **Onboarding** - `person_add` icon (Blue)
+- **Support** - `support_agent` icon (Orange)
+- **Contract** - `description` icon (Purple)
+- **Bug** - `bug_report` icon (Red)
+- **Enhancement/Feature** - `auto_awesome`/`star` icon (Green/Yellow)
+- **Task** - `assignment` icon (Cyan)
+- **Incident** - `warning` icon (Orange)
+- **Change** - `sync` icon (Purple)
+- **Request** - `request_page` icon (Blue)
 
 ## Properties
-
-### Data Properties
-
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| **selectedValue** | string | "" | Currently selected case title (read-only) |
-| **List** | listdata | - | K2 list binding for case data |
 
 ### Display Properties
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| **title** | string | "Case Queue" | Section title displayed above the table |
-| **showTitle** | boolean | true | Show or hide the section title |
-| **backgroundColor** | string | "#FFFFFF" | Table background color |
-| **borderRadius** | string | "8px" | Corner rounding (e.g., "0", "8px", "12px") |
+| `title` | string | "Case Queue" | Section title text |
+| `showTitle` | boolean | true | Show/hide title |
+| `showSearch` | boolean | true | Show/hide search bar |
+| `searchPlaceholder` | string | "Search cases..." | Search input placeholder |
+| `showPagination` | boolean | true | Show/hide pagination |
+| `pageSize` | number | 10 | Items per page |
+| `showQuickActions` | boolean | true | Show/hide action buttons |
+| `showConfig` | boolean | true | Show/hide config button |
 
-### Header Styling
-
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| **headerBackground** | string | "#F5F5F5" | Header row background color |
-| **headerTextColor** | string | "#666666" | Header text color |
-
-### Row Styling
+### Swipe Feature
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| **rowBackground** | string | "#FFFFFF" | Row background color |
-| **rowHoverBackground** | string | "#F9F9F9" | Row hover state color |
-| **rowBorderColor** | string | "#E0E0E0" | Border color between rows |
-| **textColor** | string | "#1C1B1F" | Row text color |
+| `enableSwipe` | boolean | true | Enable/disable swipe-to-remove |
 
-### Typography
+When enabled:
+- Drag rows left/right with mouse
+- Swipe rows on touch devices
+- Items are permanently removed from the queue
+- RowSwipedLeft/RowSwipedRight events fire
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| **titleColor** | string | "#1C1B1F" | Section title color |
-| **fontFamily** | string | "Poppins, sans-serif" | Font family (Poppins, Roboto, Arial, etc.) |
-| **fontSize** | number | 14 | Base font size in pixels |
-
-### Standard Properties
+### Config Settings (Output)
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| **IsVisible** | boolean | true | Control visibility |
-| **IsEnabled** | boolean | true | Control enabled state |
+| `configJSON` | string | "" | JSON string of current configuration (output only) |
+
+Use this property to save and reload user's filter/sort preferences:
+
+```javascript
+// After user applies config, save the JSON
+queue.addEventListener('ConfigChanged', (e) => {
+  const configJSON = queue.configJSON;
+  // Save to database/variable
+  localStorage.setItem('queueConfig', configJSON);
+});
+
+// Later, reload the config
+const savedConfig = localStorage.getItem('queueConfig');
+if (savedConfig) {
+  queue.configJSON = savedConfig; // Automatically applies settings
+}
+```
+
+### Color Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `backgroundColor` | color | #FFFFFF | List background |
+| `headerBackground` | color | #667eea | Header row background |
+| `headerTextColor` | color | #FFFFFF | Header text color |
+| `rowBackground` | color | #FFFFFF | Row background |
+| `rowHoverBackground` | color | #F9F9F9 | Row hover background |
+| `rowBorderColor` | color | #E0E0E0 | Row border color |
+| `textColor` | color | #1C1B1F | Text color |
+| `titleColor` | color | #1C1B1F | Title color |
+| `configButtonColor` | color | #667eea | Config button color |
+| `configButtonHoverColor` | color | #5568d3 | Config button hover |
+
+### Style Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `borderRadius` | string | "8px" | Corner rounding |
+| `fontFamily` | string | "Poppins, sans-serif" | Font family |
+| `fontSize` | number | 14 | Font size in pixels |
+
+### Config Button Customization
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `configIcon` | string | "settings" | Material icon name |
+| `configIconColor` | color | #FFFFFF | Icon color |
 
 ## Events
 
 ### RowClicked
-
 Fires when a row is single-clicked.
 
-**Event Detail:**
 ```javascript
-{
-  title: "Customer Onboarding - Acme Corp",  // Case title
-  index: 0,                                   // Row index
-  item: {                                     // Full case item data
-    Title: "Customer Onboarding - Acme Corp",
-    Type: "Onboarding",
-    Assigned: "John Doe",
-    SLA: "2 days",
-    Status: "In Progress",
-    Stage: "Documentation"
-  }
-}
+queue.addEventListener('RowClicked', (e) => {
+  console.log('Clicked:', e.detail.title);
+  console.log('Index:', e.detail.index);
+  console.log('Item:', e.detail.item);
+});
 ```
-
-**Usage:** Navigate to case details, open case view form, update status
 
 ### RowDoubleClicked
-
 Fires when a row is double-clicked.
 
-**Event Detail:** Same structure as RowClicked
-
-**Usage:** Quick edit mode, open case in modal dialog
+```javascript
+queue.addEventListener('RowDoubleClicked', (e) => {
+  console.log('Double-clicked:', e.detail.title);
+});
+```
 
 ### RowSwipedLeft
+Fires when a row is swiped left (item is removed after event).
 
-Fires when a row is swiped left on touch devices (minimum 50px swipe distance).
-
-**Event Detail:**
 ```javascript
-{
-  title: "Customer Onboarding - Acme Corp",
-  index: 0,
-  item: { /* full case data */ },
-  direction: "left"
-}
+queue.addEventListener('RowSwipedLeft', (e) => {
+  console.log('Swiped left:', e.detail.title);
+  console.log('Direction:', e.detail.direction); // "left"
+});
 ```
-
-**Usage:** Archive case, delete case, mark as completed
 
 ### RowSwipedRight
+Fires when a row is swiped right (item is removed after event).
 
-Fires when a row is swiped right on touch devices (minimum 50px swipe distance).
-
-**Event Detail:**
 ```javascript
-{
-  title: "Customer Onboarding - Acme Corp",
-  index: 0,
-  item: { /* full case data */ },
-  direction: "right"
-}
+queue.addEventListener('RowSwipedRight', (e) => {
+  console.log('Swiped right:', e.detail.title);
+  console.log('Direction:', e.detail.direction); // "right"
+});
 ```
 
-**Usage:** Assign case, flag case, add to favorites
+### ActionClicked
+Fires when a quick action button is clicked.
 
-## Status Badges
+```javascript
+queue.addEventListener('ActionClicked', (e) => {
+  console.log('Action:', e.detail.action); // "open", "redirect", "push", "pull"
+  console.log('Case:', e.detail.title);
+  console.log('Item:', e.detail.item);
+});
+```
 
-The control includes 6 predefined status badge styles. The badge color is automatically applied based on the `Status` field value.
+### ConfigChanged
+Fires when configuration settings are applied.
 
-| Status | Background | Text Color | Use Case |
-|--------|------------|------------|----------|
-| **Open** | Light Blue (#E3F2FD) | Blue (#1976D2) | New cases awaiting assignment |
-| **In Progress** | Light Orange (#FFF3E0) | Orange (#F57C00) | Cases currently being worked |
-| **Assigned** | Light Purple (#F3E5F5) | Purple (#7B1FA2) | Cases assigned but not started |
-| **Completed** | Light Green (#E8F5E9) | Green (#388E3C) | Successfully completed cases |
-| **Closed** | Light Gray (#EEEEEE) | Gray (#616161) | Archived or closed cases |
-| **On Hold** | Light Red (#FBE9E7) | Red-Orange (#D84315) | Cases paused or blocked |
+```javascript
+queue.addEventListener('ConfigChanged', (e) => {
+  console.log('New settings:', e.detail.settings);
+  console.log('Old settings:', e.detail.oldSettings);
+  console.log('Config JSON:', queue.configJSON); // Get JSON to save
+});
+```
 
-**Note:** Status values are case-insensitive and spaces are converted to hyphens for matching.
+### DataReloaded
+Fires when the `reloadData()` method is called.
+
+```javascript
+queue.addEventListener('DataReloaded', (e) => {
+  console.log('Items reloaded:', e.detail.itemCount);
+  console.log('Timestamp:', e.detail.timestamp);
+});
+```
 
 ## Methods
 
 ### clearSelection()
-
 Clears the currently selected row.
 
-**Example:**
 ```javascript
-// Clear selection programmatically
-NintexCaseQueueControl.clearSelection();
+queue.clearSelection();
 ```
 
-## Usage Examples
+### reloadData()
+Reloads and re-renders the queue data. Useful after external data updates.
 
-### Example 1: Basic Case Queue
-
-Display a simple case queue with default styling:
-
-```
-1. Add NintexCase Queue control to form
-2. Bind List property to Cases SmartObject
-3. Map fields: Title, Type, Assigned, SLA, Status, Stage
-4. Configure RowClicked event to navigate to case details form
+```javascript
+queue.reloadData();
 ```
 
-### Example 2: Mobile-Friendly Queue with Swipe Actions
+## Configuration Panel Options
 
-Enable swipe gestures for mobile case management:
+The config panel (accessed via the settings button) provides:
+
+### Sort Options
+- Sort by Date (Newest first)
+- Sort by SLA (Most urgent first)
+
+### Filter Options
+- Show Today's Cases Only
+- Show This Week's Cases Only
+- Show Open Cases Only
+- Show In Progress Cases Only
+- Show Assigned Cases Only
+
+Multiple filters can be combined. The "Filters Active" indicator appears when any filters are applied.
+
+## Usage Example
+
+```html
+<nintexcase-queue id="myQueue"></nintexcase-queue>
+
+<script>
+  const queue = document.getElementById('myQueue');
+
+  // Configure appearance
+  queue.title = 'Active Cases';
+  queue.showTitle = true;
+  queue.showSearch = true;
+  queue.enableSwipe = true;
+  queue.pageSize = 10;
+
+  // Bind data
+  const cases = [
+    {
+      Title: "Customer Onboarding",
+      Type: "Onboarding",
+      Assigned: "John Doe",
+      SLA: "2 days",
+      Status: "In Progress",
+      Stage: "Documentation",
+      Priority: "High"
+    }
+  ];
+
+  queue.listItemsChangedCallback({ NewItems: cases });
+
+  // Handle events
+  queue.addEventListener('RowClicked', (e) => {
+    console.log('Case selected:', e.detail.title);
+  });
+
+  queue.addEventListener('RowSwipedLeft', (e) => {
+    console.log('Case dismissed:', e.detail.title);
+    // Item is automatically removed from queue
+  });
+
+  queue.addEventListener('ConfigChanged', (e) => {
+    // Save user's filter preferences
+    savePreferences(queue.configJSON);
+  });
+</script>
+```
+
+## K2 SmartForms Integration
+
+### List Binding
+1. Add the control to your form
+2. Configure the **List** property with your K2 list
+3. Ensure your list has the required fields (Title, Type, Assigned, SLA, Status, Stage)
+
+### Value Binding
+The control's value property (`selectedValue`) updates when a row is clicked:
+- Use **Transfer Data** rules to capture the selected case
+- The value contains the selected row's Title
+
+### Config Persistence
+Save and reload user preferences:
 
 ```
-1. Add NintexCase Queue control
-2. Configure RowSwipedRight event:
-   - Transfer data to hidden fields
-   - Call "AssignCaseToMe" SmartObject method
-   - Show success notification
+When Form Initialized:
+  Transfer Data from [SavedConfig Variable] to [Queue].ConfigJSON
 
-3. Configure RowSwipedLeft event:
-   - Confirm with user
-   - Call "ArchiveCase" SmartObject method
-   - Refresh list
+When [Queue].ConfigChanged:
+  Transfer Data from [Queue].ConfigJSON to [SavedConfig Variable]
+  Execute [SaveToDatabase] method
 ```
 
-### Example 3: Custom Branding
+## Browser Support
 
-Match your organization's branding:
-
-```
-Properties:
-- backgroundColor: "#FAFAFA"
-- headerBackground: "#667eea"
-- headerTextColor: "#FFFFFF"
-- rowHoverBackground: "#EEF2FF"
-- fontFamily: "Arial, sans-serif"
-- borderRadius: "12px"
-```
-
-### Example 4: Complete Form Integration
-
-Full case management workflow:
-
-```
-Form Structure:
-├─ NintexCase Navigation (top bar)
-├─ NintexCase Quick Actions (action cards)
-└─ NintexCase Queue (case list)
-
-Workflow:
-1. User clicks "My Cases" in Navigation
-2. Quick Actions shows "New Case", "My Tasks", "Reports"
-3. Queue displays filtered cases
-4. Single-click row → View case details
-5. Double-click row → Edit case
-6. Swipe right → Assign to me
-7. Swipe left → Archive case
-```
-
-## Responsive Behavior
-
-The control automatically adapts to different screen sizes:
-
-**Desktop (>1024px)**
-- Full 6-column layout
-- 64px row height
-- 16px cell padding
-
-**Tablet (768px - 1024px)**
-- Full 6-column layout
-- Reduced padding (12px)
-- Maintained row height
-
-**Mobile (<768px)**
-- Single-column stacked layout
-- Reduced font size (13px)
-- Auto row height
-- Touch-optimized spacing
-
-## Keyboard Navigation
-
-Full keyboard support for accessibility:
-
-- **Tab** - Navigate between rows
-- **Enter** or **Space** - Select row (fires RowClicked event)
-- **Shift + Tab** - Navigate backwards
-
-## Browser Compatibility
-
-- Chrome/Edge 90+
-- Firefox 88+
-- Safari 14+
-- Mobile Safari (iOS 14+)
-- Chrome Mobile (Android 10+)
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
 ## Accessibility
 
-WCAG 2.1 Level AA compliant:
+- Keyboard navigation with Tab/Enter
+- ARIA labels and roles
+- Screen reader support
+- Focus indicators
+- Reduced motion support
 
-- ✅ Keyboard navigation
-- ✅ Focus indicators
-- ✅ ARIA roles (table, row, cell)
-- ✅ Color contrast ratios
-- ✅ Screen reader support
-- ✅ Reduced motion support
+## Performance
 
-## Troubleshooting
-
-### List not displaying data
-
-1. Verify SmartObject has all required fields (Title, Type, Assigned, SLA, Status, Stage)
-2. Check field name spelling (case-sensitive)
-3. Ensure List property is bound correctly
-4. Verify SmartObject returns data (use List View to test)
-
-### Events not firing
-
-1. Verify control IsEnabled property is true
-2. Check that event is configured in K2 rules
-3. For swipe events, ensure minimum 50px swipe distance
-4. Test double-click with slower clicks (timing-sensitive)
-
-### Status badges showing wrong colors
-
-1. Status field must match predefined values: "Open", "In Progress", "Assigned", "Completed", "Closed", "On Hold"
-2. Values are case-insensitive
-3. Spaces are automatically converted to hyphens
-4. Custom status values will use default badge styling
-
-### Mobile swipe not working
-
-1. Ensure device supports touch events
-2. Check that swipe distance is at least 50px
-3. Verify row is enabled (not disabled)
-4. Test with slower, more deliberate swipes
-
-## Advanced Customization
-
-### Custom Status Badges
-
-To add custom status badge colors, extend the runtime_style.css:
-
-```css
-.ncq-badge-pending-review {
-  background: #FFF9C4;
-  color: #F57F17;
-}
-
-.ncq-badge-escalated {
-  background: #FFEBEE;
-  color: #C62828;
-}
-```
-
-### Custom Column Widths
-
-Column widths are defined in the JavaScript (runtime_logic.js). To customize:
-
-```javascript
-const columns = [
-  { id: 'title', label: 'Title', width: '40%' },    // Increased from 30%
-  { id: 'type', label: 'Type', width: '10%' },      // Reduced from 12%
-  // ... adjust other columns
-];
-```
-
-## Support
-
-For issues, questions, or feature requests:
-- GitHub: [Control-Dojo Repository](https://github.com/yourusername/control-dojo)
-- Email: support@yourcompany.com
-
-## License
-
-This control is part of the Control-Dojo library. See LICENSE file for details.
-
-## Version History
-
-- **1.0.0** - Initial release
-  - Table-based case queue layout
-  - K2 list binding support
-  - 4 interaction events (click, double-click, swipe left/right)
-  - 6 status badge styles
-  - Full responsive design
-  - WCAG 2.1 Level AA compliance
+- Efficient pagination (renders only visible items)
+- Optimized search (debounced)
+- Smooth animations
+- Handles 1000+ items efficiently

@@ -2,13 +2,13 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
   window.__nintexcaseheaderDesigntimeLoaded = true;
 
 /**
- * NintexCase Header Control - Design Time Logic
+ * NintexCase Header Navigation Control - Design Time Logic
  */
 (function() {
   'use strict';
 
-  if (!window.customElements.get('nintexcase-header-designtime')) {
-    window.customElements.define('nintexcase-header-designtime', class extends HTMLElement {
+  if (!window.customElements.get('nintexcase-header')) {
+    window.customElements.define('nintexcase-header', class extends HTMLElement {
 
       constructor() {
         super();
@@ -25,6 +25,11 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
         // Properties
         this._selectedValue = 'Documents';
         this._mode = '';
+        this._title = 'Case Manager';
+        this._showTitle = true;
+        this._titleColor = '#FFFFFF';
+        this._titleFontSize = 20;
+        this._titleFontWeight = 700;
         this._showUserMenu = true;
         this._displayName = 'John Doe';
         this._backgroundColor = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
@@ -32,8 +37,9 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
         this._activeColor = '#FFFFFF';
         this._hoverColor = 'rgba(255, 255, 255, 0.15)';
         this._height = 60;
-        this._fontFamily = 'Roboto, sans-serif';
+        this._fontFamily = 'Poppins, sans-serif';
         this._fontSize = 14;
+        this._borderRadius = '0px';
         this._isVisible = true;
 
         this._container = null;
@@ -41,6 +47,13 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
 
       connectedCallback() {
         if (this._hasRendered) return;
+
+        // Ensure full-width header with no gaps
+        this.style.width = '100%';
+        this.style.margin = '0';
+        this.style.padding = '0';
+        this.style.display = 'block';
+
         this._hasRendered = true;
         setTimeout(() => {
           this._render();
@@ -66,6 +79,17 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
       _buildHeader() {
         this._container = document.createElement('div');
         this._container.className = 'nch-container';
+
+        // Title (if enabled)
+        if (this._showTitle && this._title) {
+          const titleElement = document.createElement('div');
+          titleElement.className = 'nch-title';
+          titleElement.textContent = this._title;
+          titleElement.style.color = this._titleColor;
+          titleElement.style.fontSize = `${this._titleFontSize}px`;
+          titleElement.style.fontWeight = this._titleFontWeight;
+          this._container.appendChild(titleElement);
+        }
 
         const nav = document.createElement('nav');
         nav.className = 'nch-nav';
@@ -127,6 +151,7 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
           this._container.style.setProperty('--nch-height', `${this._height}px`);
           this._container.style.setProperty('--nch-font-family', this._fontFamily);
           this._container.style.setProperty('--nch-font-size', `${this._fontSize}px`);
+          this._container.style.borderRadius = `0 0 ${this._borderRadius} ${this._borderRadius}`;
         }
       }
 
@@ -149,6 +174,46 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
       }
       get Mode() { return this.mode; }
       set Mode(v) { this.mode = v; }
+
+      get title() { return this._title; }
+      set title(v) {
+        this._title = v || '';
+        if (this._hasRendered) this._render();
+      }
+      get Title() { return this.title; }
+      set Title(v) { this.title = v; }
+
+      get showTitle() { return this._showTitle; }
+      set showTitle(v) {
+        this._showTitle = (v === true || v === 'true');
+        if (this._hasRendered) this._render();
+      }
+      get ShowTitle() { return this.showTitle; }
+      set ShowTitle(v) { this.showTitle = v; }
+
+      get titleColor() { return this._titleColor; }
+      set titleColor(v) {
+        this._titleColor = v || '#FFFFFF';
+        if (this._hasRendered) this._render();
+      }
+      get TitleColor() { return this.titleColor; }
+      set TitleColor(v) { this.titleColor = v; }
+
+      get titleFontSize() { return this._titleFontSize; }
+      set titleFontSize(v) {
+        this._titleFontSize = parseInt(v) || 20;
+        if (this._hasRendered) this._render();
+      }
+      get TitleFontSize() { return this.titleFontSize; }
+      set TitleFontSize(v) { this.titleFontSize = v; }
+
+      get titleFontWeight() { return this._titleFontWeight; }
+      set titleFontWeight(v) {
+        this._titleFontWeight = parseInt(v) || 700;
+        if (this._hasRendered) this._render();
+      }
+      get TitleFontWeight() { return this.titleFontWeight; }
+      set TitleFontWeight(v) { this.titleFontWeight = v; }
 
       get showUserMenu() { return this._showUserMenu; }
       set showUserMenu(v) {
@@ -221,6 +286,14 @@ if (!window.__nintexcaseheaderDesigntimeLoaded) {
       }
       get FontSize() { return this.fontSize; }
       set FontSize(v) { this.fontSize = v; }
+
+      get borderRadius() { return this._borderRadius; }
+      set borderRadius(v) {
+        this._borderRadius = v || '0px';
+        if (this._hasRendered) this._applyStyles();
+      }
+      get BorderRadius() { return this.borderRadius; }
+      set BorderRadius(v) { this.borderRadius = v; }
 
       get IsVisible() { return this._isVisible; }
       set IsVisible(val) {

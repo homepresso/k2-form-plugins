@@ -13,7 +13,7 @@
     "designtime_style.css"
   ],
   "description": "Complete NintexCase header with navigation and user menu",
-  "displayName": "NintexCase Header",
+  "displayName": "NintexCase Header Navigation",
   "tagName": "nintexcase-header",
   "valuePropertyID": "selectedValue",
   "supports": [
@@ -69,6 +69,55 @@
       "type": "string",
       "inputlength": "100",
       "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "title",
+      "refreshdisplay": "true",
+      "friendlyname": "Title",
+      "description": "Header title text (shown on left side)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "showTitle",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Title",
+      "description": "Show or hide the title text",
+      "type": "boolean",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "titleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Title Color",
+      "description": "Title text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "titleFontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Title Font Size",
+      "description": "Title font size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "20",
+      "changesdisplay": true
+    },
+    {
+      "id": "titleFontWeight",
+      "refreshdisplay": "true",
+      "friendlyname": "Title Font Weight",
+      "description": "Title font weight (300=Light, 400=Normal, 500=Medium, 600=Semi-Bold, 700=Bold)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "700",
       "changesdisplay": true
     },
     {
@@ -155,7 +204,7 @@
       "description": "Font family",
       "type": "string",
       "inputlength": "100",
-      "initialvalue": "Roboto, sans-serif",
+      "initialvalue": "Poppins, sans-serif",
       "changesdisplay": true
     },
     {
@@ -166,6 +215,36 @@
       "type": "string",
       "inputlength": "10",
       "initialvalue": "14",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderRadius",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Radius",
+      "description": "Bottom corner border radius (e.g., '8px', '0px' for square corners)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "0px",
+      "changesdisplay": true
+    },
+    {
+      "id": "position",
+      "refreshdisplay": "true",
+      "friendlyname": "Position",
+      "description": "Header positioning: 'static' (normal flow), 'sticky' (sticks to top when scrolling), 'fixed' (always at top)",
+      "type": "string",
+      "inputlength": "20",
+      "initialvalue": "static",
+      "changesdisplay": true
+    },
+    {
+      "id": "zIndex",
+      "refreshdisplay": "true",
+      "friendlyname": "Z-Index",
+      "description": "Stacking order (higher numbers appear on top). Use 1000+ for sticky/fixed headers",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "100",
       "changesdisplay": true
     }
   ],

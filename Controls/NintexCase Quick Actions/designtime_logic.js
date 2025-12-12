@@ -7,8 +7,8 @@ if (!window.__nintexcasequickactionsDesigntimeLoaded) {
 (function() {
   'use strict';
 
-  if (!window.customElements.get('nintexcase-quick-actions-designtime')) {
-    window.customElements.define('nintexcase-quick-actions-designtime', class extends HTMLElement {
+  if (!window.customElements.get('nintexcase-quick-actions')) {
+    window.customElements.define('nintexcase-quick-actions', class extends HTMLElement {
 
       constructor() {
         super();

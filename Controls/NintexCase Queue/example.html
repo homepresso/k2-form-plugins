@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NintexCase Controls - Full Example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #F5F5F7;
+      min-height: 100vh;
+    }
+
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .content-section {
+      margin-bottom: 32px;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: #E0E0E0;
+      margin: 32px 0;
+    }
+
+    .demo-info {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .demo-info h1 {
+      font-size: 28px;
+      color: #1C1B1F;
+      margin-bottom: 12px;
+    }
+
+    .demo-info p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .demo-info ul {
+      margin-left: 24px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .event-log {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .event-log h3 {
+      margin-bottom: 12px;
+      color: #1C1B1F;
+    }
+
+    .event-log-content {
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #333;
+      background: #F9F9F9;
+      padding: 12px;
+      border-radius: 6px;
+    }
+
+    .event-entry {
+      padding: 6px 0;
+      border-bottom: 1px solid #E0E0E0;
+    }
+
+    .event-entry:last-child {
+      border-bottom: none;
+    }
+
+    .event-time {
+      color: #999;
+      margin-right: 8px;
+    }
+
+    .event-name {
+      color: #667eea;
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .clear-log-btn {
+      margin-top: 12px;
+      padding: 8px 16px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .clear-log-btn:hover {
+      background: #5568d3;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+    <!-- Header -->
+    <nintexcase-header id="caseHeader"></nintexcase-header>
+
+    <!-- Navigation -->
+    <nintexcase-navigation id="caseNav"></nintexcase-navigation>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Demo Info -->
+      <div class="demo-info">
+        <h1>🚀 NintexCase Controls Demo</h1>
+        <p><strong>This page demonstrates all NintexCase controls working together:</strong></p>
+        <ul>
+          <li><strong>Header:</strong> Displays the application title and branding</li>
+          <li><strong>Navigation:</strong> Tab-based navigation with optional user menu</li>
+          <li><strong>Quick Actions:</strong> Card-based action grid for common tasks</li>
+          <li><strong>Queue:</strong> Interactive case queue with swipe-to-remove, sorting, filtering, and pagination</li>
+        </ul>
+        <p style="margin-top: 16px;"><strong>Queue Features:</strong></p>
+        <ul>
+          <li>🔍 <strong>Search:</strong> Type in the search box to filter cases</li>
+          <li>↕️ <strong>Sort:</strong> Click column headers to sort</li>
+          <li>⚙️ <strong>Config:</strong> Click the settings button to access filters and sorting options</li>
+          <li>👆 <strong>Swipe:</strong> Drag rows left/right (or swipe on touch) to remove items from the queue</li>
+          <li>📄 <strong>Pagination:</strong> Navigate through multiple pages of cases</li>
+          <li>🎯 <strong>Actions:</strong> Use quick action buttons (Open, Redirect, Push, Pull) on each row</li>
+        </ul>
+        <p style="margin-top: 12px; color: #EF6C00;"><strong>Note:</strong> All events are logged below for demonstration purposes.</p>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="content-section">
+        <nintexcase-quick-actions id="quickActions"></nintexcase-quick-actions>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- Case Queue -->
+      <div class="content-section">
+        <nintexcase-queue id="caseQueue"></nintexcase-queue>
+      </div>
+
+      <!-- Event Log -->
+      <div class="event-log">
+        <h3>📋 Event Log</h3>
+        <div class="event-log-content" id="eventLog">
+          <div style="color: #999; font-style: italic;">Events will appear here when you interact with the controls...</div>
+        </div>
+        <button class="clear-log-btn" onclick="clearEventLog()">Clear Log</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Control Scripts -->
+  <script src="../NintexCase Header/runtime_logic.js"></script>
+  <link rel="stylesheet" href="../NintexCase Header/runtime_style.css">
+
+  <script src="../NintexCase Navigation/runtime_logic.js"></script>
+  <link rel="stylesheet" href="../NintexCase Navigation/runtime_style.css">
+
+  <script src="../NintexCase Quick Actions/runtime_logic.js"></script>
+  <link rel="stylesheet" href="../NintexCase Quick Actions/runtime_style.css">
+
+  <script src="runtime_logic.js"></script>
+  <link rel="stylesheet" href="runtime_style.css">
+
+  <!-- Initialize Controls -->
+  <script>
+    // Event logging
+    const eventLog = document.getElementById('eventLog');
+    let eventCount = 0;
+
+    function logEvent(controlName, eventName, detail) {
+      eventCount++;
+      const time = new Date().toLocaleTimeString();
+      const entry = document.createElement('div');
+      entry.className = 'event-entry';
+
+      let detailStr = '';
+      if (detail) {
+        if (detail.title) detailStr += ` - ${detail.title}`;
+        if (detail.action) detailStr += ` - Action: ${detail.action}`;
+        if (detail.direction) detailStr += ` - Direction: ${detail.direction}`;
+        if (detail.tab) detailStr += ` - Tab: ${detail.tab}`;
+        if (detail.actionTitle) detailStr += ` - ${detail.actionTitle}`;
+      }
+
+      entry.innerHTML = `<span class="event-time">${time}</span><span class="event-name">${controlName}.${eventName}</span>${detailStr}`;
+
+      if (eventLog.children[0]?.style?.fontStyle === 'italic') {
+        eventLog.innerHTML = '';
+      }
+
+      eventLog.insertBefore(entry, eventLog.firstChild);
+
+      // Limit to 50 entries
+      while (eventLog.children.length > 50) {
+        eventLog.removeChild(eventLog.lastChild);
+      }
+    }
+
+    function clearEventLog() {
+      eventLog.innerHTML = '<div style="color: #999; font-style: italic;">Event log cleared. Interact with controls to see events...</div>';
+      eventCount = 0;
+    }
+
+    // Initialize Header
+    const header = document.getElementById('caseHeader');
+    header.title = 'NintexCase Management';
+    header.subtitle = 'Workflow & Case Management Platform';
+    header.showSubtitle = true;
+
+    // Initialize Navigation
+    const nav = document.getElementById('caseNav');
+    nav.title = 'Case Manager';
+
+    // Sample navigation items
+    const navItems = [
+      { Name: 'Dashboard', Icon: 'dashboard', IsActive: true },
+      { Name: 'My Cases', Icon: 'folder_open', Badge: '12' },
+      { Name: 'Team Queue', Icon: 'people', Badge: '5' },
+      { Name: 'Reports', Icon: 'assessment' },
+      { Name: 'Settings', Icon: 'settings' }
+    ];
+
+    // Mock K2 list binding
+    nav.listItemsChangedCallback({ NewItems: navItems });
+
+    // Navigation events
+    nav.addEventListener('TabClicked', (e) => {
+      logEvent('Navigation', 'TabClicked', e.detail);
+    });
+
+    // Initialize Quick Actions
+    const quickActions = document.getElementById('quickActions');
+    quickActions.title = 'Quick Actions';
+    quickActions.showTitle = true;
+
+    // Sample action items
+    const actionItems = [
+      { Title: 'New Case', Icon: 'add_circle', Description: 'Create a new case', Color: '#4285F4' },
+      { Title: 'Assign Cases', Icon: 'person_add', Description: 'Assign cases to team members', Color: '#34A853' },
+      { Title: 'Generate Report', Icon: 'assessment', Description: 'Create analytics report', Color: '#FBBC04' },
+      { Title: 'Export Data', Icon: 'download', Description: 'Export case data', Color: '#EA4335' },
+      { Title: 'Bulk Update', Icon: 'sync', Description: 'Update multiple cases', Color: '#9C27B0' },
+      { Title: 'Settings', Icon: 'settings', Description: 'Configure preferences', Color: '#607D8B' }
+    ];
+
+    // Mock K2 list binding
+    quickActions.listItemsChangedCallback({ NewItems: actionItems });
+
+    // Quick action events
+    quickActions.addEventListener('ActionClicked', (e) => {
+      logEvent('QuickActions', 'ActionClicked', e.detail);
+    });
+
+    // Initialize Case Queue
+    const queue = document.getElementById('caseQueue');
+    queue.title = 'Active Case Queue';
+    queue.showTitle = true;
+    queue.showSearch = true;
+    queue.showPagination = true;
+    queue.pageSize = 10;
+    queue.showQuickActions = true;
+    queue.showConfig = true;
+    queue.enableSwipe = true;
+
+    // Sample queue data (more items for pagination demo)
+    const queueItems = [
+      { Title: 'Customer Onboarding - Acme Corp', Type: 'Onboarding', Assigned: 'John Doe', SLA: '2 days', Status: 'In Progress', Stage: 'Documentation', Priority: 'High' },
+      { Title: 'Support Request - Payment Issue', Type: 'Support', Assigned: 'Jane Smith', SLA: '4 hours', Status: 'Open', Stage: 'Triage', Priority: 'Critical' },
+      { Title: 'Contract Renewal - TechCo', Type: 'Contract', Assigned: 'Mike Johnson', SLA: '5 days', Status: 'In Progress', Stage: 'Review', Priority: 'Medium' },
+      { Title: 'Bug Report - Login Error', Type: 'Bug', Assigned: 'Sarah Williams', SLA: '1 day', Status: 'Assigned', Stage: 'Investigation', Priority: 'High' },
+      { Title: 'Feature Request - API Integration', Type: 'Enhancement', Assigned: 'Tom Brown', SLA: '10 days', Status: 'In Progress', Stage: 'Development', Priority: 'Low' },
+      { Title: 'Security Audit - Q4 Review', Type: 'Task', Assigned: 'Alice Cooper', SLA: '7 days', Status: 'Open', Stage: 'Planning', Priority: 'High' },
+      { Title: 'Data Migration - Legacy System', Type: 'Change', Assigned: 'Bob Wilson', SLA: '14 days', Status: 'In Progress', Stage: 'Execution', Priority: 'Medium' },
+      { Title: 'Password Reset - Enterprise Account', Type: 'Support', Assigned: 'Carol Davis', SLA: '2 hours', Status: 'In Progress', Stage: 'Resolution', Priority: 'Critical' },
+      { Title: 'License Renewal - Office Suite', Type: 'Request', Assigned: 'David Lee', SLA: '30 days', Status: 'Open', Stage: 'Approval', Priority: 'Low' },
+      { Title: 'Network Outage - Building 3', Type: 'Incident', Assigned: 'Eve Martinez', SLA: '1 hour', Status: 'In Progress', Stage: 'Investigation', Priority: 'Critical' },
+      { Title: 'Employee Offboarding - J. Smith', Type: 'Task', Assigned: 'Frank White', SLA: '3 days', Status: 'Open', Stage: 'Initiation', Priority: 'Medium' },
+      { Title: 'System Upgrade - CRM Platform', Type: 'Change', Assigned: 'Grace Anderson', SLA: '21 days', Status: 'In Progress', Stage: 'Testing', Priority: 'High' },
+      { Title: 'Training Request - New Hires', Type: 'Request', Assigned: 'Henry Taylor', SLA: '10 days', Status: 'Open', Stage: 'Scheduling', Priority: 'Medium' },
+      { Title: 'Compliance Review - GDPR', Type: 'Task', Assigned: 'Iris Chen', SLA: '15 days', Status: 'In Progress', Stage: 'Review', Priority: 'High' },
+      { Title: 'Hardware Request - Laptops', Type: 'Request', Assigned: 'Jack Brown', SLA: '5 days', Status: 'Open', Stage: 'Approval', Priority: 'Low' }
+    ];
+
+    // Mock K2 list binding
+    queue.listItemsChangedCallback({ NewItems: queueItems });
+
+    // Queue events
+    queue.addEventListener('RowClicked', (e) => {
+      logEvent('Queue', 'RowClicked', e.detail);
+    });
+
+    queue.addEventListener('RowDoubleClicked', (e) => {
+      logEvent('Queue', 'RowDoubleClicked', e.detail);
+    });
+
+    queue.addEventListener('RowSwipedLeft', (e) => {
+      logEvent('Queue', 'RowSwipedLeft', e.detail);
+    });
+
+    queue.addEventListener('RowSwipedRight', (e) => {
+      logEvent('Queue', 'RowSwipedRight', e.detail);
+    });
+
+    queue.addEventListener('ActionClicked', (e) => {
+      logEvent('Queue', 'ActionClicked', e.detail);
+    });
+
+    queue.addEventListener('ConfigChanged', (e) => {
+      logEvent('Queue', 'ConfigChanged', { settings: JSON.stringify(e.detail.settings) });
+      console.log('Config JSON:', queue.configJSON);
+    });
+
+    queue.addEventListener('DataReloaded', (e) => {
+      logEvent('Queue', 'DataReloaded', e.detail);
+    });
+
+    // Log initial load
+    setTimeout(() => {
+      logEvent('System', 'ControlsLoaded', { message: 'All controls initialized successfully' });
+    }, 500);
+  </script>
+</body>
+</html>

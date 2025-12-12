@@ -7,8 +7,8 @@ if (!window.__nintexcaseusermenuDesigntimeLoaded) {
 (function() {
   'use strict';
 
-  if (!window.customElements.get('nintexcase-user-menu-designtime')) {
-    window.customElements.define('nintexcase-user-menu-designtime', class extends HTMLElement {
+  if (!window.customElements.get('nintexcase-user-menu')) {
+    window.customElements.define('nintexcase-user-menu', class extends HTMLElement {
 
       constructor() {
         super();
