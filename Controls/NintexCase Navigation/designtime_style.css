@@ -1,0 +1,11 @@
+/**
+ * NintexCase Navigation Control - Design Time Styles
+ */
+
+/* Import runtime styles */
+@import url('./runtime_style.css');
+
+/* Design time specific overrides */
+.ncn-button {
+  pointer-events: none;
+}

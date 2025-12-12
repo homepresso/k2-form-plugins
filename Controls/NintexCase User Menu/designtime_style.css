@@ -1,0 +1,11 @@
+/**
+ * NintexCase User Menu Control - Design Time Styles
+ */
+
+/* Import runtime styles */
+@import url('./runtime_style.css');
+
+/* Design time specific overrides */
+.ncum-button {
+  pointer-events: none;
+}

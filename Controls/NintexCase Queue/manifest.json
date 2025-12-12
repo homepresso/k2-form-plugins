@@ -1,0 +1,321 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "NintexCase queue list with columns for case management",
+  "displayName": "NintexCase Queue",
+  "tagName": "nintexcase-queue",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "RowClicked",
+      "description": "Fires when a row is single-clicked"
+    },
+    {
+      "id": "RowDoubleClicked",
+      "description": "Fires when a row is double-clicked"
+    },
+    {
+      "id": "RowSwipedLeft",
+      "description": "Fires when a row is swiped left"
+    },
+    {
+      "id": "RowSwipedRight",
+      "description": "Fires when a row is swiped right"
+    },
+    {
+      "id": "ActionClicked",
+      "description": "Fires when a quick action button is clicked (open, redirect, push, pull)"
+    },
+    {
+      "id": "ConfigChanged",
+      "description": "Fires when configuration settings are applied"
+    },
+    {
+      "id": "DataReloaded",
+      "description": "Fires when data is reloaded"
+    }
+  ],
+  "properties": [
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Currently selected case title",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "List",
+      "type": "listdata",
+      "category": "Detail",
+      "refreshdisplay": "true",
+      "friendlyname": "List",
+      "description": "K2 list binding for case queue (requires Title, Type, Assigned, SLA, Status, Stage fields)"
+    },
+    {
+      "id": "title",
+      "refreshdisplay": "true",
+      "friendlyname": "Title",
+      "description": "Section title text (e.g., 'Case Queue')",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Case Queue",
+      "changesdisplay": true
+    },
+    {
+      "id": "showTitle",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Title",
+      "description": "Show or hide the section title",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showSearch",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Search",
+      "description": "Show or hide the search bar",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "searchPlaceholder",
+      "refreshdisplay": "true",
+      "friendlyname": "Search Placeholder",
+      "description": "Placeholder text for the search input",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Search cases...",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "List background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "headerBackground",
+      "refreshdisplay": "true",
+      "friendlyname": "Header Background",
+      "description": "Header row background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#667eea",
+      "changesdisplay": true
+    },
+    {
+      "id": "headerTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Header Text Color",
+      "description": "Header text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "rowBackground",
+      "refreshdisplay": "true",
+      "friendlyname": "Row Background",
+      "description": "Row background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "rowHoverBackground",
+      "refreshdisplay": "true",
+      "friendlyname": "Row Hover Background",
+      "description": "Row hover background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#F9F9F9",
+      "changesdisplay": true
+    },
+    {
+      "id": "rowBorderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Row Border Color",
+      "description": "Row border color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#E0E0E0",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Row text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "titleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Title Color",
+      "description": "Section title text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderRadius",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Radius",
+      "description": "Corner rounding in pixels",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "8px",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text (e.g., 'Poppins', 'Roboto', 'Arial', 'Helvetica', 'Georgia', or custom font name)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Poppins, sans-serif",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Size",
+      "description": "Font size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "14",
+      "changesdisplay": true
+    },
+    {
+      "id": "showPagination",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Pagination",
+      "description": "Show or hide pagination controls",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "pageSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Page Size",
+      "description": "Number of items per page",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "10",
+      "changesdisplay": true
+    },
+    {
+      "id": "showQuickActions",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Quick Actions",
+      "description": "Show or hide quick action buttons (Open, Redirect, Push Down, Pull Up)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showConfig",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Config Button",
+      "description": "Show or hide the configuration button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "configIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Config Icon",
+      "description": "Material icon name for config button (e.g., 'settings', 'tune', 'filter_list')",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "settings",
+      "changesdisplay": true
+    },
+    {
+      "id": "configIconColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Config Icon Color",
+      "description": "Config button icon color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "configButtonColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Config Button Color",
+      "description": "Config button background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#667eea",
+      "changesdisplay": true
+    },
+    {
+      "id": "configButtonHoverColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Config Button Hover Color",
+      "description": "Config button hover background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#5568d3",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clearSelection",
+      "displayname": "Clear Selection",
+      "returntype": "None",
+      "description": "Clears the current selection",
+      "parameters": []
+    },
+    {
+      "id": "reloadData",
+      "displayname": "Reload Data",
+      "returntype": "None",
+      "description": "Reloads the queue data and refreshes the display",
+      "parameters": []
+    }
+  ]
+}

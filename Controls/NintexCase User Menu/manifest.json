@@ -1,0 +1,150 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "NintexCase user menu with initials button and dropdown options",
+  "displayName": "NintexCase User Menu",
+  "tagName": "nintexcase-user-menu",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "MenuItemClicked",
+      "description": "Fires when a menu item is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Currently selected menu item name",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "displayName",
+      "refreshdisplay": "true",
+      "friendlyname": "Display Name",
+      "description": "User's full name (used to generate initials)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "John Doe",
+      "changesdisplay": true
+    },
+    {
+      "id": "List",
+      "type": "listdata",
+      "category": "Detail",
+      "refreshdisplay": "true",
+      "friendlyname": "List",
+      "description": "K2 list binding for menu items (requires Name field, optional Icon field)"
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Button background color (supports gradients)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Button text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "dropdownBackgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Dropdown Background",
+      "description": "Dropdown menu background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "dropdownTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Dropdown Text Color",
+      "description": "Dropdown menu text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "hoverColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Hover Color",
+      "description": "Dropdown item hover background",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#F5F5F5",
+      "changesdisplay": true
+    },
+    {
+      "id": "size",
+      "refreshdisplay": "true",
+      "friendlyname": "Button Size",
+      "description": "Size of the avatar button in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "40",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Size",
+      "description": "Font size for initials in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "14",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "closeMenu",
+      "displayname": "Close Menu",
+      "returntype": "None",
+      "description": "Closes the dropdown menu",
+      "parameters": []
+    }
+  ]
+}

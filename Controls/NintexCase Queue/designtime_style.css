@@ -1,0 +1,12 @@
+/**
+ * NintexCase Queue Control - Design Time Styles
+ * Imports runtime styles and loads fonts for preview
+ */
+
+@import url('runtime_style.css');
+
+/* Load Google Fonts for design time preview */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Load Material Icons for design time preview */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');

@@ -1,0 +1,112 @@
+/**
+ * NintexCase User Menu Control Styles
+ * Avatar button with dropdown menu
+ */
+
+.ncum-container {
+  position: relative;
+  display: inline-block;
+  font-family: var(--ncum-font-family, 'Roboto', sans-serif);
+}
+
+/* Avatar Button */
+.ncum-button {
+  width: var(--ncum-size, 40px);
+  height: var(--ncum-size, 40px);
+  min-width: var(--ncum-size, 40px);
+  border-radius: 50%;
+  background: var(--ncum-bg, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+  color: var(--ncum-text, #FFFFFF);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  font-size: var(--ncum-font-size, 14px);
+  font-weight: 700;
+  font-family: var(--ncum-font-family, 'Roboto', sans-serif);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0;
+  user-select: none;
+}
+
+.ncum-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ncum-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.ncum-button:focus-visible {
+  outline: 2px solid var(--ncum-bg, #667eea);
+  outline-offset: 2px;
+}
+
+.ncum-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Dropdown Menu */
+.ncum-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: var(--ncum-dropdown-bg, #FFFFFF);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.ncum-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.ncum-menu-item {
+  margin: 0;
+  padding: 0;
+}
+
+.ncum-menu-button {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  color: var(--ncum-dropdown-text, #1C1B1F);
+  font-size: 14px;
+  font-family: var(--ncum-font-family, 'Roboto', sans-serif);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  outline: none;
+}
+
+.ncum-menu-button:hover {
+  background: var(--ncum-hover, #F5F5F5);
+}
+
+.ncum-menu-button:focus-visible {
+  background: var(--ncum-hover, #F5F5F5);
+  outline: 2px solid var(--ncum-bg, #667eea);
+  outline-offset: -2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .ncum-button,
+  .ncum-menu-button {
+    transition: none;
+  }
+}

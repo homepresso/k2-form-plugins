@@ -1,0 +1,153 @@
+/**
+ * NintexCase Quick Actions Control Styles
+ * Card-based quick actions grid
+ */
+
+.ncqa-container {
+  width: 100%;
+  font-family: var(--ncqa-font-family, Poppins, sans-serif);
+  padding: 20px 0;
+}
+
+/* Section Title */
+.ncqa-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ncqa-title-color, #1C1B1F);
+  margin: 0 0 20px 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+/* Cards Grid */
+.ncqa-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--ncqa-columns, 4), 1fr);
+  gap: var(--ncqa-gap, 16px);
+  width: 100%;
+}
+
+/* Individual Card */
+.ncqa-card {
+  background: var(--ncqa-card-bg, #FFFFFF);
+  border: 1px solid var(--ncqa-card-border, #E0E0E0);
+  border-radius: var(--ncqa-card-radius, 12px);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.ncqa-card:hover:not(.ncqa-disabled .ncqa-card) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.ncqa-card:active:not(.ncqa-disabled .ncqa-card) {
+  transform: translateY(0);
+}
+
+.ncqa-card.ncqa-active {
+  border-color: #4285F4;
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+}
+
+/* Icon Container */
+.ncqa-icon-container {
+  width: var(--ncqa-icon-size, 48px);
+  height: var(--ncqa-icon-size, 48px);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ncqa-icon {
+  font-size: calc(var(--ncqa-icon-size, 48px) * 0.5);
+  color: #FFFFFF;
+  user-select: none;
+}
+
+/* Content */
+.ncqa-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ncqa-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ncqa-card-title-color, #1C1B1F);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ncqa-card-description {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ncqa-card-desc-color, #666666);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Disabled State */
+.ncqa-disabled .ncqa-card {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Focus State */
+.ncqa-card:focus {
+  outline: 2px solid #4285F4;
+  outline-offset: 2px;
+}
+
+.ncqa-card:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .ncqa-grid {
+    grid-template-columns: repeat(min(var(--ncqa-columns, 4), 3), 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .ncqa-grid {
+    grid-template-columns: repeat(min(var(--ncqa-columns, 4), 2), 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .ncqa-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ncqa-card {
+    padding: 20px;
+  }
+
+  .ncqa-title {
+    font-size: 18px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .ncqa-card {
+    transition: none;
+  }
+
+  .ncqa-card:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,217 @@
+/**
+ * NintexCase Header Control Styles
+ * Combined navigation and user menu
+ */
+
+.nch-container {
+  width: 100%;
+  background: var(--nch-bg, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+  padding: 12px 20px;
+  font-family: var(--nch-font-family, 'Roboto', sans-serif);
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Navigation Section */
+.nch-nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.nch-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nch-nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.nch-nav-button {
+  height: 36px;
+  padding: 0 20px;
+  background: transparent;
+  border: none;
+  border-radius: 18px;
+  color: var(--nch-text, rgba(255, 255, 255, 0.95));
+  font-family: var(--nch-font-family, 'Roboto', sans-serif);
+  font-size: var(--nch-font-size, 14px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nch-nav-button:hover:not(.nch-active) {
+  background: var(--nch-hover, rgba(255, 255, 255, 0.15));
+  color: rgba(255, 255, 255, 1);
+}
+
+.nch-nav-button.nch-active {
+  background: var(--nch-active, #FFFFFF);
+  color: #667eea;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nch-nav-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* User Menu Section */
+.nch-user-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nch-user-button {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--nch-font-family, 'Roboto', sans-serif);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0;
+  user-select: none;
+}
+
+.nch-user-button:hover:not(:disabled) {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.nch-user-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.nch-user-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.nch-user-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* User Menu Dropdown */
+.nch-user-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.nch-user-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.nch-user-menu-item {
+  margin: 0;
+  padding: 0;
+}
+
+.nch-user-menu-button {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  color: #1C1B1F;
+  font-size: 14px;
+  font-family: var(--nch-font-family, 'Roboto', sans-serif);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  outline: none;
+}
+
+.nch-user-menu-button:hover {
+  background: #F5F5F5;
+}
+
+.nch-user-menu-button:focus-visible {
+  background: #F5F5F5;
+  outline: 2px solid #667eea;
+  outline-offset: -2px;
+}
+
+/* Disabled state */
+.nch-disabled .nch-nav-button,
+.nch-disabled .nch-user-button {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .nch-container {
+    padding: 10px 16px;
+    gap: 12px;
+  }
+
+  .nch-nav-list {
+    gap: 6px;
+  }
+
+  .nch-nav-button {
+    padding: 0 16px;
+    font-size: calc(var(--nch-font-size, 14px) * 0.9);
+    height: 32px;
+  }
+
+  .nch-user-button {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    font-size: 12px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .nch-nav-button,
+  .nch-user-button,
+  .nch-user-menu-button {
+    transition: none;
+  }
+}

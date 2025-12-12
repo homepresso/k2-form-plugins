@@ -1,0 +1,188 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "Complete NintexCase header with navigation and user menu",
+  "displayName": "NintexCase Header",
+  "tagName": "nintexcase-header",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "NavigationItemClicked",
+      "description": "Fires when a navigation item is clicked"
+    },
+    {
+      "id": "UserMenuItemClicked",
+      "description": "Fires when a user menu item is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Currently selected navigation item name",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "selectedUserMenuItem",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected User Menu Item",
+      "description": "Currently selected user menu item",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "NavigationList",
+      "type": "listdata",
+      "category": "Detail",
+      "refreshdisplay": "true",
+      "friendlyname": "Navigation List",
+      "description": "K2 list binding for navigation items (requires Name field, optional Mode field)"
+    },
+    {
+      "id": "mode",
+      "refreshdisplay": "true",
+      "friendlyname": "Current Mode",
+      "description": "Current mode to filter navigation items",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "",
+      "changesdisplay": true
+    },
+    {
+      "id": "showUserMenu",
+      "refreshdisplay": "true",
+      "friendlyname": "Show User Menu",
+      "description": "Show or hide the user menu button",
+      "type": "boolean",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "displayName",
+      "refreshdisplay": "true",
+      "friendlyname": "User Display Name",
+      "description": "User's full name for avatar initials",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "John Doe",
+      "changesdisplay": true
+    },
+    {
+      "id": "UserMenuList",
+      "type": "listdata",
+      "category": "Detail",
+      "refreshdisplay": "true",
+      "friendlyname": "User Menu List",
+      "description": "K2 list binding for user menu items (requires Name field)"
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Header background color (supports gradients)",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      "changesdisplay": true
+    },
+    {
+      "id": "textColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Text Color",
+      "description": "Navigation item text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "rgba(255, 255, 255, 0.95)",
+      "changesdisplay": true
+    },
+    {
+      "id": "activeColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Active Color",
+      "description": "Active item background color",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "hoverColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Hover Color",
+      "description": "Item hover background",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "rgba(255, 255, 255, 0.15)",
+      "changesdisplay": true
+    },
+    {
+      "id": "height",
+      "refreshdisplay": "true",
+      "friendlyname": "Height",
+      "description": "Header height in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "60",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Size",
+      "description": "Font size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "14",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clearSelection",
+      "displayname": "Clear Selection",
+      "returntype": "None",
+      "description": "Clears the navigation selection",
+      "parameters": []
+    },
+    {
+      "id": "closeUserMenu",
+      "displayname": "Close User Menu",
+      "returntype": "None",
+      "description": "Closes the user menu dropdown",
+      "parameters": []
+    }
+  ]
+}

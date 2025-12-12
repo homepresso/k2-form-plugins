@@ -1,0 +1,16 @@
+/**
+ * NintexCase Header Control - Design Time Styles
+ */
+
+@import url('./runtime_style.css');
+
+/* Disable interactions in design time preview */
+.nch-nav-button,
+.nch-user-button,
+.nch-user-menu-button {
+  pointer-events: none;
+}
+
+.nch-user-dropdown {
+  pointer-events: none;
+}

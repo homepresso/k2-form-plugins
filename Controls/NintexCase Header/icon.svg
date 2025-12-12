@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6750A4">
+  <!-- Navigation menu lines -->
+  <rect x="2" y="4" width="12" height="2" rx="1"/>
+  <rect x="2" y="11" width="12" height="2" rx="1"/>
+  <rect x="2" y="18" width="12" height="2" rx="1"/>
+
+  <!-- User avatar circle -->
+  <circle cx="19" cy="12" r="4.5" fill="none" stroke="#6750A4" stroke-width="1.5"/>
+  <path d="M19 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
+  <path d="M22 16.5c0-1.66-1.34-3-3-3s-3 1.34-3 3"/>
+</svg>

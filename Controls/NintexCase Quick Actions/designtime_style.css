@@ -1,0 +1,13 @@
+/**
+ * NintexCase Quick Actions Control - Design Time Styles
+ */
+
+@import url('./runtime_style.css');
+
+/* Load Material Icons for design time */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* Disable interactions in design time preview */
+.ncqa-card {
+  pointer-events: none;
+}

@@ -1,0 +1,170 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "NintexCase quick actions card list with icons and K2 list binding",
+  "displayName": "NintexCase Quick Actions",
+  "tagName": "nintexcase-quick-actions",
+  "valuePropertyID": "selectedValue",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "CardClicked",
+      "description": "Fires when a card is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "selectedValue",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Value",
+      "description": "Currently selected card title",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "List",
+      "type": "listdata",
+      "category": "Detail",
+      "refreshdisplay": "true",
+      "friendlyname": "List",
+      "description": "K2 list binding for quick action cards (requires Title, Description, Icon, and IconBackground fields)"
+    },
+    {
+      "id": "title",
+      "refreshdisplay": "true",
+      "friendlyname": "Title",
+      "description": "Section title text (e.g., 'Quick Actions')",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Quick Actions",
+      "changesdisplay": true
+    },
+    {
+      "id": "columns",
+      "refreshdisplay": "true",
+      "friendlyname": "Columns",
+      "description": "Number of columns in the grid (1-6)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "4",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardBackground",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Background",
+      "description": "Card background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardBorderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Border Color",
+      "description": "Card border color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#E0E0E0",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardBorderRadius",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Border Radius",
+      "description": "Card corner rounding in pixels",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "12px",
+      "changesdisplay": true
+    },
+    {
+      "id": "titleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Title Color",
+      "description": "Section title text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardTitleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Title Color",
+      "description": "Card title text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "cardDescriptionColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Card Description Color",
+      "description": "Card description text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#666666",
+      "changesdisplay": true
+    },
+    {
+      "id": "iconSize",
+      "refreshdisplay": "true",
+      "friendlyname": "Icon Size",
+      "description": "Icon container size in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "48",
+      "changesdisplay": true
+    },
+    {
+      "id": "gap",
+      "refreshdisplay": "true",
+      "friendlyname": "Gap",
+      "description": "Gap between cards in pixels",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "16",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text (e.g., 'Poppins', 'Roboto', 'Arial', 'Helvetica', 'Georgia', or custom font name)",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Poppins, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "clearSelection",
+      "displayname": "Clear Selection",
+      "returntype": "None",
+      "description": "Clears the current selection",
+      "parameters": []
+    }
+  ]
+}
