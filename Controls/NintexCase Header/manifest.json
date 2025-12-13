@@ -1,0 +1,380 @@
+{
+  "icon": "icon.svg",
+  "runtimeScriptFileNames": [
+    "runtime_logic.js"
+  ],
+  "runtimeStyleFileNames": [
+    "runtime_style.css"
+  ],
+  "designtimeScriptFileNames": [
+    "designtime_logic.js"
+  ],
+  "designtimeStyleFileNames": [
+    "designtime_style.css"
+  ],
+  "description": "NintexCase header with title, badges, actions, and configurable dropdown menu",
+  "displayName": "NintexCase Header",
+  "tagName": "nintexcase-case-header",
+  "valuePropertyID": "selectedAction",
+  "supports": [
+    "Value",
+    "Width",
+    "IsVisible",
+    "IsEnabled"
+  ],
+  "events": [
+    {
+      "id": "BackClicked",
+      "description": "Fires when the back arrow button is clicked"
+    },
+    {
+      "id": "ActionClicked",
+      "description": "Fires when an action button (star, share, print, edit, reassign) is clicked"
+    },
+    {
+      "id": "PrimaryActionClicked",
+      "description": "Fires when the primary action button (e.g., Approve Claim) is clicked"
+    },
+    {
+      "id": "DropdownActionClicked",
+      "description": "Fires when a dropdown menu action is selected"
+    },
+    {
+      "id": "MenuClicked",
+      "description": "Fires when the three-dot menu button is clicked"
+    }
+  ],
+  "properties": [
+    {
+      "id": "selectedAction",
+      "refreshdisplay": "true",
+      "friendlyname": "Selected Action",
+      "description": "Currently selected dropdown action",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "",
+      "changesdisplay": false
+    },
+    {
+      "id": "title",
+      "refreshdisplay": "true",
+      "friendlyname": "Title",
+      "description": "Main header title (e.g., 'Vehicle Damage Claim')",
+      "type": "string",
+      "inputlength": "255",
+      "initialvalue": "Case Title",
+      "changesdisplay": true
+    },
+    {
+      "id": "subtitle",
+      "refreshdisplay": "true",
+      "friendlyname": "Subtitle",
+      "description": "Subtitle text (e.g., 'CLM-2024-00847 • Michael Johnson • Created Dec 8, 2024')",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "Case details",
+      "changesdisplay": true
+    },
+    {
+      "id": "showBackButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Back Button",
+      "description": "Show or hide the back arrow button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "statusText",
+      "refreshdisplay": "true",
+      "friendlyname": "Status Text",
+      "description": "Status badge text (e.g., 'In Review')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "In Review",
+      "changesdisplay": true
+    },
+    {
+      "id": "statusIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Status Icon",
+      "description": "Material icon name for status badge (e.g., 'schedule', 'check_circle', 'pending')",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "schedule",
+      "changesdisplay": true
+    },
+    {
+      "id": "statusColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Status Color",
+      "description": "Status badge background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFF3E0",
+      "changesdisplay": true
+    },
+    {
+      "id": "statusTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Status Text Color",
+      "description": "Status badge text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#E65100",
+      "changesdisplay": true
+    },
+    {
+      "id": "showStatus",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Status",
+      "description": "Show or hide the status badge",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "priorityText",
+      "refreshdisplay": "true",
+      "friendlyname": "Priority Text",
+      "description": "Priority badge text (e.g., 'High Priority')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "High Priority",
+      "changesdisplay": true
+    },
+    {
+      "id": "priorityIcon",
+      "refreshdisplay": "true",
+      "friendlyname": "Priority Icon",
+      "description": "Material icon name for priority badge (e.g., 'flag', 'priority_high', 'warning')",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "flag",
+      "changesdisplay": true
+    },
+    {
+      "id": "priorityColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Priority Color",
+      "description": "Priority badge background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFEBEE",
+      "changesdisplay": true
+    },
+    {
+      "id": "priorityTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Priority Text Color",
+      "description": "Priority badge text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#C62828",
+      "changesdisplay": true
+    },
+    {
+      "id": "showPriority",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Priority",
+      "description": "Show or hide the priority badge",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showStarButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Star Button",
+      "description": "Show or hide the star (favorite) button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showShareButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Share Button",
+      "description": "Show or hide the share button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showPrintButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Print Button",
+      "description": "Show or hide the print button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "showEditButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Edit Button",
+      "description": "Show or hide the edit button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "editButtonText",
+      "refreshdisplay": "true",
+      "friendlyname": "Edit Button Text",
+      "description": "Text for the edit button",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "Edit",
+      "changesdisplay": true
+    },
+    {
+      "id": "showReassignButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Reassign Button",
+      "description": "Show or hide the reassign button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "reassignButtonText",
+      "refreshdisplay": "true",
+      "friendlyname": "Reassign Button Text",
+      "description": "Text for the reassign button",
+      "type": "string",
+      "inputlength": "50",
+      "initialvalue": "Reassign",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryActionText",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Action Text",
+      "description": "Text for the primary action button (e.g., 'Approve Claim')",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Approve Claim",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryActionColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Action Color",
+      "description": "Primary action button background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#4CAF50",
+      "changesdisplay": true
+    },
+    {
+      "id": "primaryActionTextColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Primary Action Text Color",
+      "description": "Primary action button text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "showPrimaryAction",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Primary Action",
+      "description": "Show or hide the primary action button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "dropdownActions",
+      "refreshdisplay": "true",
+      "friendlyname": "Dropdown Actions",
+      "description": "Comma-separated list of dropdown menu actions (e.g., 'Approve,Reject,Send Back,Archive')",
+      "type": "string",
+      "inputlength": "500",
+      "initialvalue": "Approve,Reject,Send Back",
+      "changesdisplay": true
+    },
+    {
+      "id": "showDropdown",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Dropdown",
+      "description": "Show or hide the dropdown menu (replaces primary action button)",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "false",
+      "changesdisplay": true
+    },
+    {
+      "id": "showMenuButton",
+      "refreshdisplay": "true",
+      "friendlyname": "Show Menu Button",
+      "description": "Show or hide the three-dot menu button",
+      "type": "string",
+      "inputlength": "10",
+      "initialvalue": "true",
+      "changesdisplay": true
+    },
+    {
+      "id": "backgroundColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Background Color",
+      "description": "Header background color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#FFFFFF",
+      "changesdisplay": true
+    },
+    {
+      "id": "titleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Title Color",
+      "description": "Title text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#1C1B1F",
+      "changesdisplay": true
+    },
+    {
+      "id": "subtitleColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Subtitle Color",
+      "description": "Subtitle text color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#666666",
+      "changesdisplay": true
+    },
+    {
+      "id": "borderColor",
+      "refreshdisplay": "true",
+      "friendlyname": "Border Color",
+      "description": "Header bottom border color",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "#E0E0E0",
+      "changesdisplay": true
+    },
+    {
+      "id": "fontFamily",
+      "refreshdisplay": "true",
+      "friendlyname": "Font Family",
+      "description": "Font family for text",
+      "type": "string",
+      "inputlength": "100",
+      "initialvalue": "Roboto, sans-serif",
+      "changesdisplay": true
+    }
+  ],
+  "methods": []
+}
